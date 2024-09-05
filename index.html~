@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
 <head>
-<!-- 2024-09-04 mié 23:16 -->
+<!-- 2024-09-04 mié 23:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Apuntes Graficación</title>
@@ -230,61 +230,61 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2e867c8">Manual de Instalación de Git</a>
+<li><a href="#org7a22af7">Manual de Instalación de Git</a>
 <ul>
-<li><a href="#org5dbc9b4">Instalación en Windows</a></li>
-<li><a href="#orgfc45b2f">Instalación en macOS</a>
+<li><a href="#orgf9265d9">Instalación en Windows</a></li>
+<li><a href="#org49891f8">Instalación en macOS</a>
 <ul>
-<li><a href="#orgc26c4e0">Método recomendado: usando Homebrew</a></li>
-<li><a href="#orgb931700">Método alternativo: paquete descargado</a></li>
+<li><a href="#org510d2e3">Método recomendado: usando Homebrew</a></li>
+<li><a href="#orgbdc1ec4">Método alternativo: paquete descargado</a></li>
 </ul>
 </li>
-<li><a href="#orge7a271d">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</a></li>
-<li><a href="#org49ed005">Configuración básica de Git</a></li>
-<li><a href="#org59310f2">Actualización de Git</a></li>
-<li><a href="#orgcf95da6">Configurar Llave SSH con GitHub</a>
-<ul>
-<li><a href="#orgcb0522f">1. Verificar si ya tienes una llave SSH</a></li>
-<li><a href="#org262ddd4">2. Generar una nueva llave SSH</a></li>
-<li><a href="#org56067b8">3. Añadir la llave SSH al agente SSH</a></li>
-<li><a href="#org77b4801">4. Copiar la llave SSH pública</a></li>
-<li><a href="#orgf6c8552">5. Añadir la llave SSH a GitHub</a></li>
-<li><a href="#orgda6c3e8">6. Probar la conexión SSH con GitHub</a></li>
-<li><a href="#org9ec2c4e">7. Usar la conexión SSH en repositorios de GitHub</a></li>
+<li><a href="#org1b8a52e">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</a></li>
+<li><a href="#org702dc0c">Configuración básica de Git</a></li>
+<li><a href="#org75f741f">Actualización de Git</a></li>
 </ul>
 </li>
-<li><a href="#orgacc68bb">Configurar Llave SSH con GitHub en Windows</a>
+<li><a href="#orgeb12daa">Configurar Llave SSH con GitHub</a>
 <ul>
-<li><a href="#org171d8ed">1. Abrir Git Bash</a></li>
-<li><a href="#org0ec68be">2. Verificar si ya tienes una llave SSH</a></li>
-<li><a href="#org3bb6261">3. Generar una nueva llave SSH</a></li>
-<li><a href="#orgdece319">4. Añadir la llave SSH al agente SSH</a></li>
-<li><a href="#org844d520">5. Copiar la llave SSH pública</a></li>
-<li><a href="#org9b5d194">6. Añadir la llave SSH a GitHub</a></li>
-<li><a href="#org40f9a08">7. Probar la conexión SSH con GitHub</a></li>
-<li><a href="#orge7272f8">8. Usar la conexión SSH en repositorios de GitHub</a></li>
+<li><a href="#orgf2239b7">1. Verificar si ya tienes una llave SSH</a></li>
+<li><a href="#org208d4f0">2. Generar una nueva llave SSH</a></li>
+<li><a href="#org7741493">3. Añadir la llave SSH al agente SSH</a></li>
+<li><a href="#orgf720c31">4. Copiar la llave SSH pública</a></li>
+<li><a href="#org0456fc9">5. Añadir la llave SSH a GitHub</a></li>
+<li><a href="#org36834ad">6. Probar la conexión SSH con GitHub</a></li>
+<li><a href="#orga02f091">7. Usar la conexión SSH en repositorios de GitHub</a></li>
 </ul>
 </li>
-<li><a href="#orgc1b31f7">Manual de Git en Windows</a>
+<li><a href="#org56b3ed6">Configurar Llave SSH con GitHub en Windows</a>
 <ul>
-<li><a href="#org5ef8881">1. Instalar Git en Windows</a></li>
-<li><a href="#org63607ae">2. Configurar Git</a></li>
-<li><a href="#orge85bcb2">3. Clonar un repositorio</a></li>
-<li><a href="#org5a301e2">4. Comandos básicos de Git</a></li>
-<li><a href="#org2397a65">5. Actualizar el repositorio local</a></li>
-<li><a href="#org59834a6">6. Crear y cambiar de ramas (branches)</a></li>
-<li><a href="#org89e5004">7. Ver historial de commits</a></li>
-<li><a href="#org7202a28">8. Configurar una llave SSH</a></li>
+<li><a href="#orgbd69530">1. Abrir Git Bash</a></li>
+<li><a href="#org82b532f">2. Verificar si ya tienes una llave SSH</a></li>
+<li><a href="#org654c54d">3. Generar una nueva llave SSH</a></li>
+<li><a href="#orgb8f211f">4. Añadir la llave SSH al agente SSH</a></li>
+<li><a href="#orga55d852">5. Copiar la llave SSH pública</a></li>
+<li><a href="#org95e791f">6. Añadir la llave SSH a GitHub</a></li>
+<li><a href="#orgfe3eb94">7. Probar la conexión SSH con GitHub</a></li>
+<li><a href="#orga561062">8. Usar la conexión SSH en repositorios de GitHub</a></li>
 </ul>
 </li>
+<li><a href="#org441576f">Manual de Git en Windows</a>
+<ul>
+<li><a href="#orga3c863a">1. Instalar Git en Windows</a></li>
+<li><a href="#orgb90dc62">2. Configurar Git</a></li>
+<li><a href="#org0c0258f">3. Clonar un repositorio</a></li>
+<li><a href="#org2f7b817">4. Comandos básicos de Git</a></li>
+<li><a href="#org359938a">5. Actualizar el repositorio local</a></li>
+<li><a href="#org823bb71">6. Crear y cambiar de ramas (branches)</a></li>
+<li><a href="#org87476e0">7. Ver historial de commits</a></li>
+<li><a href="#org654dacd">8. Configurar una llave SSH</a></li>
 </ul>
 </li>
-<li><a href="#org0816d01">Graficación por Computadora</a>
+<li><a href="#org5a77a68">Materia: Graficación por Computadora</a>
 <ul>
-<li><a href="#org8c663af">Objetivos de la Graficación por Computadora</a></li>
-<li><a href="#org63241cd">Áreas de estudio en Graficación por Computadora</a></li>
-<li><a href="#org8446faa">Aplicaciones de la Graficación por Computadora</a></li>
-<li><a href="#orgf9374fc">Temas principales en Graficación por Computadora</a></li>
+<li><a href="#org539138b">Objetivos de la Graficación por Computadora</a></li>
+<li><a href="#orge76c11d">Áreas de estudio en Graficación por Computadora</a></li>
+<li><a href="#orgea9bb8d">Aplicaciones de la Graficación por Computadora</a></li>
+<li><a href="#orgf9c7d4b">Temas principales en Graficación por Computadora</a></li>
 </ul>
 </li>
 </ul>
@@ -294,13 +294,13 @@
 
 
 
-<div id="outline-container-org2e867c8" class="outline-2">
-<h2 id="org2e867c8">Manual de Instalación de Git</h2>
-<div class="outline-text-2" id="text-org2e867c8">
+<div id="outline-container-org7a22af7" class="outline-2">
+<h2 id="org7a22af7">Manual de Instalación de Git</h2>
+<div class="outline-text-2" id="text-org7a22af7">
 </div>
-<div id="outline-container-org5dbc9b4" class="outline-3">
-<h3 id="org5dbc9b4">Instalación en Windows</h3>
-<div class="outline-text-3" id="text-org5dbc9b4">
+<div id="outline-container-orgf9265d9" class="outline-3">
+<h3 id="orgf9265d9">Instalación en Windows</h3>
+<div class="outline-text-3" id="text-orgf9265d9">
 <ul class="org-ul">
 <li>Descarga el instalador desde [<a href="https://git-scm.com/">https://git-scm.com/</a>].</li>
 </ul>
@@ -332,13 +332,13 @@ Verifica la instalación abriendo Git Bash o Command Prompt y ejecutando:
 </div>
 </div>
 
-<div id="outline-container-orgfc45b2f" class="outline-3">
-<h3 id="orgfc45b2f">Instalación en macOS</h3>
-<div class="outline-text-3" id="text-orgfc45b2f">
+<div id="outline-container-org49891f8" class="outline-3">
+<h3 id="org49891f8">Instalación en macOS</h3>
+<div class="outline-text-3" id="text-org49891f8">
 </div>
-<div id="outline-container-orgc26c4e0" class="outline-4">
-<h4 id="orgc26c4e0">Método recomendado: usando Homebrew</h4>
-<div class="outline-text-4" id="text-orgc26c4e0">
+<div id="outline-container-org510d2e3" class="outline-4">
+<h4 id="org510d2e3">Método recomendado: usando Homebrew</h4>
+<div class="outline-text-4" id="text-org510d2e3">
 <ul class="org-ul">
 <li><p>
 Si tienes Homebrew instalado, abre la terminal y ejecuta:
@@ -351,9 +351,9 @@ Si tienes Homebrew instalado, abre la terminal y ejecuta:
 </div>
 </div>
 
-<div id="outline-container-orgb931700" class="outline-4">
-<h4 id="orgb931700">Método alternativo: paquete descargado</h4>
-<div class="outline-text-4" id="text-orgb931700">
+<div id="outline-container-orgbdc1ec4" class="outline-4">
+<h4 id="orgbdc1ec4">Método alternativo: paquete descargado</h4>
+<div class="outline-text-4" id="text-orgbdc1ec4">
 <ul class="org-ul">
 <li>Descarga el instalador desde [<a href="https://git-scm.com/">https://git-scm.com/</a>].</li>
 <li>Ejecuta el paquete descargado (.dmg).</li>
@@ -371,9 +371,9 @@ Verifica la instalación abriendo la terminal y ejecutando:
 </div>
 </div>
 
-<div id="outline-container-orge7a271d" class="outline-3">
-<h3 id="orge7a271d">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</h3>
-<div class="outline-text-3" id="text-orge7a271d">
+<div id="outline-container-org1b8a52e" class="outline-3">
+<h3 id="org1b8a52e">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</h3>
+<div class="outline-text-3" id="text-org1b8a52e">
 <ul class="org-ul">
 <li><p>
 Abre la terminal y ejecuta:
@@ -395,9 +395,9 @@ Verifica la instalación ejecutando:
 </div>
 </div>
 
-<div id="outline-container-org49ed005" class="outline-3">
-<h3 id="org49ed005">Configuración básica de Git</h3>
-<div class="outline-text-3" id="text-org49ed005">
+<div id="outline-container-org702dc0c" class="outline-3">
+<h3 id="org702dc0c">Configuración básica de Git</h3>
+<div class="outline-text-3" id="text-org702dc0c">
 <ul class="org-ul">
 <li><p>
 Configura tu nombre de usuario:
@@ -426,9 +426,9 @@ Verifica la configuración:
 </div>
 </div>
 
-<div id="outline-container-org59310f2" class="outline-3">
-<h3 id="org59310f2">Actualización de Git</h3>
-<div class="outline-text-3" id="text-org59310f2">
+<div id="outline-container-org75f741f" class="outline-3">
+<h3 id="org75f741f">Actualización de Git</h3>
+<div class="outline-text-3" id="text-org75f741f">
 <ul class="org-ul">
 <li><b><b>Windows</b></b>: Ejecuta el instalador más reciente desde el sitio oficial.</li>
 <li><p>
@@ -448,16 +448,17 @@ Verifica la configuración:
 </ul>
 </div>
 </div>
-
-
-
-<div id="outline-container-orgcf95da6" class="outline-3">
-<h3 id="orgcf95da6">Configurar Llave SSH con GitHub</h3>
-<div class="outline-text-3" id="text-orgcf95da6">
 </div>
-<div id="outline-container-orgcb0522f" class="outline-4">
-<h4 id="orgcb0522f">1. Verificar si ya tienes una llave SSH</h4>
-<div class="outline-text-4" id="text-orgcb0522f">
+
+
+
+<div id="outline-container-orgeb12daa" class="outline-2">
+<h2 id="orgeb12daa">Configurar Llave SSH con GitHub</h2>
+<div class="outline-text-2" id="text-orgeb12daa">
+</div>
+<div id="outline-container-orgf2239b7" class="outline-3">
+<h3 id="orgf2239b7">1. Verificar si ya tienes una llave SSH</h3>
+<div class="outline-text-3" id="text-orgf2239b7">
 <ul class="org-ul">
 <li><p>
 Abre la terminal y ejecuta el siguiente comando para verificar si ya tienes llaves SSH generadas:
@@ -472,9 +473,9 @@ Abre la terminal y ejecuta el siguiente comando para verificar si ya tienes llav
 </div>
 </div>
 
-<div id="outline-container-org262ddd4" class="outline-4">
-<h4 id="org262ddd4">2. Generar una nueva llave SSH</h4>
-<div class="outline-text-4" id="text-org262ddd4">
+<div id="outline-container-org208d4f0" class="outline-3">
+<h3 id="org208d4f0">2. Generar una nueva llave SSH</h3>
+<div class="outline-text-3" id="text-org208d4f0">
 <ul class="org-ul">
 <li><p>
 Si no tienes una llave SSH, genera una nueva con el siguiente comando (puedes cambiar `ed25519` por `rsa` si lo prefieres):
@@ -490,9 +491,9 @@ Si no tienes una llave SSH, genera una nueva con el siguiente comando (puedes ca
 </div>
 </div>
 
-<div id="outline-container-org56067b8" class="outline-4">
-<h4 id="org56067b8">3. Añadir la llave SSH al agente SSH</h4>
-<div class="outline-text-4" id="text-org56067b8">
+<div id="outline-container-org7741493" class="outline-3">
+<h3 id="org7741493">3. Añadir la llave SSH al agente SSH</h3>
+<div class="outline-text-3" id="text-org7741493">
 <ul class="org-ul">
 <li><p>
 Para añadir tu nueva llave SSH al agente, asegúrate de que esté en ejecución:
@@ -513,9 +514,9 @@ Añade la llave SSH al agente:
 </div>
 </div>
 
-<div id="outline-container-org77b4801" class="outline-4">
-<h4 id="org77b4801">4. Copiar la llave SSH pública</h4>
-<div class="outline-text-4" id="text-org77b4801">
+<div id="outline-container-orgf720c31" class="outline-3">
+<h3 id="orgf720c31">4. Copiar la llave SSH pública</h3>
+<div class="outline-text-3" id="text-orgf720c31">
 <ul class="org-ul">
 <li><p>
 Copia el contenido de tu llave pública para añadirla a GitHub:
@@ -530,9 +531,9 @@ Copia el contenido de tu llave pública para añadirla a GitHub:
 </div>
 </div>
 
-<div id="outline-container-orgf6c8552" class="outline-4">
-<h4 id="orgf6c8552">5. Añadir la llave SSH a GitHub</h4>
-<div class="outline-text-4" id="text-orgf6c8552">
+<div id="outline-container-org0456fc9" class="outline-3">
+<h3 id="org0456fc9">5. Añadir la llave SSH a GitHub</h3>
+<div class="outline-text-3" id="text-org0456fc9">
 <ul class="org-ul">
 <li>Inicia sesión en tu cuenta de GitHub.</li>
 <li>Ve a la sección de <b><b>Settings</b></b> (Configuración).</li>
@@ -544,9 +545,9 @@ Copia el contenido de tu llave pública para añadirla a GitHub:
 </div>
 </div>
 
-<div id="outline-container-orgda6c3e8" class="outline-4">
-<h4 id="orgda6c3e8">6. Probar la conexión SSH con GitHub</h4>
-<div class="outline-text-4" id="text-orgda6c3e8">
+<div id="outline-container-org36834ad" class="outline-3">
+<h3 id="org36834ad">6. Probar la conexión SSH con GitHub</h3>
+<div class="outline-text-3" id="text-org36834ad">
 <ul class="org-ul">
 <li><p>
 Para verificar que todo está configurado correctamente, ejecuta el siguiente comando:
@@ -569,9 +570,9 @@ Hi username! You've successfully authenticated, but GitHub does not provide shel
 </div>
 </div>
 
-<div id="outline-container-org9ec2c4e" class="outline-4">
-<h4 id="org9ec2c4e">7. Usar la conexión SSH en repositorios de GitHub</h4>
-<div class="outline-text-4" id="text-org9ec2c4e">
+<div id="outline-container-orga02f091" class="outline-3">
+<h3 id="orga02f091">7. Usar la conexión SSH en repositorios de GitHub</h3>
+<div class="outline-text-3" id="text-orga02f091">
 <ul class="org-ul">
 <li><p>
 Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
@@ -587,9 +588,9 @@ Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
 
 
 
-<div id="outline-container-orgacc68bb" class="outline-3">
-<h3 id="orgacc68bb">Configurar Llave SSH con GitHub en Windows</h3>
-<div class="outline-text-3" id="text-orgacc68bb">
+<div id="outline-container-org56b3ed6" class="outline-2">
+<h2 id="org56b3ed6">Configurar Llave SSH con GitHub en Windows</h2>
+<div class="outline-text-2" id="text-org56b3ed6">
 <ol class="org-ol">
 <li>Git Bash: En Windows, utilizas Git Bash como terminal para ejecutar los comandos, en lugar de la terminal estándar de Linux o macOS.</li>
 
@@ -599,18 +600,18 @@ Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
 
 
 
-<div id="outline-container-org171d8ed" class="outline-4">
-<h4 id="org171d8ed">1. Abrir Git Bash</h4>
-<div class="outline-text-4" id="text-org171d8ed">
+<div id="outline-container-orgbd69530" class="outline-3">
+<h3 id="orgbd69530">1. Abrir Git Bash</h3>
+<div class="outline-text-3" id="text-orgbd69530">
 <ul class="org-ul">
 <li>Abre <b><b>Git Bash</b></b> (es la terminal que se instala junto con Git en Windows).</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org0ec68be" class="outline-4">
-<h4 id="org0ec68be">2. Verificar si ya tienes una llave SSH</h4>
-<div class="outline-text-4" id="text-org0ec68be">
+<div id="outline-container-org82b532f" class="outline-3">
+<h3 id="org82b532f">2. Verificar si ya tienes una llave SSH</h3>
+<div class="outline-text-3" id="text-org82b532f">
 <ul class="org-ul">
 <li><p>
 En la terminal de Git Bash, ejecuta el siguiente comando para ver si ya tienes llaves SSH generadas:
@@ -625,9 +626,9 @@ En la terminal de Git Bash, ejecuta el siguiente comando para ver si ya tienes l
 </div>
 </div>
 
-<div id="outline-container-org3bb6261" class="outline-4">
-<h4 id="org3bb6261">3. Generar una nueva llave SSH</h4>
-<div class="outline-text-4" id="text-org3bb6261">
+<div id="outline-container-org654c54d" class="outline-3">
+<h3 id="org654c54d">3. Generar una nueva llave SSH</h3>
+<div class="outline-text-3" id="text-org654c54d">
 <ul class="org-ul">
 <li><p>
 Si no tienes una llave SSH, genera una nueva con el siguiente comando:
@@ -643,9 +644,9 @@ Si no tienes una llave SSH, genera una nueva con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-orgdece319" class="outline-4">
-<h4 id="orgdece319">4. Añadir la llave SSH al agente SSH</h4>
-<div class="outline-text-4" id="text-orgdece319">
+<div id="outline-container-orgb8f211f" class="outline-3">
+<h3 id="orgb8f211f">4. Añadir la llave SSH al agente SSH</h3>
+<div class="outline-text-3" id="text-orgb8f211f">
 <ul class="org-ul">
 <li><p>
 Asegúrate de que el agente SSH esté en ejecución. En Git Bash, ejecuta:
@@ -666,9 +667,9 @@ Añade tu nueva llave SSH al agente:
 </div>
 </div>
 
-<div id="outline-container-org844d520" class="outline-4">
-<h4 id="org844d520">5. Copiar la llave SSH pública</h4>
-<div class="outline-text-4" id="text-org844d520">
+<div id="outline-container-orga55d852" class="outline-3">
+<h3 id="orga55d852">5. Copiar la llave SSH pública</h3>
+<div class="outline-text-3" id="text-orga55d852">
 <ul class="org-ul">
 <li><p>
 Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta el siguiente comando en Git Bash:
@@ -683,9 +684,9 @@ Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta 
 </div>
 </div>
 
-<div id="outline-container-org9b5d194" class="outline-4">
-<h4 id="org9b5d194">6. Añadir la llave SSH a GitHub</h4>
-<div class="outline-text-4" id="text-org9b5d194">
+<div id="outline-container-org95e791f" class="outline-3">
+<h3 id="org95e791f">6. Añadir la llave SSH a GitHub</h3>
+<div class="outline-text-3" id="text-org95e791f">
 <ul class="org-ul">
 <li>Abre tu navegador web e inicia sesión en GitHub.</li>
 <li>Ve a la sección de <b><b>Settings</b></b> (Configuración).</li>
@@ -697,9 +698,9 @@ Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta 
 </div>
 </div>
 
-<div id="outline-container-org40f9a08" class="outline-4">
-<h4 id="org40f9a08">7. Probar la conexión SSH con GitHub</h4>
-<div class="outline-text-4" id="text-org40f9a08">
+<div id="outline-container-orgfe3eb94" class="outline-3">
+<h3 id="orgfe3eb94">7. Probar la conexión SSH con GitHub</h3>
+<div class="outline-text-3" id="text-orgfe3eb94">
 <ul class="org-ul">
 <li><p>
 Para asegurarte de que todo está correctamente configurado, prueba la conexión con GitHub desde Git Bash:
@@ -722,9 +723,9 @@ Hi username! You've successfully authenticated, but GitHub does not provide shel
 </div>
 </div>
 
-<div id="outline-container-orge7272f8" class="outline-4">
-<h4 id="orge7272f8">8. Usar la conexión SSH en repositorios de GitHub</h4>
-<div class="outline-text-4" id="text-orge7272f8">
+<div id="outline-container-orga561062" class="outline-3">
+<h3 id="orga561062">8. Usar la conexión SSH en repositorios de GitHub</h3>
+<div class="outline-text-3" id="text-orga561062">
 <ul class="org-ul">
 <li><p>
 Para clonar un repositorio usando la URL SSH, ejecuta:
@@ -741,13 +742,13 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 
 
 
-<div id="outline-container-orgc1b31f7" class="outline-3">
-<h3 id="orgc1b31f7">Manual de Git en Windows</h3>
-<div class="outline-text-3" id="text-orgc1b31f7">
+<div id="outline-container-org441576f" class="outline-2">
+<h2 id="org441576f">Manual de Git en Windows</h2>
+<div class="outline-text-2" id="text-org441576f">
 </div>
-<div id="outline-container-org5ef8881" class="outline-4">
-<h4 id="org5ef8881">1. Instalar Git en Windows</h4>
-<div class="outline-text-4" id="text-org5ef8881">
+<div id="outline-container-orga3c863a" class="outline-3">
+<h3 id="orga3c863a">1. Instalar Git en Windows</h3>
+<div class="outline-text-3" id="text-orga3c863a">
 <ul class="org-ul">
 <li>Visita [<a href="https://git-scm.com/">https://git-scm.com/</a>](<a href="https://git-scm.com/">https://git-scm.com/</a>) y descarga el instalador de Git para Windows.</li>
 <li>Ejecuta el archivo descargado (.exe).</li>
@@ -757,9 +758,9 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 </div>
 </div>
 
-<div id="outline-container-org63607ae" class="outline-4">
-<h4 id="org63607ae">2. Configurar Git</h4>
-<div class="outline-text-4" id="text-org63607ae">
+<div id="outline-container-orgb90dc62" class="outline-3">
+<h3 id="orgb90dc62">2. Configurar Git</h3>
+<div class="outline-text-3" id="text-orgb90dc62">
 <ul class="org-ul">
 <li>Abre <b><b>Git Bash</b></b> y ejecuta los siguientes comandos para configurar tu identidad:</li>
 </ul>
@@ -781,9 +782,9 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 </div>
 </div>
 
-<div id="outline-container-orge85bcb2" class="outline-4">
-<h4 id="orge85bcb2">3. Clonar un repositorio</h4>
-<div class="outline-text-4" id="text-orge85bcb2">
+<div id="outline-container-org0c0258f" class="outline-3">
+<h3 id="org0c0258f">3. Clonar un repositorio</h3>
+<div class="outline-text-3" id="text-org0c0258f">
 <ul class="org-ul">
 <li>Para clonar un repositorio desde GitHub, usa el siguiente comando:</li>
 </ul>
@@ -799,9 +800,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org5a301e2" class="outline-4">
-<h4 id="org5a301e2">4. Comandos básicos de Git</h4>
-<div class="outline-text-4" id="text-org5a301e2">
+<div id="outline-container-org2f7b817" class="outline-3">
+<h3 id="org2f7b817">4. Comandos básicos de Git</h3>
+<div class="outline-text-3" id="text-org2f7b817">
 <ul class="org-ul">
 <li><b><b>Verificar el estado del repositorio</b></b>:</li>
 </ul>
@@ -849,9 +850,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org2397a65" class="outline-4">
-<h4 id="org2397a65">5. Actualizar el repositorio local</h4>
-<div class="outline-text-4" id="text-org2397a65">
+<div id="outline-container-org359938a" class="outline-3">
+<h3 id="org359938a">5. Actualizar el repositorio local</h3>
+<div class="outline-text-3" id="text-org359938a">
 <ul class="org-ul">
 <li>Para obtener los últimos cambios del repositorio remoto:</li>
 </ul>
@@ -863,9 +864,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org59834a6" class="outline-4">
-<h4 id="org59834a6">6. Crear y cambiar de ramas (branches)</h4>
-<div class="outline-text-4" id="text-org59834a6">
+<div id="outline-container-org823bb71" class="outline-3">
+<h3 id="org823bb71">6. Crear y cambiar de ramas (branches)</h3>
+<div class="outline-text-3" id="text-org823bb71">
 <ul class="org-ul">
 <li><b><b>Crear una nueva rama</b></b>:</li>
 </ul>
@@ -895,9 +896,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org89e5004" class="outline-4">
-<h4 id="org89e5004">7. Ver historial de commits</h4>
-<div class="outline-text-4" id="text-org89e5004">
+<div id="outline-container-org87476e0" class="outline-3">
+<h3 id="org87476e0">7. Ver historial de commits</h3>
+<div class="outline-text-3" id="text-org87476e0">
 <ul class="org-ul">
 <li>Para ver el historial de cambios del repositorio:</li>
 </ul>
@@ -918,9 +919,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org7202a28" class="outline-4">
-<h4 id="org7202a28">8. Configurar una llave SSH</h4>
-<div class="outline-text-4" id="text-org7202a28">
+<div id="outline-container-org654dacd" class="outline-3">
+<h3 id="org654dacd">8. Configurar una llave SSH</h3>
+<div class="outline-text-3" id="text-org654dacd">
 <ul class="org-ul">
 <li><b><b>Generar una llave SSH</b></b>:</li>
 </ul>
@@ -955,13 +956,12 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 </div>
-</div>
 
 
 
-<div id="outline-container-org0816d01" class="outline-2">
-<h2 id="org0816d01">Graficación por Computadora</h2>
-<div class="outline-text-2" id="text-org0816d01">
+<div id="outline-container-org5a77a68" class="outline-2">
+<h2 id="org5a77a68">Materia: Graficación por Computadora</h2>
+<div class="outline-text-2" id="text-org5a77a68">
 <p>
 La  Graficación por Computadora (o simplemente Graficación)
 se enfoca en el estudio y aplicación de técnicas, algoritmos y
@@ -973,9 +973,9 @@ los aspectos clave de esta disciplina:
 </p>
 </div>
 
-<div id="outline-container-org8c663af" class="outline-3">
-<h3 id="org8c663af">Objetivos de la Graficación por Computadora</h3>
-<div class="outline-text-3" id="text-org8c663af">
+<div id="outline-container-org539138b" class="outline-3">
+<h3 id="org539138b">Objetivos de la Graficación por Computadora</h3>
+<div class="outline-text-3" id="text-org539138b">
 <ol class="org-ol">
 <li><b><b>Generación de imágenes</b></b>: Crear imágenes digitales a partir de descripciones matemáticas y geométricas de objetos, en 2D y 3D.</li>
 <li><b><b>Modelado de objetos</b></b>: Crear representaciones matemáticas de objetos y escenas usando técnicas como polígonos, mallas y curvas.</li>
@@ -989,9 +989,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-org63241cd" class="outline-3">
-<h3 id="org63241cd">Áreas de estudio en Graficación por Computadora</h3>
-<div class="outline-text-3" id="text-org63241cd">
+<div id="outline-container-orge76c11d" class="outline-3">
+<h3 id="orge76c11d">Áreas de estudio en Graficación por Computadora</h3>
+<div class="outline-text-3" id="text-orge76c11d">
 <ol class="org-ol">
 <li><b><b>Matemáticas</b></b>: Uso de geometría y álgebra lineal para realizar transformaciones geométricas y modelar objetos.</li>
 <li><b><b>Programación</b></b>: Conocimiento de lenguajes como C++, Python, GLSL y HLSL para implementar algoritmos gráficos.</li>
@@ -1002,9 +1002,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-org8446faa" class="outline-3">
-<h3 id="org8446faa">Aplicaciones de la Graficación por Computadora</h3>
-<div class="outline-text-3" id="text-org8446faa">
+<div id="outline-container-orgea9bb8d" class="outline-3">
+<h3 id="orgea9bb8d">Aplicaciones de la Graficación por Computadora</h3>
+<div class="outline-text-3" id="text-orgea9bb8d">
 <ul class="org-ul">
 <li><b><b>Videojuegos</b></b>: Creación de ambientes, personajes y efectos visuales.</li>
 <li><b><b>Cine y efectos visuales</b></b>: Creación de efectos especiales y animación por computadora.</li>
@@ -1015,9 +1015,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-orgf9374fc" class="outline-3">
-<h3 id="orgf9374fc">Temas principales en Graficación por Computadora</h3>
-<div class="outline-text-3" id="text-orgf9374fc">
+<div id="outline-container-orgf9c7d4b" class="outline-3">
+<h3 id="orgf9c7d4b">Temas principales en Graficación por Computadora</h3>
+<div class="outline-text-3" id="text-orgf9c7d4b">
 <ul class="org-ul">
 <li><b><b>Modelado 2D y 3D</b></b></li>
 <li><b><b>Algoritmos de rasterización</b></b></li>
@@ -1035,7 +1035,7 @@ los aspectos clave de esta disciplina:
 </div>
 <div id="postamble" class="status">
 <p class="author">Autor: likcos</p>
-<p class="date">Created: 2024-09-04 mié 23:16</p>
+<p class="date">Created: 2024-09-04 mié 23:10</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

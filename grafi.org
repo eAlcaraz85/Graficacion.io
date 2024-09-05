@@ -8,8 +8,6 @@
 #+HTML_HEAD: <style>pre.src {background-color: #303030; color: #e5e5e5;}</style>
 
 
-
-
 * Manual de Instalación de Git
 ** Instalación en Windows
    - Descarga el instalador desde [https://git-scm.com/].
@@ -88,8 +86,8 @@
 
 
 
-* Configurar Llave SSH con GitHub
-** 1. Verificar si ya tienes una llave SSH
+** Configurar Llave SSH con GitHub
+*** 1. Verificar si ya tienes una llave SSH
    - Abre la terminal y ejecuta el siguiente comando para verificar si ya tienes llaves SSH generadas:
      #+BEGIN_SRC bash
      ls -al ~/.ssh
@@ -97,7 +95,7 @@
      
    - Si ves archivos como `id_rsa` o `id_ed25519`, ya tienes llaves SSH. Si no, continúa con el siguiente paso.
 
-** 2. Generar una nueva llave SSH
+*** 2. Generar una nueva llave SSH
    - Si no tienes una llave SSH, genera una nueva con el siguiente comando (puedes cambiar `ed25519` por `rsa` si lo prefieres):
      #+BEGIN_SRC bash
      ssh-keygen -t ed25519 -C "tuemail@ejemplo.com"
@@ -106,7 +104,7 @@
    - Cuando se te pregunte por la ubicación del archivo, presiona `Enter` para usar la ubicación predeterminada (`~/.ssh/id_ed25519`).
    - Puedes agregar una contraseña para proteger tu llave, pero también puedes dejarlo en blanco.
 
-** 3. Añadir la llave SSH al agente SSH
+*** 3. Añadir la llave SSH al agente SSH
    - Para añadir tu nueva llave SSH al agente, asegúrate de que esté en ejecución:
      #+BEGIN_SRC bash
      eval "$(ssh-agent -s)"
@@ -117,7 +115,7 @@
      ssh-add ~/.ssh/id_ed25519
      #+END_SRC
 
-** 4. Copiar la llave SSH pública
+*** 4. Copiar la llave SSH pública
    - Copia el contenido de tu llave pública para añadirla a GitHub:
      #+BEGIN_SRC bash
      cat ~/.ssh/id_ed25519.pub
@@ -125,7 +123,7 @@
      
    - Copia el texto que aparece en la terminal (comienza con `ssh-ed25519` o `ssh-rsa`).
 
-** 5. Añadir la llave SSH a GitHub
+*** 5. Añadir la llave SSH a GitHub
    - Inicia sesión en tu cuenta de GitHub.
    - Ve a la sección de **Settings** (Configuración).
    - En el menú lateral izquierdo, selecciona **SSH and GPG keys**.
@@ -133,7 +131,7 @@
    - Introduce un título para identificar la llave (por ejemplo, "Mi computadora personal") y pega la llave pública copiada en el campo correspondiente.
    - Haz clic en **Add SSH key**.
 
-** 6. Probar la conexión SSH con GitHub
+*** 6. Probar la conexión SSH con GitHub
    - Para verificar que todo está configurado correctamente, ejecuta el siguiente comando:
      #+BEGIN_SRC bash
      ssh -T git@github.com
@@ -145,7 +143,7 @@
      Hi username! You've successfully authenticated, but GitHub does not provide shell access.
      #+END_QUOTE
 
-** 7. Usar la conexión SSH en repositorios de GitHub
+*** 7. Usar la conexión SSH en repositorios de GitHub
    - Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
      #+BEGIN_SRC bash
      git clone git@github.com:usuario/repo.git
@@ -153,7 +151,7 @@
 
 
 
-* Configurar Llave SSH con GitHub en Windows
+** Configurar Llave SSH con GitHub en Windows
 
 1. Git Bash: En Windows, utilizas Git Bash como terminal para ejecutar los comandos, en lugar de la terminal estándar de Linux o macOS.
 
@@ -161,10 +159,10 @@
 
 
 
-** 1. Abrir Git Bash
+*** 1. Abrir Git Bash
    - Abre **Git Bash** (es la terminal que se instala junto con Git en Windows).
 
-** 2. Verificar si ya tienes una llave SSH
+*** 2. Verificar si ya tienes una llave SSH
    - En la terminal de Git Bash, ejecuta el siguiente comando para ver si ya tienes llaves SSH generadas:
      #+BEGIN_SRC bash
      ls -al ~/.ssh
@@ -172,7 +170,7 @@
 
    - Si ves archivos como `id_rsa` o `id_ed25519`, ya tienes llaves SSH. Si no, continúa con el siguiente paso.
 
-** 3. Generar una nueva llave SSH
+*** 3. Generar una nueva llave SSH
    - Si no tienes una llave SSH, genera una nueva con el siguiente comando:
      #+BEGIN_SRC bash
      ssh-keygen -t ed25519 -C "tuemail@ejemplo.com"
@@ -181,7 +179,7 @@
    - Cuando se te pregunte por la ubicación del archivo, presiona `Enter` para usar la ubicación predeterminada (`/c/Users/tu_usuario/.ssh/id_ed25519`).
    - Puedes agregar una contraseña para proteger tu llave, pero también puedes dejar el campo vacío si no deseas protegerla con una contraseña.
 
-** 4. Añadir la llave SSH al agente SSH
+*** 4. Añadir la llave SSH al agente SSH
    - Asegúrate de que el agente SSH esté en ejecución. En Git Bash, ejecuta:
      #+BEGIN_SRC bash
      eval "$(ssh-agent -s)"
@@ -192,7 +190,7 @@
      ssh-add ~/.ssh/id_ed25519
      #+END_SRC
 
-** 5. Copiar la llave SSH pública
+*** 5. Copiar la llave SSH pública
    - Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta el siguiente comando en Git Bash:
      #+BEGIN_SRC bash
      cat ~/.ssh/id_ed25519.pub
@@ -200,7 +198,7 @@
 
    - Copia el texto que aparece en la terminal, que comenzará con `ssh-ed25519` o `ssh-rsa`.
 
-** 6. Añadir la llave SSH a GitHub
+*** 6. Añadir la llave SSH a GitHub
    - Abre tu navegador web e inicia sesión en GitHub.
    - Ve a la sección de **Settings** (Configuración).
    - En el menú lateral izquierdo, selecciona **SSH and GPG keys**.
@@ -208,7 +206,7 @@
    - Ponle un título descriptivo (como "Mi computadora con Windows") y pega la llave pública copiada en el campo correspondiente.
    - Haz clic en **Add SSH key**.
 
-** 7. Probar la conexión SSH con GitHub
+*** 7. Probar la conexión SSH con GitHub
    - Para asegurarte de que todo está correctamente configurado, prueba la conexión con GitHub desde Git Bash:
      #+BEGIN_SRC bash
      ssh -T git@github.com
@@ -220,7 +218,7 @@
      Hi username! You've successfully authenticated, but GitHub does not provide shell access.
      #+END_QUOTE
 
-** 8. Usar la conexión SSH en repositorios de GitHub
+*** 8. Usar la conexión SSH en repositorios de GitHub
    - Para clonar un repositorio usando la URL SSH, ejecuta:
      #+BEGIN_SRC bash
      git clone git@github.com:usuario/repo.git
@@ -228,16 +226,16 @@
 
    
 
+   
+** Manual de Git en Windows
 
-* Manual de Git en Windows
-
-** 1. Instalar Git en Windows
+*** 1. Instalar Git en Windows
    - Visita [https://git-scm.com/](https://git-scm.com/) y descarga el instalador de Git para Windows.
    - Ejecuta el archivo descargado (.exe).
    - Durante la instalación, selecciona las opciones predeterminadas recomendadas.
    - Abre **Git Bash** al finalizar la instalación.
 
-** 2. Configurar Git
+*** 2. Configurar Git
    - Abre **Git Bash** y ejecuta los siguientes comandos para configurar tu identidad:
 
    #+BEGIN_SRC bash
@@ -251,7 +249,7 @@
    git config --list
    #+END_SRC
 
-** 3. Clonar un repositorio
+*** 3. Clonar un repositorio
    - Para clonar un repositorio desde GitHub, usa el siguiente comando:
 
    #+BEGIN_SRC bash
@@ -260,7 +258,7 @@
 
    Esto descargará el repositorio a tu computadora.
 
-** 4. Comandos básicos de Git
+*** 4. Comandos básicos de Git
 
    - **Verificar el estado del repositorio**:
 
@@ -292,14 +290,14 @@
    git push
    #+END_SRC
 
-** 5. Actualizar el repositorio local
+*** 5. Actualizar el repositorio local
    - Para obtener los últimos cambios del repositorio remoto:
 
    #+BEGIN_SRC bash
    git pull
    #+END_SRC
 
-** 6. Crear y cambiar de ramas (branches)
+*** 6. Crear y cambiar de ramas (branches)
 
    - **Crear una nueva rama**:
 
@@ -319,7 +317,7 @@
    git checkout -b nombre_de_la_rama
    #+END_SRC
 
-** 7. Ver historial de commits
+*** 7. Ver historial de commits
 
    - Para ver el historial de cambios del repositorio:
 
@@ -333,7 +331,7 @@
    git log --oneline
    #+END_SRC
 
-** 8. Configurar una llave SSH
+*** 8. Configurar una llave SSH
 
    - **Generar una llave SSH**:
 
@@ -358,7 +356,7 @@
 
    
 
-* Materia: Graficación por Computadora
+* Graficación por Computadora
 
 La  Graficación por Computadora (o simplemente Graficación)
 se enfoca en el estudio y aplicación de técnicas, algoritmos y
