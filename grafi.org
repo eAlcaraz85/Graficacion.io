@@ -24,17 +24,17 @@
      
    - Completa la instalación.
    - Verifica la instalación abriendo Git Bash o Command Prompt y ejecutando:
-     #+BEGIN_SRC bash
-     git --version
-     #+END_SRC
+#+BEGIN_SRC bash
+git --version
+#+END_SRC
 
 ** Instalación en macOS
 
 *** Método recomendado: usando Homebrew
    - Si tienes Homebrew instalado, abre la terminal y ejecuta:
-     #+BEGIN_SRC bash
-     brew install git
-     #+END_SRC
+#+BEGIN_SRC bash
+brew install git
+#+END_SRC
 
 *** Método alternativo: paquete descargado
    - Descarga el instalador desde [https://git-scm.com/].
