@@ -75,12 +75,12 @@
      #+END_SRC
 
 ** Actualización de Git
-   - **Windows**: Ejecuta el instalador más reciente desde el sitio oficial.
-   - **macOS**: Ejecuta:
+   - *Windows*: Ejecuta el instalador más reciente desde el sitio oficial.
+   - *macOS*: Ejecuta:
      #+BEGIN_SRC bash
      brew upgrade git
      #+END_SRC
-   - **Linux**: Ejecuta:
+   - *Linux*: Ejecuta:
      #+BEGIN_SRC bash
      sudo apt update && sudo apt upgrade git
      #+END_SRC
@@ -126,11 +126,11 @@
 
 *** 5. Añadir la llave SSH a GitHub
    - Inicia sesión en tu cuenta de GitHub.
-   - Ve a la sección de **Settings** (Configuración).
+   - Ve a la sección de *Settings* (Configuración).
    - En el menú lateral izquierdo, selecciona **SSH and GPG keys**.
-   - Haz clic en **New SSH key**.
+   - Haz clic en *New SSH key*.
    - Introduce un título para identificar la llave (por ejemplo, "Mi computadora personal") y pega la llave pública copiada en el campo correspondiente.
-   - Haz clic en **Add SSH key**.
+   - Haz clic en *Add SSH key*.
 
 *** 6. Probar la conexión SSH con GitHub
    - Para verificar que todo está configurado correctamente, ejecuta el siguiente comando:
@@ -201,11 +201,11 @@
 
 *** 6. Añadir la llave SSH a GitHub
    - Abre tu navegador web e inicia sesión en GitHub.
-   - Ve a la sección de **Settings** (Configuración).
+   - Ve a la sección de *Settings* (Configuración).
    - En el menú lateral izquierdo, selecciona **SSH and GPG keys**.
-   - Haz clic en **New SSH key**.
+   - Haz clic en *New SSH key*.
    - Ponle un título descriptivo (como "Mi computadora con Windows") y pega la llave pública copiada en el campo correspondiente.
-   - Haz clic en **Add SSH key**.
+   - Haz clic en *Add SSH key*.
 
 *** 7. Probar la conexión SSH con GitHub
    - Para asegurarte de que todo está correctamente configurado, prueba la conexión con GitHub desde Git Bash:
@@ -234,10 +234,10 @@
    - Visita [https://git-scm.com/](https://git-scm.com/) y descarga el instalador de Git para Windows.
    - Ejecuta el archivo descargado (.exe).
    - Durante la instalación, selecciona las opciones predeterminadas recomendadas.
-   - Abre **Git Bash** al finalizar la instalación.
+   - Abre *Git Bash* al finalizar la instalación.
 
 *** 2. Configurar Git
-   - Abre **Git Bash** y ejecuta los siguientes comandos para configurar tu identidad:
+   - Abre *Git Bash* y ejecuta los siguientes comandos para configurar tu identidad:
 
    #+BEGIN_SRC bash
    git config --global user.name "Tu Nombre"
@@ -261,13 +261,13 @@
 
 *** 4. Comandos básicos de Git
 
-   - **Verificar el estado del repositorio**:
+   - *Verificar el estado del repositorio*:
 
    #+BEGIN_SRC bash
    git status
    #+END_SRC
 
-   - **Añadir archivos al área de preparación (staging)**:
+   - *Añadir archivos al área de preparación (staging)*:
 
    #+BEGIN_SRC bash
    git add nombre_de_archivo
@@ -279,13 +279,13 @@
    git add .
    #+END_SRC
 
-   - **Hacer un commit** (guardar los cambios localmente):
+   - *Hacer un commit* (guardar los cambios localmente):
 
    #+BEGIN_SRC bash
    git commit -m "Mensaje de commit"
    #+END_SRC
 
-   - **Enviar los cambios al repositorio remoto**:
+   - *Enviar los cambios al repositorio remoto*:
 
    #+BEGIN_SRC bash
    git push
@@ -300,19 +300,19 @@
 
 *** 6. Crear y cambiar de ramas (branches)
 
-   - **Crear una nueva rama**:
+   - *Crear una nueva rama*:
 
    #+BEGIN_SRC bash
    git branch nombre_de_la_rama
    #+END_SRC
 
-   - **Cambiar a una rama existente**:
+   - *Cambiar a una rama existente*:
 
    #+BEGIN_SRC bash
    git checkout nombre_de_la_rama
    #+END_SRC
 
-   - **Crear y cambiar a una nueva rama**:
+   - *Crear y cambiar a una nueva rama*:
 
    #+BEGIN_SRC bash
    git checkout -b nombre_de_la_rama
@@ -334,26 +334,26 @@
 
 *** 8. Configurar una llave SSH
 
-   - **Generar una llave SSH**:
+   - *Generar una llave SSH*:
 
    #+BEGIN_SRC bash
    ssh-keygen -t ed25519 -C "tuemail@ejemplo.com"
    #+END_SRC
 
-   - **Añadir la llave al agente SSH**:
+   - *Añadir la llave al agente SSH*:
 
    #+BEGIN_SRC bash
    eval "$(ssh-agent -s)"
    ssh-add ~/.ssh/id_ed25519
    #+END_SRC
 
-   - **Copiar la llave pública**:
+   - *Copiar la llave pública*:
 
    #+BEGIN_SRC bash
    cat ~/.ssh/id_ed25519.pub
    #+END_SRC
 
-   - Añádela a tu cuenta de GitHub en **Settings > SSH and GPG keys**.
+   - Añádela a tu cuenta de GitHub en *Settings > SSH and GPG keys*.
 
    
 
@@ -395,9 +395,9 @@ los aspectos clave de esta disciplina:
    - *Modelado 2D y 3D*
    - *Algoritmos de rasterización*
    - *Transformaciones y proyecciones*
-   - *Renderizado y sombreado**
+   - *Renderizado y sombreado*
    - *Texturizado*
-   - *Iluminación global y local**
+   - *Iluminación global y local*
    - *Técnicas de animación*
    - *Programación de shaders*
    - *Interacción gráfica y diseño de interfaces*
