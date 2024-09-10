@@ -401,8 +401,10 @@ brew install git
 ** Paso 6: Actualización de Python (opcional)
    - Para actualizar Python a una nueva versión en el futuro, descarga la última versión desde [[https://www.python.org/downloads/][python.org]] y sigue los pasos de instalación.
 
+
+* Unidad 1 
    
-* Graficación por Computadora
+** Graficación por Computadora
 
 La  Graficación por Computadora (o simplemente Graficación)
 se enfoca en el estudio y aplicación de técnicas, algoritmos y
@@ -412,7 +414,7 @@ combina conceptos de matemáticas, física y programación para crear
 imágenes, animaciones y efectos visuales. A continuación, te describo
 los aspectos clave de esta disciplina:
 
-** Objetivos de la Graficación por Computadora
+*** Objetivos de la Graficación por Computadora
    1. *Generación de imágenes*: Crear imágenes digitales a partir de descripciones matemáticas y geométricas de objetos, en 2D y 3D.
    2. *Modelado de objetos*: Crear representaciones matemáticas de objetos y escenas usando técnicas como polígonos, mallas y curvas.
    3. *Renderizado*: Convertir representaciones matemáticas en imágenes visuales, simulando iluminación, sombras y texturas.
@@ -422,21 +424,21 @@ los aspectos clave de esta disciplina:
    7. *Texturizado*: Aplicar imágenes (texturas) sobre superficies para dar detalles visuales sin aumentar la complejidad geométrica.
    8. *Interacción gráfica*: Estudiar técnicas para interactuar con imágenes o modelos gráficos, como interfaces gráficas, realidad aumentada o virtual.
 
-** Áreas de estudio en Graficación por Computadora
+*** Áreas de estudio en Graficación por Computadora
    1. *Matemáticas*: Uso de geometría y álgebra lineal para realizar transformaciones geométricas y modelar objetos.
    2. *Programación*: Conocimiento de lenguajes como C++, Python, GLSL y HLSL para implementar algoritmos gráficos.
    3. *Algoritmos gráficos*: Estudio de algoritmos como el trazado de rayos (ray tracing), rasterización y z-buffering.
    4. *Herramientas gráficas*: Uso de APIs como OpenGL, DirectX o Vulkan para crear gráficos y animaciones.
    5. *Física aplicada*: Simulación de fenómenos físicos como gravedad y movimiento para generar gráficos realistas.
 
-** Aplicaciones de la Graficación por Computadora
+*** Aplicaciones de la Graficación por Computadora
    - *Videojuegos*: Creación de ambientes, personajes y efectos visuales.
    - *Cine y efectos visuales*: Creación de efectos especiales y animación por computadora.
    - *Diseño industrial y arquitectónico*: Modelado y visualización de prototipos y estructuras.
    - *Simulaciones*: Uso en medicina, aeronáutica y otras industrias para crear simulaciones realistas.
    - *Realidad virtual y aumentada*: Generación de entornos interactivos virtuales.
 
-** Temas principales en Graficación por Computadora
+*** Temas principales en Graficación por Computadora
    - *Modelado 2D y 3D*
    - *Algoritmos de rasterización*
    - *Transformaciones y proyecciones*
@@ -447,8 +449,13 @@ los aspectos clave de esta disciplina:
    - *Programación de shaders*
    - *Interacción gráfica y diseño de interfaces*
    
-* El modelo de color RGB
-El *modelo de color RGB* es un sistema aditivo de representación de colores basado en la combinación de tres colores primarios: *Rojo (Red)*, *Verde (Green)* y *Azul (Blue)*. Este modelo se usa principalmente en dispositivos que emiten luz, como pantallas de computadoras, televisores, cámaras digitales y escáneres.
+** El modelo de color RGB
+
+El *modelo de color RGB* es un sistema aditivo de representación de
+colores basado en la combinación de tres colores primarios: *Rojo
+(Red)*, *Verde (Green)* y *Azul (Blue)*. Este modelo se usa
+principalmente en dispositivos que emiten luz, como pantallas de
+computadoras, televisores, cámaras digitales y escáneres.
 
 *Principios básicos*
 - *Adición de colores*: En el modelo RGB, los colores se crean al
@@ -478,13 +485,13 @@ El *modelo de color RGB* es un sistema aditivo de representación de colores bas
 - *Cian*: (0, 255, 255) - Suma de verde y azul.
 - *Magenta*: (255, 0, 255) - Suma de rojo y azul.
 
-** Funcionamiento en dispositivos electrónicos 
+*** Funcionamiento en dispositivos electrónicos 
 El modelo RGB es utilizado principalmente en dispositivos electrónicos
 que emiten luz. Cada píxel en una pantalla está compuesto de
 subpíxeles que emiten luz roja, verde y azul. Al variar la intensidad
 de estos subpíxeles, los humanos perciben diferentes colores.
 
-** Matemáticas del modelo RGB
+*** Matemáticas del modelo RGB
 1. Cada color en el modelo RGB puede representarse como un vector de
    tres componentes:
 
@@ -520,7 +527,8 @@ de estos subpíxeles, los humanos perciben diferentes colores.
 
 * Programación
 
-** Creación de una Imagen
+** Programas Unidad 1 
+*** Creación de una Imagen
 
 
 #+BEGIN_SRC python
@@ -554,7 +562,7 @@ cv.destroyAllWindows()
 #+RESULTS:
 : None
 
-** Cargar Imagen 
+*** Cargar Imagen 
 #+BEGIN_SRC python :result output
 import cv2 as cv  # Importa la librería OpenCV, que se usa para el procesamiento de imágenes y videos.
 
@@ -576,7 +584,7 @@ cv.destroyAllWindows()
 #+RESULTS:
 : None
 
-** Split y Merge Imagen 
+*** Split y Merge Imagen 
 
 #+BEGIN_SRC python :result output
 import cv2 as cv  # Importa OpenCV, que es útil para procesamiento de imágenes.
