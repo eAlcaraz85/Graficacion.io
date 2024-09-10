@@ -402,7 +402,7 @@ brew install git
    - Para actualizar Python a una nueva versión en el futuro, descarga la última versión desde [[https://www.python.org/downloads/][python.org]] y sigue los pasos de instalación.
 
 
-* Unidad 1 
+* Introducción a la Graficación por computadora 
    
 ** Graficación por Computadora
 
@@ -449,79 +449,227 @@ los aspectos clave de esta disciplina:
    - *Programación de shaders*
    - *Interacción gráfica y diseño de interfaces*
    
-** El modelo de color RGB
 
-El *modelo de color RGB* es un sistema aditivo de representación de
-colores basado en la combinación de tres colores primarios: *Rojo
-(Red)*, *Verde (Green)* y *Azul (Blue)*. Este modelo se usa
-principalmente en dispositivos que emiten luz, como pantallas de
-computadoras, televisores, cámaras digitales y escáneres.
+** Modelos de Color: RGB, CMY, HSV y HSL
 
-*Principios básicos*
-- *Adición de colores*: En el modelo RGB, los colores se crean al
-  sumar intensidades de luz de los tres colores primarios. La
-  combinación de los tres colores en su máxima intensidad produce
-  **blanco**. Si no hay luz (intensidad cero en los tres canales), se
-  obtiene el **negro**.
-  
+** Introducción
+Los *modelos de color* son representaciones matemáticas que describen
+cómo los colores pueden representarse en diversas formas utilizando
+valores numéricos. Estos modelos son esenciales en gráficos por
+computadora, procesamiento de imágenes y en la percepción del color. A
+continuación, se detallan los modelos más comunes: RGB, CMY, HSV y
+HSL.
+
+** Modelo de Color RGB (Red, Green, Blue)
+
+** Definición
+El modelo de color *RGB* (Rojo, Verde, Azul) es un modelo de mezcla aditiva, que se utiliza principalmente en dispositivos que emiten luz, como pantallas, cámaras digitales y proyectores. Los tres colores primarios (Rojo, Verde y Azul) se combinan de diferentes maneras para crear una amplia gama de colores.
+
+** Funcionamiento de la Mezcla Aditiva
+En el modelo RGB, los colores se generan mediante la combinación de luz. Cuanto más intensa es la luz en cada canal (rojo, verde o azul), más claro es el color resultante. Cuando todas las intensidades están al máximo, el color resultante es blanco; cuando todas las intensidades están al mínimo, el resultado es negro.
+
+- *Fórmula para la mezcla aditiva*:
   \[
-  \text{Blanco} = \text{Rojo}(255) + \text{Verde}(255) + \text{Azul}(255) = (255, 255, 255)
+  \text{Color} = R \cdot \mathbf{r} + G \cdot \mathbf{g} + B \cdot \mathbf{b}
   \]
+  donde:
+  - \(R\), \(G\) y \(B\) son las intensidades de los canales rojo, verde y azul, respectivamente.
+  - \( \mathbf{r} \), \( \mathbf{g} \) y \( \mathbf{b} \) son los vectores unitarios que representan los colores primarios.
+
+- *Ejemplo*:
+  - Si \( R = 255 \), \( G = 0 \), \( B = 0 \), obtenemos un color rojo puro.
+  - Si \( R = 0 \), \( G = 255 \), \( B = 0 \), obtenemos un color verde puro.
+  - Si \( R = 255 \), \( G = 255 \), \( B = 0 \), obtenemos el color amarillo.
+
+** Espacio de Color RGB
+El espacio de color *RGB* puede representarse como un cubo tridimensional, donde:
+  - El eje X corresponde al canal rojo (\(R\)),
+  - El eje Y al canal verde (\(G\)),
+  - Y el eje Z al canal azul (\(B\)).
   
-  Cada canal de color (*R*, *G*, *B*) puede tener un valor entre 0 y
-  255, dando un total de:
+Cada vértice del cubo representa un color primario o la combinación de ellos, como se muestra a continuación:
+  - \( (0, 0, 0) \): Negro (ausencia de luz).
+  - \( (255, 0, 0) \): Rojo.
+  - \( (0, 255, 0) \): Verde.
+  - \( (0, 0, 255) \): Azul.
+  - \( (255, 255, 255) \): Blanco (máxima intensidad en todos los canales).
+  - \( (255, 255, 0) \): Amarillo (combinación de rojo y verde).
 
+Este espacio de color es útil para representar los colores generados en dispositivos electrónicos, ya que estos emiten luz en diferentes combinaciones de rojo, verde y azul.
+
+** Conversión a otros modelos de color
+El modelo RGB puede convertirse a otros espacios de color como *CMY*, *HSV* o *HSL*. A continuación se muestra la conversión básica de RGB a CMY:
+
+- *Conversión de RGB a CMY*:
   \[
-  \text{Total de colores posibles} = 256^3 = 16,777,216
+  C = 1 - \left( \frac{R}{255} \right), \quad M = 1 - \left( \frac{G}{255} \right), \quad Y = 1 - \left( \frac{B}{255} \right)
   \]
+  donde \(R\), \(G\), y \(B\) son las intensidades de los canales en el rango de [0, 255].
 
-*Combinaciones de colores*
-- *Rojo*: (255, 0, 0)
-- *Verde*: (0, 255, 0)
-- *Azul*: (0, 0, 255)
-- *Blanco*: (255, 255, 255)
-- *Negro*: (0, 0, 0)
-- *Amarillo*: (255, 255, 0) - Suma de rojo y verde.
-- *Cian*: (0, 255, 255) - Suma de verde y azul.
-- *Magenta*: (255, 0, 255) - Suma de rojo y azul.
+** Aplicaciones del Modelo RGB
+El modelo de color RGB se usa ampliamente en:
+- *Monitores y pantallas*: Dispositivos como televisores, monitores de computadora y pantallas de teléfonos móviles utilizan píxeles que emiten luz en diferentes intensidades de rojo, verde y azul para representar imágenes.
+- *Cámaras digitales*: Los sensores de las cámaras capturan la luz en estos tres canales para generar imágenes en color.
+- *Gráficos por computadora*: El modelo RGB es esencial en software de edición de imágenes, renderizado 3D y creación de gráficos visuales.
 
-*** Funcionamiento en dispositivos electrónicos 
-El modelo RGB es utilizado principalmente en dispositivos electrónicos
-que emiten luz. Cada píxel en una pantalla está compuesto de
-subpíxeles que emiten luz roja, verde y azul. Al variar la intensidad
-de estos subpíxeles, los humanos perciben diferentes colores.
+** Limitaciones del Modelo RGB
+Aunque el modelo RGB es excelente para dispositivos que emiten luz, tiene algunas limitaciones:
+- No es intuitivo para el ser humano al ajustar el brillo o la saturación de un color, ya que requiere manipular los tres canales de manera independiente.
+- El modelo RGB no es el más adecuado para tareas de impresión, ya que en impresiones se usan modelos basados en la mezcla sustractiva de colores, como CMY o CMYK.
 
-*** Matemáticas del modelo RGB
-1. Cada color en el modelo RGB puede representarse como un vector de
-   tres componentes:
 
-   \[
-   C = \begin{pmatrix} R \\ G \\ B \end{pmatrix}
-   \]
 
-   donde \( R \), \( G \) y \( B \) representan las intensidades de
-   rojo, verde y azul, respectivamente.
 
-2. Para la mezcla aditiva de colores, se usa la suma vectorial. Por ejemplo, para combinar rojo y verde:
-   \[
-   \text{Amarillo} = \begin{pmatrix} 255 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 255 \\ 0 \end{pmatrix} = \begin{pmatrix} 255 \\ 255 \\ 0 \end{pmatrix}
-   \]
 
-*Aplicaciones*
-- *Imágenes digitales*: El modelo RGB es la base de la codificación de colores en imágenes digitales, lo que permite representar una amplia gama de colores.
-- *Gráficos por computadora*: Es el modelo estándar para definir colores en programación y diseño gráfico.
-- *Edición de video y fotografía*: El modelo RGB se usa en software de edición para manipular colores de imágenes y videos.
+** Modelo CMY (Cyan, Magenta, Yellow)
+El modelo *CMY* es un modelo de mezcla sustractiva que utiliza los colores cian, magenta y amarillo. Es el modelo base para la impresión en color.
 
-*Limitaciones*
-- *Impresión*: RGB no se utiliza en la impresión, que emplea un
-  modelo de color sustractivo llamado CMYK (Cian, Magenta, Amarillo y
-  Negro).
-- *Percepción humana*: El modelo RGB no refleja con precisión cómo el
-  ojo humano percibe el color, lo que llevó a la creación de otros
-  modelos como CIE Lab.
+- *Características*:
+  - Cada color se describe en términos de cuánto absorbe (resta) de la luz blanca que incide.
 
-*Variaciones*
-- *RGBA* : Es una extensión del modelo RGB que añade un canal de *Alpha* para representar la transparencia. Esto es útil en diseño gráfico para gestionar la opacidad.
+- *Mezcla sustractiva*:
+  - La relación entre CMY y RGB es:
+	\[
+	\text{C} = 1 - \left( \frac{R}{L} \right), \quad \text{M} = 1 - \left( \frac{G}{L} \right), \quad \text{Y} = 1 - \left( \frac{B}{L} \right)
+	\]
+
+   donde \( L \) es el valor máximo de intensidad (por ejemplo, 255).
+
+- *Conversión de RGB a CMY*:
+  - Si los valores RGB están normalizados entre 0 y 1:
+
+	\[
+    \text{C} = 1 - R, \quad \text{M} = 1 - G, \quad \text{Y} = 1 - B
+    \]
+
+- *Aplicaciones*:
+  - Utilizado en la impresión de imágenes en color, como impresoras de inyección de tinta y offset.
+
+** Modelo HSV (Hue, Saturation, Value)
+El modelo *HSV* es una representación más intuitiva del color basada en la percepción humana, donde el matiz, la saturación y el valor describen un color.
+
+- *Características*:
+  - *Matiz (Hue, H)*: Representa el ángulo en el círculo cromático, en grados [0°, 360°).
+  - *Saturación (S)*: Indica la pureza del color, rango de [0,1].
+  - *Valor (V)*: Define el brillo del color, rango de [0,1].
+
+- *Conversión de RGB a HSV*:
+  - Primero, normalizar los valores RGB entre 0 y 1:
+	\[
+    R' = \frac{R}{L}, \quad G' = \frac{G}{L}, \quad B' = \frac{B}{L}
+    \]
+
+	donde \( L \) es el valor máximo de intensidad (por ejemplo, 255).
+
+  - Calcular el valor máximo y mínimo:
+    \[
+    C_{\max} = \max(R', G', B'), \quad C_{\min} = \min(R', G', B')
+    \]
+
+  - Diferencia:
+    \[
+    \Delta = C_{\max} - C_{\min}
+    \]
+
+  - *Cálculo del Matiz (H)*:
+    \[
+    \text{Si } \Delta = 0 \Rightarrow H = 0 \\
+    \text{Si } C_{\max} = R' \Rightarrow H = 60^\circ \times \left( \frac{G' - B'}{\Delta} \mod 6 \right) \\
+    \text{Si } C_{\max} = G' \Rightarrow H = 60^\circ \times \left( \frac{B' - R'}{\Delta} + 2 \right) \\
+    \text{Si } C_{\max} = B' \Rightarrow H = 60^\circ \times \left( \frac{R' - G'}{\Delta} + 4 \right)
+    \]
+
+  - *Cálculo de la Saturación (S)*:
+    \[
+    \text{Si } C_{\max} = 0 \Rightarrow S = 0 \\
+    \text{Si no} \Rightarrow S = \frac{\Delta}{C_{\max}}
+    \]
+
+  - *Cálculo del Valor (V)*:
+    \[
+	V = C_{\max}
+    \]
+
+- *Aplicaciones*:
+  - Edición de imágenes, interfaces de selección de color y en procesamiento de video.
+
+- *Ejemplo*:
+  - Convertir RGB (255, 255, 0) a HSV:
+    - Normalizar:
+      \[
+      R' = 1, \quad G' = 1, \quad B' = 0
+      \]
+    - \( C_{\max} = 1 \), \( C_{\min} = 0 \), \( \Delta = 1 \)
+    - Calcular H:
+      \[
+      H = 60^\circ \times \left( \frac{G' - B'}{\Delta} \mod 6 \right) = 60^\circ \times (1 \mod 6) = 60^\circ
+      \]
+    - Calcular S:
+      \[
+      S = \frac{\Delta}{C_{\max}} = \frac{1}{1} = 1
+      \]
+    - Calcular V:
+      \[
+      V = C_{\max} = 1
+      \]
+    - *Resultado*: H = 60°, S = 1, V = 1 (Color amarillo)
+
+** Modelo HSL (Hue, Saturation, Lightness)
+El modelo *HSL* es similar al modelo HSV, pero en lugar de "valor" utiliza el término *luminosidad (Lightness)*, que representa la cantidad de luz que refleja un color.
+
+- *Características*:
+  - *Matiz (Hue, H)*: Mismo que en HSV.
+  - *Saturación (S)*: Diferente definición que en HSV.
+  - *Luminosidad (L)*: Rango de [0,1], donde 0 es negro, 0.5 es el color puro, y 1 es blanco.
+
+- *Conversión de RGB a HSL*:
+  - Normalizar RGB:
+    \[
+    R' = \frac{R}{L}, \quad G' = \frac{G}{L}, \quad B' = \frac{B}{L}
+    \]
+
+  - Calcular \( C_{\max} \) y \( C_{\min} \), y \( \Delta \) como en HSV.
+
+  - **Cálculo de la Luminosidad (L)**:
+    \[
+    L = \frac{C_{\max} + C_{\min}}{2}
+    \]
+
+  - *Cálculo de la Saturación (S)*:
+    \[
+    \text{Si } \Delta = 0 \Rightarrow S = 0 \\
+    \text{Si } L \leq 0.5 \Rightarrow S = \frac{\Delta}{C_{\max} + C_{\min}} \\
+    \text{Si } L > 0.5 \Rightarrow S = \frac{\Delta}{2 - (C_{\max} + C_{\min})}
+    \]
+
+  - *Cálculo del Matiz (H)*:
+    - Igual que en HSV.
+
+- *Aplicaciones*:
+  - Herramientas de diseño gráfico y edición de imágenes, donde se necesita un control preciso sobre la luz y el color.
+
+- *Ejemplo*:
+  - Convertir RGB (255, 0, 0) a HSL:
+    - Normalizar:
+      \[
+      R' = 1, \quad G' = 0, \quad B' = 0
+      \]
+    - \( C_{\max} = 1 \), \( C_{\min} = 0 \), \( \Delta = 1 \)
+    - Calcular L:
+      \[
+      L = \frac{1 + 0}{2} = 0.5
+      \]
+    - Calcular S:
+      \[
+      S = \frac{\Delta}{C_{\max} + C_{\min}} = \frac{1}{1 + 0} = 1
+      \]
+    - Calcular H:
+      \[
+      H = 60^\circ \times \left( \frac{G' - B'}{\Delta} \mod 6 \right) = 0^\circ
+      \]
+    - **Resultado**: H = 0°, S = 1, L = 0.5 (Color rojo puro)
+
+
 
 
 ** Operadores Puntuales
@@ -559,13 +707,11 @@ entrada, sin considerar los valores de los píxeles vecinos.
 **** Umbralización (Thresholding)
    - Convierte la imagen a una versión binaria, donde los píxeles con valores por encima de un umbral se establecen en un valor (generalmente blanco), y los que están por debajo se establecen en otro (generalmente negro).
    - Fórmula: 
-     #+BEGIN_SRC latex
+     \[
      g(x, y) =
-     \begin{cases} 
      0, & \text{si } f(x, y) \leq T \\
      L, & \text{si } f(x, y) > T
-     \end{cases}
-     #+END_SRC
+     \]
    - Uso: Se utiliza para segmentación de imágenes y procesamiento de imágenes en blanco y negro.
 
 **** Corrección Gamma
@@ -581,9 +727,9 @@ entrada, sin considerar los valores de los píxeles vecinos.
 **** Corrección Lineal o Estiramiento de Contraste
    - Expande los valores de intensidad en una imagen para cubrir un rango más amplio, aumentando el contraste.
    - Fórmula:
-     #+BEGIN_SRC latex
+     \[
      g(x, y) = \frac{f(x, y) - f_{\min}}{f_{\max} - f_{\min}} \cdot (L - 1)
-     #+END_SRC
+     \]
    - Uso: Aumenta el contraste en imágenes con poca variación de intensidad.
 
 **** Transformaciones de Potencia (Raise to Power Transform)
@@ -714,6 +860,43 @@ cv.destroyAllWindows()
 
 #+RESULTS:
 : None
+
+
+#+BEGIN_SRC python :results output
+  import cv2 as cv
+
+  img = cv.imread('tr.png', 0)
+  cv.imshow('salida', img)
+  x,y=img.shape
+  for i in range(x):
+	  for j in range(y):
+		  if(img[i,j]>150):
+			  img[i,j]=255
+		  else:
+			  img[i,j]=0
+
+
+  cv.imshow('negativo', img)
+  print( img.shape, x , y)
+  cv.waitKey(0)
+  cv.destroyAllWindows()
+
+#+END_SRC
+
+#+RESULTS:
+: (632, 635) 632 635
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

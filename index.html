@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
 <head>
-<!-- 2024-09-10 mar 12:34 -->
+<!-- 2024-09-10 mar 13:01 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Apuntes Graficación</title>
@@ -230,98 +230,104 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org192b634">Manual de Instalación de Git</a>
+<li><a href="#org8d7c3ba">Manual de Instalación de Git</a>
 <ul>
-<li><a href="#org4013ce9">Instalación en Windows</a></li>
-<li><a href="#orgfd1fc85">Instalación en macOS</a>
+<li><a href="#org5d19e36">Instalación en Windows</a></li>
+<li><a href="#org224a6ff">Instalación en macOS</a>
 <ul>
-<li><a href="#org3ea1bc5">Método recomendado: usando Homebrew</a></li>
-<li><a href="#org8d8e0ee">Método alternativo: paquete descargado</a></li>
+<li><a href="#org875a355">Método recomendado: usando Homebrew</a></li>
+<li><a href="#org109dd06">Método alternativo: paquete descargado</a></li>
 </ul>
 </li>
-<li><a href="#orgc6fc265">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</a></li>
-<li><a href="#org207acef">Configuración básica de Git</a></li>
-<li><a href="#orgfeb2e96">Actualización de Git</a></li>
-<li><a href="#org4f7a329">Configurar Llave SSH con GitHub</a>
+<li><a href="#org2783f96">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</a></li>
+<li><a href="#org1358117">Configuración básica de Git</a></li>
+<li><a href="#org339f441">Actualización de Git</a></li>
+<li><a href="#org448d563">Configurar Llave SSH con GitHub</a>
 <ul>
-<li><a href="#org6e75fb4">1. Verificar si ya tienes una llave SSH</a></li>
-<li><a href="#org3d41f70">2. Generar una nueva llave SSH</a></li>
-<li><a href="#org9d36412">3. Añadir la llave SSH al agente SSH</a></li>
-<li><a href="#orgaa39235">4. Copiar la llave SSH pública</a></li>
-<li><a href="#orgf6b1934">5. Añadir la llave SSH a GitHub</a></li>
-<li><a href="#orgc23cf81">6. Probar la conexión SSH con GitHub</a></li>
-<li><a href="#org12a8f77">7. Usar la conexión SSH en repositorios de GitHub</a></li>
+<li><a href="#org03959ba">1. Verificar si ya tienes una llave SSH</a></li>
+<li><a href="#org44d5db6">2. Generar una nueva llave SSH</a></li>
+<li><a href="#org5182b10">3. Añadir la llave SSH al agente SSH</a></li>
+<li><a href="#org7969d07">4. Copiar la llave SSH pública</a></li>
+<li><a href="#orgd6d05fa">5. Añadir la llave SSH a GitHub</a></li>
+<li><a href="#org9e6fe6a">6. Probar la conexión SSH con GitHub</a></li>
+<li><a href="#orgcaed2df">7. Usar la conexión SSH en repositorios de GitHub</a></li>
 </ul>
 </li>
-<li><a href="#org7463db7">Configurar Llave SSH con GitHub en Windows</a>
+<li><a href="#orgd06940b">Configurar Llave SSH con GitHub en Windows</a>
 <ul>
-<li><a href="#org6ea3d17">1. Abrir Git Bash</a></li>
-<li><a href="#org74efb3d">2. Verificar si ya tienes una llave SSH</a></li>
-<li><a href="#orge19929c">3. Generar una nueva llave SSH</a></li>
-<li><a href="#org00cc5b3">4. Añadir la llave SSH al agente SSH</a></li>
-<li><a href="#orgdd55055">5. Copiar la llave SSH pública</a></li>
-<li><a href="#org9924923">6. Añadir la llave SSH a GitHub</a></li>
-<li><a href="#org64dbf79">7. Probar la conexión SSH con GitHub</a></li>
-<li><a href="#org140a26b">8. Usar la conexión SSH en repositorios de GitHub</a></li>
+<li><a href="#orgaf6f7c6">1. Abrir Git Bash</a></li>
+<li><a href="#orgb989556">2. Verificar si ya tienes una llave SSH</a></li>
+<li><a href="#org055673a">3. Generar una nueva llave SSH</a></li>
+<li><a href="#org064d8ab">4. Añadir la llave SSH al agente SSH</a></li>
+<li><a href="#org9a07114">5. Copiar la llave SSH pública</a></li>
+<li><a href="#orga1624ef">6. Añadir la llave SSH a GitHub</a></li>
+<li><a href="#org44551ed">7. Probar la conexión SSH con GitHub</a></li>
+<li><a href="#org5e685c3">8. Usar la conexión SSH en repositorios de GitHub</a></li>
 </ul>
 </li>
-<li><a href="#orgfa47323">Manual de Git en Windows</a>
+<li><a href="#org1440c8d">Manual de Git en Windows</a>
 <ul>
-<li><a href="#orgf78792d">1. Instalar Git en Windows</a></li>
-<li><a href="#org72cd21a">2. Configurar Git</a></li>
-<li><a href="#org7c02bb3">3. Clonar un repositorio</a></li>
-<li><a href="#org21a4451">4. Comandos básicos de Git</a></li>
-<li><a href="#org14bca94">5. Actualizar el repositorio local</a></li>
-<li><a href="#org7345e45">6. Crear y cambiar de ramas (branches)</a></li>
-<li><a href="#org1958b8f">7. Ver historial de commits</a></li>
-<li><a href="#org10de993">8. Configurar una llave SSH</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org78b1fe9">Manual de Instalación de Python en Windows</a>
-<ul>
-<li><a href="#org975b77f">Paso 1: Descarga de Python</a></li>
-<li><a href="#org5a35490">Paso 2: Ejecutar el instalador</a></li>
-<li><a href="#org98b7bc3">Paso 3: Verificación de la instalación</a></li>
-<li><a href="#orgdfb55c2">Paso 4: Instalar pip y otros paquetes</a></li>
-<li><a href="#orge570e43">Paso 5: Configuración del entorno de desarrollo</a></li>
-<li><a href="#org36b3075">Paso 6: Actualización de Python (opcional)</a></li>
-</ul>
-</li>
-<li><a href="#org7db4a90">Introducción a la Graficación por computadora</a>
-<ul>
-<li><a href="#org9e2f622">Graficación por Computadora</a>
-<ul>
-<li><a href="#orgc0fb204">Objetivos de la Graficación por Computadora</a></li>
-<li><a href="#orgca3305b">Áreas de estudio en Graficación por Computadora</a></li>
-<li><a href="#orgbcf64b8">Aplicaciones de la Graficación por Computadora</a></li>
-<li><a href="#orgfe7555f">Temas principales en Graficación por Computadora</a></li>
-</ul>
-</li>
-<li><a href="#org9a76823">El modelo de color RGB</a>
-<ul>
-<li><a href="#org88c27f4">Funcionamiento en dispositivos electrónicos</a></li>
-<li><a href="#org2b7384b">Matemáticas del modelo RGB</a></li>
-</ul>
-</li>
-<li><a href="#orgb587d62">Operadores Puntuales</a>
-<ul>
-<li><a href="#org14058c2">Definición</a></li>
-<li><a href="#orgeda6c36">Características</a></li>
-<li><a href="#orgfb3ee51">Tipos de Operadores Puntuales</a></li>
-<li><a href="#org703e839">Aplicaciones de Operadores Puntuales</a></li>
+<li><a href="#org70b91e9">1. Instalar Git en Windows</a></li>
+<li><a href="#orgfa39fc0">2. Configurar Git</a></li>
+<li><a href="#org5deb121">3. Clonar un repositorio</a></li>
+<li><a href="#orgd0b028e">4. Comandos básicos de Git</a></li>
+<li><a href="#org7f557d0">5. Actualizar el repositorio local</a></li>
+<li><a href="#org6a1e273">6. Crear y cambiar de ramas (branches)</a></li>
+<li><a href="#org3011337">7. Ver historial de commits</a></li>
+<li><a href="#orge7440e5">8. Configurar una llave SSH</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org9975289">Programación</a>
+<li><a href="#org808ed83">Manual de Instalación de Python en Windows</a>
 <ul>
-<li><a href="#org086a7e3">Programas Unidad 1</a>
+<li><a href="#orga06016d">Paso 1: Descarga de Python</a></li>
+<li><a href="#org1e3b7ee">Paso 2: Ejecutar el instalador</a></li>
+<li><a href="#org81c9b23">Paso 3: Verificación de la instalación</a></li>
+<li><a href="#org8da617e">Paso 4: Instalar pip y otros paquetes</a></li>
+<li><a href="#org509e112">Paso 5: Configuración del entorno de desarrollo</a></li>
+<li><a href="#org78dd02e">Paso 6: Actualización de Python (opcional)</a></li>
+</ul>
+</li>
+<li><a href="#orgcce8485">Introducción a la Graficación por computadora</a>
 <ul>
-<li><a href="#orgb267e8d">Creación de una Imagen</a></li>
-<li><a href="#orgd78f776">Cargar Imagen</a></li>
-<li><a href="#org121ce76">Split y Merge Imagen</a></li>
+<li><a href="#org7643e2f">Graficación por Computadora</a>
+<ul>
+<li><a href="#orgefe8783">Objetivos de la Graficación por Computadora</a></li>
+<li><a href="#org661d21f">Áreas de estudio en Graficación por Computadora</a></li>
+<li><a href="#org09d05cf">Aplicaciones de la Graficación por Computadora</a></li>
+<li><a href="#org3f54f51">Temas principales en Graficación por Computadora</a></li>
+</ul>
+</li>
+<li><a href="#org0598efa">Modelos de Color: RGB, CMY, HSV y HSL</a></li>
+<li><a href="#org64ee845">Introducción</a></li>
+<li><a href="#org051f551">Modelo de Color RGB (Red, Green, Blue)</a></li>
+<li><a href="#orge05a641">Definición</a></li>
+<li><a href="#org9c25a4b">Funcionamiento de la Mezcla Aditiva</a></li>
+<li><a href="#orgfe2fdf2">Espacio de Color RGB</a></li>
+<li><a href="#org17da93a">Conversión a otros modelos de color</a></li>
+<li><a href="#orgdb98abd">Aplicaciones del Modelo RGB</a></li>
+<li><a href="#orgbb1f2f0">Limitaciones del Modelo RGB</a></li>
+<li><a href="#orgcbe170b">Modelo CMY (Cyan, Magenta, Yellow)</a></li>
+<li><a href="#orge2f7452">Modelo HSV (Hue, Saturation, Value)</a></li>
+<li><a href="#org00332df">Modelo HSL (Hue, Saturation, Lightness)</a></li>
+<li><a href="#org2f0b6d5">Operadores Puntuales</a>
+<ul>
+<li><a href="#orge35de68">Definición</a></li>
+<li><a href="#orgc1ab618">Características</a></li>
+<li><a href="#org91822c8">Tipos de Operadores Puntuales</a></li>
+<li><a href="#orged4e472">Aplicaciones de Operadores Puntuales</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org8beb20f">Programación</a>
+<ul>
+<li><a href="#orgbaae6c7">Programas Unidad 1</a>
+<ul>
+<li><a href="#org10075b2">Creación de una Imagen</a></li>
+<li><a href="#org6498601">Cargar Imagen</a></li>
+<li><a href="#org619d840">Split y Merge Imagen</a></li>
 </ul>
 </li>
 </ul>
@@ -331,13 +337,13 @@
 </div>
 
 
-<div id="outline-container-org192b634" class="outline-2">
-<h2 id="org192b634">Manual de Instalación de Git</h2>
-<div class="outline-text-2" id="text-org192b634">
+<div id="outline-container-org8d7c3ba" class="outline-2">
+<h2 id="org8d7c3ba">Manual de Instalación de Git</h2>
+<div class="outline-text-2" id="text-org8d7c3ba">
 </div>
-<div id="outline-container-org4013ce9" class="outline-3">
-<h3 id="org4013ce9">Instalación en Windows</h3>
-<div class="outline-text-3" id="text-org4013ce9">
+<div id="outline-container-org5d19e36" class="outline-3">
+<h3 id="org5d19e36">Instalación en Windows</h3>
+<div class="outline-text-3" id="text-org5d19e36">
 <ul class="org-ul">
 <li>Descarga el instalador desde [<a href="https://git-scm.com/">https://git-scm.com/</a>].</li>
 </ul>
@@ -367,13 +373,13 @@
 </div>
 </div>
 
-<div id="outline-container-orgfd1fc85" class="outline-3">
-<h3 id="orgfd1fc85">Instalación en macOS</h3>
-<div class="outline-text-3" id="text-orgfd1fc85">
+<div id="outline-container-org224a6ff" class="outline-3">
+<h3 id="org224a6ff">Instalación en macOS</h3>
+<div class="outline-text-3" id="text-org224a6ff">
 </div>
-<div id="outline-container-org3ea1bc5" class="outline-4">
-<h4 id="org3ea1bc5">Método recomendado: usando Homebrew</h4>
-<div class="outline-text-4" id="text-org3ea1bc5">
+<div id="outline-container-org875a355" class="outline-4">
+<h4 id="org875a355">Método recomendado: usando Homebrew</h4>
+<div class="outline-text-4" id="text-org875a355">
 <ul class="org-ul">
 <li>Si tienes Homebrew instalado, abre la terminal y ejecuta:</li>
 </ul>
@@ -384,9 +390,9 @@
 </div>
 </div>
 
-<div id="outline-container-org8d8e0ee" class="outline-4">
-<h4 id="org8d8e0ee">Método alternativo: paquete descargado</h4>
-<div class="outline-text-4" id="text-org8d8e0ee">
+<div id="outline-container-org109dd06" class="outline-4">
+<h4 id="org109dd06">Método alternativo: paquete descargado</h4>
+<div class="outline-text-4" id="text-org109dd06">
 <ul class="org-ul">
 <li>Descarga el instalador desde [<a href="https://git-scm.com/">https://git-scm.com/</a>].</li>
 <li>Ejecuta el paquete descargado (.dmg).</li>
@@ -404,9 +410,9 @@ Verifica la instalación abriendo la terminal y ejecutando:
 </div>
 </div>
 
-<div id="outline-container-orgc6fc265" class="outline-3">
-<h3 id="orgc6fc265">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</h3>
-<div class="outline-text-3" id="text-orgc6fc265">
+<div id="outline-container-org2783f96" class="outline-3">
+<h3 id="org2783f96">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</h3>
+<div class="outline-text-3" id="text-org2783f96">
 <ul class="org-ul">
 <li><p>
 Abre la terminal y ejecuta:
@@ -428,9 +434,9 @@ Verifica la instalación ejecutando:
 </div>
 </div>
 
-<div id="outline-container-org207acef" class="outline-3">
-<h3 id="org207acef">Configuración básica de Git</h3>
-<div class="outline-text-3" id="text-org207acef">
+<div id="outline-container-org1358117" class="outline-3">
+<h3 id="org1358117">Configuración básica de Git</h3>
+<div class="outline-text-3" id="text-org1358117">
 <ul class="org-ul">
 <li><p>
 Configura tu nombre de usuario:
@@ -459,9 +465,9 @@ Verifica la configuración:
 </div>
 </div>
 
-<div id="outline-container-orgfeb2e96" class="outline-3">
-<h3 id="orgfeb2e96">Actualización de Git</h3>
-<div class="outline-text-3" id="text-orgfeb2e96">
+<div id="outline-container-org339f441" class="outline-3">
+<h3 id="org339f441">Actualización de Git</h3>
+<div class="outline-text-3" id="text-org339f441">
 <ul class="org-ul">
 <li><b>Windows</b>: Ejecuta el instalador más reciente desde el sitio oficial.</li>
 <li><p>
@@ -484,13 +490,13 @@ Verifica la configuración:
 
 
 
-<div id="outline-container-org4f7a329" class="outline-3">
-<h3 id="org4f7a329">Configurar Llave SSH con GitHub</h3>
-<div class="outline-text-3" id="text-org4f7a329">
+<div id="outline-container-org448d563" class="outline-3">
+<h3 id="org448d563">Configurar Llave SSH con GitHub</h3>
+<div class="outline-text-3" id="text-org448d563">
 </div>
-<div id="outline-container-org6e75fb4" class="outline-4">
-<h4 id="org6e75fb4">1. Verificar si ya tienes una llave SSH</h4>
-<div class="outline-text-4" id="text-org6e75fb4">
+<div id="outline-container-org03959ba" class="outline-4">
+<h4 id="org03959ba">1. Verificar si ya tienes una llave SSH</h4>
+<div class="outline-text-4" id="text-org03959ba">
 <ul class="org-ul">
 <li><p>
 Abre la terminal y ejecuta el siguiente comando para verificar si ya tienes llaves SSH generadas:
@@ -505,9 +511,9 @@ Abre la terminal y ejecuta el siguiente comando para verificar si ya tienes llav
 </div>
 </div>
 
-<div id="outline-container-org3d41f70" class="outline-4">
-<h4 id="org3d41f70">2. Generar una nueva llave SSH</h4>
-<div class="outline-text-4" id="text-org3d41f70">
+<div id="outline-container-org44d5db6" class="outline-4">
+<h4 id="org44d5db6">2. Generar una nueva llave SSH</h4>
+<div class="outline-text-4" id="text-org44d5db6">
 <ul class="org-ul">
 <li><p>
 Si no tienes una llave SSH, genera una nueva con el siguiente comando (puedes cambiar `ed25519` por `rsa` si lo prefieres):
@@ -523,9 +529,9 @@ Si no tienes una llave SSH, genera una nueva con el siguiente comando (puedes ca
 </div>
 </div>
 
-<div id="outline-container-org9d36412" class="outline-4">
-<h4 id="org9d36412">3. Añadir la llave SSH al agente SSH</h4>
-<div class="outline-text-4" id="text-org9d36412">
+<div id="outline-container-org5182b10" class="outline-4">
+<h4 id="org5182b10">3. Añadir la llave SSH al agente SSH</h4>
+<div class="outline-text-4" id="text-org5182b10">
 <ul class="org-ul">
 <li><p>
 Para añadir tu nueva llave SSH al agente, asegúrate de que esté en ejecución:
@@ -546,9 +552,9 @@ Añade la llave SSH al agente:
 </div>
 </div>
 
-<div id="outline-container-orgaa39235" class="outline-4">
-<h4 id="orgaa39235">4. Copiar la llave SSH pública</h4>
-<div class="outline-text-4" id="text-orgaa39235">
+<div id="outline-container-org7969d07" class="outline-4">
+<h4 id="org7969d07">4. Copiar la llave SSH pública</h4>
+<div class="outline-text-4" id="text-org7969d07">
 <ul class="org-ul">
 <li><p>
 Copia el contenido de tu llave pública para añadirla a GitHub:
@@ -563,9 +569,9 @@ Copia el contenido de tu llave pública para añadirla a GitHub:
 </div>
 </div>
 
-<div id="outline-container-orgf6b1934" class="outline-4">
-<h4 id="orgf6b1934">5. Añadir la llave SSH a GitHub</h4>
-<div class="outline-text-4" id="text-orgf6b1934">
+<div id="outline-container-orgd6d05fa" class="outline-4">
+<h4 id="orgd6d05fa">5. Añadir la llave SSH a GitHub</h4>
+<div class="outline-text-4" id="text-orgd6d05fa">
 <ul class="org-ul">
 <li>Inicia sesión en tu cuenta de GitHub.</li>
 <li>Ve a la sección de <b>Settings</b> (Configuración).</li>
@@ -577,9 +583,9 @@ Copia el contenido de tu llave pública para añadirla a GitHub:
 </div>
 </div>
 
-<div id="outline-container-orgc23cf81" class="outline-4">
-<h4 id="orgc23cf81">6. Probar la conexión SSH con GitHub</h4>
-<div class="outline-text-4" id="text-orgc23cf81">
+<div id="outline-container-org9e6fe6a" class="outline-4">
+<h4 id="org9e6fe6a">6. Probar la conexión SSH con GitHub</h4>
+<div class="outline-text-4" id="text-org9e6fe6a">
 <ul class="org-ul">
 <li><p>
 Para verificar que todo está configurado correctamente, ejecuta el siguiente comando:
@@ -602,9 +608,9 @@ Hi username! You've successfully authenticated, but GitHub does not provide shel
 </div>
 </div>
 
-<div id="outline-container-org12a8f77" class="outline-4">
-<h4 id="org12a8f77">7. Usar la conexión SSH en repositorios de GitHub</h4>
-<div class="outline-text-4" id="text-org12a8f77">
+<div id="outline-container-orgcaed2df" class="outline-4">
+<h4 id="orgcaed2df">7. Usar la conexión SSH en repositorios de GitHub</h4>
+<div class="outline-text-4" id="text-orgcaed2df">
 <ul class="org-ul">
 <li><p>
 Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
@@ -620,9 +626,9 @@ Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
 
 
 
-<div id="outline-container-org7463db7" class="outline-3">
-<h3 id="org7463db7">Configurar Llave SSH con GitHub en Windows</h3>
-<div class="outline-text-3" id="text-org7463db7">
+<div id="outline-container-orgd06940b" class="outline-3">
+<h3 id="orgd06940b">Configurar Llave SSH con GitHub en Windows</h3>
+<div class="outline-text-3" id="text-orgd06940b">
 <ol class="org-ol">
 <li>Git Bash: En Windows, utilizas Git Bash como terminal para ejecutar los comandos, en lugar de la terminal estándar de Linux o macOS.</li>
 
@@ -632,18 +638,18 @@ Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
 
 
 
-<div id="outline-container-org6ea3d17" class="outline-4">
-<h4 id="org6ea3d17">1. Abrir Git Bash</h4>
-<div class="outline-text-4" id="text-org6ea3d17">
+<div id="outline-container-orgaf6f7c6" class="outline-4">
+<h4 id="orgaf6f7c6">1. Abrir Git Bash</h4>
+<div class="outline-text-4" id="text-orgaf6f7c6">
 <ul class="org-ul">
 <li>Abre <b><b>Git Bash</b></b> (es la terminal que se instala junto con Git en Windows).</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org74efb3d" class="outline-4">
-<h4 id="org74efb3d">2. Verificar si ya tienes una llave SSH</h4>
-<div class="outline-text-4" id="text-org74efb3d">
+<div id="outline-container-orgb989556" class="outline-4">
+<h4 id="orgb989556">2. Verificar si ya tienes una llave SSH</h4>
+<div class="outline-text-4" id="text-orgb989556">
 <ul class="org-ul">
 <li><p>
 En la terminal de Git Bash, ejecuta el siguiente comando para ver si ya tienes llaves SSH generadas:
@@ -658,9 +664,9 @@ En la terminal de Git Bash, ejecuta el siguiente comando para ver si ya tienes l
 </div>
 </div>
 
-<div id="outline-container-orge19929c" class="outline-4">
-<h4 id="orge19929c">3. Generar una nueva llave SSH</h4>
-<div class="outline-text-4" id="text-orge19929c">
+<div id="outline-container-org055673a" class="outline-4">
+<h4 id="org055673a">3. Generar una nueva llave SSH</h4>
+<div class="outline-text-4" id="text-org055673a">
 <ul class="org-ul">
 <li><p>
 Si no tienes una llave SSH, genera una nueva con el siguiente comando:
@@ -676,9 +682,9 @@ Si no tienes una llave SSH, genera una nueva con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-org00cc5b3" class="outline-4">
-<h4 id="org00cc5b3">4. Añadir la llave SSH al agente SSH</h4>
-<div class="outline-text-4" id="text-org00cc5b3">
+<div id="outline-container-org064d8ab" class="outline-4">
+<h4 id="org064d8ab">4. Añadir la llave SSH al agente SSH</h4>
+<div class="outline-text-4" id="text-org064d8ab">
 <ul class="org-ul">
 <li><p>
 Asegúrate de que el agente SSH esté en ejecución. En Git Bash, ejecuta:
@@ -699,9 +705,9 @@ Añade tu nueva llave SSH al agente:
 </div>
 </div>
 
-<div id="outline-container-orgdd55055" class="outline-4">
-<h4 id="orgdd55055">5. Copiar la llave SSH pública</h4>
-<div class="outline-text-4" id="text-orgdd55055">
+<div id="outline-container-org9a07114" class="outline-4">
+<h4 id="org9a07114">5. Copiar la llave SSH pública</h4>
+<div class="outline-text-4" id="text-org9a07114">
 <ul class="org-ul">
 <li><p>
 Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta el siguiente comando en Git Bash:
@@ -716,9 +722,9 @@ Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta 
 </div>
 </div>
 
-<div id="outline-container-org9924923" class="outline-4">
-<h4 id="org9924923">6. Añadir la llave SSH a GitHub</h4>
-<div class="outline-text-4" id="text-org9924923">
+<div id="outline-container-orga1624ef" class="outline-4">
+<h4 id="orga1624ef">6. Añadir la llave SSH a GitHub</h4>
+<div class="outline-text-4" id="text-orga1624ef">
 <ul class="org-ul">
 <li>Abre tu navegador web e inicia sesión en GitHub.</li>
 <li>Ve a la sección de <b>Settings</b> (Configuración).</li>
@@ -730,9 +736,9 @@ Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta 
 </div>
 </div>
 
-<div id="outline-container-org64dbf79" class="outline-4">
-<h4 id="org64dbf79">7. Probar la conexión SSH con GitHub</h4>
-<div class="outline-text-4" id="text-org64dbf79">
+<div id="outline-container-org44551ed" class="outline-4">
+<h4 id="org44551ed">7. Probar la conexión SSH con GitHub</h4>
+<div class="outline-text-4" id="text-org44551ed">
 <ul class="org-ul">
 <li><p>
 Para asegurarte de que todo está correctamente configurado, prueba la conexión con GitHub desde Git Bash:
@@ -755,9 +761,9 @@ Hi username! You've successfully authenticated, but GitHub does not provide shel
 </div>
 </div>
 
-<div id="outline-container-org140a26b" class="outline-4">
-<h4 id="org140a26b">8. Usar la conexión SSH en repositorios de GitHub</h4>
-<div class="outline-text-4" id="text-org140a26b">
+<div id="outline-container-org5e685c3" class="outline-4">
+<h4 id="org5e685c3">8. Usar la conexión SSH en repositorios de GitHub</h4>
+<div class="outline-text-4" id="text-org5e685c3">
 <ul class="org-ul">
 <li><p>
 Para clonar un repositorio usando la URL SSH, ejecuta:
@@ -774,13 +780,13 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 
 
 
-<div id="outline-container-orgfa47323" class="outline-3">
-<h3 id="orgfa47323">Manual de Git en Windows</h3>
-<div class="outline-text-3" id="text-orgfa47323">
+<div id="outline-container-org1440c8d" class="outline-3">
+<h3 id="org1440c8d">Manual de Git en Windows</h3>
+<div class="outline-text-3" id="text-org1440c8d">
 </div>
-<div id="outline-container-orgf78792d" class="outline-4">
-<h4 id="orgf78792d">1. Instalar Git en Windows</h4>
-<div class="outline-text-4" id="text-orgf78792d">
+<div id="outline-container-org70b91e9" class="outline-4">
+<h4 id="org70b91e9">1. Instalar Git en Windows</h4>
+<div class="outline-text-4" id="text-org70b91e9">
 <ul class="org-ul">
 <li>Visita [<a href="https://git-scm.com/">https://git-scm.com/</a>](<a href="https://git-scm.com/">https://git-scm.com/</a>) y descarga el instalador de Git para Windows.</li>
 <li>Ejecuta el archivo descargado (.exe).</li>
@@ -790,9 +796,9 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 </div>
 </div>
 
-<div id="outline-container-org72cd21a" class="outline-4">
-<h4 id="org72cd21a">2. Configurar Git</h4>
-<div class="outline-text-4" id="text-org72cd21a">
+<div id="outline-container-orgfa39fc0" class="outline-4">
+<h4 id="orgfa39fc0">2. Configurar Git</h4>
+<div class="outline-text-4" id="text-orgfa39fc0">
 <ul class="org-ul">
 <li>Abre <b>Git Bash</b> y ejecuta los siguientes comandos para configurar tu identidad:</li>
 </ul>
@@ -814,9 +820,9 @@ git config --global user.email <span style="color: #c3e88d;">"tuemail@ejemplo.co
 </div>
 </div>
 
-<div id="outline-container-org7c02bb3" class="outline-4">
-<h4 id="org7c02bb3">3. Clonar un repositorio</h4>
-<div class="outline-text-4" id="text-org7c02bb3">
+<div id="outline-container-org5deb121" class="outline-4">
+<h4 id="org5deb121">3. Clonar un repositorio</h4>
+<div class="outline-text-4" id="text-org5deb121">
 <ul class="org-ul">
 <li>Para clonar un repositorio desde GitHub, usa el siguiente comando:</li>
 </ul>
@@ -832,9 +838,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org21a4451" class="outline-4">
-<h4 id="org21a4451">4. Comandos básicos de Git</h4>
-<div class="outline-text-4" id="text-org21a4451">
+<div id="outline-container-orgd0b028e" class="outline-4">
+<h4 id="orgd0b028e">4. Comandos básicos de Git</h4>
+<div class="outline-text-4" id="text-orgd0b028e">
 <ul class="org-ul">
 <li><b>Verificar el estado del repositorio</b>:</li>
 </ul>
@@ -882,9 +888,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org14bca94" class="outline-4">
-<h4 id="org14bca94">5. Actualizar el repositorio local</h4>
-<div class="outline-text-4" id="text-org14bca94">
+<div id="outline-container-org7f557d0" class="outline-4">
+<h4 id="org7f557d0">5. Actualizar el repositorio local</h4>
+<div class="outline-text-4" id="text-org7f557d0">
 <ul class="org-ul">
 <li>Para obtener los últimos cambios del repositorio remoto:</li>
 </ul>
@@ -896,9 +902,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org7345e45" class="outline-4">
-<h4 id="org7345e45">6. Crear y cambiar de ramas (branches)</h4>
-<div class="outline-text-4" id="text-org7345e45">
+<div id="outline-container-org6a1e273" class="outline-4">
+<h4 id="org6a1e273">6. Crear y cambiar de ramas (branches)</h4>
+<div class="outline-text-4" id="text-org6a1e273">
 <ul class="org-ul">
 <li><b>Crear una nueva rama</b>:</li>
 </ul>
@@ -928,9 +934,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org1958b8f" class="outline-4">
-<h4 id="org1958b8f">7. Ver historial de commits</h4>
-<div class="outline-text-4" id="text-org1958b8f">
+<div id="outline-container-org3011337" class="outline-4">
+<h4 id="org3011337">7. Ver historial de commits</h4>
+<div class="outline-text-4" id="text-org3011337">
 <ul class="org-ul">
 <li>Para ver el historial de cambios del repositorio:</li>
 </ul>
@@ -951,9 +957,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org10de993" class="outline-4">
-<h4 id="org10de993">8. Configurar una llave SSH</h4>
-<div class="outline-text-4" id="text-org10de993">
+<div id="outline-container-orge7440e5" class="outline-4">
+<h4 id="orge7440e5">8. Configurar una llave SSH</h4>
+<div class="outline-text-4" id="text-orge7440e5">
 <ul class="org-ul">
 <li><b>Generar una llave SSH</b>:</li>
 </ul>
@@ -991,13 +997,13 @@ ssh-add ~/.ssh/id_ed25519
 </div>
 
 
-<div id="outline-container-org78b1fe9" class="outline-2">
-<h2 id="org78b1fe9">Manual de Instalación de Python en Windows</h2>
-<div class="outline-text-2" id="text-org78b1fe9">
+<div id="outline-container-org808ed83" class="outline-2">
+<h2 id="org808ed83">Manual de Instalación de Python en Windows</h2>
+<div class="outline-text-2" id="text-org808ed83">
 </div>
-<div id="outline-container-org975b77f" class="outline-3">
-<h3 id="org975b77f">Paso 1: Descarga de Python</h3>
-<div class="outline-text-3" id="text-org975b77f">
+<div id="outline-container-orga06016d" class="outline-3">
+<h3 id="orga06016d">Paso 1: Descarga de Python</h3>
+<div class="outline-text-3" id="text-orga06016d">
 <ol class="org-ol">
 <li>Abre el navegador web y visita el sitio: <a href="https://www.python.org">https://www.python.org</a>.</li>
 <li>Ve a la pestaña "Downloads" y selecciona la versión más reciente para Windows.</li>
@@ -1006,9 +1012,9 @@ ssh-add ~/.ssh/id_ed25519
 </div>
 </div>
 
-<div id="outline-container-org5a35490" class="outline-3">
-<h3 id="org5a35490">Paso 2: Ejecutar el instalador</h3>
-<div class="outline-text-3" id="text-org5a35490">
+<div id="outline-container-org1e3b7ee" class="outline-3">
+<h3 id="org1e3b7ee">Paso 2: Ejecutar el instalador</h3>
+<div class="outline-text-3" id="text-org1e3b7ee">
 <ol class="org-ol">
 <li>Ejecuta el archivo descargado (.exe).</li>
 <li>Asegúrate de marcar la opción <code>Add Python to PATH</code> antes de proceder con la instalación.</li>
@@ -1018,9 +1024,9 @@ ssh-add ~/.ssh/id_ed25519
 </div>
 </div>
 
-<div id="outline-container-org98b7bc3" class="outline-3">
-<h3 id="org98b7bc3">Paso 3: Verificación de la instalación</h3>
-<div class="outline-text-3" id="text-org98b7bc3">
+<div id="outline-container-org81c9b23" class="outline-3">
+<h3 id="org81c9b23">Paso 3: Verificación de la instalación</h3>
+<div class="outline-text-3" id="text-org81c9b23">
 <ol class="org-ol">
 <li>Abre la línea de comandos (cmd) escribiendo "cmd" en el menú de inicio.</li>
 <li><p>
@@ -1045,9 +1051,9 @@ Si todo está bien, verás el prompt interactivo de Python (tres símbolos <code
 </div>
 </div>
 
-<div id="outline-container-orgdfb55c2" class="outline-3">
-<h3 id="orgdfb55c2">Paso 4: Instalar pip y otros paquetes</h3>
-<div class="outline-text-3" id="text-orgdfb55c2">
+<div id="outline-container-org8da617e" class="outline-3">
+<h3 id="org8da617e">Paso 4: Instalar pip y otros paquetes</h3>
+<div class="outline-text-3" id="text-org8da617e">
 <ol class="org-ol">
 <li><p>
 Verifica si pip está instalado escribiendo en la línea de comandos:
@@ -1067,9 +1073,9 @@ Si necesitas instalar paquetes, usa pip con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-orge570e43" class="outline-3">
-<h3 id="orge570e43">Paso 5: Configuración del entorno de desarrollo</h3>
-<div class="outline-text-3" id="text-orge570e43">
+<div id="outline-container-org509e112" class="outline-3">
+<h3 id="org509e112">Paso 5: Configuración del entorno de desarrollo</h3>
+<div class="outline-text-3" id="text-org509e112">
 <ol class="org-ol">
 <li>Instala un editor de código como:
 <ul class="org-ul">
@@ -1081,9 +1087,9 @@ Si necesitas instalar paquetes, usa pip con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-org36b3075" class="outline-3">
-<h3 id="org36b3075">Paso 6: Actualización de Python (opcional)</h3>
-<div class="outline-text-3" id="text-org36b3075">
+<div id="outline-container-org78dd02e" class="outline-3">
+<h3 id="org78dd02e">Paso 6: Actualización de Python (opcional)</h3>
+<div class="outline-text-3" id="text-org78dd02e">
 <ul class="org-ul">
 <li>Para actualizar Python a una nueva versión en el futuro, descarga la última versión desde <a href="https://www.python.org/downloads/">python.org</a> y sigue los pasos de instalación.</li>
 </ul>
@@ -1092,13 +1098,13 @@ Si necesitas instalar paquetes, usa pip con el siguiente comando:
 </div>
 
 
-<div id="outline-container-org7db4a90" class="outline-2">
-<h2 id="org7db4a90">Introducción a la Graficación por computadora</h2>
-<div class="outline-text-2" id="text-org7db4a90">
+<div id="outline-container-orgcce8485" class="outline-2">
+<h2 id="orgcce8485">Introducción a la Graficación por computadora</h2>
+<div class="outline-text-2" id="text-orgcce8485">
 </div>
-<div id="outline-container-org9e2f622" class="outline-3">
-<h3 id="org9e2f622">Graficación por Computadora</h3>
-<div class="outline-text-3" id="text-org9e2f622">
+<div id="outline-container-org7643e2f" class="outline-3">
+<h3 id="org7643e2f">Graficación por Computadora</h3>
+<div class="outline-text-3" id="text-org7643e2f">
 <p>
 La  Graficación por Computadora (o simplemente Graficación)
 se enfoca en el estudio y aplicación de técnicas, algoritmos y
@@ -1110,9 +1116,9 @@ los aspectos clave de esta disciplina:
 </p>
 </div>
 
-<div id="outline-container-orgc0fb204" class="outline-4">
-<h4 id="orgc0fb204">Objetivos de la Graficación por Computadora</h4>
-<div class="outline-text-4" id="text-orgc0fb204">
+<div id="outline-container-orgefe8783" class="outline-4">
+<h4 id="orgefe8783">Objetivos de la Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-orgefe8783">
 <ol class="org-ol">
 <li><b>Generación de imágenes</b>: Crear imágenes digitales a partir de descripciones matemáticas y geométricas de objetos, en 2D y 3D.</li>
 <li><b>Modelado de objetos</b>: Crear representaciones matemáticas de objetos y escenas usando técnicas como polígonos, mallas y curvas.</li>
@@ -1126,9 +1132,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-orgca3305b" class="outline-4">
-<h4 id="orgca3305b">Áreas de estudio en Graficación por Computadora</h4>
-<div class="outline-text-4" id="text-orgca3305b">
+<div id="outline-container-org661d21f" class="outline-4">
+<h4 id="org661d21f">Áreas de estudio en Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-org661d21f">
 <ol class="org-ol">
 <li><b>Matemáticas</b>: Uso de geometría y álgebra lineal para realizar transformaciones geométricas y modelar objetos.</li>
 <li><b>Programación</b>: Conocimiento de lenguajes como C++, Python, GLSL y HLSL para implementar algoritmos gráficos.</li>
@@ -1139,9 +1145,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-orgbcf64b8" class="outline-4">
-<h4 id="orgbcf64b8">Aplicaciones de la Graficación por Computadora</h4>
-<div class="outline-text-4" id="text-orgbcf64b8">
+<div id="outline-container-org09d05cf" class="outline-4">
+<h4 id="org09d05cf">Aplicaciones de la Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-org09d05cf">
 <ul class="org-ul">
 <li><b>Videojuegos</b>: Creación de ambientes, personajes y efectos visuales.</li>
 <li><b>Cine y efectos visuales</b>: Creación de efectos especiales y animación por computadora.</li>
@@ -1152,9 +1158,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-orgfe7555f" class="outline-4">
-<h4 id="orgfe7555f">Temas principales en Graficación por Computadora</h4>
-<div class="outline-text-4" id="text-orgfe7555f">
+<div id="outline-container-org3f54f51" class="outline-4">
+<h4 id="org3f54f51">Temas principales en Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-org3f54f51">
 <ul class="org-ul">
 <li><b>Modelado 2D y 3D</b></li>
 <li><b>Algoritmos de rasterización</b></li>
@@ -1170,139 +1176,368 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-org9a76823" class="outline-3">
-<h3 id="org9a76823">El modelo de color RGB</h3>
-<div class="outline-text-3" id="text-org9a76823">
+
+<div id="outline-container-org0598efa" class="outline-3">
+<h3 id="org0598efa">Modelos de Color: RGB, CMY, HSV y HSL</h3>
+</div>
+
+<div id="outline-container-org64ee845" class="outline-3">
+<h3 id="org64ee845">Introducción</h3>
+<div class="outline-text-3" id="text-org64ee845">
 <p>
-El <b>modelo de color RGB</b> es un sistema aditivo de representación de
-colores basado en la combinación de tres colores primarios: <b>Rojo
-(Red)</b>, <b>Verde (Green)</b> y <b>Azul (Blue)</b>. Este modelo se usa
-principalmente en dispositivos que emiten luz, como pantallas de
-computadoras, televisores, cámaras digitales y escáneres.
+Los <b>modelos de color</b> son representaciones matemáticas que describen
+cómo los colores pueden representarse en diversas formas utilizando
+valores numéricos. Estos modelos son esenciales en gráficos por
+computadora, procesamiento de imágenes y en la percepción del color. A
+continuación, se detallan los modelos más comunes: RGB, CMY, HSV y
+HSL.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org051f551" class="outline-3">
+<h3 id="org051f551">Modelo de Color RGB (Red, Green, Blue)</h3>
+</div>
+
+<div id="outline-container-orge05a641" class="outline-3">
+<h3 id="orge05a641">Definición</h3>
+<div class="outline-text-3" id="text-orge05a641">
+<p>
+El modelo de color <b>RGB</b> (Rojo, Verde, Azul) es un modelo de mezcla aditiva, que se utiliza principalmente en dispositivos que emiten luz, como pantallas, cámaras digitales y proyectores. Los tres colores primarios (Rojo, Verde y Azul) se combinan de diferentes maneras para crear una amplia gama de colores.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9c25a4b" class="outline-3">
+<h3 id="org9c25a4b">Funcionamiento de la Mezcla Aditiva</h3>
+<div class="outline-text-3" id="text-org9c25a4b">
+<p>
+En el modelo RGB, los colores se generan mediante la combinación de luz. Cuanto más intensa es la luz en cada canal (rojo, verde o azul), más claro es el color resultante. Cuando todas las intensidades están al máximo, el color resultante es blanco; cuando todas las intensidades están al mínimo, el resultado es negro.
 </p>
 
+<ul class="org-ul">
+<li><b>Fórmula para la mezcla aditiva</b>:
+\[
+  \text{Color} = R \cdot \mathbf{r} + G \cdot \mathbf{g} + B \cdot \mathbf{b}
+  \]
+donde:
+<ul class="org-ul">
+<li>\(R\), \(G\) y \(B\) son las intensidades de los canales rojo, verde y azul, respectivamente.</li>
+<li>\( \mathbf{r} \), \( \mathbf{g} \) y \( \mathbf{b} \) son los vectores unitarios que representan los colores primarios.</li>
+</ul></li>
+
+<li><b>Ejemplo</b>:
+<ul class="org-ul">
+<li>Si \( R = 255 \), \( G = 0 \), \( B = 0 \), obtenemos un color rojo puro.</li>
+<li>Si \( R = 0 \), \( G = 255 \), \( B = 0 \), obtenemos un color verde puro.</li>
+<li>Si \( R = 255 \), \( G = 255 \), \( B = 0 \), obtenemos el color amarillo.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfe2fdf2" class="outline-3">
+<h3 id="orgfe2fdf2">Espacio de Color RGB</h3>
+<div class="outline-text-3" id="text-orgfe2fdf2">
 <p>
-<b>Principios básicos</b>
+El espacio de color <b>RGB</b> puede representarse como un cubo tridimensional, donde:
 </p>
+<ul class="org-ul">
+<li>El eje X corresponde al canal rojo (\(R\)),</li>
+<li>El eje Y al canal verde (\(G\)),</li>
+<li>Y el eje Z al canal azul (\(B\)).</li>
+</ul>
+
+<p>
+Cada vértice del cubo representa un color primario o la combinación de ellos, como se muestra a continuación:
+</p>
+<ul class="org-ul">
+<li>\( (0, 0, 0) \): Negro (ausencia de luz).</li>
+<li>\( (255, 0, 0) \): Rojo.</li>
+<li>\( (0, 255, 0) \): Verde.</li>
+<li>\( (0, 0, 255) \): Azul.</li>
+<li>\( (255, 255, 255) \): Blanco (máxima intensidad en todos los canales).</li>
+<li>\( (255, 255, 0) \): Amarillo (combinación de rojo y verde).</li>
+</ul>
+
+<p>
+Este espacio de color es útil para representar los colores generados en dispositivos electrónicos, ya que estos emiten luz en diferentes combinaciones de rojo, verde y azul.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org17da93a" class="outline-3">
+<h3 id="org17da93a">Conversión a otros modelos de color</h3>
+<div class="outline-text-3" id="text-org17da93a">
+<p>
+El modelo RGB puede convertirse a otros espacios de color como <b>CMY</b>, <b>HSV</b> o <b>HSL</b>. A continuación se muestra la conversión básica de RGB a CMY:
+</p>
+
+<ul class="org-ul">
+<li><b>Conversión de RGB a CMY</b>:
+\[
+  C = 1 - \left( \frac{R}{255} \right), \quad M = 1 - \left( \frac{G}{255} \right), \quad Y = 1 - \left( \frac{B}{255} \right)
+  \]
+donde \(R\), \(G\), y \(B\) son las intensidades de los canales en el rango de [0, 255].</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgdb98abd" class="outline-3">
+<h3 id="orgdb98abd">Aplicaciones del Modelo RGB</h3>
+<div class="outline-text-3" id="text-orgdb98abd">
+<p>
+El modelo de color RGB se usa ampliamente en:
+</p>
+<ul class="org-ul">
+<li><b>Monitores y pantallas</b>: Dispositivos como televisores, monitores de computadora y pantallas de teléfonos móviles utilizan píxeles que emiten luz en diferentes intensidades de rojo, verde y azul para representar imágenes.</li>
+<li><b>Cámaras digitales</b>: Los sensores de las cámaras capturan la luz en estos tres canales para generar imágenes en color.</li>
+<li><b>Gráficos por computadora</b>: El modelo RGB es esencial en software de edición de imágenes, renderizado 3D y creación de gráficos visuales.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgbb1f2f0" class="outline-3">
+<h3 id="orgbb1f2f0">Limitaciones del Modelo RGB</h3>
+<div class="outline-text-3" id="text-orgbb1f2f0">
+<p>
+Aunque el modelo RGB es excelente para dispositivos que emiten luz, tiene algunas limitaciones:
+</p>
+<ul class="org-ul">
+<li>No es intuitivo para el ser humano al ajustar el brillo o la saturación de un color, ya que requiere manipular los tres canales de manera independiente.</li>
+<li>El modelo RGB no es el más adecuado para tareas de impresión, ya que en impresiones se usan modelos basados en la mezcla sustractiva de colores, como CMY o CMYK.</li>
+</ul>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-orgcbe170b" class="outline-3">
+<h3 id="orgcbe170b">Modelo CMY (Cyan, Magenta, Yellow)</h3>
+<div class="outline-text-3" id="text-orgcbe170b">
+<p>
+El modelo <b>CMY</b> es un modelo de mezcla sustractiva que utiliza los colores cian, magenta y amarillo. Es el modelo base para la impresión en color.
+</p>
+
+<ul class="org-ul">
+<li><b>Características</b>:
+<ul class="org-ul">
+<li>Cada color se describe en términos de cuánto absorbe (resta) de la luz blanca que incide.</li>
+</ul></li>
+
+<li><b>Mezcla sustractiva</b>:
 <ul class="org-ul">
 <li><p>
-<b>Adición de colores</b>: En el modelo RGB, los colores se crean al
-sumar intensidades de luz de los tres colores primarios. La
-combinación de los tres colores en su máxima intensidad produce
-<b><b>blanco</b></b>. Si no hay luz (intensidad cero en los tres canales), se
-obtiene el <b><b>negro</b></b>.
-</p>
-
-<p>
+La relación entre CMY y RGB es:
 \[
-  \text{Blanco} = \text{Rojo}(255) + \text{Verde}(255) + \text{Azul}(255) = (255, 255, 255)
-  \]
+	\text{C} = 1 - \left( \frac{R}{L} \right), \quad \text{M} = 1 - \left( \frac{G}{L} \right), \quad \text{Y} = 1 - \left( \frac{B}{L} \right)
+	\]
 </p>
 
 <p>
-Cada canal de color (<b>R</b>, <b>G</b>, <b>B</b>) puede tener un valor entre 0 y
-255, dando un total de:
-</p>
-
-<p>
-\[
-  \text{Total de colores posibles} = 256^3 = 16,777,216
-  \]
+donde \( L \) es el valor máximo de intensidad (por ejemplo, 255).
 </p></li>
-</ul>
+</ul></li>
 
-<p>
-<b>Combinaciones de colores</b>
-</p>
+<li><b>Conversión de RGB a CMY</b>:
 <ul class="org-ul">
-<li><b>Rojo</b>: (255, 0, 0)</li>
-<li><b>Verde</b>: (0, 255, 0)</li>
-<li><b>Azul</b>: (0, 0, 255)</li>
-<li><b>Blanco</b>: (255, 255, 255)</li>
-<li><b>Negro</b>: (0, 0, 0)</li>
-<li><b>Amarillo</b>: (255, 255, 0) - Suma de rojo y verde.</li>
-<li><b>Cian</b>: (0, 255, 255) - Suma de verde y azul.</li>
-<li><b>Magenta</b>: (255, 0, 255) - Suma de rojo y azul.</li>
-</ul>
-</div>
-
-<div id="outline-container-org88c27f4" class="outline-4">
-<h4 id="org88c27f4">Funcionamiento en dispositivos electrónicos</h4>
-<div class="outline-text-4" id="text-org88c27f4">
-<p>
-El modelo RGB es utilizado principalmente en dispositivos electrónicos
-que emiten luz. Cada píxel en una pantalla está compuesto de
-subpíxeles que emiten luz roja, verde y azul. Al variar la intensidad
-de estos subpíxeles, los humanos perciben diferentes colores.
-</p>
-</div>
-</div>
-
-<div id="outline-container-org2b7384b" class="outline-4">
-<h4 id="org2b7384b">Matemáticas del modelo RGB</h4>
-<div class="outline-text-4" id="text-org2b7384b">
-<ol class="org-ol">
 <li><p>
-Cada color en el modelo RGB puede representarse como un vector de
-tres componentes:
+Si los valores RGB están normalizados entre 0 y 1:
 </p>
 
 <p>
 \[
-   C = \begin{pmatrix} R \\ G \\ B \end{pmatrix}
-   \]
+    \text{C} = 1 - R, \quad \text{M} = 1 - G, \quad \text{Y} = 1 - B
+    \]
+</p></li>
+</ul></li>
+
+<li><b>Aplicaciones</b>:
+<ul class="org-ul">
+<li>Utilizado en la impresión de imágenes en color, como impresoras de inyección de tinta y offset.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge2f7452" class="outline-3">
+<h3 id="orge2f7452">Modelo HSV (Hue, Saturation, Value)</h3>
+<div class="outline-text-3" id="text-orge2f7452">
+<p>
+El modelo <b>HSV</b> es una representación más intuitiva del color basada en la percepción humana, donde el matiz, la saturación y el valor describen un color.
+</p>
+
+<ul class="org-ul">
+<li><b>Características</b>:
+<ul class="org-ul">
+<li><b>Matiz (Hue, H)</b>: Representa el ángulo en el círculo cromático, en grados [0°, 360°).</li>
+<li><b>Saturación (S)</b>: Indica la pureza del color, rango de [0,1].</li>
+<li><b>Valor (V)</b>: Define el brillo del color, rango de [0,1].</li>
+</ul></li>
+
+<li><b>Conversión de RGB a HSV</b>:
+<ul class="org-ul">
+<li><p>
+Primero, normalizar los valores RGB entre 0 y 1:
+\[
+    R' = \frac{R}{L}, \quad G' = \frac{G}{L}, \quad B' = \frac{B}{L}
+    \]
 </p>
 
 <p>
-donde \( R \), \( G \) y \( B \) representan las intensidades de
-rojo, verde y azul, respectivamente.
+donde \( L \) es el valor máximo de intensidad (por ejemplo, 255).
 </p></li>
 
-<li>Para la mezcla aditiva de colores, se usa la suma vectorial. Por ejemplo, para combinar rojo y verde:
+<li>Calcular el valor máximo y mínimo:
 \[
-   \text{Amarillo} = \begin{pmatrix} 255 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 255 \\ 0 \end{pmatrix} = \begin{pmatrix} 255 \\ 255 \\ 0 \end{pmatrix}
-   \]</li>
-</ol>
+    C_{\max} = \max(R', G', B'), \quad C_{\min} = \min(R', G', B')
+    \]</li>
 
-<p>
-<b>Aplicaciones</b>
-</p>
+<li>Diferencia:
+\[
+    \Delta = C_{\max} - C_{\min}
+    \]</li>
+
+<li><b>Cálculo del Matiz (H)</b>:
+\[
+    \text{Si } \Delta = 0 \Rightarrow H = 0 \\
+    \text{Si } C_{\max} = R' \Rightarrow H = 60^\circ \times \left( \frac{G' - B'}{\Delta} \mod 6 \right) \\
+    \text{Si } C_{\max} = G' \Rightarrow H = 60^\circ \times \left( \frac{B' - R'}{\Delta} + 2 \right) \\
+    \text{Si } C_{\max} = B' \Rightarrow H = 60^\circ \times \left( \frac{R' - G'}{\Delta} + 4 \right)
+    \]</li>
+
+<li><b>Cálculo de la Saturación (S)</b>:
+\[
+    \text{Si } C_{\max} = 0 \Rightarrow S = 0 \\
+    \text{Si no} \Rightarrow S = \frac{\Delta}{C_{\max}}
+    \]</li>
+
+<li><b>Cálculo del Valor (V)</b>:
+\[
+	V = C_{\max}
+    \]</li>
+</ul></li>
+
+<li><b>Aplicaciones</b>:
 <ul class="org-ul">
-<li><b>Imágenes digitales</b>: El modelo RGB es la base de la codificación de colores en imágenes digitales, lo que permite representar una amplia gama de colores.</li>
-<li><b>Gráficos por computadora</b>: Es el modelo estándar para definir colores en programación y diseño gráfico.</li>
-<li><b>Edición de video y fotografía</b>: El modelo RGB se usa en software de edición para manipular colores de imágenes y videos.</li>
-</ul>
+<li>Edición de imágenes, interfaces de selección de color y en procesamiento de video.</li>
+</ul></li>
 
-<p>
-<b>Limitaciones</b>
-</p>
+<li><b>Ejemplo</b>:
 <ul class="org-ul">
-<li><b>Impresión</b>: RGB no se utiliza en la impresión, que emplea un
-modelo de color sustractivo llamado CMYK (Cian, Magenta, Amarillo y
-Negro).</li>
-<li><b>Percepción humana</b>: El modelo RGB no refleja con precisión cómo el
-ojo humano percibe el color, lo que llevó a la creación de otros
-modelos como CIE Lab.</li>
-</ul>
-
-<p>
-<b>Variaciones</b>
-</p>
+<li>Convertir RGB (255, 255, 0) a HSV:
 <ul class="org-ul">
-<li><b>RGBA</b> : Es una extensión del modelo RGB que añade un canal de <b>Alpha</b> para representar la transparencia. Esto es útil en diseño gráfico para gestionar la opacidad.</li>
+<li>Normalizar:
+\[
+      R' = 1, \quad G' = 1, \quad B' = 0
+      \]</li>
+<li>\( C_{\max} = 1 \), \( C_{\min} = 0 \), \( \Delta = 1 \)</li>
+<li>Calcular H:
+\[
+      H = 60^\circ \times \left( \frac{G' - B'}{\Delta} \mod 6 \right) = 60^\circ \times (1 \mod 6) = 60^\circ
+      \]</li>
+<li>Calcular S:
+\[
+      S = \frac{\Delta}{C_{\max}} = \frac{1}{1} = 1
+      \]</li>
+<li>Calcular V:
+\[
+      V = C_{\max} = 1
+      \]</li>
+<li><b>Resultado</b>: H = 60°, S = 1, V = 1 (Color amarillo)</li>
+</ul></li>
+</ul></li>
 </ul>
 </div>
 </div>
+
+<div id="outline-container-org00332df" class="outline-3">
+<h3 id="org00332df">Modelo HSL (Hue, Saturation, Lightness)</h3>
+<div class="outline-text-3" id="text-org00332df">
+<p>
+El modelo <b>HSL</b> es similar al modelo HSV, pero en lugar de "valor" utiliza el término <b>luminosidad (Lightness)</b>, que representa la cantidad de luz que refleja un color.
+</p>
+
+<ul class="org-ul">
+<li><b>Características</b>:
+<ul class="org-ul">
+<li><b>Matiz (Hue, H)</b>: Mismo que en HSV.</li>
+<li><b>Saturación (S)</b>: Diferente definición que en HSV.</li>
+<li><b>Luminosidad (L)</b>: Rango de [0,1], donde 0 es negro, 0.5 es el color puro, y 1 es blanco.</li>
+</ul></li>
+
+<li><b>Conversión de RGB a HSL</b>:
+<ul class="org-ul">
+<li>Normalizar RGB:
+\[
+    R' = \frac{R}{L}, \quad G' = \frac{G}{L}, \quad B' = \frac{B}{L}
+    \]</li>
+
+<li>Calcular \( C_{\max} \) y \( C_{\min} \), y \( \Delta \) como en HSV.</li>
+
+<li><b><b>Cálculo de la Luminosidad (L)</b></b>:
+\[
+    L = \frac{C_{\max} + C_{\min}}{2}
+    \]</li>
+
+<li><b>Cálculo de la Saturación (S)</b>:
+\[
+    \text{Si } \Delta = 0 \Rightarrow S = 0 \\
+    \text{Si } L \leq 0.5 \Rightarrow S = \frac{\Delta}{C_{\max} + C_{\min}} \\
+    \text{Si } L > 0.5 \Rightarrow S = \frac{\Delta}{2 - (C_{\max} + C_{\min})}
+    \]</li>
+
+<li><b>Cálculo del Matiz (H)</b>:
+<ul class="org-ul">
+<li>Igual que en HSV.</li>
+</ul></li>
+</ul></li>
+
+<li><b>Aplicaciones</b>:
+<ul class="org-ul">
+<li>Herramientas de diseño gráfico y edición de imágenes, donde se necesita un control preciso sobre la luz y el color.</li>
+</ul></li>
+
+<li><b>Ejemplo</b>:
+<ul class="org-ul">
+<li>Convertir RGB (255, 0, 0) a HSL:
+<ul class="org-ul">
+<li>Normalizar:
+\[
+      R' = 1, \quad G' = 0, \quad B' = 0
+      \]</li>
+<li>\( C_{\max} = 1 \), \( C_{\min} = 0 \), \( \Delta = 1 \)</li>
+<li>Calcular L:
+\[
+      L = \frac{1 + 0}{2} = 0.5
+      \]</li>
+<li>Calcular S:
+\[
+      S = \frac{\Delta}{C_{\max} + C_{\min}} = \frac{1}{1 + 0} = 1
+      \]</li>
+<li>Calcular H:
+\[
+      H = 60^\circ \times \left( \frac{G' - B'}{\Delta} \mod 6 \right) = 0^\circ
+      \]</li>
+<li><b><b>Resultado</b></b>: H = 0°, S = 1, L = 0.5 (Color rojo puro)</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
 </div>
 
 
-<div id="outline-container-orgb587d62" class="outline-3">
-<h3 id="orgb587d62">Operadores Puntuales</h3>
-<div class="outline-text-3" id="text-orgb587d62">
+
+
+<div id="outline-container-org2f0b6d5" class="outline-3">
+<h3 id="org2f0b6d5">Operadores Puntuales</h3>
+<div class="outline-text-3" id="text-org2f0b6d5">
 </div>
-<div id="outline-container-org14058c2" class="outline-4">
-<h4 id="org14058c2">Definición</h4>
-<div class="outline-text-4" id="text-org14058c2">
+<div id="outline-container-orge35de68" class="outline-4">
+<h4 id="orge35de68">Definición</h4>
+<div class="outline-text-4" id="text-orge35de68">
 <p>
 Los <b>operadores puntuales</b> son una clase de transformaciones aplicadas
 en el procesamiento digital de imágenes que operan sobre cada píxel de
@@ -1313,9 +1548,9 @@ entrada, sin considerar los valores de los píxeles vecinos.
 </div>
 </div>
 
-<div id="outline-container-orgeda6c36" class="outline-4">
-<h4 id="orgeda6c36">Características</h4>
-<div class="outline-text-4" id="text-orgeda6c36">
+<div id="outline-container-orgc1ab618" class="outline-4">
+<h4 id="orgc1ab618">Características</h4>
+<div class="outline-text-4" id="text-orgc1ab618">
 <ol class="org-ol">
 <li><b>Independencia espacial</b>: Los operadores puntuales solo modifican
 cada píxel basado en su valor original, sin tener en cuenta su
@@ -1330,13 +1565,13 @@ real.</li>
 </div>
 </div>
 
-<div id="outline-container-orgfb3ee51" class="outline-4">
-<h4 id="orgfb3ee51">Tipos de Operadores Puntuales</h4>
-<div class="outline-text-4" id="text-orgfb3ee51">
+<div id="outline-container-org91822c8" class="outline-4">
+<h4 id="org91822c8">Tipos de Operadores Puntuales</h4>
+<div class="outline-text-4" id="text-org91822c8">
 </div>
 <ul class="org-ul">
-<li><a id="org7afb33f"></a>Operador de Identidad<br />
-<div class="outline-text-5" id="text-org7afb33f">
+<li><a id="orgc2890c1"></a>Operador de Identidad<br />
+<div class="outline-text-5" id="text-orgc2890c1">
 <ul class="org-ul">
 <li>No altera la imagen. Cada píxel de la imagen de salida tiene el
 mismo valor que el píxel correspondiente en la imagen de entrada.</li>
@@ -1345,8 +1580,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="org3f5c827"></a>Negativo de la Imagen<br />
-<div class="outline-text-5" id="text-org3f5c827">
+<li><a id="orgf5b346a"></a>Negativo de la Imagen<br />
+<div class="outline-text-5" id="text-orgf5b346a">
 <ul class="org-ul">
 <li>Este operador invierte los valores de los píxeles de una imagen, produciendo su negativo.</li>
 <li>Fórmula: \( g(x, y) = L - 1 - f(x, y) \), donde \( L \) es el valor máximo posible en la imagen (por ejemplo, 255 en imágenes de 8 bits).</li>
@@ -1355,28 +1590,23 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="org64cf897"></a>Umbralización (Thresholding)<br />
-<div class="outline-text-5" id="text-org64cf897">
+<li><a id="org6ac2947"></a>Umbralización (Thresholding)<br />
+<div class="outline-text-5" id="text-org6ac2947">
 <ul class="org-ul">
 <li>Convierte la imagen a una versión binaria, donde los píxeles con valores por encima de un umbral se establecen en un valor (generalmente blanco), y los que están por debajo se establecen en otro (generalmente negro).</li>
-<li><p>
-Fórmula: 
-</p>
-<div class="org-src-container">
-<pre class="src src-latex">g(x, y) =
-<span style="color: #c099ff;">\begin</span>{<span style="color: #82aaff;">cases</span>} 
-0, &amp; <span style="color: #c099ff;">\text</span>{si } f(x, y) <span style="color: #c099ff;">\leq</span> T <span style="color: #ffc777;">\\</span>
-L, &amp; <span style="color: #c099ff;">\text</span>{si } f(x, y) &gt; T
-<span style="color: #c099ff;">\end</span>{<span style="color: #82aaff;">cases</span>}
-</pre>
-</div></li>
+<li>Fórmula: 
+\[
+     g(x, y) =
+     0, & \text{si } f(x, y) \leq T \\
+     L, & \text{si } f(x, y) > T
+     \]</li>
 <li>Uso: Se utiliza para segmentación de imágenes y procesamiento de imágenes en blanco y negro.</li>
 </ul>
 </div>
 </li>
 
-<li><a id="org8e49b7a"></a>Corrección Gamma<br />
-<div class="outline-text-5" id="text-org8e49b7a">
+<li><a id="org85a1c71"></a>Corrección Gamma<br />
+<div class="outline-text-5" id="text-org85a1c71">
 <ul class="org-ul">
 <li>Ajusta los valores de intensidad de los píxeles para modificar el brillo o contraste de la imagen.</li>
 <li>Fórmula: \( g(x, y) = c \cdot f(x, y)^\gamma \), donde \( c \) es una constante de escala, y \( \gamma \) es el factor de corrección.</li>
@@ -1385,8 +1615,8 @@ L, &amp; <span style="color: #c099ff;">\text</span>{si } f(x, y) &gt; T
 </div>
 </li>
 
-<li><a id="org1f27184"></a>Transformaciones Logarítmicas<br />
-<div class="outline-text-5" id="text-org1f27184">
+<li><a id="org6917d59"></a>Transformaciones Logarítmicas<br />
+<div class="outline-text-5" id="text-org6917d59">
 <ul class="org-ul">
 <li>Aumentan los detalles en regiones oscuras de la imagen al expandir los valores de intensidad bajos.</li>
 <li>Fórmula: \( g(x, y) = c \cdot \log(1 + f(x, y)) \), donde \( c \) es una constante.</li>
@@ -1395,24 +1625,21 @@ L, &amp; <span style="color: #c099ff;">\text</span>{si } f(x, y) &gt; T
 </div>
 </li>
 
-<li><a id="org6f7a91e"></a>Corrección Lineal o Estiramiento de Contraste<br />
-<div class="outline-text-5" id="text-org6f7a91e">
+<li><a id="org3df95f1"></a>Corrección Lineal o Estiramiento de Contraste<br />
+<div class="outline-text-5" id="text-org3df95f1">
 <ul class="org-ul">
 <li>Expande los valores de intensidad en una imagen para cubrir un rango más amplio, aumentando el contraste.</li>
-<li><p>
-Fórmula:
-</p>
-<div class="org-src-container">
-<pre class="src src-latex">g(x, y) = <span style="color: #c099ff;">\frac</span>{f(x, y) - f_{\min}}{f_{\max} - f_{\min}} <span style="color: #c099ff;">\cdot</span> (L - 1)
-</pre>
-</div></li>
+<li>Fórmula:
+\[
+     g(x, y) = \frac{f(x, y) - f_{\min}}{f_{\max} - f_{\min}} \cdot (L - 1)
+     \]</li>
 <li>Uso: Aumenta el contraste en imágenes con poca variación de intensidad.</li>
 </ul>
 </div>
 </li>
 
-<li><a id="orge6d0d0e"></a>Transformaciones de Potencia (Raise to Power Transform)<br />
-<div class="outline-text-5" id="text-orge6d0d0e">
+<li><a id="orgaef6a94"></a>Transformaciones de Potencia (Raise to Power Transform)<br />
+<div class="outline-text-5" id="text-orgaef6a94">
 <ul class="org-ul">
 <li>Eleva cada valor de píxel a una potencia \( n \), lo que permite ajustar el brillo y contraste de una imagen.</li>
 <li>Fórmula: \( g(x, y) = c \cdot f(x, y)^n \).</li>
@@ -1422,9 +1649,9 @@ Fórmula:
 </ul>
 </div>
 
-<div id="outline-container-org703e839" class="outline-4">
-<h4 id="org703e839">Aplicaciones de Operadores Puntuales</h4>
-<div class="outline-text-4" id="text-org703e839">
+<div id="outline-container-orged4e472" class="outline-4">
+<h4 id="orged4e472">Aplicaciones de Operadores Puntuales</h4>
+<div class="outline-text-4" id="text-orged4e472">
 <ul class="org-ul">
 <li><b>Corrección de imágenes</b>: Mejoran el brillo, contraste, y otros aspectos visuales de una imagen.</li>
 <li><b>Segmentación</b>: La umbralización es comúnmente usada para separar objetos de fondo en una imagen.</li>
@@ -1441,17 +1668,17 @@ En resumen, los <b>operadores puntuales</b> son una herramienta fundamental en e
 </div>
 
 
-<div id="outline-container-org9975289" class="outline-2">
-<h2 id="org9975289">Programación</h2>
-<div class="outline-text-2" id="text-org9975289">
+<div id="outline-container-org8beb20f" class="outline-2">
+<h2 id="org8beb20f">Programación</h2>
+<div class="outline-text-2" id="text-org8beb20f">
 </div>
-<div id="outline-container-org086a7e3" class="outline-3">
-<h3 id="org086a7e3">Programas Unidad 1</h3>
-<div class="outline-text-3" id="text-org086a7e3">
+<div id="outline-container-orgbaae6c7" class="outline-3">
+<h3 id="orgbaae6c7">Programas Unidad 1</h3>
+<div class="outline-text-3" id="text-orgbaae6c7">
 </div>
-<div id="outline-container-orgb267e8d" class="outline-4">
-<h4 id="orgb267e8d">Creación de una Imagen</h4>
-<div class="outline-text-4" id="text-orgb267e8d">
+<div id="outline-container-org10075b2" class="outline-4">
+<h4 id="org10075b2">Creación de una Imagen</h4>
+<div class="outline-text-4" id="text-org10075b2">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa la librer&#237;a NumPy, &#250;til para trabajar con arreglos y operaciones num&#233;ricas.</span>
 <span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv     <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa la librer&#237;a OpenCV, que se utiliza para procesamiento de im&#225;genes.</span>
@@ -1483,9 +1710,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgd78f776" class="outline-4">
-<h4 id="orgd78f776">Cargar Imagen</h4>
-<div class="outline-text-4" id="text-orgd78f776">
+<div id="outline-container-org6498601" class="outline-4">
+<h4 id="org6498601">Cargar Imagen</h4>
+<div class="outline-text-4" id="text-org6498601">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa la librer&#237;a OpenCV, que se usa para el procesamiento de im&#225;genes y videos.</span>
 
@@ -1507,9 +1734,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org121ce76" class="outline-4">
-<h4 id="org121ce76">Split y Merge Imagen</h4>
-<div class="outline-text-4" id="text-org121ce76">
+<div id="outline-container-org619d840" class="outline-4">
+<h4 id="org619d840">Split y Merge Imagen</h4>
+<div class="outline-text-4" id="text-org619d840">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa OpenCV, que es &#250;til para procesamiento de im&#225;genes.</span>
 <span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa NumPy, que es &#250;til para trabajar con matrices y operaciones num&#233;ricas.</span>
@@ -1569,7 +1796,7 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 <div id="postamble" class="status">
 <p class="author">Autor: likcos</p>
-<p class="date">Created: 2024-09-10 mar 12:34</p>
+<p class="date">Created: 2024-09-10 mar 13:01</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
