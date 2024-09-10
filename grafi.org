@@ -356,7 +356,52 @@ brew install git
    - Añádela a tu cuenta de GitHub en *Settings > SSH and GPG keys*.
 
    
+* Manual de Instalación de Python en Windows
 
+** Paso 1: Descarga de Python
+   1. Abre el navegador web y visita el sitio: [[https://www.python.org][https://www.python.org]].
+   2. Ve a la pestaña "Downloads" y selecciona la versión más reciente para Windows.
+   3. Haz clic en el botón que dice "Download Python (versión actual)" para descargar el instalador de Python.
+
+** Paso 2: Ejecutar el instalador
+   1. Ejecuta el archivo descargado (.exe).
+   2. Asegúrate de marcar la opción ~Add Python to PATH~ antes de proceder con la instalación.
+   3. Haz clic en ~Install Now~ para instalar con la configuración predeterminada.
+   4. Espera a que finalice el proceso de instalación y verifica el mensaje de éxito.
+
+** Paso 3: Verificación de la instalación
+   1. Abre la línea de comandos (cmd) escribiendo "cmd" en el menú de inicio.
+   2. Verifica que Python se instaló correctamente ejecutando el siguiente comando:
+      #+BEGIN_SRC bash
+      python --version
+      #+END_SRC
+   3. Abre el intérprete de Python escribiendo ~python~ en la línea de comandos:
+      #+BEGIN_SRC bash
+      python
+      #+END_SRC
+      Si todo está bien, verás el prompt interactivo de Python (tres símbolos ~>>>~).
+   4. Para salir del intérprete, escribe ~exit()~ o presiona ~Ctrl + Z~ seguido de ~Enter~.
+
+** Paso 4: Instalar pip y otros paquetes
+   1. Verifica si pip está instalado escribiendo en la línea de comandos:
+      #+BEGIN_SRC bash
+      pip --version
+      #+END_SRC
+   2. Si necesitas instalar paquetes, usa pip con el siguiente comando:
+      #+BEGIN_SRC bash
+      pip install nombre_paquete
+      #+END_SRC
+
+** Paso 5: Configuración del entorno de desarrollo
+   1. Instala un editor de código como:
+      - [[https://code.visualstudio.com][Visual Studio Code]]
+      - [[https://www.jetbrains.com/pycharm/][PyCharm]]
+   2. Configura el editor instalando las extensiones de Python. En Visual Studio Code, busca la extensión "Python" en el panel de extensiones.
+
+** Paso 6: Actualización de Python (opcional)
+   - Para actualizar Python a una nueva versión en el futuro, descarga la última versión desde [[https://www.python.org/downloads/][python.org]] y sigue los pasos de instalación.
+
+   
 * Graficación por Computadora
 
 La  Graficación por Computadora (o simplemente Graficación)
@@ -401,4 +446,145 @@ los aspectos clave de esta disciplina:
    - *Técnicas de animación*
    - *Programación de shaders*
    - *Interacción gráfica y diseño de interfaces*
+   
+* El modelo de color RGB
+El *modelo de color RGB* es un sistema aditivo de representación de colores basado en la combinación de tres colores primarios: *Rojo (Red)*, *Verde (Green)* y *Azul (Blue)*. Este modelo se usa principalmente en dispositivos que emiten luz, como pantallas de computadoras, televisores, cámaras digitales y escáneres.
+
+*Principios básicos*
+- *Adición de colores*: En el modelo RGB, los colores se crean al
+  sumar intensidades de luz de los tres colores primarios. La
+  combinación de los tres colores en su máxima intensidad produce
+  **blanco**. Si no hay luz (intensidad cero en los tres canales), se
+  obtiene el **negro**.
+  
+  \[
+  \text{Blanco} = \text{Rojo}(255) + \text{Verde}(255) + \text{Azul}(255) = (255, 255, 255)
+  \]
+  
+  Cada canal de color (*R*, *G*, *B*) puede tener un valor entre 0 y
+  255, dando un total de:
+
+  \[
+  \text{Total de colores posibles} = 256^3 = 16,777,216
+  \]
+
+*Combinaciones de colores*
+- *Rojo*: (255, 0, 0)
+- *Verde*: (0, 255, 0)
+- *Azul*: (0, 0, 255)
+- *Blanco*: (255, 255, 255)
+- *Negro*: (0, 0, 0)
+- *Amarillo*: (255, 255, 0) - Suma de rojo y verde.
+- *Cian*: (0, 255, 255) - Suma de verde y azul.
+- *Magenta*: (255, 0, 255) - Suma de rojo y azul.
+
+** Funcionamiento en dispositivos electrónicos 
+El modelo RGB es utilizado principalmente en dispositivos electrónicos
+que emiten luz. Cada píxel en una pantalla está compuesto de
+subpíxeles que emiten luz roja, verde y azul. Al variar la intensidad
+de estos subpíxeles, los humanos perciben diferentes colores.
+
+** Matemáticas del modelo RGB
+1. Cada color en el modelo RGB puede representarse como un vector de
+   tres componentes:
+
+   \[
+   C = \begin{pmatrix} R \\ G \\ B \end{pmatrix}
+   \]
+
+   donde \( R \), \( G \) y \( B \) representan las intensidades de
+   rojo, verde y azul, respectivamente.
+
+2. Para la mezcla aditiva de colores, se usa la suma vectorial. Por ejemplo, para combinar rojo y verde:
+   \[
+   \text{Amarillo} = \begin{pmatrix} 255 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 255 \\ 0 \end{pmatrix} = \begin{pmatrix} 255 \\ 255 \\ 0 \end{pmatrix}
+   \]
+
+*Aplicaciones*
+- *Imágenes digitales*: El modelo RGB es la base de la codificación de colores en imágenes digitales, lo que permite representar una amplia gama de colores.
+- *Gráficos por computadora*: Es el modelo estándar para definir colores en programación y diseño gráfico.
+- *Edición de video y fotografía*: El modelo RGB se usa en software de edición para manipular colores de imágenes y videos.
+
+*Limitaciones*
+- *Impresión*: RGB no se utiliza en la impresión, que emplea un
+  modelo de color sustractivo llamado CMYK (Cian, Magenta, Amarillo y
+  Negro).
+- *Percepción humana*: El modelo RGB no refleja con precisión cómo el
+  ojo humano percibe el color, lo que llevó a la creación de otros
+  modelos como CIE Lab.
+
+*Variaciones*
+- *RGBA* : Es una extensión del modelo RGB que añade un canal de *Alpha* para representar la transparencia. Esto es útil en diseño gráfico para gestionar la opacidad.
+
+
+
+* Programación
+
+** Creación de una Imagen
+
+
+#+BEGIN_SRC python
+import numpy as np
+import cv2 as cv
+
+img = np.ones((500,500), dtype=np.uint8)*240
+img[30,30]=1
+img[30,31]=1
+img[30,32]=1
+img[30,33]=1
+img[30,34]=1
+img[30,35]=1
+
+cv.imshow('img', img)
+cv.waitKey()
+cv.destroyAllWindows()
+
+#+END_SRC
+
+#+RESULTS:
+: None
+
+** Cargar Imagen 
+#+BEGIN_SRC python :result output
+import cv2 as cv
+img = cv.imread('tr.png',1)
+cv.imshow('ejemplo',img)
+cv.waitKey(0)
+cv.destroyAllWindows()
+#+END_SRC
+
+#+RESULTS:
+: None
+
+** Split y Merge Imagen 
+
+#+BEGIN_SRC python :result output
+import cv2 as cv
+import numpy as np
+img = cv.imread('1a.png',1)
+img2= np.zeros((img.shape[:2]), dtype=np.uint8)
+print(img.shape[:2])
+r,g,b = cv.split(img)
+img3 = cv.merge([r,b,g])
+r =cv.merge([r,img2,img2])
+g =cv.merge([img2, g, img2])
+b =cv.merge([img2, img2, b])
+#img3 = cv.merge([g,b,r])
+cv.imshow('ejemplo',img)
+cv.imshow('r',r)
+cv.imshow('g',g)
+cv.imshow('b',b)
+cv.imshow('img3',img3)
+cv.waitKey(0)
+cv.destroyAllWindows()
+#+END_SRC
+
+#+RESULTS:
+: None
+
+
+
+
+
+
    
