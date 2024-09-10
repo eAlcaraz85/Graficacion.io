@@ -524,19 +524,29 @@ de estos subpíxeles, los humanos perciben diferentes colores.
 
 
 #+BEGIN_SRC python
-import numpy as np
-import cv2 as cv
+import numpy as np   # Importa la librería NumPy, útil para trabajar con arreglos y operaciones numéricas.
+import cv2 as cv     # Importa la librería OpenCV, que se utiliza para procesamiento de imágenes.
 
-img = np.ones((500,500), dtype=np.uint8)*240
-img[30,30]=1
-img[30,31]=1
-img[30,32]=1
-img[30,33]=1
-img[30,34]=1
-img[30,35]=1
+# Crea una imagen de 500x500 píxeles, todos con valor 240 (gris claro). 
+# La imagen tiene solo un canal (escala de grises) y está inicializada con valores de tipo uint8 (enteros sin signo de 8 bits).
+img = np.ones((500, 500), dtype=np.uint8) * 240
 
+# Modifica algunos píxeles específicos en las coordenadas (30, 30) a (30, 35) para que tengan un valor de 1 (casi negro).
+# Esto creará una pequeña línea vertical de 6 píxeles en la imagen de color casi negro.
+img[30, 30] = 1
+img[30, 31] = 1
+img[30, 32] = 1
+img[30, 33] = 1
+img[30, 34] = 1
+img[30, 35] = 1
+
+# Muestra la imagen en una ventana con el título 'img'. 
 cv.imshow('img', img)
+
+# Espera a que el usuario presione cualquier tecla para continuar.
 cv.waitKey()
+
+# Cierra todas las ventanas creadas por OpenCV.
 cv.destroyAllWindows()
 
 #+END_SRC
@@ -546,11 +556,21 @@ cv.destroyAllWindows()
 
 ** Cargar Imagen 
 #+BEGIN_SRC python :result output
-import cv2 as cv
-img = cv.imread('tr.png',1)
-cv.imshow('ejemplo',img)
+import cv2 as cv  # Importa la librería OpenCV, que se usa para el procesamiento de imágenes y videos.
+
+# Lee una imagen desde el archivo 'tr.png'. 
+# El segundo argumento '1' indica que se leerá la imagen en color (1 para color, 0 para escala de grises, -1 para incluir el canal alfa si existe).
+img = cv.imread('tr.png', 1)
+
+# Muestra la imagen leída en una ventana llamada 'ejemplo'.
+cv.imshow('ejemplo', img)
+
+# Espera indefinidamente hasta que el usuario presione una tecla.
 cv.waitKey(0)
+
+# Cierra todas las ventanas abiertas por OpenCV.
 cv.destroyAllWindows()
+
 #+END_SRC
 
 #+RESULTS:
@@ -559,24 +579,55 @@ cv.destroyAllWindows()
 ** Split y Merge Imagen 
 
 #+BEGIN_SRC python :result output
-import cv2 as cv
-import numpy as np
-img = cv.imread('1a.png',1)
-img2= np.zeros((img.shape[:2]), dtype=np.uint8)
+import cv2 as cv  # Importa OpenCV, que es útil para procesamiento de imágenes.
+import numpy as np  # Importa NumPy, que es útil para trabajar con matrices y operaciones numéricas.
+
+# Carga la imagen '1a.png' en color (1 para color, 0 para escala de grises).
+img = cv.imread('1a.png', 1)
+
+# Crea una imagen vacía (llena de ceros, que representa color negro) con el mismo tamaño que la imagen original.
+# La imagen vacía tiene un solo canal (escala de grises), por lo que se usa `img.shape[:2]` para obtener las dimensiones de la imagen (alto, ancho).
+img2 = np.zeros((img.shape[:2]), dtype=np.uint8)
+
+# Imprime las dimensiones de la imagen en la terminal (alto, ancho).
 print(img.shape[:2])
-r,g,b = cv.split(img)
-img3 = cv.merge([r,b,g])
-r =cv.merge([r,img2,img2])
-g =cv.merge([img2, g, img2])
-b =cv.merge([img2, img2, b])
-#img3 = cv.merge([g,b,r])
-cv.imshow('ejemplo',img)
-cv.imshow('r',r)
-cv.imshow('g',g)
-cv.imshow('b',b)
-cv.imshow('img3',img3)
+
+# Separa los canales rojo (r), verde (g) y azul (b) de la imagen utilizando la función `cv.split()`.
+r, g, b = cv.split(img)
+
+# Recombina los canales, pero los reorganiza como rojo, azul y verde (RBG en lugar de RGB).
+img3 = cv.merge([r, b, g])
+
+# Crea una imagen que contiene solo el canal rojo, llenando los otros dos canales (verde y azul) con ceros (negro).
+r = cv.merge([r, img2, img2])
+
+# Crea una imagen que contiene solo el canal verde, llenando los otros dos canales (rojo y azul) con ceros.
+g = cv.merge([img2, g, img2])
+
+# Crea una imagen que contiene solo el canal azul, llenando los otros dos canales (rojo y verde) con ceros.
+b = cv.merge([img2, img2, b])
+
+# Muestra la imagen original en una ventana llamada 'ejemplo'.
+cv.imshow('ejemplo', img)
+
+# Muestra la imagen que contiene solo el canal rojo.
+cv.imshow('r', r)
+
+# Muestra la imagen que contiene solo el canal verde.
+cv.imshow('g', g)
+
+# Muestra la imagen que contiene solo el canal azul.
+cv.imshow('b', b)
+
+# Muestra la imagen con los canales reorganizados (RBG en lugar de RGB).
+cv.imshow('img3', img3)
+
+# Espera indefinidamente a que el usuario presione una tecla.
 cv.waitKey(0)
+
+# Cierra todas las ventanas abiertas por OpenCV.
 cv.destroyAllWindows()
+
 #+END_SRC
 
 #+RESULTS:
