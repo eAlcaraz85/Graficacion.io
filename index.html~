@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
 <head>
-<!-- 2024-09-10 mar 12:18 -->
+<!-- 2024-09-10 mar 12:29 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Apuntes Graficación</title>
@@ -230,84 +230,100 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgab36daf">Manual de Instalación de Git</a>
+<li><a href="#org91c2677">Manual de Instalación de Git</a>
 <ul>
-<li><a href="#org74ea795">Instalación en Windows</a></li>
-<li><a href="#org3629bca">Instalación en macOS</a>
+<li><a href="#org459f53b">Instalación en Windows</a></li>
+<li><a href="#org3056f4f">Instalación en macOS</a>
 <ul>
-<li><a href="#org851ea19">Método recomendado: usando Homebrew</a></li>
-<li><a href="#org413d7e1">Método alternativo: paquete descargado</a></li>
+<li><a href="#org0b47319">Método recomendado: usando Homebrew</a></li>
+<li><a href="#orga5555e2">Método alternativo: paquete descargado</a></li>
 </ul>
 </li>
-<li><a href="#org6c1ed7b">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</a></li>
-<li><a href="#org2cbf276">Configuración básica de Git</a></li>
-<li><a href="#orgd3ce31d">Actualización de Git</a></li>
-<li><a href="#orgc1587b9">Configurar Llave SSH con GitHub</a>
+<li><a href="#org1a64e55">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</a></li>
+<li><a href="#org237ad49">Configuración básica de Git</a></li>
+<li><a href="#org1031b29">Actualización de Git</a></li>
+<li><a href="#org942b73f">Configurar Llave SSH con GitHub</a>
 <ul>
-<li><a href="#org1e7f7a2">1. Verificar si ya tienes una llave SSH</a></li>
-<li><a href="#org0dda431">2. Generar una nueva llave SSH</a></li>
-<li><a href="#org4ca612c">3. Añadir la llave SSH al agente SSH</a></li>
-<li><a href="#orgec64be3">4. Copiar la llave SSH pública</a></li>
-<li><a href="#orgf11373b">5. Añadir la llave SSH a GitHub</a></li>
-<li><a href="#org78c97ab">6. Probar la conexión SSH con GitHub</a></li>
-<li><a href="#org0f6df6d">7. Usar la conexión SSH en repositorios de GitHub</a></li>
+<li><a href="#orgba4dc0f">1. Verificar si ya tienes una llave SSH</a></li>
+<li><a href="#orgda7a878">2. Generar una nueva llave SSH</a></li>
+<li><a href="#org884bcb1">3. Añadir la llave SSH al agente SSH</a></li>
+<li><a href="#org1c9f53a">4. Copiar la llave SSH pública</a></li>
+<li><a href="#orgbaeccbe">5. Añadir la llave SSH a GitHub</a></li>
+<li><a href="#org08fa262">6. Probar la conexión SSH con GitHub</a></li>
+<li><a href="#orgb7fba89">7. Usar la conexión SSH en repositorios de GitHub</a></li>
 </ul>
 </li>
-<li><a href="#orgc635bd2">Configurar Llave SSH con GitHub en Windows</a>
+<li><a href="#org3f39cb9">Configurar Llave SSH con GitHub en Windows</a>
 <ul>
-<li><a href="#orgf234c42">1. Abrir Git Bash</a></li>
-<li><a href="#orgd6f2395">2. Verificar si ya tienes una llave SSH</a></li>
-<li><a href="#org49320f3">3. Generar una nueva llave SSH</a></li>
-<li><a href="#orge8b01bd">4. Añadir la llave SSH al agente SSH</a></li>
-<li><a href="#org71aadae">5. Copiar la llave SSH pública</a></li>
-<li><a href="#orga21d6f7">6. Añadir la llave SSH a GitHub</a></li>
-<li><a href="#org8c94b8d">7. Probar la conexión SSH con GitHub</a></li>
-<li><a href="#orge547803">8. Usar la conexión SSH en repositorios de GitHub</a></li>
+<li><a href="#org4524441">1. Abrir Git Bash</a></li>
+<li><a href="#org90c117c">2. Verificar si ya tienes una llave SSH</a></li>
+<li><a href="#org32f7058">3. Generar una nueva llave SSH</a></li>
+<li><a href="#org231fc9d">4. Añadir la llave SSH al agente SSH</a></li>
+<li><a href="#orgb95bd41">5. Copiar la llave SSH pública</a></li>
+<li><a href="#org53b8e71">6. Añadir la llave SSH a GitHub</a></li>
+<li><a href="#org003ae80">7. Probar la conexión SSH con GitHub</a></li>
+<li><a href="#org773e403">8. Usar la conexión SSH en repositorios de GitHub</a></li>
 </ul>
 </li>
-<li><a href="#orge875125">Manual de Git en Windows</a>
+<li><a href="#orgd24c045">Manual de Git en Windows</a>
 <ul>
-<li><a href="#org3a57f4d">1. Instalar Git en Windows</a></li>
-<li><a href="#orged8b59a">2. Configurar Git</a></li>
-<li><a href="#org24a08d1">3. Clonar un repositorio</a></li>
-<li><a href="#orgca628ec">4. Comandos básicos de Git</a></li>
-<li><a href="#org7742e78">5. Actualizar el repositorio local</a></li>
-<li><a href="#orgafa887a">6. Crear y cambiar de ramas (branches)</a></li>
-<li><a href="#org5f69040">7. Ver historial de commits</a></li>
-<li><a href="#org3e55e85">8. Configurar una llave SSH</a></li>
+<li><a href="#org8a9a22f">1. Instalar Git en Windows</a></li>
+<li><a href="#orgdae4ef9">2. Configurar Git</a></li>
+<li><a href="#orgdc1fa1d">3. Clonar un repositorio</a></li>
+<li><a href="#org12672e1">4. Comandos básicos de Git</a></li>
+<li><a href="#orge5a4bac">5. Actualizar el repositorio local</a></li>
+<li><a href="#org0358215">6. Crear y cambiar de ramas (branches)</a></li>
+<li><a href="#orgad4c73a">7. Ver historial de commits</a></li>
+<li><a href="#org2e6cc9e">8. Configurar una llave SSH</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org10af18b">Manual de Instalación de Python en Windows</a>
+<li><a href="#orgf511ac9">Manual de Instalación de Python en Windows</a>
 <ul>
-<li><a href="#org749bae4">Paso 1: Descarga de Python</a></li>
-<li><a href="#org7dd3b4b">Paso 2: Ejecutar el instalador</a></li>
-<li><a href="#orgcf8bec2">Paso 3: Verificación de la instalación</a></li>
-<li><a href="#org7c6ecd3">Paso 4: Instalar pip y otros paquetes</a></li>
-<li><a href="#org6904356">Paso 5: Configuración del entorno de desarrollo</a></li>
-<li><a href="#orga41b18e">Paso 6: Actualización de Python (opcional)</a></li>
+<li><a href="#org1f7dfe6">Paso 1: Descarga de Python</a></li>
+<li><a href="#orgc195956">Paso 2: Ejecutar el instalador</a></li>
+<li><a href="#orgf4928c0">Paso 3: Verificación de la instalación</a></li>
+<li><a href="#orgd726902">Paso 4: Instalar pip y otros paquetes</a></li>
+<li><a href="#orgc9b0965">Paso 5: Configuración del entorno de desarrollo</a></li>
+<li><a href="#org3bee7e4">Paso 6: Actualización de Python (opcional)</a></li>
 </ul>
 </li>
-<li><a href="#org0dec484">Graficación por Computadora</a>
+<li><a href="#org28fc6ee">Unidad 1</a>
 <ul>
-<li><a href="#org2afc020">Objetivos de la Graficación por Computadora</a></li>
-<li><a href="#org7405a67">Áreas de estudio en Graficación por Computadora</a></li>
-<li><a href="#org4554723">Aplicaciones de la Graficación por Computadora</a></li>
-<li><a href="#org5248c6d">Temas principales en Graficación por Computadora</a></li>
+<li><a href="#orgabcacaf">Graficación por Computadora</a>
+<ul>
+<li><a href="#orgee7623b">Objetivos de la Graficación por Computadora</a></li>
+<li><a href="#org8ae40f8">Áreas de estudio en Graficación por Computadora</a></li>
+<li><a href="#org90436c3">Aplicaciones de la Graficación por Computadora</a></li>
+<li><a href="#org8cbbc9f">Temas principales en Graficación por Computadora</a></li>
 </ul>
 </li>
-<li><a href="#orgb355303">El modelo de color RGB</a>
+<li><a href="#org255a53c">El modelo de color RGB</a>
 <ul>
-<li><a href="#org5aa26be">Funcionamiento en dispositivos electrónicos</a></li>
-<li><a href="#org85f29a5">Matemáticas del modelo RGB</a></li>
+<li><a href="#orgd26bcc0">Funcionamiento en dispositivos electrónicos</a></li>
+<li><a href="#org4ba9b1a">Matemáticas del modelo RGB</a></li>
 </ul>
 </li>
-<li><a href="#org7b93187">Programación</a>
+<li><a href="#org0038b4f">Operadores Puntuales</a>
 <ul>
-<li><a href="#orge340e5a">Creación de una Imagen</a></li>
-<li><a href="#orgbc53dae">Cargar Imagen</a></li>
-<li><a href="#org260b1d1">Split y Merge Imagen</a></li>
+<li><a href="#orged5fb94">Definición</a></li>
+<li><a href="#orga271bd7">Características</a></li>
+<li><a href="#org3649acd">Tipos de Operadores Puntuales</a></li>
+<li><a href="#orga56b689">Aplicaciones de Operadores Puntuales</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org0a97c43">Programación</a>
+<ul>
+<li><a href="#org643bcbe">Programas Unidad 1</a>
+<ul>
+<li><a href="#orge44ad15">Creación de una Imagen</a></li>
+<li><a href="#orge3fd598">Cargar Imagen</a></li>
+<li><a href="#org9dd854b">Split y Merge Imagen</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -315,13 +331,13 @@
 </div>
 
 
-<div id="outline-container-orgab36daf" class="outline-2">
-<h2 id="orgab36daf">Manual de Instalación de Git</h2>
-<div class="outline-text-2" id="text-orgab36daf">
+<div id="outline-container-org91c2677" class="outline-2">
+<h2 id="org91c2677">Manual de Instalación de Git</h2>
+<div class="outline-text-2" id="text-org91c2677">
 </div>
-<div id="outline-container-org74ea795" class="outline-3">
-<h3 id="org74ea795">Instalación en Windows</h3>
-<div class="outline-text-3" id="text-org74ea795">
+<div id="outline-container-org459f53b" class="outline-3">
+<h3 id="org459f53b">Instalación en Windows</h3>
+<div class="outline-text-3" id="text-org459f53b">
 <ul class="org-ul">
 <li>Descarga el instalador desde [<a href="https://git-scm.com/">https://git-scm.com/</a>].</li>
 </ul>
@@ -351,13 +367,13 @@
 </div>
 </div>
 
-<div id="outline-container-org3629bca" class="outline-3">
-<h3 id="org3629bca">Instalación en macOS</h3>
-<div class="outline-text-3" id="text-org3629bca">
+<div id="outline-container-org3056f4f" class="outline-3">
+<h3 id="org3056f4f">Instalación en macOS</h3>
+<div class="outline-text-3" id="text-org3056f4f">
 </div>
-<div id="outline-container-org851ea19" class="outline-4">
-<h4 id="org851ea19">Método recomendado: usando Homebrew</h4>
-<div class="outline-text-4" id="text-org851ea19">
+<div id="outline-container-org0b47319" class="outline-4">
+<h4 id="org0b47319">Método recomendado: usando Homebrew</h4>
+<div class="outline-text-4" id="text-org0b47319">
 <ul class="org-ul">
 <li>Si tienes Homebrew instalado, abre la terminal y ejecuta:</li>
 </ul>
@@ -368,9 +384,9 @@
 </div>
 </div>
 
-<div id="outline-container-org413d7e1" class="outline-4">
-<h4 id="org413d7e1">Método alternativo: paquete descargado</h4>
-<div class="outline-text-4" id="text-org413d7e1">
+<div id="outline-container-orga5555e2" class="outline-4">
+<h4 id="orga5555e2">Método alternativo: paquete descargado</h4>
+<div class="outline-text-4" id="text-orga5555e2">
 <ul class="org-ul">
 <li>Descarga el instalador desde [<a href="https://git-scm.com/">https://git-scm.com/</a>].</li>
 <li>Ejecuta el paquete descargado (.dmg).</li>
@@ -388,9 +404,9 @@ Verifica la instalación abriendo la terminal y ejecutando:
 </div>
 </div>
 
-<div id="outline-container-org6c1ed7b" class="outline-3">
-<h3 id="org6c1ed7b">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</h3>
-<div class="outline-text-3" id="text-org6c1ed7b">
+<div id="outline-container-org1a64e55" class="outline-3">
+<h3 id="org1a64e55">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</h3>
+<div class="outline-text-3" id="text-org1a64e55">
 <ul class="org-ul">
 <li><p>
 Abre la terminal y ejecuta:
@@ -412,9 +428,9 @@ Verifica la instalación ejecutando:
 </div>
 </div>
 
-<div id="outline-container-org2cbf276" class="outline-3">
-<h3 id="org2cbf276">Configuración básica de Git</h3>
-<div class="outline-text-3" id="text-org2cbf276">
+<div id="outline-container-org237ad49" class="outline-3">
+<h3 id="org237ad49">Configuración básica de Git</h3>
+<div class="outline-text-3" id="text-org237ad49">
 <ul class="org-ul">
 <li><p>
 Configura tu nombre de usuario:
@@ -443,9 +459,9 @@ Verifica la configuración:
 </div>
 </div>
 
-<div id="outline-container-orgd3ce31d" class="outline-3">
-<h3 id="orgd3ce31d">Actualización de Git</h3>
-<div class="outline-text-3" id="text-orgd3ce31d">
+<div id="outline-container-org1031b29" class="outline-3">
+<h3 id="org1031b29">Actualización de Git</h3>
+<div class="outline-text-3" id="text-org1031b29">
 <ul class="org-ul">
 <li><b>Windows</b>: Ejecuta el instalador más reciente desde el sitio oficial.</li>
 <li><p>
@@ -468,13 +484,13 @@ Verifica la configuración:
 
 
 
-<div id="outline-container-orgc1587b9" class="outline-3">
-<h3 id="orgc1587b9">Configurar Llave SSH con GitHub</h3>
-<div class="outline-text-3" id="text-orgc1587b9">
+<div id="outline-container-org942b73f" class="outline-3">
+<h3 id="org942b73f">Configurar Llave SSH con GitHub</h3>
+<div class="outline-text-3" id="text-org942b73f">
 </div>
-<div id="outline-container-org1e7f7a2" class="outline-4">
-<h4 id="org1e7f7a2">1. Verificar si ya tienes una llave SSH</h4>
-<div class="outline-text-4" id="text-org1e7f7a2">
+<div id="outline-container-orgba4dc0f" class="outline-4">
+<h4 id="orgba4dc0f">1. Verificar si ya tienes una llave SSH</h4>
+<div class="outline-text-4" id="text-orgba4dc0f">
 <ul class="org-ul">
 <li><p>
 Abre la terminal y ejecuta el siguiente comando para verificar si ya tienes llaves SSH generadas:
@@ -489,9 +505,9 @@ Abre la terminal y ejecuta el siguiente comando para verificar si ya tienes llav
 </div>
 </div>
 
-<div id="outline-container-org0dda431" class="outline-4">
-<h4 id="org0dda431">2. Generar una nueva llave SSH</h4>
-<div class="outline-text-4" id="text-org0dda431">
+<div id="outline-container-orgda7a878" class="outline-4">
+<h4 id="orgda7a878">2. Generar una nueva llave SSH</h4>
+<div class="outline-text-4" id="text-orgda7a878">
 <ul class="org-ul">
 <li><p>
 Si no tienes una llave SSH, genera una nueva con el siguiente comando (puedes cambiar `ed25519` por `rsa` si lo prefieres):
@@ -507,9 +523,9 @@ Si no tienes una llave SSH, genera una nueva con el siguiente comando (puedes ca
 </div>
 </div>
 
-<div id="outline-container-org4ca612c" class="outline-4">
-<h4 id="org4ca612c">3. Añadir la llave SSH al agente SSH</h4>
-<div class="outline-text-4" id="text-org4ca612c">
+<div id="outline-container-org884bcb1" class="outline-4">
+<h4 id="org884bcb1">3. Añadir la llave SSH al agente SSH</h4>
+<div class="outline-text-4" id="text-org884bcb1">
 <ul class="org-ul">
 <li><p>
 Para añadir tu nueva llave SSH al agente, asegúrate de que esté en ejecución:
@@ -530,9 +546,9 @@ Añade la llave SSH al agente:
 </div>
 </div>
 
-<div id="outline-container-orgec64be3" class="outline-4">
-<h4 id="orgec64be3">4. Copiar la llave SSH pública</h4>
-<div class="outline-text-4" id="text-orgec64be3">
+<div id="outline-container-org1c9f53a" class="outline-4">
+<h4 id="org1c9f53a">4. Copiar la llave SSH pública</h4>
+<div class="outline-text-4" id="text-org1c9f53a">
 <ul class="org-ul">
 <li><p>
 Copia el contenido de tu llave pública para añadirla a GitHub:
@@ -547,9 +563,9 @@ Copia el contenido de tu llave pública para añadirla a GitHub:
 </div>
 </div>
 
-<div id="outline-container-orgf11373b" class="outline-4">
-<h4 id="orgf11373b">5. Añadir la llave SSH a GitHub</h4>
-<div class="outline-text-4" id="text-orgf11373b">
+<div id="outline-container-orgbaeccbe" class="outline-4">
+<h4 id="orgbaeccbe">5. Añadir la llave SSH a GitHub</h4>
+<div class="outline-text-4" id="text-orgbaeccbe">
 <ul class="org-ul">
 <li>Inicia sesión en tu cuenta de GitHub.</li>
 <li>Ve a la sección de <b>Settings</b> (Configuración).</li>
@@ -561,9 +577,9 @@ Copia el contenido de tu llave pública para añadirla a GitHub:
 </div>
 </div>
 
-<div id="outline-container-org78c97ab" class="outline-4">
-<h4 id="org78c97ab">6. Probar la conexión SSH con GitHub</h4>
-<div class="outline-text-4" id="text-org78c97ab">
+<div id="outline-container-org08fa262" class="outline-4">
+<h4 id="org08fa262">6. Probar la conexión SSH con GitHub</h4>
+<div class="outline-text-4" id="text-org08fa262">
 <ul class="org-ul">
 <li><p>
 Para verificar que todo está configurado correctamente, ejecuta el siguiente comando:
@@ -586,9 +602,9 @@ Hi username! You've successfully authenticated, but GitHub does not provide shel
 </div>
 </div>
 
-<div id="outline-container-org0f6df6d" class="outline-4">
-<h4 id="org0f6df6d">7. Usar la conexión SSH en repositorios de GitHub</h4>
-<div class="outline-text-4" id="text-org0f6df6d">
+<div id="outline-container-orgb7fba89" class="outline-4">
+<h4 id="orgb7fba89">7. Usar la conexión SSH en repositorios de GitHub</h4>
+<div class="outline-text-4" id="text-orgb7fba89">
 <ul class="org-ul">
 <li><p>
 Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
@@ -604,9 +620,9 @@ Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
 
 
 
-<div id="outline-container-orgc635bd2" class="outline-3">
-<h3 id="orgc635bd2">Configurar Llave SSH con GitHub en Windows</h3>
-<div class="outline-text-3" id="text-orgc635bd2">
+<div id="outline-container-org3f39cb9" class="outline-3">
+<h3 id="org3f39cb9">Configurar Llave SSH con GitHub en Windows</h3>
+<div class="outline-text-3" id="text-org3f39cb9">
 <ol class="org-ol">
 <li>Git Bash: En Windows, utilizas Git Bash como terminal para ejecutar los comandos, en lugar de la terminal estándar de Linux o macOS.</li>
 
@@ -616,18 +632,18 @@ Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
 
 
 
-<div id="outline-container-orgf234c42" class="outline-4">
-<h4 id="orgf234c42">1. Abrir Git Bash</h4>
-<div class="outline-text-4" id="text-orgf234c42">
+<div id="outline-container-org4524441" class="outline-4">
+<h4 id="org4524441">1. Abrir Git Bash</h4>
+<div class="outline-text-4" id="text-org4524441">
 <ul class="org-ul">
 <li>Abre <b><b>Git Bash</b></b> (es la terminal que se instala junto con Git en Windows).</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgd6f2395" class="outline-4">
-<h4 id="orgd6f2395">2. Verificar si ya tienes una llave SSH</h4>
-<div class="outline-text-4" id="text-orgd6f2395">
+<div id="outline-container-org90c117c" class="outline-4">
+<h4 id="org90c117c">2. Verificar si ya tienes una llave SSH</h4>
+<div class="outline-text-4" id="text-org90c117c">
 <ul class="org-ul">
 <li><p>
 En la terminal de Git Bash, ejecuta el siguiente comando para ver si ya tienes llaves SSH generadas:
@@ -642,9 +658,9 @@ En la terminal de Git Bash, ejecuta el siguiente comando para ver si ya tienes l
 </div>
 </div>
 
-<div id="outline-container-org49320f3" class="outline-4">
-<h4 id="org49320f3">3. Generar una nueva llave SSH</h4>
-<div class="outline-text-4" id="text-org49320f3">
+<div id="outline-container-org32f7058" class="outline-4">
+<h4 id="org32f7058">3. Generar una nueva llave SSH</h4>
+<div class="outline-text-4" id="text-org32f7058">
 <ul class="org-ul">
 <li><p>
 Si no tienes una llave SSH, genera una nueva con el siguiente comando:
@@ -660,9 +676,9 @@ Si no tienes una llave SSH, genera una nueva con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-orge8b01bd" class="outline-4">
-<h4 id="orge8b01bd">4. Añadir la llave SSH al agente SSH</h4>
-<div class="outline-text-4" id="text-orge8b01bd">
+<div id="outline-container-org231fc9d" class="outline-4">
+<h4 id="org231fc9d">4. Añadir la llave SSH al agente SSH</h4>
+<div class="outline-text-4" id="text-org231fc9d">
 <ul class="org-ul">
 <li><p>
 Asegúrate de que el agente SSH esté en ejecución. En Git Bash, ejecuta:
@@ -683,9 +699,9 @@ Añade tu nueva llave SSH al agente:
 </div>
 </div>
 
-<div id="outline-container-org71aadae" class="outline-4">
-<h4 id="org71aadae">5. Copiar la llave SSH pública</h4>
-<div class="outline-text-4" id="text-org71aadae">
+<div id="outline-container-orgb95bd41" class="outline-4">
+<h4 id="orgb95bd41">5. Copiar la llave SSH pública</h4>
+<div class="outline-text-4" id="text-orgb95bd41">
 <ul class="org-ul">
 <li><p>
 Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta el siguiente comando en Git Bash:
@@ -700,9 +716,9 @@ Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta 
 </div>
 </div>
 
-<div id="outline-container-orga21d6f7" class="outline-4">
-<h4 id="orga21d6f7">6. Añadir la llave SSH a GitHub</h4>
-<div class="outline-text-4" id="text-orga21d6f7">
+<div id="outline-container-org53b8e71" class="outline-4">
+<h4 id="org53b8e71">6. Añadir la llave SSH a GitHub</h4>
+<div class="outline-text-4" id="text-org53b8e71">
 <ul class="org-ul">
 <li>Abre tu navegador web e inicia sesión en GitHub.</li>
 <li>Ve a la sección de <b>Settings</b> (Configuración).</li>
@@ -714,9 +730,9 @@ Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta 
 </div>
 </div>
 
-<div id="outline-container-org8c94b8d" class="outline-4">
-<h4 id="org8c94b8d">7. Probar la conexión SSH con GitHub</h4>
-<div class="outline-text-4" id="text-org8c94b8d">
+<div id="outline-container-org003ae80" class="outline-4">
+<h4 id="org003ae80">7. Probar la conexión SSH con GitHub</h4>
+<div class="outline-text-4" id="text-org003ae80">
 <ul class="org-ul">
 <li><p>
 Para asegurarte de que todo está correctamente configurado, prueba la conexión con GitHub desde Git Bash:
@@ -739,9 +755,9 @@ Hi username! You've successfully authenticated, but GitHub does not provide shel
 </div>
 </div>
 
-<div id="outline-container-orge547803" class="outline-4">
-<h4 id="orge547803">8. Usar la conexión SSH en repositorios de GitHub</h4>
-<div class="outline-text-4" id="text-orge547803">
+<div id="outline-container-org773e403" class="outline-4">
+<h4 id="org773e403">8. Usar la conexión SSH en repositorios de GitHub</h4>
+<div class="outline-text-4" id="text-org773e403">
 <ul class="org-ul">
 <li><p>
 Para clonar un repositorio usando la URL SSH, ejecuta:
@@ -758,13 +774,13 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 
 
 
-<div id="outline-container-orge875125" class="outline-3">
-<h3 id="orge875125">Manual de Git en Windows</h3>
-<div class="outline-text-3" id="text-orge875125">
+<div id="outline-container-orgd24c045" class="outline-3">
+<h3 id="orgd24c045">Manual de Git en Windows</h3>
+<div class="outline-text-3" id="text-orgd24c045">
 </div>
-<div id="outline-container-org3a57f4d" class="outline-4">
-<h4 id="org3a57f4d">1. Instalar Git en Windows</h4>
-<div class="outline-text-4" id="text-org3a57f4d">
+<div id="outline-container-org8a9a22f" class="outline-4">
+<h4 id="org8a9a22f">1. Instalar Git en Windows</h4>
+<div class="outline-text-4" id="text-org8a9a22f">
 <ul class="org-ul">
 <li>Visita [<a href="https://git-scm.com/">https://git-scm.com/</a>](<a href="https://git-scm.com/">https://git-scm.com/</a>) y descarga el instalador de Git para Windows.</li>
 <li>Ejecuta el archivo descargado (.exe).</li>
@@ -774,9 +790,9 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 </div>
 </div>
 
-<div id="outline-container-orged8b59a" class="outline-4">
-<h4 id="orged8b59a">2. Configurar Git</h4>
-<div class="outline-text-4" id="text-orged8b59a">
+<div id="outline-container-orgdae4ef9" class="outline-4">
+<h4 id="orgdae4ef9">2. Configurar Git</h4>
+<div class="outline-text-4" id="text-orgdae4ef9">
 <ul class="org-ul">
 <li>Abre <b>Git Bash</b> y ejecuta los siguientes comandos para configurar tu identidad:</li>
 </ul>
@@ -798,9 +814,9 @@ git config --global user.email <span style="color: #c3e88d;">"tuemail@ejemplo.co
 </div>
 </div>
 
-<div id="outline-container-org24a08d1" class="outline-4">
-<h4 id="org24a08d1">3. Clonar un repositorio</h4>
-<div class="outline-text-4" id="text-org24a08d1">
+<div id="outline-container-orgdc1fa1d" class="outline-4">
+<h4 id="orgdc1fa1d">3. Clonar un repositorio</h4>
+<div class="outline-text-4" id="text-orgdc1fa1d">
 <ul class="org-ul">
 <li>Para clonar un repositorio desde GitHub, usa el siguiente comando:</li>
 </ul>
@@ -816,9 +832,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-orgca628ec" class="outline-4">
-<h4 id="orgca628ec">4. Comandos básicos de Git</h4>
-<div class="outline-text-4" id="text-orgca628ec">
+<div id="outline-container-org12672e1" class="outline-4">
+<h4 id="org12672e1">4. Comandos básicos de Git</h4>
+<div class="outline-text-4" id="text-org12672e1">
 <ul class="org-ul">
 <li><b>Verificar el estado del repositorio</b>:</li>
 </ul>
@@ -866,9 +882,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org7742e78" class="outline-4">
-<h4 id="org7742e78">5. Actualizar el repositorio local</h4>
-<div class="outline-text-4" id="text-org7742e78">
+<div id="outline-container-orge5a4bac" class="outline-4">
+<h4 id="orge5a4bac">5. Actualizar el repositorio local</h4>
+<div class="outline-text-4" id="text-orge5a4bac">
 <ul class="org-ul">
 <li>Para obtener los últimos cambios del repositorio remoto:</li>
 </ul>
@@ -880,9 +896,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-orgafa887a" class="outline-4">
-<h4 id="orgafa887a">6. Crear y cambiar de ramas (branches)</h4>
-<div class="outline-text-4" id="text-orgafa887a">
+<div id="outline-container-org0358215" class="outline-4">
+<h4 id="org0358215">6. Crear y cambiar de ramas (branches)</h4>
+<div class="outline-text-4" id="text-org0358215">
 <ul class="org-ul">
 <li><b>Crear una nueva rama</b>:</li>
 </ul>
@@ -912,9 +928,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org5f69040" class="outline-4">
-<h4 id="org5f69040">7. Ver historial de commits</h4>
-<div class="outline-text-4" id="text-org5f69040">
+<div id="outline-container-orgad4c73a" class="outline-4">
+<h4 id="orgad4c73a">7. Ver historial de commits</h4>
+<div class="outline-text-4" id="text-orgad4c73a">
 <ul class="org-ul">
 <li>Para ver el historial de cambios del repositorio:</li>
 </ul>
@@ -935,9 +951,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org3e55e85" class="outline-4">
-<h4 id="org3e55e85">8. Configurar una llave SSH</h4>
-<div class="outline-text-4" id="text-org3e55e85">
+<div id="outline-container-org2e6cc9e" class="outline-4">
+<h4 id="org2e6cc9e">8. Configurar una llave SSH</h4>
+<div class="outline-text-4" id="text-org2e6cc9e">
 <ul class="org-ul">
 <li><b>Generar una llave SSH</b>:</li>
 </ul>
@@ -975,13 +991,13 @@ ssh-add ~/.ssh/id_ed25519
 </div>
 
 
-<div id="outline-container-org10af18b" class="outline-2">
-<h2 id="org10af18b">Manual de Instalación de Python en Windows</h2>
-<div class="outline-text-2" id="text-org10af18b">
+<div id="outline-container-orgf511ac9" class="outline-2">
+<h2 id="orgf511ac9">Manual de Instalación de Python en Windows</h2>
+<div class="outline-text-2" id="text-orgf511ac9">
 </div>
-<div id="outline-container-org749bae4" class="outline-3">
-<h3 id="org749bae4">Paso 1: Descarga de Python</h3>
-<div class="outline-text-3" id="text-org749bae4">
+<div id="outline-container-org1f7dfe6" class="outline-3">
+<h3 id="org1f7dfe6">Paso 1: Descarga de Python</h3>
+<div class="outline-text-3" id="text-org1f7dfe6">
 <ol class="org-ol">
 <li>Abre el navegador web y visita el sitio: <a href="https://www.python.org">https://www.python.org</a>.</li>
 <li>Ve a la pestaña "Downloads" y selecciona la versión más reciente para Windows.</li>
@@ -990,9 +1006,9 @@ ssh-add ~/.ssh/id_ed25519
 </div>
 </div>
 
-<div id="outline-container-org7dd3b4b" class="outline-3">
-<h3 id="org7dd3b4b">Paso 2: Ejecutar el instalador</h3>
-<div class="outline-text-3" id="text-org7dd3b4b">
+<div id="outline-container-orgc195956" class="outline-3">
+<h3 id="orgc195956">Paso 2: Ejecutar el instalador</h3>
+<div class="outline-text-3" id="text-orgc195956">
 <ol class="org-ol">
 <li>Ejecuta el archivo descargado (.exe).</li>
 <li>Asegúrate de marcar la opción <code>Add Python to PATH</code> antes de proceder con la instalación.</li>
@@ -1002,9 +1018,9 @@ ssh-add ~/.ssh/id_ed25519
 </div>
 </div>
 
-<div id="outline-container-orgcf8bec2" class="outline-3">
-<h3 id="orgcf8bec2">Paso 3: Verificación de la instalación</h3>
-<div class="outline-text-3" id="text-orgcf8bec2">
+<div id="outline-container-orgf4928c0" class="outline-3">
+<h3 id="orgf4928c0">Paso 3: Verificación de la instalación</h3>
+<div class="outline-text-3" id="text-orgf4928c0">
 <ol class="org-ol">
 <li>Abre la línea de comandos (cmd) escribiendo "cmd" en el menú de inicio.</li>
 <li><p>
@@ -1029,9 +1045,9 @@ Si todo está bien, verás el prompt interactivo de Python (tres símbolos <code
 </div>
 </div>
 
-<div id="outline-container-org7c6ecd3" class="outline-3">
-<h3 id="org7c6ecd3">Paso 4: Instalar pip y otros paquetes</h3>
-<div class="outline-text-3" id="text-org7c6ecd3">
+<div id="outline-container-orgd726902" class="outline-3">
+<h3 id="orgd726902">Paso 4: Instalar pip y otros paquetes</h3>
+<div class="outline-text-3" id="text-orgd726902">
 <ol class="org-ol">
 <li><p>
 Verifica si pip está instalado escribiendo en la línea de comandos:
@@ -1051,9 +1067,9 @@ Si necesitas instalar paquetes, usa pip con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-org6904356" class="outline-3">
-<h3 id="org6904356">Paso 5: Configuración del entorno de desarrollo</h3>
-<div class="outline-text-3" id="text-org6904356">
+<div id="outline-container-orgc9b0965" class="outline-3">
+<h3 id="orgc9b0965">Paso 5: Configuración del entorno de desarrollo</h3>
+<div class="outline-text-3" id="text-orgc9b0965">
 <ol class="org-ol">
 <li>Instala un editor de código como:
 <ul class="org-ul">
@@ -1065,9 +1081,9 @@ Si necesitas instalar paquetes, usa pip con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-orga41b18e" class="outline-3">
-<h3 id="orga41b18e">Paso 6: Actualización de Python (opcional)</h3>
-<div class="outline-text-3" id="text-orga41b18e">
+<div id="outline-container-org3bee7e4" class="outline-3">
+<h3 id="org3bee7e4">Paso 6: Actualización de Python (opcional)</h3>
+<div class="outline-text-3" id="text-org3bee7e4">
 <ul class="org-ul">
 <li>Para actualizar Python a una nueva versión en el futuro, descarga la última versión desde <a href="https://www.python.org/downloads/">python.org</a> y sigue los pasos de instalación.</li>
 </ul>
@@ -1076,9 +1092,13 @@ Si necesitas instalar paquetes, usa pip con el siguiente comando:
 </div>
 
 
-<div id="outline-container-org0dec484" class="outline-2">
-<h2 id="org0dec484">Graficación por Computadora</h2>
-<div class="outline-text-2" id="text-org0dec484">
+<div id="outline-container-org28fc6ee" class="outline-2">
+<h2 id="org28fc6ee">Unidad 1</h2>
+<div class="outline-text-2" id="text-org28fc6ee">
+</div>
+<div id="outline-container-orgabcacaf" class="outline-3">
+<h3 id="orgabcacaf">Graficación por Computadora</h3>
+<div class="outline-text-3" id="text-orgabcacaf">
 <p>
 La  Graficación por Computadora (o simplemente Graficación)
 se enfoca en el estudio y aplicación de técnicas, algoritmos y
@@ -1090,9 +1110,9 @@ los aspectos clave de esta disciplina:
 </p>
 </div>
 
-<div id="outline-container-org2afc020" class="outline-3">
-<h3 id="org2afc020">Objetivos de la Graficación por Computadora</h3>
-<div class="outline-text-3" id="text-org2afc020">
+<div id="outline-container-orgee7623b" class="outline-4">
+<h4 id="orgee7623b">Objetivos de la Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-orgee7623b">
 <ol class="org-ol">
 <li><b>Generación de imágenes</b>: Crear imágenes digitales a partir de descripciones matemáticas y geométricas de objetos, en 2D y 3D.</li>
 <li><b>Modelado de objetos</b>: Crear representaciones matemáticas de objetos y escenas usando técnicas como polígonos, mallas y curvas.</li>
@@ -1106,9 +1126,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-org7405a67" class="outline-3">
-<h3 id="org7405a67">Áreas de estudio en Graficación por Computadora</h3>
-<div class="outline-text-3" id="text-org7405a67">
+<div id="outline-container-org8ae40f8" class="outline-4">
+<h4 id="org8ae40f8">Áreas de estudio en Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-org8ae40f8">
 <ol class="org-ol">
 <li><b>Matemáticas</b>: Uso de geometría y álgebra lineal para realizar transformaciones geométricas y modelar objetos.</li>
 <li><b>Programación</b>: Conocimiento de lenguajes como C++, Python, GLSL y HLSL para implementar algoritmos gráficos.</li>
@@ -1119,9 +1139,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-org4554723" class="outline-3">
-<h3 id="org4554723">Aplicaciones de la Graficación por Computadora</h3>
-<div class="outline-text-3" id="text-org4554723">
+<div id="outline-container-org90436c3" class="outline-4">
+<h4 id="org90436c3">Aplicaciones de la Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-org90436c3">
 <ul class="org-ul">
 <li><b>Videojuegos</b>: Creación de ambientes, personajes y efectos visuales.</li>
 <li><b>Cine y efectos visuales</b>: Creación de efectos especiales y animación por computadora.</li>
@@ -1132,9 +1152,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-org5248c6d" class="outline-3">
-<h3 id="org5248c6d">Temas principales en Graficación por Computadora</h3>
-<div class="outline-text-3" id="text-org5248c6d">
+<div id="outline-container-org8cbbc9f" class="outline-4">
+<h4 id="org8cbbc9f">Temas principales en Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-org8cbbc9f">
 <ul class="org-ul">
 <li><b>Modelado 2D y 3D</b></li>
 <li><b>Algoritmos de rasterización</b></li>
@@ -1150,11 +1170,15 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-orgb355303" class="outline-2">
-<h2 id="orgb355303">El modelo de color RGB</h2>
-<div class="outline-text-2" id="text-orgb355303">
+<div id="outline-container-org255a53c" class="outline-3">
+<h3 id="org255a53c">El modelo de color RGB</h3>
+<div class="outline-text-3" id="text-org255a53c">
 <p>
-El <b>modelo de color RGB</b> es un sistema aditivo de representación de colores basado en la combinación de tres colores primarios: <b>Rojo (Red)</b>, <b>Verde (Green)</b> y <b>Azul (Blue)</b>. Este modelo se usa principalmente en dispositivos que emiten luz, como pantallas de computadoras, televisores, cámaras digitales y escáneres.
+El <b>modelo de color RGB</b> es un sistema aditivo de representación de
+colores basado en la combinación de tres colores primarios: <b>Rojo
+(Red)</b>, <b>Verde (Green)</b> y <b>Azul (Blue)</b>. Este modelo se usa
+principalmente en dispositivos que emiten luz, como pantallas de
+computadoras, televisores, cámaras digitales y escáneres.
 </p>
 
 <p>
@@ -1202,9 +1226,9 @@ Cada canal de color (<b>R</b>, <b>G</b>, <b>B</b>) puede tener un valor entre 0 
 </ul>
 </div>
 
-<div id="outline-container-org5aa26be" class="outline-3">
-<h3 id="org5aa26be">Funcionamiento en dispositivos electrónicos</h3>
-<div class="outline-text-3" id="text-org5aa26be">
+<div id="outline-container-orgd26bcc0" class="outline-4">
+<h4 id="orgd26bcc0">Funcionamiento en dispositivos electrónicos</h4>
+<div class="outline-text-4" id="text-orgd26bcc0">
 <p>
 El modelo RGB es utilizado principalmente en dispositivos electrónicos
 que emiten luz. Cada píxel en una pantalla está compuesto de
@@ -1214,9 +1238,9 @@ de estos subpíxeles, los humanos perciben diferentes colores.
 </div>
 </div>
 
-<div id="outline-container-org85f29a5" class="outline-3">
-<h3 id="org85f29a5">Matemáticas del modelo RGB</h3>
-<div class="outline-text-3" id="text-org85f29a5">
+<div id="outline-container-org4ba9b1a" class="outline-4">
+<h4 id="org4ba9b1a">Matemáticas del modelo RGB</h4>
+<div class="outline-text-4" id="text-org4ba9b1a">
 <ol class="org-ol">
 <li><p>
 Cada color en el modelo RGB puede representarse como un vector de
@@ -1272,14 +1296,162 @@ modelos como CIE Lab.</li>
 </div>
 
 
-
-<div id="outline-container-org7b93187" class="outline-2">
-<h2 id="org7b93187">Programación</h2>
-<div class="outline-text-2" id="text-org7b93187">
+<div id="outline-container-org0038b4f" class="outline-3">
+<h3 id="org0038b4f">Operadores Puntuales</h3>
+<div class="outline-text-3" id="text-org0038b4f">
 </div>
-<div id="outline-container-orge340e5a" class="outline-3">
-<h3 id="orge340e5a">Creación de una Imagen</h3>
-<div class="outline-text-3" id="text-orge340e5a">
+<div id="outline-container-orged5fb94" class="outline-4">
+<h4 id="orged5fb94">Definición</h4>
+<div class="outline-text-4" id="text-orged5fb94">
+<p>
+Los <b>operadores puntuales</b> son una clase de transformaciones aplicadas
+en el procesamiento digital de imágenes que operan sobre cada píxel de
+manera independiente. Esto significa que el valor de salida de un
+píxel depende únicamente del valor de ese mismo píxel en la imagen de
+entrada, sin considerar los valores de los píxeles vecinos.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga271bd7" class="outline-4">
+<h4 id="orga271bd7">Características</h4>
+<div class="outline-text-4" id="text-orga271bd7">
+<ol class="org-ol">
+<li><b>Independencia espacial</b>: Los operadores puntuales solo modifican
+cada píxel basado en su valor original, sin tener en cuenta su
+entorno.</li>
+<li><b>Simplicidad computacional</b>: Dado que no se necesita información de
+los píxeles vecinos, estas operaciones suelen ser más rápidas y
+eficientes.</li>
+<li><b>Aplicación en tiempo real</b>: Su bajo costo computacional los hace
+adecuados para aplicaciones de procesamiento de imágenes en tiempo
+real.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org3649acd" class="outline-4">
+<h4 id="org3649acd">Tipos de Operadores Puntuales</h4>
+<div class="outline-text-4" id="text-org3649acd">
+</div>
+<ul class="org-ul">
+<li><a id="org38563c3"></a>Operador de Identidad<br />
+<div class="outline-text-5" id="text-org38563c3">
+<ul class="org-ul">
+<li>No altera la imagen. Cada píxel de la imagen de salida tiene el
+mismo valor que el píxel correspondiente en la imagen de entrada.</li>
+<li>Fórmula: \( g(x, y) = f(x, y) \), donde \( f(x, y) \) es el valor del píxel original y \( g(x, y) \) es el valor del píxel modificado.</li>
+</ul>
+</div>
+</li>
+
+<li><a id="org86dd7fd"></a>Negativo de la Imagen<br />
+<div class="outline-text-5" id="text-org86dd7fd">
+<ul class="org-ul">
+<li>Este operador invierte los valores de los píxeles de una imagen, produciendo su negativo.</li>
+<li>Fórmula: \( g(x, y) = L - 1 - f(x, y) \), donde \( L \) es el valor máximo posible en la imagen (por ejemplo, 255 en imágenes de 8 bits).</li>
+<li>Uso: Se utiliza en técnicas como la extracción de detalles o cuando es necesario invertir una imagen para un análisis.</li>
+</ul>
+</div>
+</li>
+
+<li><a id="org39f14c5"></a>Umbralización (Thresholding)<br />
+<div class="outline-text-5" id="text-org39f14c5">
+<ul class="org-ul">
+<li>Convierte la imagen a una versión binaria, donde los píxeles con valores por encima de un umbral se establecen en un valor (generalmente blanco), y los que están por debajo se establecen en otro (generalmente negro).</li>
+<li><p>
+Fórmula: 
+</p>
+<div class="org-src-container">
+<pre class="src src-latex">g(x, y) =
+<span style="color: #c099ff;">\begin</span>{<span style="color: #82aaff;">cases</span>} 
+0, &amp; <span style="color: #c099ff;">\text</span>{si } f(x, y) <span style="color: #c099ff;">\leq</span> T <span style="color: #ffc777;">\\</span>
+L, &amp; <span style="color: #c099ff;">\text</span>{si } f(x, y) &gt; T
+<span style="color: #c099ff;">\end</span>{<span style="color: #82aaff;">cases</span>}
+</pre>
+</div></li>
+<li>Uso: Se utiliza para segmentación de imágenes y procesamiento de imágenes en blanco y negro.</li>
+</ul>
+</div>
+</li>
+
+<li><a id="org9b5a75c"></a>Corrección Gamma<br />
+<div class="outline-text-5" id="text-org9b5a75c">
+<ul class="org-ul">
+<li>Ajusta los valores de intensidad de los píxeles para modificar el brillo o contraste de la imagen.</li>
+<li>Fórmula: \( g(x, y) = c \cdot f(x, y)^\gamma \), donde \( c \) es una constante de escala, y \( \gamma \) es el factor de corrección.</li>
+<li>Uso: Corrige la distorsión de brillo en pantallas o para obtener una mejor representación visual.</li>
+</ul>
+</div>
+</li>
+
+<li><a id="org1a99a44"></a>Transformaciones Logarítmicas<br />
+<div class="outline-text-5" id="text-org1a99a44">
+<ul class="org-ul">
+<li>Aumentan los detalles en regiones oscuras de la imagen al expandir los valores de intensidad bajos.</li>
+<li>Fórmula: \( g(x, y) = c \cdot \log(1 + f(x, y)) \), donde \( c \) es una constante.</li>
+<li>Uso: Mejora la visualización de imágenes con una alta gama dinámica (HDR), como imágenes astronómicas.</li>
+</ul>
+</div>
+</li>
+
+<li><a id="org6d15e79"></a>Corrección Lineal o Estiramiento de Contraste<br />
+<div class="outline-text-5" id="text-org6d15e79">
+<ul class="org-ul">
+<li>Expande los valores de intensidad en una imagen para cubrir un rango más amplio, aumentando el contraste.</li>
+<li><p>
+Fórmula:
+</p>
+<div class="org-src-container">
+<pre class="src src-latex">g(x, y) = <span style="color: #c099ff;">\frac</span>{f(x, y) - f_{\min}}{f_{\max} - f_{\min}} <span style="color: #c099ff;">\cdot</span> (L - 1)
+</pre>
+</div></li>
+<li>Uso: Aumenta el contraste en imágenes con poca variación de intensidad.</li>
+</ul>
+</div>
+</li>
+
+<li><a id="org1905282"></a>Transformaciones de Potencia (Raise to Power Transform)<br />
+<div class="outline-text-5" id="text-org1905282">
+<ul class="org-ul">
+<li>Eleva cada valor de píxel a una potencia \( n \), lo que permite ajustar el brillo y contraste de una imagen.</li>
+<li>Fórmula: \( g(x, y) = c \cdot f(x, y)^n \).</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-orga56b689" class="outline-4">
+<h4 id="orga56b689">Aplicaciones de Operadores Puntuales</h4>
+<div class="outline-text-4" id="text-orga56b689">
+<ul class="org-ul">
+<li><b>Corrección de imágenes</b>: Mejoran el brillo, contraste, y otros aspectos visuales de una imagen.</li>
+<li><b>Segmentación</b>: La umbralización es comúnmente usada para separar objetos de fondo en una imagen.</li>
+<li><b>Análisis médico</b>: Se utiliza para mejorar la visualización de imágenes de rayos X, resonancias magnéticas o ultrasonidos.</li>
+<li><b>Procesamiento en tiempo real</b>: Los operadores puntuales son útiles en sistemas que requieren una rápida respuesta, como cámaras de vigilancia o sistemas de visión artificial.</li>
+</ul>
+
+<p>
+En resumen, los <b>operadores puntuales</b> son una herramienta fundamental en el procesamiento de imágenes que permiten realizar transformaciones sencillas pero efectivas, mejorando la calidad visual o preparándolas para análisis posteriores.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org0a97c43" class="outline-2">
+<h2 id="org0a97c43">Programación</h2>
+<div class="outline-text-2" id="text-org0a97c43">
+</div>
+<div id="outline-container-org643bcbe" class="outline-3">
+<h3 id="org643bcbe">Programas Unidad 1</h3>
+<div class="outline-text-3" id="text-org643bcbe">
+</div>
+<div id="outline-container-orge44ad15" class="outline-4">
+<h4 id="orge44ad15">Creación de una Imagen</h4>
+<div class="outline-text-4" id="text-orge44ad15">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa la librer&#237;a NumPy, &#250;til para trabajar con arreglos y operaciones num&#233;ricas.</span>
 <span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv     <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa la librer&#237;a OpenCV, que se utiliza para procesamiento de im&#225;genes.</span>
@@ -1311,9 +1483,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgbc53dae" class="outline-3">
-<h3 id="orgbc53dae">Cargar Imagen</h3>
-<div class="outline-text-3" id="text-orgbc53dae">
+<div id="outline-container-orge3fd598" class="outline-4">
+<h4 id="orge3fd598">Cargar Imagen</h4>
+<div class="outline-text-4" id="text-orge3fd598">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa la librer&#237;a OpenCV, que se usa para el procesamiento de im&#225;genes y videos.</span>
 
@@ -1335,9 +1507,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org260b1d1" class="outline-3">
-<h3 id="org260b1d1">Split y Merge Imagen</h3>
-<div class="outline-text-3" id="text-org260b1d1">
+<div id="outline-container-org9dd854b" class="outline-4">
+<h4 id="org9dd854b">Split y Merge Imagen</h4>
+<div class="outline-text-4" id="text-org9dd854b">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa OpenCV, que es &#250;til para procesamiento de im&#225;genes.</span>
 <span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa NumPy, que es &#250;til para trabajar con matrices y operaciones num&#233;ricas.</span>
@@ -1394,9 +1566,10 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 </div>
+</div>
 <div id="postamble" class="status">
 <p class="author">Autor: likcos</p>
-<p class="date">Created: 2024-09-10 mar 12:18</p>
+<p class="date">Created: 2024-09-10 mar 12:29</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

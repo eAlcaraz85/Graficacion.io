@@ -524,6 +524,80 @@ de estos subpíxeles, los humanos perciben diferentes colores.
 - *RGBA* : Es una extensión del modelo RGB que añade un canal de *Alpha* para representar la transparencia. Esto es útil en diseño gráfico para gestionar la opacidad.
 
 
+** Operadores Puntuales
+
+*** Definición
+Los *operadores puntuales* son una clase de transformaciones aplicadas
+en el procesamiento digital de imágenes que operan sobre cada píxel de
+manera independiente. Esto significa que el valor de salida de un
+píxel depende únicamente del valor de ese mismo píxel en la imagen de
+entrada, sin considerar los valores de los píxeles vecinos.
+
+*** Características
+1. *Independencia espacial*: Los operadores puntuales solo modifican
+   cada píxel basado en su valor original, sin tener en cuenta su
+   entorno.
+2. *Simplicidad computacional*: Dado que no se necesita información de
+   los píxeles vecinos, estas operaciones suelen ser más rápidas y
+   eficientes.
+3. *Aplicación en tiempo real*: Su bajo costo computacional los hace
+   adecuados para aplicaciones de procesamiento de imágenes en tiempo
+   real.
+
+*** Tipos de Operadores Puntuales
+
+**** Operador de Identidad
+   - No altera la imagen. Cada píxel de la imagen de salida tiene el
+     mismo valor que el píxel correspondiente en la imagen de entrada.
+   - Fórmula: \( g(x, y) = f(x, y) \), donde \( f(x, y) \) es el valor del píxel original y \( g(x, y) \) es el valor del píxel modificado.
+
+**** Negativo de la Imagen
+   - Este operador invierte los valores de los píxeles de una imagen, produciendo su negativo.
+   - Fórmula: \( g(x, y) = L - 1 - f(x, y) \), donde \( L \) es el valor máximo posible en la imagen (por ejemplo, 255 en imágenes de 8 bits).
+   - Uso: Se utiliza en técnicas como la extracción de detalles o cuando es necesario invertir una imagen para un análisis.
+
+**** Umbralización (Thresholding)
+   - Convierte la imagen a una versión binaria, donde los píxeles con valores por encima de un umbral se establecen en un valor (generalmente blanco), y los que están por debajo se establecen en otro (generalmente negro).
+   - Fórmula: 
+     #+BEGIN_SRC latex
+     g(x, y) =
+     \begin{cases} 
+     0, & \text{si } f(x, y) \leq T \\
+     L, & \text{si } f(x, y) > T
+     \end{cases}
+     #+END_SRC
+   - Uso: Se utiliza para segmentación de imágenes y procesamiento de imágenes en blanco y negro.
+
+**** Corrección Gamma
+   - Ajusta los valores de intensidad de los píxeles para modificar el brillo o contraste de la imagen.
+   - Fórmula: \( g(x, y) = c \cdot f(x, y)^\gamma \), donde \( c \) es una constante de escala, y \( \gamma \) es el factor de corrección.
+   - Uso: Corrige la distorsión de brillo en pantallas o para obtener una mejor representación visual.
+
+**** Transformaciones Logarítmicas
+   - Aumentan los detalles en regiones oscuras de la imagen al expandir los valores de intensidad bajos.
+   - Fórmula: \( g(x, y) = c \cdot \log(1 + f(x, y)) \), donde \( c \) es una constante.
+   - Uso: Mejora la visualización de imágenes con una alta gama dinámica (HDR), como imágenes astronómicas.
+
+**** Corrección Lineal o Estiramiento de Contraste
+   - Expande los valores de intensidad en una imagen para cubrir un rango más amplio, aumentando el contraste.
+   - Fórmula:
+     #+BEGIN_SRC latex
+     g(x, y) = \frac{f(x, y) - f_{\min}}{f_{\max} - f_{\min}} \cdot (L - 1)
+     #+END_SRC
+   - Uso: Aumenta el contraste en imágenes con poca variación de intensidad.
+
+**** Transformaciones de Potencia (Raise to Power Transform)
+   - Eleva cada valor de píxel a una potencia \( n \), lo que permite ajustar el brillo y contraste de una imagen.
+   - Fórmula: \( g(x, y) = c \cdot f(x, y)^n \).
+
+*** Aplicaciones de Operadores Puntuales
+- *Corrección de imágenes*: Mejoran el brillo, contraste, y otros aspectos visuales de una imagen.
+- *Segmentación*: La umbralización es comúnmente usada para separar objetos de fondo en una imagen.
+- *Análisis médico*: Se utiliza para mejorar la visualización de imágenes de rayos X, resonancias magnéticas o ultrasonidos.
+- *Procesamiento en tiempo real*: Los operadores puntuales son útiles en sistemas que requieren una rápida respuesta, como cámaras de vigilancia o sistemas de visión artificial.
+
+En resumen, los *operadores puntuales* son una herramienta fundamental en el procesamiento de imágenes que permiten realizar transformaciones sencillas pero efectivas, mejorando la calidad visual o preparándolas para análisis posteriores.
+
 
 * Programación
 
