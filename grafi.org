@@ -805,7 +805,6 @@ cv.destroyAllWindows()
 : None
 
 *** Split y Merge Imagen 
-
 #+BEGIN_SRC python :result output
 import cv2 as cv  # Importa OpenCV, que es útil para procesamiento de imágenes.
 import numpy as np  # Importa NumPy, que es útil para trabajar con matrices y operaciones numéricas.
@@ -861,32 +860,52 @@ cv.destroyAllWindows()
 #+RESULTS:
 : None
 
-
+*** Ejemplo de Operador Puntual en Imágenes 
 #+BEGIN_SRC python :results output
-  import cv2 as cv
+import cv2 as cv
 
-  img = cv.imread('tr.png', 0)
-  cv.imshow('salida', img)
-  x,y=img.shape
-  for i in range(x):
-	  for j in range(y):
-		  if(img[i,j]>150):
-			  img[i,j]=255
-		  else:
-			  img[i,j]=0
+img = cv.imread('tr.png', 0)
+cv.imshow('salida', img)
+x,y=img.shape
+for i in range(x):
+	for j in range(y):
+		if(img[i,j]>150):
+			img[i,j]=255
+		else:
+			img[i,j]=0
 
 
-  cv.imshow('negativo', img)
-  print( img.shape, x , y)
-  cv.waitKey(0)
-  cv.destroyAllWindows()
+cv.imshow('negativo', img)
+print( img.shape, x , y)
+cv.waitKey(0)
+cv.destroyAllWindows()
 
 #+END_SRC
 
 #+RESULTS:
 : (632, 635) 632 635
 
+*** Cargar vídeo Opencv 
+#+BEGIN_SRC python
+import cv2 as cv
 
+cap = cv.VideoCapture(0)
+while(True):
+    ret, img = cap.read()
+    if ret:
+        cv.imshow('video', img)
+        k =cv.waitKey(1) & 0xFF
+        if k == 27 :
+	    break
+    else:
+        break
+
+cap.release()
+cv.destroyAllWindows()
+#+END_SRC
+
+#+RESULTS:
+: None
 
 
 
