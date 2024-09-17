@@ -1249,8 +1249,8 @@ theta = math.radians(angle)
 # Rotar la imagen
 for i in range(x):
     for j in range(y):
-        new_x = int((j) * math.cos(theta) - (i) * math.sin(theta))
-        new_y = int((j) * math.sin(theta) + (i) * math.cos(theta))
+        new_x = int((j - cx) * math.cos(theta) - (i - cy) * math.sin(theta) + cx)
+        new_y = int((j - cx) * math.sin(theta) + (i - cy) * math.cos(theta) + cy)
         if 0 <= new_x < y and 0 <= new_y < x:
             rotated_img[new_y, new_x] = img[i, j]
 
