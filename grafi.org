@@ -1237,10 +1237,10 @@ img = cv.imread('tr.png', 0)
 x, y = img.shape
 
 # Crear una imagen vacía para almacenar el resultado
-rotated_img = np.zeros((x, y), dtype=np.uint8)
-
+rotated_img = np.zeros((x*2, y*2), dtype=np.uint8)
+xx, yy = rotated_img.shape
 # Calcular el centro de la imagen
-cx, cy = y // 2, x // 2
+cx, cy = int(x  // 2), int(y  // 2)
 
 # Definir el ángulo de rotación (en grados) y convertirlo a radianes
 angle = 45
@@ -1249,8 +1249,8 @@ theta = math.radians(angle)
 # Rotar la imagen
 for i in range(x):
     for j in range(y):
-        new_x = int((j) * math.cos(theta) - (i) * math.sin(theta))
-        new_y = int((j) * math.sin(theta) + (i) * math.cos(theta))
+        new_x = int((j - cx) * math.cos(theta) - (i - cy) * math.sin(theta) + cx)
+        new_y = int((j - cx) * math.sin(theta) + (i - cy) * math.cos(theta) + cy)
         if 0 <= new_x < y and 0 <= new_y < x:
             rotated_img[new_y, new_x] = img[i, j]
 
@@ -1286,8 +1286,8 @@ scaled_img = np.zeros((int(x * scale_y), int(y * scale_x)), dtype=np.uint8)
 # Aplicar el escalado
 for i in range(int(x * scale_y)):
     for j in range(int(y * scale_x)):
-        orig_x = int(i / scale_y)
-        orig_y = int(j / scale_x)
+        orig_x = int(i * scale_y)
+        orig_y = int(j * scale_x)
         if 0 <= orig_x < x and 0 <= orig_y < y:
             scaled_img[i, j] = img[orig_x, orig_y]
 
@@ -1539,3 +1539,59 @@ cv.imshow('Imagen Reflejada Verticalmente', reflected_img)
 cv.waitKey(0)
 cv.destroyAllWindows()
 #+END_SRC
+
+** Parametricas
+
+#+BEGIN_SRC python
+import numpy as np
+import cv2
+
+# Función para generar un solo punto de la elipse en función del parámetro t
+def generar_punto_elipse(a, b, t):
+    x = int(a * np.cos(t) + 300)  # Desplazamiento para centrar
+    y = int(b * np.sin(t) + 300)
+    return (x, y)
+
+# Dimensiones de la imagen
+img_width, img_height = 600, 600
+
+# Crear una imagen en blanco
+imagen = np.zeros((img_height, img_width, 3), dtype=np.uint8)
+
+# Parámetros de la elipse
+a = 200  # Semieje mayor
+b = 100  # Semieje menor
+num_puntos = 1000
+
+# Crear los valores del parámetro t para la animación
+t_vals = np.linspace(0, 2 * np.pi, num_puntos)
+
+# Bucle de animación
+for t in t_vals:
+    # Crear una nueva imagen en blanco en cada iteración
+    imagen = np.zeros((img_height, img_width, 3), dtype=np.uint8)
+    
+    # Generar el punto en la elipse
+    punto = generar_punto_elipse(a, b, t)
+    
+    # Dibujar el punto en la elipse
+    cv2.circle(imagen, punto, radius=5, color=(0, 255, 0), thickness=-1)
+    
+    # Dibujar la trayectoria completa de la elipse (opcional, si quieres ver toda la elipse)
+    for t_tray in t_vals:
+        pt_tray = generar_punto_elipse(a, b, t_tray)
+        cv2.circle(imagen, pt_tray, radius=1, color=(255, 255, 255), thickness=-1)
+    
+    # Mostrar la imagen con el punto en movimiento
+    cv2.imshow('img', imagen)
+    
+    # Controlar la velocidad de la animación (en milisegundos)
+    cv2.waitKey(10)
+
+# Cerrar la ventana después de la animación
+cv2.destroyAllWindows()
+
+#+END_SRC
+
+#+RESULTS:
+: None
