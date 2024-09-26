@@ -2176,7 +2176,7 @@ while cap.isOpened():
     res2 = cv2.bitwise_and(background, background, mask=mask)
 
     # Combinar ambas imágenes
-    final_output = cv2.addWeighted(res1, 1, res2, 1, 0)
+    final_output = cv2.addWeighted(res1, 1, res2, 1, 0) 
 
     # Mostrar el resultado final
     cv2.imshow("Capa de Invisibilidad", final_output)
