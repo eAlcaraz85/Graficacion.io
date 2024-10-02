@@ -1327,7 +1327,18 @@ Las *transformaciones geométricas* en imágenes permiten cambiar la posición, 
 
 
 
-   
+
+* Actividades
+
+- Generar una imagen tipo pixel art utilizando una matriz de enteros en el rango de 0 a 255.
+- Generar al menos cinco operadores puntuales utilizando la imagen generada o una imagen previamente cargada.
+- Aplicar las transformaciones geométricas vistas en clase.
+- Investigar qué son las ecuaciones paramétricas.
+- Crear un dibujo mediante primitivas de dibujo utilizando OpenCV.
+- Programar al menos 10 ecuaciones paramétricas.
+
+Todas las actividades anteriores deben estar documentadas en formato Markdown en el repositorio.  
+  
 * Programación
 
 ** Programas Unidad 1 
@@ -2158,8 +2169,8 @@ while cap.isOpened():
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # Definir el rango de color de la tela (verde, en este caso) en HSV
-    lower_green = np.array([35, 100, 0])
-    upper_green = np.array([85, 255, 255])
+    lower_green = np.array([80, 180, 180])
+    upper_green = np.array([145, 255, 255])
 
     # Crear una máscara que detecta el área verde
     mask = cv2.inRange(hsv, lower_green, upper_green)
@@ -2180,6 +2191,7 @@ while cap.isOpened():
 
     # Mostrar el resultado final
     cv2.imshow("Capa de Invisibilidad", final_output)
+    cv2.imshow('mask', mask)
 
     # Presionar 'q' para salir
     if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -2187,6 +2199,153 @@ while cap.isOpened():
 
 # Liberar los recursos
 cap.release()
+cv2.destroyAllWindows()
+
+#+END_SRC
+
+#+RESULTS:
+: None
+
+
+** Efecto Gris np.where
+
+
+La función *np.where* de NumPy es muy útil cuando se quiere
+seleccionar elementos de un arreglo o imagen basado en una
+condición. Vamos a desglosar cómo funciona y cómo se aplica en el
+contexto de imágenes.
+
+*** Sintaxis básica de np.where:
+
+#+begin_src python :results output :exports both
+np.where(condición, valor_si_verdadero, valor_si_falso)
+#+end_src
+
+- *condición*: Una expresión booleana (True/False) que indica qué elementos cumplen la condición.
+- *valor_si_verdadero*: El valor que se asigna en las posiciones donde la condición es *True*.
+- *valor_si_falso*: El valor que se asigna en las posiciones donde la condición es *False*.
+
+**** Ejemplo sencillo:
+
+#+begin_src python :results output :exports both
+import numpy as np
+
+# Creamos un array de ejemplo
+array = np.array([1, 2, 3, 4, 5])
+
+# Aplicamos np.where para cambiar los valores mayores a 3 por 100 y el resto por 0
+resultado = np.where(array > 3, 100, 0)
+
+print(resultado)  # Resultado: [  0   0   0 100 100]
+#+end_src
+
+En este ejemplo, la condición `array > 3` se cumple para los elementos 4 y 5, por lo que se cambian por 100, mientras que los otros elementos se cambian por 0.
+
+*** Aplicación en procesamiento de imágenes:
+
+Cuando manipulamos imágenes, cada pixel tiene tres valores (R, G,
+B). La idea es usar `np.where` para verificar si un pixel cumple con
+la condición de estar en el rango del color que queremos resaltar (por
+ejemplo, rojo). Si el pixel está dentro de ese rango, conservamos el
+valor original del color. Si no, convertimos ese pixel a escala de
+grises.
+
+**** Parte del código relevante:
+#+begin_src python :results output :exports both
+imagen_colores_resaltados = np.where(mascara_rojo[:, :, None] == 255, imagen, imagen_gris_bgr)
+#+end_src
+
+**** Desglose:
+
+1. *`mascara_rojo[:, :, None] == 255`*:
+   - La máscara es un arreglo 2D con los mismos altos y anchos que la imagen original, donde los valores son 255 para los pixeles que coinciden con el color rojo, y 0 para los que no.
+   - *`[:, :, None]`*: Añade una tercera dimensión para que la máscara coincida con la estructura 3D de la imagen original, donde tenemos tres canales (R, G, B).
+   - La condición `== 255` selecciona los píxeles donde el color rojo fue detectado.
+
+2. *`imagen`*:
+   - Es la imagen original en color. Se utiliza en las posiciones donde la máscara detecta el color rojo (condición `True`).
+
+3. *`imagen_gris_bgr`*:
+   - Es la versión de la imagen en escala de grises, convertida a formato BGR. Se usa en las posiciones donde la condición es `False`, es decir, donde no se detectó el color rojo.
+
+**** Ejemplo visual:
+
+Imagina que tienes un pixel con los siguientes valores RGB: `(255, 0, 0)` (un rojo intenso). Si este pixel cae dentro del rango de color rojo, entonces `mascara_rojo` tendrá el valor 255 para ese pixel. Esto hará que `np.where` conserve el pixel original en color:
+
+- **Condición True (rojo detectado):** Se conserva el pixel original.
+- **Condición False (no es rojo):** El pixel se convierte a su equivalente en escala de grises.
+
+****y el  Ejemplo simplificado:
+#+begin_src python :results output :exports both
+# Si la máscara es:
+mascara_rojo = [[255, 0], 
+                [0, 255]]
+
+# La imagen original en color (simplificada):
+imagen = [[[255, 0, 0], [0, 255, 0]],
+          [[0, 0, 255], [255, 0, 0]]]
+
+# La imagen en gris (también simplificada):
+imagen_gris_bgr = [[[128, 128, 128], [128, 128, 128]],
+                   [[128, 128, 128], [128, 128, 128]]]
+
+# Aplicando np.where:
+resultado = np.where(mascara_rojo[:, :, None] == 255, imagen, imagen_gris_bgr)
+
+# Resultado esperado:
+resultado = [[[255, 0, 0], [128, 128, 128]],
+             [[128, 128, 128], [255, 0, 0]]]
+#+end_src
+
+En el resultado, los pixeles que coinciden con el color rojo permanecen iguales, mientras que los otros se convierten a escala de grises.
+
+**** ¿Cómo funciona esto para toda la imagen?
+
+`np.where` revisa cada pixel de la imagen:
+
+- **Si un pixel es rojo (según la máscara),** lo toma de la imagen original.
+- **Si un pixel no es rojo,** lo toma de la versión en escala de grises.
+
+
+
+- *np.where* actúa como un filtro condicional que selecciona valores en base a una máscara booleana.
+- En este caso, se utiliza para dejar intactos los pixeles que coinciden con el color deseado (rojo) y convertir el resto de la imagen a escala de grises.
+
+
+
+#+BEGIN_SRC python
+import cv2
+import numpy as np
+
+# Leer la imagen en formato RGB
+imagen = cv2.imread('man1.jpg', 1)
+
+# Convertir la imagen de RGB a HSV
+imagen_hsv = cv2.cvtColor(imagen, cv2.COLOR_BGR2HSV)
+
+# Definir el rango de color rojo en HSV
+bajo_rojo1 = np.array([0, 40, 40])
+alto_rojo1 = np.array([10, 255, 255])
+bajo_rojo2 = np.array([160, 40, 40])
+alto_rojo2 = np.array([180, 255, 255])
+
+# Crear una máscara para el color rojo
+mascara_rojo1 = cv2.inRange(imagen_hsv, bajo_rojo1, alto_rojo1)
+mascara_rojo2 = cv2.inRange(imagen_hsv, bajo_rojo2, alto_rojo2)
+mascara_rojo = cv2.add(mascara_rojo1, mascara_rojo2)
+
+# Convertir la imagen original a escala de grises
+imagen_gris = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
+
+# Convertir la imagen gris a un formato BGR para que coincida con la original
+imagen_gris_bgr = cv2.cvtColor(imagen_gris, cv2.COLOR_GRAY2BGR)
+
+# Combinar la imagen en gris con las áreas en rojo
+resultado = np.where(mascara_rojo[:, :, None] == 255, imagen, imagen_gris_bgr)
+
+# Mostrar la imagen final
+cv2.imshow('Color resaltado', resultado)
+cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 #+END_SRC
