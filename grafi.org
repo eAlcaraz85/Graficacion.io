@@ -2552,7 +2552,7 @@ cv.destroyAllWindows()
 import numpy as np
 import cv2 as cv
 
-rostro = cv.CascadeClassifier('haarcascade_frontalface_alt.xml')
+rostro = cv.CascadeClassifier('haarcascade_eye.xml')
 cap = cv.VideoCapture(0)
 x=y=w=h= 0 
 count = 0
