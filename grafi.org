@@ -1221,7 +1221,8 @@ Las *transformaciones geométricas* en imágenes permiten cambiar la posición, 
    \end{pmatrix}
    \]
 
-*** 3. Escalado (Scaling)
+*** 3. Escalado (Scalin
+g)
 
    El escalado modifica el tamaño de la imagen mediante factores \(s_x\) y \(s_y\). La fórmula es:
 
@@ -1608,18 +1609,17 @@ img = cv.imread('tr.png', 0)
 x, y = img.shape
 
 # Definir el factor de escala
-scale_x, scale_y = 0.5, 0.5
+scale_x, scale_y = 2, 2
 
 # Crear una nueva imagen para almacenar el escalado
 scaled_img = np.zeros((int(x * scale_y), int(y * scale_x)), dtype=np.uint8)
 
 # Aplicar el escalado
-for i in range(int(x * scale_y)):
-    for j in range(int(y * scale_x)):
-        orig_x = int(i * scale_y)
-        orig_y = int(j * scale_x)
-        if 0 <= orig_x < x and 0 <= orig_y < y:
-            scaled_img[i, j] = img[orig_x, orig_y]
+for i in range(x):
+    for j in range(y):
+                   #orig_x = int(i * scale_y)
+                   #orig_y = int(j * scale_x)
+                   scaled_img[i*2, j*2] = img[i, j]
 
 # Mostrar la imagen original y la escalada
 cv.imshow('Imagen Original', img)
@@ -1627,6 +1627,9 @@ cv.imshow('Imagen Escalada (modo raw)', scaled_img)
 cv.waitKey(0)
 cv.destroyAllWindows()
 #+END_SRC
+
+#+RESULTS:
+: None
 
 *** 4. Cizallamiento (Shearing)
 En el cizallamiento, los píxeles se desplazan en una dirección proporcional a otra, lo que inclina la imagen.
@@ -2624,7 +2627,7 @@ import cv2
 import numpy as np
 
 # Cargar la máscara que deseas agregar (asegúrate de que sea PNG con transparencia)
-mascara = cv2.imread('300a.png', cv2.IMREAD_UNCHANGED)  # Cargar PNG con transparencia
+mascara = cv2.imread('cubre3.png', cv2.IMREAD_UNCHANGED)  # Cargar PNG con transparencia
 
 # Verificar si la imagen tiene un canal alfa
 if mascara.shape[2] != 4:
@@ -2638,8 +2641,8 @@ face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt2.xml')
 video = cv2.VideoCapture(0)
 
 # Definir un desplazamiento para mover la máscara
-desplazamiento_x = 0  # Mover 50 píxeles hacia la derecha
-desplazamiento_y = 60  # Mover 30 píxeles hacia arriba
+desplazamiento_x = -100  # Mover 50 píxeles hacia la derecha
+desplazamiento_y = 90  # Mover 30 píxeles hacia arriba
 
 while True:
     # Leer cada frame del video
@@ -2658,7 +2661,7 @@ while True:
     for (x, y, w, h) in rostros:
         # Redimensionar la máscara para que coincida con el tamaño del rostro detectado
         mascara_redimensionada = cv2.resize(mascara, (w, h))
-
+        cv2.rectangle(frame, (x,y), (x+w, y+h), (255, 0,0), 3)
         # Separar los canales de la máscara: color y alfa (transparencia)
         mascara_rgb = mascara_redimensionada[:, :, :3]
         mascara_alpha = mascara_redimensionada[:, :, 3]
@@ -2714,3 +2717,112 @@ cv2.destroyAllWindows()
 
 #+RESULTS:
 : None
+
+
+** OpenGL
+
+
+
+** Descripción de la Proyección Isométrica
+La proyección isométrica es un tipo de proyección axonométrica que
+representa un objeto 3D en un espacio 2D sin perspectiva. Esto
+significa que las líneas paralelas en el espacio 3D siguen siendo
+paralelas en la proyección 2D, y los objetos mantienen la misma escala
+independientemente de su distancia. En una proyección isométrica, los
+tres ejes (x, y, z) aparecen con ángulos de 120° entre sí, creando un
+efecto visual que se percibe como 3D, aunque solo se trata de una
+imagen 2D.
+
+Este tipo de proyección es útil en videojuegos, gráficos isométricos y
+aplicaciones de diseño, ya que proporciona una representación en 3D
+simple sin distorsión de perspectiva.
+
+
+*** Ejemplo de Proyección Isométrica en OpenCV
+
+Este ejemplo en OpenCV muestra cómo proyectar un cubo 3D en 2D
+utilizando una proyección isométrica. Cada vértice del cubo se
+proyecta en el plano 2D, y luego se conecta para formar las aristas
+del cubo.
+
+**** Código en Python
+
+#+BEGIN_SRC python
+import cv2
+import numpy as np
+import math
+
+# Dimensiones de la ventana
+WIDTH, HEIGHT = 800, 600
+
+# Vértices del cubo en coordenadas 3D
+vertices = np.array([
+    [-1, -1, -1],
+    [1, -1, -1],
+    [1, 1, -1],
+    [-1, 1, -1],
+    [-1, -1, 1],
+    [1, -1, 1],
+    [1, 1, 1],
+    [-1, 1, 1]
+])
+
+# Conexiones de los vértices para formar las aristas del cubo
+edges = [
+    (0, 1), (1, 2), (2, 3), (3, 0),  # Base inferior
+    (4, 5), (5, 6), (6, 7), (7, 4),  # Base superior
+    (0, 4), (1, 5), (2, 6), (3, 7)   # Conexiones entre bases
+]
+
+def project_isometric(vertex):
+    """Función para proyectar un punto 3D a 2D con proyección isométrica"""
+    x, y, z = vertex
+    x2D = x - z
+    y2D = (x + 2 * y + z) / 2
+    return int(x2D * 100 + WIDTH / 2), int(-y2D * 100 + HEIGHT / 2)
+
+# Crear ventana
+cv2.namedWindow("Cubo Isométrico")
+
+while True:
+    # Crear imagen negra para el fondo
+    frame = np.zeros((HEIGHT, WIDTH, 3), dtype=np.uint8)
+
+    # Dibujar aristas del cubo
+    for edge in edges:
+        pt1 = project_isometric(vertices[edge[0]])
+        pt2 = project_isometric(vertices[edge[1]])
+        cv2.line(frame, pt1, pt2, (255, 255, 255), 2)
+
+    # Mostrar imagen
+    cv2.imshow("Cubo Isométrico", frame)
+
+    # Salir si se presiona 'q'
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cv2.destroyAllWindows()
+#+END_SRC
+
+#+RESULTS:
+: None
+
+**** Explicación del Código
+1. **Definición de Vértices y Aristas**:
+   - `vertices` define los puntos 3D del cubo en coordenadas `(x, y, z)`.
+   - `edges` define las conexiones entre los vértices para formar las aristas del cubo.
+
+2. **Función `project_isometric`**:
+   - Convierte cada vértice 3D en coordenadas 2D usando una proyección isométrica. La fórmula aplicada crea un efecto 3D sin perspectiva.
+
+3. **Bucle de Renderizado**:
+   - Cada fotograma crea una imagen de fondo negro (`frame`) y dibuja las aristas del cubo conectando los puntos proyectados en 2D.
+   - El bucle continúa hasta que se presiona la tecla `'q'`.
+
+**** Salida Esperada
+La ventana mostrará un cubo en perspectiva isométrica. Las aristas se
+dibujan en blanco y el cubo parece tener profundidad, aunque es solo
+una representación en 2D.
+
+Este ejemplo simula un efecto 3D mediante una proyección isométrica,
+útil para aplicaciones de diseño y gráficos 2D en OpenCV.
