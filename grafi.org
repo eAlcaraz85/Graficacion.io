@@ -2826,3 +2826,264 @@ una representación en 2D.
 
 Este ejemplo simula un efecto 3D mediante una proyección isométrica,
 útil para aplicaciones de diseño y gráficos 2D en OpenCV.
+
+
+** Opengl Ejemplo
+
+#+begin_src python
+import glfw
+from OpenGL.GL import glClear, glClearColor, glBegin, glEnd, glVertex2f, glColor3f, GL_COLOR_BUFFER_BIT, GL_TRIANGLES
+
+def main():
+    # Inicializar GLFW
+    if not glfw.init():
+        return
+
+    # Crear la ventana
+    window = glfw.create_window(500, 500, "OpenGL con GLFW", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    # Hacer el contexto de OpenGL actual
+    glfw.make_context_current(window)
+
+    # Establecer el color de fondo
+    glClearColor(0.0, 0.0, 0.0, 1.0)
+
+    # Bucle principal de renderizado
+    while not glfw.window_should_close(window):
+        # Limpiar la pantalla
+        glClear(GL_COLOR_BUFFER_BIT)
+
+        # Dibujar un triángulo
+        glBegin(GL_QUADS)
+        glColor3f(1.0, 0.0, 0.0)  # Rojo
+        glVertex2f(-0.5,  0.5)  # Vértice superior izquierdo
+        glVertex2f( 0.5,  0.5)  # Vértice superior derecho
+        glVertex2f( 0.5, -0.5)  # Vértice inferior derecho
+        glVertex2f(-0.5, -0.5) 
+
+        glEnd()
+
+        # Intercambiar buffers y procesar eventos
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    # Terminar GLFW
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+
+#+end_src
+
+#+RESULTS:
+
+
+#+BEGIN_SRC python
+import glfw
+from OpenGL.GL import glClear, glClearColor, glBegin, glEnd, glVertex2f, glColor3f, GL_COLOR_BUFFER_BIT, GL_QUADS, glOrtho
+
+def draw_square():
+    glBegin(GL_QUADS)
+    glColor3f(1.0, 0.0, 0.0)  # Color rojo
+    glVertex2f(-0.5,  0.5)  # Vértice superior izquierdo
+    glVertex2f( 0.5,  0.5)  # Vértice superior derecho
+    glVertex2f( 0.5, -0.5)  # Vértice inferior derecho
+    glVertex2f(-0.5, -0.5)  # Vértice inferior izquierdo
+    glEnd()
+
+def main():
+    # Inicializar GLFW
+    if not glfw.init():
+        return
+
+    # Crear la ventana con un contexto de OpenGL
+    window = glfw.create_window(500, 500, "Cuadrado con GLFW", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    # Hacer que el contexto de OpenGL sea actual para la ventana
+    glfw.make_context_current(window)
+
+    # Configurar la proyección ortográfica
+    glOrtho(-1, 1, -1, 1, -1, 1)  # Configuración para un sistema de coordenadas 2D
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        # Limpiar el buffer de color
+        glClear(GL_COLOR_BUFFER_BIT)
+
+        # Dibujar el cuadrado
+        draw_square()
+
+        # Intercambiar buffers y procesar eventos
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    # Terminar GLFW
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+
+
+#+END_SRC
+
+#+RESULTS:
+: None
+
+
+* Introducción a OpenGL
+OpenGL (Open Graphics Library) es una API de gráficos que permite a
+los desarrolladores crear gráficos en 2D y 3D. Fue desarrollada por
+Silicon Graphics en 1992 y, desde entonces, se ha utilizado
+ampliamente en aplicaciones que requieren renderizado en tiempo real,
+como videojuegos, simulaciones científicas, visualización de datos y
+entornos de realidad virtual y aumentada.
+
+** Características de OpenGL
+   - **Plataforma abierta**: OpenGL es multiplataforma y funciona en Windows, macOS, y Linux.
+   - **API de bajo nivel**: Proporciona primitivas de gráficos básicas (puntos, líneas, polígonos).
+   - **Hardware acelerado**: Aprovecha la GPU para acelerar el renderizado.
+   - **Flexibilidad**: Es compatible con diversas aplicaciones, desde gráficos simples en 2D hasta gráficos avanzados en 3D.
+
+** Primeros pasos en OpenGL
+Para empezar a trabajar con OpenGL, necesitas entender algunos de sus conceptos y configuraciones básicas.
+
+*** Configuración del Entorno
+Para utilizar OpenGL en Python, necesitas instalar las siguientes bibliotecas:
+#+begin_src shell
+  pip install PyOpenGL PyOpenGL_accelerate glfw
+#+end_src
+
+*** Estructura básica de un programa OpenGL
+Un programa básico de OpenGL tiene una estructura general que incluye la configuración de la ventana, la inicialización del contexto de OpenGL, el renderizado de objetos y el bucle principal.
+
+** Sistema de Coordenadas en OpenGL
+En OpenGL, las coordenadas pasan por una serie de transformaciones para dibujar objetos en pantalla. Aquí están los principales sistemas de coordenadas:
+
+*** Coordenadas del Objeto
+   Este es el espacio de coordenadas local de cada objeto. Aquí defines los vértices en relación con el centro del objeto.
+
+*** Coordenadas del Mundo
+   Transforman las coordenadas del objeto para situarlo en el mundo virtual.
+
+*** Coordenadas de Vista
+   Ajustan la posición del objeto en relación con la cámara u observador.
+
+*** Coordenadas de Recorte
+   Aplican la proyección para determinar qué partes del objeto son visibles y cuáles están fuera del campo de visión.
+
+*** Coordenadas Normalizadas del Dispositivo (NDC)
+   Las coordenadas se normalizan al rango [-1, 1] en cada eje, para definir la porción visible de la escena.
+
+*** Coordenadas de Pantalla
+   Las coordenadas normalizadas se mapean a píxeles en la pantalla según la resolución de la ventana.
+
+** Primitivas de Dibujo en OpenGL
+OpenGL permite dibujar figuras básicas conocidas como primitivas, entre las que se incluyen:
+
+   - **GL_POINTS**: Puntos individuales.
+   - **GL_LINES**: Líneas entre pares de vértices.
+   - **GL_TRIANGLES**: Triángulos entre grupos de tres vértices.
+   - **GL_QUADS**: Cuadrados entre grupos de cuatro vértices (obsoleto en OpenGL moderno).
+
+Ejemplo de uso de **GL_TRIANGLES** para dibujar un triángulo:
+
+#+begin_src python
+  import glfw
+  from OpenGL.GL import *
+  from OpenGL.GLU import *
+
+  def draw_triangle():
+      glBegin(GL_TRIANGLES)
+      glColor3f(1.0, 0.0, 0.0)  # Rojo
+      glVertex2f(-0.5, -0.5)    # Vértice inferior izquierdo
+      glColor3f(0.0, 1.0, 0.0)  # Verde
+      glVertex2f(0.5, -0.5)     # Vértice inferior derecho
+      glColor3f(0.0, 0.0, 1.0)  # Azul
+      glVertex2f(0.0, 0.5)      # Vértice superior
+      glEnd()
+#+end_src
+
+** Transformaciones en OpenGL
+Las transformaciones de OpenGL son fundamentales para mover, rotar y escalar los objetos en la escena.
+
+*** Traslación
+   Mueve un objeto de una posición a otra.
+
+*** Rotación
+   Gira un objeto alrededor de un eje.
+
+*** Escalado
+   Cambia el tamaño del objeto.
+
+Ejemplo de cómo aplicar una transformación de escalado y rotación:
+
+#+begin_src python
+  from OpenGL.GL import *
+  from OpenGL.GLU import *
+  
+  glPushMatrix()         # Guardar la matriz actual
+  glTranslatef(1.0, 0.0, 0.0)  # Traslación
+  glRotatef(45, 0.0, 0.0, 1.0)  # Rotación de 45 grados
+  glScalef(2.0, 2.0, 1.0)      # Escalar el objeto
+  draw_triangle()              # Dibujar el objeto transformado
+  glPopMatrix()         # Restaurar la matriz original
+#+end_src
+
+** Iluminación y Materiales
+En OpenGL, puedes aplicar iluminación y definir materiales para que los objetos interactúen con la luz de manera realista.
+
+*** Tipos de luces
+   - **Luz ambiental**: Luz sin una dirección específica que ilumina toda la escena.
+   - **Luz direccional**: Luz que proviene de una dirección específica, como la luz solar.
+   - **Luz de punto**: Luz que emana de un punto específico, como una lámpara.
+   - **Luz de foco**: Luz que se emite en un ángulo específico, similar a un reflector.
+
+*** Materiales
+   Puedes definir propiedades de los materiales, como el color y la reflectividad, para cada objeto.
+
+** Sombras y Efectos Avanzados
+   OpenGL también permite generar sombras y efectos avanzados como transparencia, texturas y sombreado por vértices.
+
+** OpenGL Moderno: Shaders y el Pipeline Gráfico
+OpenGL moderno (a partir de OpenGL 3.0) ha evolucionado hacia un modelo basado en shaders. Los shaders son pequeños programas que se ejecutan en la GPU y permiten controlar de manera detallada el comportamiento del pipeline gráfico.
+
+*** Vertex Shader
+   Procesa cada vértice y aplica transformaciones para determinar su posición en la pantalla.
+
+*** Fragment Shader
+   Calcula el color final de cada píxel en la superficie de los objetos.
+
+*** Geometry Shader
+   Opcional, permite manipular primitivas completas (como puntos, líneas o triángulos).
+
+#+begin_src python
+  # Ejemplo de vertex shader simple en GLSL (OpenGL Shading Language)
+  """
+  #version 330 core
+  layout(location = 0) in vec3 position;
+  uniform mat4 model;
+  uniform mat4 view;
+  uniform mat4 projection;
+  void main() {
+      gl_Position = projection * view * model * vec4(position, 1.0);
+  }
+  """
+#+end_src
+
+** Conclusión
+OpenGL es una herramienta poderosa y flexible para el renderizado de
+gráficos en 2D y 3D. Aunque es de bajo nivel y puede requerir trabajo
+adicional para construir escenas complejas, su compatibilidad
+multiplataforma y la aceleración por hardware lo convierten en una
+opción popular en una variedad de aplicaciones.
+
+Con el tiempo, OpenGL ha evolucionado hacia un modelo basado en
+shaders, lo que permite un control mucho mayor sobre el pipeline
+gráfico, haciendo posible gráficos de alta calidad y efectos avanzados
+en tiempo real.
