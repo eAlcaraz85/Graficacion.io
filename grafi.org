@@ -2481,6 +2481,7 @@ cv.destroyAllWindows()
 #+END_SRC
 
 #+RESULTS:
+: None
 
 
 #+BEGIN_SRC python :results output
@@ -2832,7 +2833,7 @@ Este ejemplo simula un efecto 3D mediante una proyección isométrica,
 
 #+begin_src python
 import glfw
-from OpenGL.GL import glClear, glClearColor, glBegin, glEnd, glVertex2f, glColor3f, GL_COLOR_BUFFER_BIT, GL_TRIANGLES
+from OpenGL.GL import glClear, glClearColor, glBegin, GL_QUADS, glEnd, glVertex2f, glColor3f, GL_COLOR_BUFFER_BIT, GL_TRIANGLES
 
 def main():
     # Inicializar GLFW
@@ -2857,13 +2858,15 @@ def main():
         glClear(GL_COLOR_BUFFER_BIT)
 
         # Dibujar un triángulo
-        glBegin(GL_QUADS)
+        glBegin(GL_TRIANGLES)
         glColor3f(1.0, 0.0, 0.0)  # Rojo
-        glVertex2f(-0.5,  0.5)  # Vértice superior izquierdo
-        glVertex2f( 0.5,  0.5)  # Vértice superior derecho
-        glVertex2f( 0.5, -0.5)  # Vértice inferior derecho
-        glVertex2f(-0.5, -0.5) 
-
+        glVertex2f(-0.5,  -0.5)  # Vértice superior izquierdo
+        glColor3f(0.0, 1.0, 0.0)  # Rojo
+        glColor3f(0.0, 1.0, 0.0)  # Rojo
+        glVertex2f( 0.5,  -0.5)  # Vértice superior derecho
+        glColor3f(0.0, 0.0, 1.0)  # Rojo
+        glVertex2f( -0.5, 0.5)  # Vértice inferior derecho
+        
         glEnd()
 
         # Intercambiar buffers y procesar eventos
@@ -2879,6 +2882,7 @@ if __name__ == "__main__":
 #+end_src
 
 #+RESULTS:
+: None
 
 
 #+BEGIN_SRC python
@@ -2937,6 +2941,7 @@ if __name__ == "__main__":
 
 
 * Introducción a OpenGL
+
 OpenGL (Open Graphics Library) es una API de gráficos que permite a
 los desarrolladores crear gráficos en 2D y 3D. Fue desarrollada por
 Silicon Graphics en 1992 y, desde entonces, se ha utilizado
@@ -2945,28 +2950,40 @@ como videojuegos, simulaciones científicas, visualización de datos y
 entornos de realidad virtual y aumentada.
 
 ** Características de OpenGL
-   - **Plataforma abierta**: OpenGL es multiplataforma y funciona en Windows, macOS, y Linux.
-   - **API de bajo nivel**: Proporciona primitivas de gráficos básicas (puntos, líneas, polígonos).
-   - **Hardware acelerado**: Aprovecha la GPU para acelerar el renderizado.
-   - **Flexibilidad**: Es compatible con diversas aplicaciones, desde gráficos simples en 2D hasta gráficos avanzados en 3D.
+   - **Plataforma abierta**: OpenGL es multiplataforma y funciona en
+     Windows, macOS, y Linux.
+   - **API de bajo nivel**: Proporciona primitivas de gráficos básicas
+     (puntos, líneas, polígonos).
+   - **Hardware acelerado**: Aprovecha la GPU para acelerar el
+     renderizado.
+   - **Flexibilidad**: Es compatible con diversas aplicaciones, desde
+     gráficos simples en 2D hasta gráficos avanzados en 3D.
 
 ** Primeros pasos en OpenGL
-Para empezar a trabajar con OpenGL, necesitas entender algunos de sus conceptos y configuraciones básicas.
+Para empezar a trabajar con OpenGL, necesitas entender algunos de sus
+conceptos y configuraciones básicas.
 
 *** Configuración del Entorno
-Para utilizar OpenGL en Python, necesitas instalar las siguientes bibliotecas:
+Para utilizar OpenGL en Python, necesitas instalar las siguientes
+bibliotecas:
 #+begin_src shell
-  pip install PyOpenGL PyOpenGL_accelerate glfw
+  pip install PyOpenGL PyOpenGL_accelerate glfw pygames
+  pip install PyOpenGL glfw
 #+end_src
 
 *** Estructura básica de un programa OpenGL
-Un programa básico de OpenGL tiene una estructura general que incluye la configuración de la ventana, la inicialización del contexto de OpenGL, el renderizado de objetos y el bucle principal.
+Un programa básico de OpenGL tiene una estructura general que incluye
+la configuración de la ventana, la inicialización del contexto de
+OpenGL, el renderizado de objetos y el bucle principal.
 
 ** Sistema de Coordenadas en OpenGL
-En OpenGL, las coordenadas pasan por una serie de transformaciones para dibujar objetos en pantalla. Aquí están los principales sistemas de coordenadas:
+En OpenGL, las coordenadas pasan por una serie de transformaciones
+para dibujar objetos en pantalla. Aquí están los principales sistemas
+de coordenadas:
 
 *** Coordenadas del Objeto
-   Este es el espacio de coordenadas local de cada objeto. Aquí defines los vértices en relación con el centro del objeto.
+   Este es el espacio de coordenadas local de cada objeto. Aquí
+   defines los vértices en relación con el centro del objeto.
 
 *** Coordenadas del Mundo
    Transforman las coordenadas del objeto para situarlo en el mundo virtual.
@@ -2975,16 +2992,20 @@ En OpenGL, las coordenadas pasan por una serie de transformaciones para dibujar 
    Ajustan la posición del objeto en relación con la cámara u observador.
 
 *** Coordenadas de Recorte
-   Aplican la proyección para determinar qué partes del objeto son visibles y cuáles están fuera del campo de visión.
+   Aplican la proyección para determinar qué partes del objeto son
+   visibles y cuáles están fuera del campo de visión.
 
 *** Coordenadas Normalizadas del Dispositivo (NDC)
-   Las coordenadas se normalizan al rango [-1, 1] en cada eje, para definir la porción visible de la escena.
+   Las coordenadas se normalizan al rango [-1, 1] en cada eje, para
+   definir la porción visible de la escena.
 
 *** Coordenadas de Pantalla
-   Las coordenadas normalizadas se mapean a píxeles en la pantalla según la resolución de la ventana.
+   Las coordenadas normalizadas se mapean a píxeles en la pantalla
+   según la resolución de la ventana.
 
 ** Primitivas de Dibujo en OpenGL
-OpenGL permite dibujar figuras básicas conocidas como primitivas, entre las que se incluyen:
+OpenGL permite dibujar figuras básicas conocidas como primitivas,
+entre las que se incluyen:
 
    - **GL_POINTS**: Puntos individuales.
    - **GL_LINES**: Líneas entre pares de vértices.
@@ -3008,6 +3029,391 @@ Ejemplo de uso de **GL_TRIANGLES** para dibujar un triángulo:
       glVertex2f(0.0, 0.5)      # Vértice superior
       glEnd()
 #+end_src
+
+#+RESULTS:
+
+
+
+
+
+
+#+BEGIN_SRC python :results output :tangle code/cubo.py
+import glfw
+from OpenGL.GL import glClearColor, glEnable, glClear, glLoadIdentity, glTranslatef, glRotatef, glMatrixMode
+from OpenGL.GL import glBegin, glColor3f, glVertex3f, glEnd, glFlush, glViewport
+from OpenGL.GL import GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT, GL_DEPTH_TEST, GL_QUADS, GL_PROJECTION, GL_MODELVIEW
+from OpenGL.GLU import gluPerspective
+import sys
+
+# Variables globales
+window = None
+angle = 0  # Declaramos angle en el nivel superior
+
+def init():
+    # Configuración inicial de OpenGL
+    glClearColor(0.0, 0.0, 0.0, 1.0)  # Color de fondo
+    glEnable(GL_DEPTH_TEST)  # Activar prueba de profundidad para 3D
+
+    # Configuración de proyección
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(45, 1.0, 0.1, 50.0)
+
+    # Cambiar a la matriz de modelo para los objetos
+    glMatrixMode(GL_MODELVIEW)
+
+def draw_cube():
+    global angle
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)  # Limpiar pantalla y buffer de profundidad
+
+    # Configuración de la vista del cubo
+    glLoadIdentity()
+    glTranslatef(0.0, 0.0, -4)  # Alejar el cubo para que sea visible
+    glRotatef(angle, 1, 1, 1)   # Rotar el cubo en todos los ejes
+
+    glBegin(GL_QUADS)  # Iniciar el cubo como un conjunto de caras (quads)
+
+    # Cada conjunto de cuatro vértices representa una cara del cubo
+    glColor3f(1.0, 0.0, 0.0)  # Rojo
+    glVertex3f( 1, 1,-1)
+    glVertex3f(-1, 1,-1)
+    glVertex3f(-1, 1, 1)
+    glVertex3f( 1, 1, 1)
+
+    glColor3f(0.0, 1.0, 0.0)  # Verde
+    glVertex3f( 1,-1, 1)
+    glVertex3f(-1,-1, 1)
+    glVertex3f(-1,-1,-1)
+    glVertex3f( 1,-1,-1)
+
+    glColor3f(0.0, 0.0, 1.0)  # Azul
+    glVertex3f( 1, 1, 1)
+    glVertex3f(-1, 1, 1)
+    glVertex3f(-1,-1, 1)
+    glVertex3f( 1,-1, 1)
+
+    glColor3f(1.0, 1.0, 0.0)  # Amarillo
+    glVertex3f( 1,-1,-1)
+    glVertex3f(-1,-1,-1)
+    glVertex3f(-1, 1,-1)
+    glVertex3f( 1, 1,-1)
+
+    glColor3f(1.0, 0.0, 1.0)  # Magenta
+    glVertex3f(-1, 1, 1)
+    glVertex3f(-1, 1,-1)
+    glVertex3f(-1,-1,-1)
+    glVertex3f(-1,-1, 1)
+
+    glColor3f(0.0, 1.0, 1.0)  # Cyan
+    glVertex3f( 1, 1,-1)
+    glVertex3f( 1, 1, 1)
+    glVertex3f( 1,-1, 1)
+    glVertex3f( 1,-1,-1)
+
+    glEnd()
+    glFlush()
+
+    glfw.swap_buffers(window)  # Intercambiar buffers para animación suave
+    angle += 1  # Incrementar el ángulo para rotación
+
+def main():
+    global window
+
+    # Inicializar GLFW
+    if not glfw.init():
+        sys.exit()
+
+    # Crear ventana de GLFW
+    width, height = 500, 500
+    window = glfw.create_window(width, height, "Cubo 3D Rotando con GLFW", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+
+    # Configurar el contexto de OpenGL en la ventana
+    glfw.make_context_current(window)
+
+    # Configuración de viewport y OpenGL
+    glViewport(0, 0, width, height)
+    init()
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        draw_cube()
+        glfw.poll_events()
+
+    glfw.terminate()  # Cerrar GLFW al salir
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :results output :tangle code/cuboraton.py
+import glfw
+from OpenGL.GL import glClearColor, glEnable, glClear, glLoadIdentity, glTranslatef, glRotatef, glMatrixMode
+from OpenGL.GL import glBegin, glColor3f, glVertex3f, glEnd, glFlush, glViewport
+from OpenGL.GL import GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT, GL_DEPTH_TEST, GL_QUADS, GL_PROJECTION, GL_MODELVIEW
+from OpenGL.GLU import gluPerspective
+import sys
+
+# Variables globales
+window = None
+angle_x, angle_y = 0, 0  # Ángulos de rotación en los ejes X e Y
+last_x, last_y = None, None  # Última posición del ratón para calcular la diferencia
+
+def init():
+    # Configuración inicial de OpenGL
+    glClearColor(0.0, 0.0, 0.0, 1.0)  # Color de fondo
+    glEnable(GL_DEPTH_TEST)  # Activar prueba de profundidad para 3D
+
+    # Configuración de proyección
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(45, 1.0, 0.1, 50.0)
+
+    # Cambiar a la matriz de modelo para los objetos
+    glMatrixMode(GL_MODELVIEW)
+
+def draw_cube():
+    global angle_x, angle_y
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)  # Limpiar pantalla y buffer de profundidad
+
+    # Configuración de la vista del cubo
+    glLoadIdentity()
+    glTranslatef(0.0, 0.0, -5)  # Alejar el cubo para que sea visible
+    glRotatef(angle_x, 1, 0, 0)   # Rotar el cubo en el eje X
+    glRotatef(angle_y, 0, 1, 0)   # Rotar el cubo en el eje Y
+
+    glBegin(GL_QUADS)  # Iniciar el cubo como un conjunto de caras (quads)
+
+    # Cada conjunto de cuatro vértices representa una cara del cubo
+    glColor3f(1.0, 0.0, 0.0)  # Rojo
+    glVertex3f( 1, 1,-1)
+    glVertex3f(-1, 1,-1)
+    glVertex3f(-1, 1, 1)
+    glVertex3f( 1, 1, 1)
+
+    glColor3f(0.0, 1.0, 0.0)  # Verde
+    glVertex3f( 1,-1, 1)
+    glVertex3f(-1,-1, 1)
+    glVertex3f(-1,-1,-1)
+    glVertex3f( 1,-1,-1)
+
+    glColor3f(0.0, 0.0, 1.0)  # Azul
+    glVertex3f( 1, 1, 1)
+    glVertex3f(-1, 1, 1)
+    glVertex3f(-1,-1, 1)
+    glVertex3f( 1,-1, 1)
+
+    glColor3f(1.0, 1.0, 0.0)  # Amarillo
+    glVertex3f( 1,-1,-1)
+    glVertex3f(-1,-1,-1)
+    glVertex3f(-1, 1,-1)
+    glVertex3f( 1, 1,-1)
+
+    glColor3f(1.0, 0.0, 1.0)  # Magenta
+    glVertex3f(-1, 1, 1)
+    glVertex3f(-1, 1,-1)
+    glVertex3f(-1,-1,-1)
+    glVertex3f(-1,-1, 1)
+
+    glColor3f(0.0, 1.0, 1.0)  # Cyan
+    glVertex3f( 1, 1,-1)
+    glVertex3f( 1, 1, 1)
+    glVertex3f( 1,-1, 1)
+    glVertex3f( 1,-1,-1)
+
+    glEnd()
+    glFlush()
+
+    glfw.swap_buffers(window)  # Intercambiar buffers para animación suave
+
+def mouse_callback(window, xpos, ypos):
+    global angle_x, angle_y, last_x, last_y
+
+    # Si es la primera vez que movemos el ratón, inicializamos last_x y last_y
+    if last_x is None or last_y is None:
+        last_x, last_y = xpos, ypos
+
+    # Calcular las diferencias en el movimiento del ratón
+    dx = xpos - last_x
+    dy = ypos - last_y
+
+    # Ajustar los ángulos de rotación en función del movimiento del ratón
+    angle_x += dy * 0.1  # El factor 0.1 ajusta la sensibilidad
+    angle_y += dx * 0.1
+
+    # Actualizar las posiciones anteriores del ratón
+    last_x, last_y = xpos, ypos
+
+def main():
+    global window
+
+    # Inicializar GLFW
+    if not glfw.init():
+        sys.exit()
+
+    # Crear ventana de GLFW
+    width, height = 500, 500
+    window = glfw.create_window(width, height, "Cubo 3D Controlado por Ratón", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+
+    # Configurar el contexto de OpenGL en la ventana
+    glfw.make_context_current(window)
+    glViewport(0, 0, width, height)
+    init()
+
+    # Configurar el callback de ratón
+    glfw.set_cursor_pos_callback(window, mouse_callback)
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        draw_cube()
+        glfw.poll_events()
+
+    glfw.terminate()  # Cerrar GLFW al salir
+
+if __name__ == "__main__":
+    main()
+
+
+#+END_SRC
+
+
+#+RESULTS:
+
+
+#+BEGIN_SRC python :results output :tangle code/toroide.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import gluPerspective
+import numpy as np
+import sys
+
+# Variables globales para el ángulo de rotación
+window = None
+angle_x, angle_y = 0.0, 0.0  # Ángulos de rotación en los ejes X e Y
+last_x, last_y = None, None  # Última posición del ratón para calcular la diferencia
+
+# Parámetros del toroide
+R = 1.0  # Radio mayor (distancia del centro del tubo al centro del toroide)
+r = 0.4  # Radio menor (radio del tubo)
+num_major = 30  # Segmentos en el círculo mayor
+num_minor = 15  # Segmentos en el círculo menor
+
+def init():
+    # Configuración inicial de OpenGL
+    glClearColor(0.0, 0.0, 0.0, 1.0)  # Color de fondo
+    glEnable(GL_DEPTH_TEST)  # Activar prueba de profundidad para 3D
+
+    # Configuración de proyección
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(45, 1.0, 0.1, 50.0)
+
+    # Cambiar a la matriz de modelo para los objetos
+    glMatrixMode(GL_MODELVIEW)
+
+def draw_torus():
+    global angle_x, angle_y
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)  # Limpiar pantalla y buffer de profundidad
+
+    # Configuración de la vista del toroide
+    glLoadIdentity()
+    glTranslatef(0.0, 0.0, -5)  # Alejar el toroide para que sea visible
+    glRotatef(angle_x, 1, 0, 0)   # Rotar el toroide en el eje X
+    glRotatef(angle_y, 0, 1, 0)   # Rotar el toroide en el eje Y
+
+    # Dibujar el toroide utilizando segmentos
+    for i in range(num_major):
+        theta = 2 * np.pi * i / num_major
+        next_theta = 2 * np.pi * (i + 1) / num_major
+
+        glBegin(GL_QUAD_STRIP)
+        for j in range(num_minor + 1):
+            phi = 2 * np.pi * j / num_minor
+            cos_theta, sin_theta = np.cos(theta), np.sin(theta)
+            cos_next_theta, sin_next_theta = np.cos(next_theta), np.sin(next_theta)
+            cos_phi, sin_phi = np.cos(phi), np.sin(phi)
+
+            # Color dinámico para variación visual
+            glColor3f((i % 2) * 0.5 + 0.5, (j % 2) * 0.5 + 0.5, 0.5)
+
+            # Primera esquina
+            x = (R + r * cos_phi) * cos_theta
+            y = r * sin_phi
+            z = (R + r * cos_phi) * sin_theta
+            glVertex3f(x, y, z)
+
+            # Segunda esquina
+            x = (R + r * cos_phi) * cos_next_theta
+            z = (R + r * cos_phi) * sin_next_theta
+            glVertex3f(x, y, z)
+
+        glEnd()
+
+    glfw.swap_buffers(window)  # Intercambiar buffers para animación suave
+
+def mouse_callback(window, xpos, ypos):
+    global angle_x, angle_y, last_x, last_y
+
+    # Si es la primera vez que movemos el ratón, inicializamos last_x y last_y
+    if last_x is None or last_y is None:
+        last_x, last_y = xpos, ypos
+
+    # Calcular las diferencias en el movimiento del ratón
+    dx = xpos - last_x
+    dy = ypos - last_y
+
+    # Ajustar los ángulos de rotación en función del movimiento del ratón
+    angle_x += dy * 0.2  # Factor de sensibilidad en Y
+    angle_y += dx * 0.2  # Factor de sensibilidad en X
+
+    # Actualizar las posiciones anteriores del ratón
+    last_x, last_y = xpos, ypos
+
+def main():
+    global window
+
+    # Inicializar GLFW
+    if not glfw.init():
+        sys.exit()
+
+    # Crear ventana de GLFW
+    width, height = 500, 500
+    window = glfw.create_window(width, height, "Toroide 3D Controlado por Ratón", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+
+    # Configurar el contexto de OpenGL en la ventana
+    glfw.make_context_current(window)
+    glViewport(0, 0, width, height)
+    init()
+
+    # Configurar el callback de ratón
+    glfw.set_cursor_pos_callback(window, mouse_callback)
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        draw_torus()
+        glfw.poll_events()
+
+    glfw.terminate()  # Cerrar GLFW al salir
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+
+
 
 ** Transformaciones en OpenGL
 Las transformaciones de OpenGL son fundamentales para mover, rotar y escalar los objetos en la escena.
@@ -3039,13 +3445,18 @@ Ejemplo de cómo aplicar una transformación de escalado y rotación:
 En OpenGL, puedes aplicar iluminación y definir materiales para que los objetos interactúen con la luz de manera realista.
 
 *** Tipos de luces
-   - **Luz ambiental**: Luz sin una dirección específica que ilumina toda la escena.
-   - **Luz direccional**: Luz que proviene de una dirección específica, como la luz solar.
-   - **Luz de punto**: Luz que emana de un punto específico, como una lámpara.
-   - **Luz de foco**: Luz que se emite en un ángulo específico, similar a un reflector.
+   - **Luz ambiental**: Luz sin una dirección específica que ilumina
+     toda la escena.
+   - **Luz direccional**: Luz que proviene de una dirección específica,
+     como la luz solar.
+   - **Luz de punto**: Luz que emana de un punto específico, como una
+     lámpara.
+   - **Luz de foco**: Luz que se emite en un ángulo específico, similar
+     a un reflector.
 
 *** Materiales
-   Puedes definir propiedades de los materiales, como el color y la reflectividad, para cada objeto.
+   Puedes definir propiedades de los materiales, como el color y la
+   reflectividad, para cada objeto.
 
 ** Sombras y Efectos Avanzados
    OpenGL también permite generar sombras y efectos avanzados como transparencia, texturas y sombreado por vértices.
