@@ -403,13 +403,8 @@ brew install git
    - Para actualizar Python a una nueva versión en el futuro, descarga la última versión desde [[https://www.python.org/downloads/][python.org]] y sigue los pasos de instalación.
 
 
-* Entornos Virtuales Python
 
-* Tutorial: Entornos Virtuales en Python
-
-
-
-* Entornos Virtuales en Visual Studio Code
+* Entornos Virtuales en Python
 
 ** ¿Qué es un Entorno Virtual?
 Un *entorno virtual* es una herramienta que permite crear un espacio
