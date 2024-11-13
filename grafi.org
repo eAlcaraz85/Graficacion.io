@@ -403,6 +403,114 @@ brew install git
    - Para actualizar Python a una nueva versión en el futuro, descarga la última versión desde [[https://www.python.org/downloads/][python.org]] y sigue los pasos de instalación.
 
 
+* Entornos Virtuales Python
+
+* Tutorial: Entornos Virtuales en Python
+
+
+
+* Entornos Virtuales en Visual Studio Code
+
+** ¿Qué es un Entorno Virtual?
+Un *entorno virtual* es una herramienta que permite crear un espacio
+aislado para instalar dependencias específicas de un proyecto en
+Python. Esto evita conflictos entre paquetes de diferentes proyectos.
+
+** Preparación: Instalación de Python y Visual Studio Code
+1. Asegúrate de tener Python instalado en tu sistema. Puedes verificarlo con:
+   #+BEGIN_SRC sh
+   python --version
+   #+END_SRC
+2. Descarga e instala [Visual Studio Code](https://code.visualstudio.com/).
+3. Instala la extensión de *Python* en VS Code para habilitar características avanzadas, como la detección de entornos virtuales, depuración, y autocompletado.
+
+** Crear un Entorno Virtual
+Para crear un entorno virtual en la carpeta de tu proyecto:
+
+1. Abre la terminal integrada en VS Code (menú *Terminal > New Terminal*).
+2. Usa el siguiente comando para crear el entorno virtual:
+   #+BEGIN_SRC sh
+   python -m venv nombre_entorno
+   #+END_SRC
+   - Sustituye *nombre_entorno* con el nombre que quieras para el entorno virtual, como `env` o `venv`.
+
+** Activar el Entorno Virtual
+Para activar el entorno virtual en la terminal de VS Code:
+
+- En Linux/macOS:
+  #+BEGIN_SRC sh
+  source nombre_entorno/bin/activate
+  #+END_SRC
+
+- En Windows:
+  #+BEGIN_SRC sh
+  .\nombre_entorno\Scripts\activate
+  #+END_SRC
+
+Cuando el entorno esté activado, verás el nombre del entorno en la terminal.
+
+** Configurar el Entorno Virtual en Visual Studio Code
+Para que VS Code use el entorno virtual para ejecutar el código y detectar dependencias:
+
+1. Presiona `Ctrl+Shift+P` (o `Cmd+Shift+P` en macOS) para abrir la *Command Palette*.
+2. Busca y selecciona `Python: Select Interpreter`.
+3. En la lista de intérpretes, selecciona el que corresponde a tu
+   entorno virtual (debería tener el nombre del entorno que creaste).
+
+** Instalar Paquetes en el Entorno Virtual
+Con el entorno activado en la terminal de VS Code, puedes instalar paquetes con `pip`:
+
+#+BEGIN_SRC sh
+pip install nombre_paquete
+#+END_SRC
+
+** Administrar Paquetes
+Para ver los paquetes instalados en el entorno virtual:
+
+#+BEGIN_SRC sh
+pip list
+#+END_SRC
+
+También puedes usar el archivo *requirements.txt* para gestionar dependencias del proyecto. Para crearlo:
+
+1. Ejecuta:
+   #+BEGIN_SRC sh
+   pip freeze > requirements.txt
+   #+END_SRC
+
+2. Para instalar todas las dependencias listadas en *requirements.txt* en otro entorno, usa:
+   #+BEGIN_SRC sh
+   pip install -r requirements.txt
+   #+END_SRC
+
+** Desactivar el Entorno Virtual
+Para desactivar el entorno virtual en la terminal, ejecuta:
+
+#+BEGIN_SRC sh
+deactivate
+#+END_SRC
+
+** Eliminar el Entorno Virtual
+Si deseas eliminar el entorno virtual, puedes simplemente borrar la carpeta:
+
+#+BEGIN_SRC sh
+rm -rf nombre_entorno
+#+END_SRC
+
+
+** Consejos Adicionales para VS Code
+- **Terminal automática**: Cuando creas y activas un entorno en VS Code, puedes configurar el archivo `.vscode/settings.json` para que VS Code lo active automáticamente en cada terminal nueva:
+  #+BEGIN_SRC json
+  {
+    "python.venvPath": "${workspaceFolder}/nombre_entorno",
+    "python.defaultInterpreterPath": "${workspaceFolder}/nombre_entorno/bin/python"
+  }
+  #+END_SRC
+
+
+
+
+   
 * Introducción a la Graficación por computadora 
    
 ** Graficación por Computadora
@@ -3445,7 +3553,7 @@ def init():
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light)
 
     # Configuración de las propiedades de material
-    material_diffuse = [0.5, 0.5, 1.0, 1.0]  # Color difuso (azul claro)
+    material_diffuse = [1, 0.2, 1.0, 0.0]  # Color difuso (azul claro)
     glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse)
 
 def draw_sphere(radius=1, slices=32, stacks=32):
@@ -3633,7 +3741,7 @@ def draw_snowman():
 
     # Configurar posición de la cámara
     glTranslatef(0.0 + jump_offset, -1.5 , -8)  # Posición del muñeco de nieve y altura
-    #glRotatef(rotation_angle, 0, 0, 1)  # Rotación en el eje Y
+    glRotatef(rotation_angle, 0, 0, 1)  # Rotación en el eje Y
 
     # Cuerpo
     glColor3f(1, 1, 1)
@@ -3721,10 +3829,14 @@ de profundidad en la escena.
 gluPerspective(fovY, aspect, zNear, zFar)
 #+END_SRC
 
-- =fovY=: El campo de visión vertical en grados. Un valor mayor de =fovY= hace que la vista sea más amplia.
-- =aspect=: La relación de aspecto de la ventana (ancho/alto). Asegura que la imagen no se vea estirada.
-- =zNear=: La distancia mínima visible desde la cámara. Los objetos más cercanos a la cámara que =zNear= no se renderizan.
-- =zFar=: La distancia máxima visible desde la cámara. Los objetos más lejanos que =zFar= no se renderizan.
+- =fovY=: El campo de visión vertical en grados. Un valor mayor de =fovY=
+  hace que la vista sea más amplia.
+- =aspect=: La relación de aspecto de la ventana (ancho/alto). Asegura
+  que la imagen no se vea estirada.
+- =zNear=: La distancia mínima visible desde la cámara. Los objetos más
+  cercanos a la cámara que =zNear= no se renderizan.
+- =zFar=: La distancia máxima visible desde la cámara. Los objetos más
+  lejanos que =zFar= no se renderizan.
 
 *** Ejemplo Básico de Uso de gluPerspective
 Este ejemplo muestra cómo configurar =gluPerspective= en una escena de OpenGL en Python, utilizando PyOpenGL y GLFW.
@@ -3785,11 +3897,7 @@ if __name__ == "__main__":
 
 #+RESULTS:
 
-*** Explicación del Código
-1. Configuración de =gluPerspective=:
-   En la función =init=, cambiamos a la matriz de proyección con =glMatrixMode(GL_PROJECTION)= y configuramos =gluPerspective= para una proyección en perspectiva.
 
-2. Parámetros
 ** Transformaciones en OpenGL
 Las transformaciones de OpenGL son fundamentales para mover, rotar y escalar los objetos en la escena.
 
