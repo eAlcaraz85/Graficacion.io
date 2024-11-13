@@ -3410,7 +3410,386 @@ if __name__ == "__main__":
 #+RESULTS:
 
 
+#+BEGIN_SRC python :results output
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import gluNewQuadric, gluSphere, gluPerspective
+import sys
+import math
 
+# Variables globales para el ángulo de rotación y posición de la esfera
+window = None
+rotation_angle = 0.0  # Ángulo de rotación de la esfera
+movement_offset = 0.0  # Offset para el movimiento de vaivén
+movement_speed = 0.05  # Velocidad del movimiento de vaivén
+movement_direction = 1  # Dirección del movimiento (1 a la derecha, -1 a la izquierda)
+
+def init():
+    glClearColor(0.0, 0.0, 0.0, 1.0)  # Fondo negro
+    glEnable(GL_DEPTH_TEST)            # Activar prueba de profundidad
+    glEnable(GL_LIGHTING)              # Activar iluminación
+    glEnable(GL_LIGHT0)                # Activar la luz 0
+
+    # Configuración de la perspectiva
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(45, 1.0, 0.1, 50.0)
+    glMatrixMode(GL_MODELVIEW)
+
+    # Configuración de la luz
+    light_pos = [1.0, 1.0, 1.0, 0.0]  # Posición de la luz
+    light_color = [1.0, 1.0, 1.0, 1.0]  # Color de la luz blanca
+    ambient_light = [0.2, 0.2, 0.2, 1.0]  # Luz ambiental
+
+    glLightfv(GL_LIGHT0, GL_POSITION, light_pos)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_color)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light)
+
+    # Configuración de las propiedades de material
+    material_diffuse = [0.5, 0.5, 1.0, 1.0]  # Color difuso (azul claro)
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse)
+
+def draw_sphere(radius=1, slices=32, stacks=32):
+    global rotation_angle, movement_offset
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    glTranslatef(movement_offset, 0.0, -5)      # Mover la esfera en vaivén
+    glRotatef(rotation_angle, 0, 1, 0)  # Rotar la esfera sobre su eje Y
+
+    quadric = gluNewQuadric()
+    gluSphere(quadric, radius, slices, stacks)  # Dibujar la esfera
+
+    glfw.swap_buffers(window)
+
+def update_motion():
+    global rotation_angle, movement_offset, movement_direction
+
+    # Actualizar el ángulo de rotación
+    rotation_angle += 1
+    if rotation_angle >= 360:
+        rotation_angle = 0  # Reiniciar el ángulo después de una vuelta completa
+
+    # Actualizar el movimiento de vaivén
+    movement_offset += movement_speed * movement_direction
+    if movement_offset > 2.0:       # Limite derecho
+        movement_direction = -1     # Cambiar dirección hacia la izquierda
+    elif movement_offset < -2.0:    # Limite izquierdo
+        movement_direction = 1      # Cambiar dirección hacia la derecha
+
+def main():
+    global window
+
+    # Inicializar GLFW
+    if not glfw.init():
+        sys.exit()
+    
+    # Crear ventana de GLFW
+    width, height = 500, 500
+    window = glfw.create_window(width, height, "Esfera en Movimiento y Rotación", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+
+    glfw.make_context_current(window)
+    glViewport(0, 0, width, height)
+    init()
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        draw_sphere()
+        update_motion()  # Actualizar el movimiento y rotación
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :results output
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import gluNewQuadric, gluSphere, gluPerspective, gluCylinder
+import sys
+
+def init():
+    glClearColor(0.5, 0.7, 1.0, 1.0)  # Fondo de cielo
+    glEnable(GL_DEPTH_TEST)
+
+    # Configuración de la perspectiva
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(45, 1.0, 0.1, 50.0)
+    glMatrixMode(GL_MODELVIEW)
+
+def draw_sphere(radius=1, x=0, y=0, z=0):
+    glPushMatrix()
+    glTranslatef(x, y, z)
+    quadric = gluNewQuadric()
+    gluSphere(quadric, radius, 32, 32)
+    glPopMatrix()
+
+def draw_cone(base=0.1, height=0.5, x=0, y=0, z=0):
+    glPushMatrix()
+    glTranslatef(x, y, z)
+    glRotatef(-90, 1, 0, 0)  # Orientar el cono hacia adelante
+    quadric = gluNewQuadric()
+    gluCylinder(quadric, base, 0, height, 32, 32)
+    glPopMatrix()
+
+def draw_snowman():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    glTranslatef(0.0, -1.5, -8)  # Alejar al muñeco de nieve
+
+    # Cuerpo
+    glColor3f(1, 1, 1)
+    draw_sphere(1.0, 0, 0, 0)     # Base
+    draw_sphere(0.75, 0, 1.2, 0)  # Cuerpo medio
+    draw_sphere(0.5, 0, 2.2, 0)   # Cabeza
+
+    # Ojos
+    glColor3f(0, 0, 0)
+    draw_sphere(0.05, -0.15, 2.3, 0.4)  # Ojo izquierdo
+    draw_sphere(0.05, 0.15, 2.3, 0.4)   # Ojo derecho
+
+    # Nariz (cono)
+    glColor3f(1, 0.5, 0)  # Color naranja
+    draw_cone(0.05, 0.2, 0, 2.2, 0.5)  # Nariz
+
+    glfw.swap_buffers(window)
+
+def main():
+    if not glfw.init():
+        sys.exit()
+    
+    global window
+    window = glfw.create_window(500, 500, "Muñeco de Nieve en OpenGL", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+
+    glfw.make_context_current(window)
+    init()
+
+    while not glfw.window_should_close(window):
+        draw_snowman()
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+#+END_SRC
+
+#+RESULTS:
+
+
+#+BEGIN_SRC python :results output
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import gluNewQuadric, gluSphere, gluPerspective, gluCylinder
+import sys
+import math
+
+# Variables globales
+window = None
+jump_offset = 0.0       # Para el movimiento de salto vertical
+jump_speed = 0.05       # Velocidad del salto
+jump_direction = 1      # Dirección del salto (1 hacia arriba, -1 hacia abajo)
+rotation_angle = 0.0    # Ángulo de rotación del muñeco de nieve
+
+def init():
+    glClearColor(0.5, 0.7, 1.0, 1.0)  # Fondo de cielo
+    glEnable(GL_DEPTH_TEST)
+
+    # Configuración de la perspectiva
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(45, 1.0, 0.1, 50.0)
+    glMatrixMode(GL_MODELVIEW)
+
+def draw_sphere(radius=1, x=0, y=0, z=0):
+    glPushMatrix()
+    glTranslatef(x, y, z)
+    quadric = gluNewQuadric()
+    gluSphere(quadric, radius, 32, 32)
+    glPopMatrix()
+
+def draw_cone(base=0.1, height=0.5, x=0, y=0, z=0):
+    glPushMatrix()
+    glTranslatef(x, y, z)
+    glRotatef(-90, 1, 0, 0)  # Orientar el cono hacia adelante
+    quadric = gluNewQuadric()
+    gluCylinder(quadric, base, 0, height, 32, 32)
+    glPopMatrix()
+
+def draw_snowman():
+    global jump_offset, rotation_angle
+
+    # Limpiar la pantalla y la profundidad
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+
+    # Configurar posición de la cámara
+    glTranslatef(0.0 + jump_offset, -1.5 , -8)  # Posición del muñeco de nieve y altura
+    #glRotatef(rotation_angle, 0, 0, 1)  # Rotación en el eje Y
+
+    # Cuerpo
+    glColor3f(1, 1, 1)
+    draw_sphere(1.0, 0, 0, 0)     # Base
+    draw_sphere(0.75, 0, 1.2, 0)  # Cuerpo medio
+    draw_sphere(0.5, 0, 2.2, 0)   # Cabeza
+
+    # Ojos
+    glColor3f(0, 0, 0)
+    draw_sphere(0.05, -0.15, 2.3, 0.4)  # Ojo izquierdo
+    draw_sphere(0.05, 0.15, 2.3, 0.4)   # Ojo derecho
+
+    # Nariz (cono)
+    glColor3f(1, 0.5, 0)  # Color naranja
+    draw_cone(0.05, 0.2, 0, 2.2, 0.5)  # Nariz
+
+    glfw.swap_buffers(window)
+
+def update_motion():
+    global jump_offset, jump_direction, rotation_angle
+
+    # Actualizar el ángulo de rotación
+    rotation_angle += 1  # Incrementa para que el muñeco gire
+    if rotation_angle >= 360:
+        rotation_angle = 0  # Reiniciar el ángulo después de una vuelta completa
+
+    # Actualizar el movimiento de salto
+    jump_offset += jump_speed * jump_direction
+    if jump_offset > 1.0:        # Limite superior del salto
+        jump_direction = -1      # Cambiar dirección hacia abajo
+    elif jump_offset < 0.0:      # Limite inferior del salto
+        jump_direction = 1       # Cambiar dirección hacia arriba
+
+def main():
+    global window
+
+    # Inicializar GLFW
+    if not glfw.init():
+        sys.exit()
+    
+    # Crear ventana de GLFW
+    width, height = 500, 500
+    window = glfw.create_window(width, height, "Muñeco de Nieve en Movimiento", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+
+    glfw.make_context_current(window)
+    glViewport(0, 0, width, height)
+    init()
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        draw_snowman()
+        update_motion()  # Actualizar el movimiento en cada cuadro
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+
+
+** Tutorial de gluPerspective en OpenGL
+Este tutorial describe cómo utilizar la función =gluPerspective= en
+OpenGL para definir la proyección en perspectiva en una escena 3D. La
+proyección en perspectiva simula cómo los humanos ven el mundo, con
+objetos cercanos que se ven más grandes y objetos lejanos que se ven
+más pequeños.
+
+*** ¿Qué es gluPerspective?
+La función =gluPerspective= establece una proyección en perspectiva para
+la cámara, creando una "pirámide de visión" o "frustum" en la que los
+objetos más lejanos se ven más pequeños, proporcionando una sensación
+de profundidad en la escena.
+
+
+
+*** Sintaxis
+#+BEGIN_SRC python
+gluPerspective(fovY, aspect, zNear, zFar)
+#+END_SRC
+
+- =fovY=: El campo de visión vertical en grados. Un valor mayor de =fovY= hace que la vista sea más amplia.
+- =aspect=: La relación de aspecto de la ventana (ancho/alto). Asegura que la imagen no se vea estirada.
+- =zNear=: La distancia mínima visible desde la cámara. Los objetos más cercanos a la cámara que =zNear= no se renderizan.
+- =zFar=: La distancia máxima visible desde la cámara. Los objetos más lejanos que =zFar= no se renderizan.
+
+*** Ejemplo Básico de Uso de gluPerspective
+Este ejemplo muestra cómo configurar =gluPerspective= en una escena de OpenGL en Python, utilizando PyOpenGL y GLFW.
+
+#+BEGIN_SRC python
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import gluPerspective
+
+def init():
+    glClearColor(0.0, 0.0, 0.0, 1.0)  # Fondo negro
+    glEnable(GL_DEPTH_TEST)            # Activar prueba de profundidad
+
+    # Configuración de la proyección en perspectiva
+    glMatrixMode(GL_PROJECTION)        # Cambiar a la matriz de proyección
+    glLoadIdentity()                   # Resetear la matriz de proyección
+    gluPerspective(45, 4/3, 0.1, 50.0) # Configurar perspectiva
+    glMatrixMode(GL_MODELVIEW)         # Cambiar a la matriz de modelo/vista
+
+def draw():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    glTranslatef(0.0, 0.0, -5)  # Alejar el objeto de la cámara
+
+    glBegin(GL_QUADS)
+    glColor3f(1, 0, 0)  # Rojo
+    glVertex3f(1, 1, -1)
+    glVertex3f(-1, 1, -1)
+    glVertex3f(-1, -1, -1)
+    glVertex3f(1, -1, -1)
+    glEnd()
+    
+    glfw.swap_buffers(window)
+
+def main():
+    global window
+    if not glfw.init():
+        return
+
+    window = glfw.create_window(800, 600, "Ejemplo de gluPerspective", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    glfw.make_context_current(window)
+    glViewport(0, 0, 800, 600)
+    init()
+
+    while not glfw.window_should_close(window):
+        draw()
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+#+END_SRC
+
+#+RESULTS:
+
+*** Explicación del Código
+1. Configuración de =gluPerspective=:
+   En la función =init=, cambiamos a la matriz de proyección con =glMatrixMode(GL_PROJECTION)= y configuramos =gluPerspective= para una proyección en perspectiva.
+
+2. Parámetros
 ** Transformaciones en OpenGL
 Las transformaciones de OpenGL son fundamentales para mover, rotar y escalar los objetos en la escena.
 
@@ -3436,6 +3815,8 @@ Ejemplo de cómo aplicar una transformación de escalado y rotación:
   draw_triangle()              # Dibujar el objeto transformado
   glPopMatrix()         # Restaurar la matriz original
 #+end_src
+
+
 
 ** Iluminación y Materiales
 En OpenGL, puedes aplicar iluminación y definir materiales para que los objetos interactúen con la luz de manera realista.
@@ -3494,3 +3875,5 @@ Con el tiempo, OpenGL ha evolucionado hacia un modelo basado en
 shaders, lo que permite un control mucho mayor sobre el pipeline
 gráfico, haciendo posible gráficos de alta calidad y efectos avanzados
 en tiempo real.
+
+
