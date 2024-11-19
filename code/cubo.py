@@ -29,7 +29,7 @@ def draw_cube():
     # Configuración de la vista del cubo
     glLoadIdentity()
     glTranslatef(0.0, 0.0, -5)  # Alejar el cubo para que sea visible
-    glRotatef(angle, 1, 1, 1)   # Rotar el cubo en todos los ejes
+    glRotatef(angle, 0, 0,1)   # Rotar el cubo en todos los ejes
 
     glBegin(GL_QUADS)  # Iniciar el cubo como un conjunto de caras (quads)
 

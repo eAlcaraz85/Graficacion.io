@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
 <head>
-<!-- 2024-11-13 mié 13:51 -->
+<!-- 2024-11-19 mar 13:02 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Apuntes Graficación</title>
@@ -230,267 +230,268 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org4804704">Manual de Instalación de Git</a>
+<li><a href="#org9ff3097">Manual de Instalación de Git</a>
 <ul>
-<li><a href="#org019d711">Instalación en Windows</a></li>
-<li><a href="#orga52be5e">Instalación en macOS</a>
+<li><a href="#org6237afb">Instalación en Windows</a></li>
+<li><a href="#org618410c">Instalación en macOS</a>
 <ul>
-<li><a href="#org0efb4ba">Método recomendado: usando Homebrew</a></li>
-<li><a href="#org9adff0f">Método alternativo: paquete descargado</a></li>
+<li><a href="#orgbe504a8">Método recomendado: usando Homebrew</a></li>
+<li><a href="#org75abe99">Método alternativo: paquete descargado</a></li>
 </ul>
 </li>
-<li><a href="#org680b2d4">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</a></li>
-<li><a href="#org98fbddd">Configuración básica de Git</a></li>
-<li><a href="#org80029bf">Actualización de Git</a></li>
-<li><a href="#org7d92b60">Configurar Llave SSH con GitHub</a>
+<li><a href="#orgd7dd696">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</a></li>
+<li><a href="#orgf380df6">Configuración básica de Git</a></li>
+<li><a href="#orgb64f4b2">Actualización de Git</a></li>
+<li><a href="#org24c162c">Configurar Llave SSH con GitHub</a>
 <ul>
-<li><a href="#org0d0e079">1. Verificar si ya tienes una llave SSH</a></li>
-<li><a href="#orga6f559a">2. Generar una nueva llave SSH</a></li>
-<li><a href="#orgc4ed846">3. Añadir la llave SSH al agente SSH</a></li>
-<li><a href="#org05d6022">4. Copiar la llave SSH pública</a></li>
-<li><a href="#orgda1d743">5. Añadir la llave SSH a GitHub</a></li>
-<li><a href="#org121f3d6">6. Probar la conexión SSH con GitHub</a></li>
-<li><a href="#orgba7cb81">7. Usar la conexión SSH en repositorios de GitHub</a></li>
+<li><a href="#orge361bb0">1. Verificar si ya tienes una llave SSH</a></li>
+<li><a href="#orgaeb784d">2. Generar una nueva llave SSH</a></li>
+<li><a href="#orgbf7e211">3. Añadir la llave SSH al agente SSH</a></li>
+<li><a href="#orga0a6a37">4. Copiar la llave SSH pública</a></li>
+<li><a href="#org052d255">5. Añadir la llave SSH a GitHub</a></li>
+<li><a href="#orge82c3e5">6. Probar la conexión SSH con GitHub</a></li>
+<li><a href="#org8a1c360">7. Usar la conexión SSH en repositorios de GitHub</a></li>
 </ul>
 </li>
-<li><a href="#org8d7379d">Configurar Llave SSH con GitHub en Windows</a>
+<li><a href="#org55a9ac0">Configurar Llave SSH con GitHub en Windows</a>
 <ul>
-<li><a href="#orge52dc34">1. Abrir Git Bash</a></li>
-<li><a href="#org3da218e">2. Verificar si ya tienes una llave SSH</a></li>
-<li><a href="#org91123c7">3. Generar una nueva llave SSH</a></li>
-<li><a href="#orgffa4cb9">4. Añadir la llave SSH al agente SSH</a></li>
-<li><a href="#org7aff7a9">5. Copiar la llave SSH pública</a></li>
-<li><a href="#orgda2612a">6. Añadir la llave SSH a GitHub</a></li>
-<li><a href="#org7e8410a">7. Probar la conexión SSH con GitHub</a></li>
-<li><a href="#orge49d42c">8. Usar la conexión SSH en repositorios de GitHub</a></li>
+<li><a href="#orgc04c7b6">1. Abrir Git Bash</a></li>
+<li><a href="#org072f453">2. Verificar si ya tienes una llave SSH</a></li>
+<li><a href="#org2aa3e1d">3. Generar una nueva llave SSH</a></li>
+<li><a href="#org6a85adc">4. Añadir la llave SSH al agente SSH</a></li>
+<li><a href="#org9d1e9e1">5. Copiar la llave SSH pública</a></li>
+<li><a href="#org3bb33ce">6. Añadir la llave SSH a GitHub</a></li>
+<li><a href="#orgfca943d">7. Probar la conexión SSH con GitHub</a></li>
+<li><a href="#org29b7057">8. Usar la conexión SSH en repositorios de GitHub</a></li>
 </ul>
 </li>
-<li><a href="#org3b04216">Manual de Git en Windows</a>
+<li><a href="#orgb8d150d">Manual de Git en Windows</a>
 <ul>
-<li><a href="#orgad7ac11">1. Instalar Git en Windows</a></li>
-<li><a href="#org5de2083">2. Configurar Git</a></li>
-<li><a href="#org02ffdcb">3. Clonar un repositorio</a></li>
-<li><a href="#org3c1dcc7">4. Comandos básicos de Git</a></li>
-<li><a href="#orgb547f93">5. Actualizar el repositorio local</a></li>
-<li><a href="#org5b6144b">6. Crear y cambiar de ramas (branches)</a></li>
-<li><a href="#orgac0d608">7. Ver historial de commits</a></li>
-<li><a href="#org02a56ad">8. Configurar una llave SSH</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org75a8134">Manual de Instalación de Python en Windows</a>
-<ul>
-<li><a href="#org1f9e13a">Paso 1: Descarga de Python</a></li>
-<li><a href="#org2e20e99">Paso 2: Ejecutar el instalador</a></li>
-<li><a href="#org8bff0b8">Paso 3: Verificación de la instalación</a></li>
-<li><a href="#orgbcb5efe">Paso 4: Instalar pip y otros paquetes</a></li>
-<li><a href="#org8361f20">Paso 5: Configuración del entorno de desarrollo</a></li>
-<li><a href="#org5fea7ee">Paso 6: Actualización de Python (opcional)</a></li>
-</ul>
-</li>
-<li><a href="#org0f623b2">Entornos Virtuales en Python</a>
-<ul>
-<li><a href="#orga60d400">¿Qué es un Entorno Virtual?</a></li>
-<li><a href="#orgb57edb3">Preparación: Instalación de Python y Visual Studio Code</a></li>
-<li><a href="#orgfce5063">Crear un Entorno Virtual</a></li>
-<li><a href="#org02f8be7">Activar el Entorno Virtual</a></li>
-<li><a href="#orgc09fa90">Configurar el Entorno Virtual en Visual Studio Code</a></li>
-<li><a href="#orgc64add0">Instalar Paquetes en el Entorno Virtual</a></li>
-<li><a href="#orgdaab416">Administrar Paquetes</a></li>
-<li><a href="#org64ac142">Desactivar el Entorno Virtual</a></li>
-<li><a href="#orga78be3e">Eliminar el Entorno Virtual</a></li>
-<li><a href="#orgd61cc8c">Consejos Adicionales para VS Code</a></li>
-</ul>
-</li>
-<li><a href="#org6c03c5c">Introducción a la Graficación por computadora</a>
-<ul>
-<li><a href="#org921e03b">Graficación por Computadora</a>
-<ul>
-<li><a href="#org41d1cea">Objetivos de la Graficación por Computadora</a></li>
-<li><a href="#org61564a6">Áreas de estudio en Graficación por Computadora</a></li>
-<li><a href="#orgf222716">Aplicaciones de la Graficación por Computadora</a></li>
-<li><a href="#org083635b">Temas principales en Graficación por Computadora</a></li>
-</ul>
-</li>
-<li><a href="#org3d8fa5c">Modelos de Color: RGB, CMY, HSV y HSL</a></li>
-<li><a href="#org43245d9">Introducción</a></li>
-<li><a href="#org33c345f">Modelo de Color RGB (Red, Green, Blue)</a></li>
-<li><a href="#orgea0ff4e">Definición</a></li>
-<li><a href="#org9030ef0">Funcionamiento de la Mezcla Aditiva</a></li>
-<li><a href="#org0ab000a">Espacio de Color RGB</a></li>
-<li><a href="#org5d56a24">Conversión a otros modelos de color</a></li>
-<li><a href="#org26bb076">Aplicaciones del Modelo RGB</a></li>
-<li><a href="#org26dcb30">Limitaciones del Modelo RGB</a></li>
-<li><a href="#org5d36657">Modelo CMY (Cyan, Magenta, Yellow)</a></li>
-<li><a href="#orge0e6374">Modelo HSV (Hue, Saturation, Value)</a>
-<ul>
-<li><a href="#orgd804586">HSV opencv</a></li>
-<li><a href="#org73fd492">Tutorial: Umbrales en el Modelo de Color HSV</a></li>
-<li><a href="#org22c408e">Definición de los Parámetros del Modelo HSV</a></li>
-<li><a href="#org725c654">Detectar un color en el espacio HSV</a></li>
-<li><a href="#org2e0febe">Explicación de los Parámetros:</a></li>
-<li><a href="#orga3a09ba">Ajustes de los Umbrales</a></li>
-<li><a href="#org1f1d904">Ejemplo visual: Rango de tonos para detectar verde</a></li>
-<li><a href="#org72631e8">Uso de <code>cv2.inRange</code></a></li>
-</ul>
-</li>
-<li><a href="#orgb785f0f">Modelo HSL (Hue, Saturation, Lightness)</a></li>
-<li><a href="#org229cb34">Función Bitwise opencv</a>
-<ul>
-<li><a href="#org6675ddd">Tutorial: Operaciones Bitwise en OpenCV</a></li>
-</ul>
-</li>
-<li><a href="#org64f6a80">Definición: Operación Bit a Bit</a>
-<ul>
-<li><a href="#orgba23422">Principales operaciones bit a bit</a></li>
-</ul>
-</li>
-<li><a href="#org72d365a">Operadores Puntuales</a>
-<ul>
-<li><a href="#orgd418c65">Definición</a></li>
-<li><a href="#org00a9c98">Características</a></li>
-<li><a href="#orgb8b277b">Tipos de Operadores Puntuales</a></li>
-<li><a href="#org5d288ed">Aplicaciones de Operadores Puntuales</a></li>
-</ul>
-</li>
-<li><a href="#org9eb680b">Proceso de Multiplicación de una Matriz de Transformación por una Coordenada de Píxel</a>
-<ul>
-<li><a href="#org478166f">1. Representación de las coordenadas en forma homogénea</a></li>
-<li><a href="#orge15d4bf">2. Definición de la matriz de transformación</a></li>
-<li><a href="#orgb4318d5">3. Multiplicación de la matriz por las coordenadas</a></li>
-<li><a href="#orgb8aa7a2">4. Resultado final</a></li>
-<li><a href="#org0fefb52">Ejemplo concreto: Rotación</a></li>
-<li><a href="#org227c0d8">Resumen del proceso</a></li>
-</ul>
-</li>
-<li><a href="#org69421a7">Transformaciones Geométricas en Imágenes</a>
-<ul>
-<li><a href="#org3324168">1. Traslación (Translation)</a></li>
-<li><a href="#orgcbbfb9e">2. Rotación (Rotation)</a></li>
-<li><a href="#org2d16d23">3. Escalado (Scalin</a></li>
-<li><a href="#org5ca25c1">4. Cizallamiento (Shearing)</a></li>
-<li><a href="#org6c95b20">5. Reflexión (Reflection)</a></li>
-<li><a href="#org2aa1965">6. Transformación Afín (Affine Transformation)</a></li>
-<li><a href="#orgc6313e9">7. Transformación Proyectiva (Homografía)</a></li>
-<li><a href="#org0575a76">Aplicaciones</a></li>
+<li><a href="#org303d129">1. Instalar Git en Windows</a></li>
+<li><a href="#org4ea0081">2. Configurar Git</a></li>
+<li><a href="#orgf7c4f88">3. Clonar un repositorio</a></li>
+<li><a href="#orgf2d9691">4. Comandos básicos de Git</a></li>
+<li><a href="#orgfd86083">5. Actualizar el repositorio local</a></li>
+<li><a href="#orgfb0f429">6. Crear y cambiar de ramas (branches)</a></li>
+<li><a href="#org8a4fca0">7. Ver historial de commits</a></li>
+<li><a href="#orgae7c72b">8. Configurar una llave SSH</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgf26b4ea">Actividades</a></li>
-<li><a href="#org0093430">Programación</a>
+<li><a href="#orgb0de48f">Manual de Instalación de Python en Windows</a>
 <ul>
-<li><a href="#orgd4f23fc">Programas Unidad 1</a>
-<ul>
-<li><a href="#org6a866ba">Creación de una Imagen</a></li>
-<li><a href="#orgd572f4a">Cargar Imagen</a></li>
-<li><a href="#orgd227972">Split y Merge Imagen</a></li>
-<li><a href="#org2ef201a">Ejemplo de Operador Puntual en Imágenes</a></li>
-<li><a href="#orgedb1b83">Cargar vídeo Opencv</a></li>
+<li><a href="#org4457943">Paso 1: Descarga de Python</a></li>
+<li><a href="#org69a8563">Paso 2: Ejecutar el instalador</a></li>
+<li><a href="#org7ca33a0">Paso 3: Verificación de la instalación</a></li>
+<li><a href="#org29fd2ef">Paso 4: Instalar pip y otros paquetes</a></li>
+<li><a href="#org6b14383">Paso 5: Configuración del entorno de desarrollo</a></li>
+<li><a href="#orgb1cc380">Paso 6: Actualización de Python (opcional)</a></li>
 </ul>
 </li>
-<li><a href="#org824e624">Ejemplos de Transformaciones Geométricas en Modo Raw en Python</a>
+<li><a href="#org496f633">Entornos Virtuales en Python</a>
 <ul>
-<li><a href="#orgda71621">1. Traslación</a></li>
-<li><a href="#org04b1f67">2. Rotación (alrededor del centro de la imagen)</a></li>
-<li><a href="#orgcb5cab5">3. Escalado</a></li>
-<li><a href="#org46d643e">4. Cizallamiento (Shearing)</a></li>
-<li><a href="#org78f00a3">5. Reflexión (Reflection)</a></li>
+<li><a href="#orgcc78cc1">¿Qué es un Entorno Virtual?</a></li>
+<li><a href="#orgfbc2a45">Preparación: Instalación de Python y Visual Studio Code</a></li>
+<li><a href="#org787933d">Crear un Entorno Virtual</a></li>
+<li><a href="#org23ea324">Activar el Entorno Virtual</a></li>
+<li><a href="#org8ab6b32">Configurar el Entorno Virtual en Visual Studio Code</a></li>
+<li><a href="#org3cbc7e2">Instalar Paquetes en el Entorno Virtual</a></li>
+<li><a href="#org467cf23">Administrar Paquetes</a></li>
+<li><a href="#orgdc4201f">Desactivar el Entorno Virtual</a></li>
+<li><a href="#org3e8c474">Eliminar el Entorno Virtual</a></li>
+<li><a href="#org16e00b6">Consejos Adicionales para VS Code</a></li>
 </ul>
 </li>
-<li><a href="#org43c1ae7">Ejemplos de Transformaciones Geométricas en Python usando OpenCV</a>
+<li><a href="#org55ac7ff">Introducción a la Graficación por computadora</a>
 <ul>
-<li><a href="#orgbae6b8e">1. Traslación</a></li>
-<li><a href="#org6f511e4">2. Rotación (alrededor del centro de la imagen)</a></li>
-<li><a href="#org3c4a950">3. Escalado</a></li>
-<li><a href="#org7dfeb02">4. Cizallamiento (Shearing)</a></li>
-<li><a href="#org0facb4a">5. Reflexión (Reflection)</a></li>
+<li><a href="#org40fbb32">Graficación por Computadora</a>
+<ul>
+<li><a href="#org127c1e7">Objetivos de la Graficación por Computadora</a></li>
+<li><a href="#org54cc83b">Áreas de estudio en Graficación por Computadora</a></li>
+<li><a href="#orge4eadbd">Aplicaciones de la Graficación por Computadora</a></li>
+<li><a href="#org5b56452">Temas principales en Graficación por Computadora</a></li>
 </ul>
 </li>
-<li><a href="#orgbea68b6">Primitivas de Dibujo</a></li>
-<li><a href="#orgd8d16e2">Parametricas</a></li>
-<li><a href="#orgba83eb8">Segmentación de color mediante el modelo de color HSV</a></li>
-<li><a href="#org5739c84">Capa de Harry Potter</a></li>
-<li><a href="#orgd259e0e">Efecto Gris np.where</a>
+<li><a href="#org10111e7">Modelos de Color: RGB, CMY, HSV y HSL</a></li>
+<li><a href="#orgead576a">Introducción</a></li>
+<li><a href="#org7cc1b99">Modelo de Color RGB (Red, Green, Blue)</a></li>
+<li><a href="#org85739d9">Definición</a></li>
+<li><a href="#orge6b21f0">Funcionamiento de la Mezcla Aditiva</a></li>
+<li><a href="#orgfbc9949">Espacio de Color RGB</a></li>
+<li><a href="#org4e8d901">Conversión a otros modelos de color</a></li>
+<li><a href="#org3ad8041">Aplicaciones del Modelo RGB</a></li>
+<li><a href="#org049340a">Limitaciones del Modelo RGB</a></li>
+<li><a href="#orgfee484c">Modelo CMY (Cyan, Magenta, Yellow)</a></li>
+<li><a href="#org73e83b3">Modelo HSV (Hue, Saturation, Value)</a>
 <ul>
-<li><a href="#org85889d4">Sintaxis básica de np.where:</a></li>
-<li><a href="#orgb52c94b">Aplicación en procesamiento de imágenes:</a></li>
+<li><a href="#org61d62c1">HSV opencv</a></li>
+<li><a href="#orgd8bdc6d">Tutorial: Umbrales en el Modelo de Color HSV</a></li>
+<li><a href="#orgc6c4e93">Definición de los Parámetros del Modelo HSV</a></li>
+<li><a href="#org0c463b1">Detectar un color en el espacio HSV</a></li>
+<li><a href="#org2b3510a">Explicación de los Parámetros:</a></li>
+<li><a href="#orgb979788">Ajustes de los Umbrales</a></li>
+<li><a href="#orga7b1e94">Ejemplo visual: Rango de tonos para detectar verde</a></li>
+<li><a href="#orge80ffd1">Uso de <code>cv2.inRange</code></a></li>
 </ul>
 </li>
-<li><a href="#org7191ab2">Flujo optico</a></li>
-<li><a href="#orgebd36c9">Ejemplo de clasificación utilizando Haarcascades</a></li>
-<li><a href="#org6884c1c">OpenGL</a></li>
-<li><a href="#org5105a5d">Descripción de la Proyección Isométrica</a>
+<li><a href="#org10d273c">Modelo HSL (Hue, Saturation, Lightness)</a></li>
+<li><a href="#orge30bd79">Función Bitwise opencv</a>
 <ul>
-<li><a href="#org9c16acb">Ejemplo de Proyección Isométrica en OpenCV</a></li>
+<li><a href="#orgb581ea3">Tutorial: Operaciones Bitwise en OpenCV</a></li>
 </ul>
 </li>
-<li><a href="#org89261f2">Opengl Ejemplo</a></li>
+<li><a href="#orgeff1be1">Definición: Operación Bit a Bit</a>
+<ul>
+<li><a href="#orgeee2afa">Principales operaciones bit a bit</a></li>
 </ul>
 </li>
-<li><a href="#org2be069d">Introducción a OpenGL</a>
+<li><a href="#org1dc83eb">Operadores Puntuales</a>
 <ul>
-<li><a href="#orgf23e61a">Características de OpenGL</a></li>
-<li><a href="#org0d75bab">Primeros pasos en OpenGL</a>
-<ul>
-<li><a href="#orgccb4da9">Configuración del Entorno</a></li>
-<li><a href="#orgdb40710">Estructura básica de un programa OpenGL</a></li>
+<li><a href="#orge3d296c">Definición</a></li>
+<li><a href="#org97cd41d">Características</a></li>
+<li><a href="#org336968b">Tipos de Operadores Puntuales</a></li>
+<li><a href="#org026c7f5">Aplicaciones de Operadores Puntuales</a></li>
 </ul>
 </li>
-<li><a href="#org6edd6cb">Sistema de Coordenadas en OpenGL</a>
+<li><a href="#orge632413">Proceso de Multiplicación de una Matriz de Transformación por una Coordenada de Píxel</a>
 <ul>
-<li><a href="#org0c87635">Coordenadas del Objeto</a></li>
-<li><a href="#org3149050">Coordenadas del Mundo</a></li>
-<li><a href="#org58757a6">Coordenadas de Vista</a></li>
-<li><a href="#org67c30ad">Coordenadas de Recorte</a></li>
-<li><a href="#org3790a13">Coordenadas Normalizadas del Dispositivo (NDC)</a></li>
-<li><a href="#org690ddc9">Coordenadas de Pantalla</a></li>
+<li><a href="#orgbff9070">1. Representación de las coordenadas en forma homogénea</a></li>
+<li><a href="#org9074a8f">2. Definición de la matriz de transformación</a></li>
+<li><a href="#org8d17fc6">3. Multiplicación de la matriz por las coordenadas</a></li>
+<li><a href="#orgf0cf8ec">4. Resultado final</a></li>
+<li><a href="#orgd3b8e80">Ejemplo concreto: Rotación</a></li>
+<li><a href="#org7cbd812">Resumen del proceso</a></li>
 </ul>
 </li>
-<li><a href="#org9995c7d">Primitivas de Dibujo en OpenGL</a></li>
-<li><a href="#org704b587">Tutorial de gluPerspective en OpenGL</a>
+<li><a href="#org034a0a0">Transformaciones Geométricas en Imágenes</a>
 <ul>
-<li><a href="#org5b346d9">¿Qué es gluPerspective?</a></li>
-<li><a href="#org23b0813">Sintaxis</a></li>
-<li><a href="#orgbee46d1">Ejemplo Básico de Uso de gluPerspective</a></li>
+<li><a href="#org79f11ce">1. Traslación (Translation)</a></li>
+<li><a href="#org083beab">2. Rotación (Rotation)</a></li>
+<li><a href="#orgca66183">3. Escalado (Scalin</a></li>
+<li><a href="#org7199200">4. Cizallamiento (Shearing)</a></li>
+<li><a href="#orgded7f3f">5. Reflexión (Reflection)</a></li>
+<li><a href="#org5aa4b95">6. Transformación Afín (Affine Transformation)</a></li>
+<li><a href="#orgd3f43c6">7. Transformación Proyectiva (Homografía)</a></li>
+<li><a href="#org698b232">Aplicaciones</a></li>
 </ul>
 </li>
-<li><a href="#org11af388">Transformaciones en OpenGL</a>
-<ul>
-<li><a href="#org022fea8">Traslación</a></li>
-<li><a href="#org0ccacf6">Rotación</a></li>
-<li><a href="#org18acda7">Escalado</a></li>
 </ul>
 </li>
-<li><a href="#org6ae7845">Iluminación y Materiales</a>
+<li><a href="#orgdcc6ac3">Actividades</a></li>
+<li><a href="#org5271076">Programación</a>
 <ul>
-<li><a href="#org28c0317">Tipos de luces</a></li>
-<li><a href="#orge9590e4">Materiales</a></li>
+<li><a href="#org6096293">Programas Unidad 1</a>
+<ul>
+<li><a href="#org1416d0f">Creación de una Imagen</a></li>
+<li><a href="#orgf5b3de1">Cargar Imagen</a></li>
+<li><a href="#org0faa7c0">Split y Merge Imagen</a></li>
+<li><a href="#orge666a65">Ejemplo de Operador Puntual en Imágenes</a></li>
+<li><a href="#org277b641">Cargar vídeo Opencv</a></li>
 </ul>
 </li>
-<li><a href="#orge31065d">Sombras y Efectos Avanzados</a></li>
-<li><a href="#org90cebd8">OpenGL Moderno: Shaders y el Pipeline Gráfico</a>
+<li><a href="#org1a46d8e">Ejemplos de Transformaciones Geométricas en Modo Raw en Python</a>
 <ul>
-<li><a href="#org2616461">Vertex Shader</a></li>
-<li><a href="#org417023c">Fragment Shader</a></li>
-<li><a href="#org4a87d2a">Geometry Shader</a></li>
+<li><a href="#org1763d06">1. Traslación</a></li>
+<li><a href="#org0dae4a9">2. Rotación (alrededor del centro de la imagen)</a></li>
+<li><a href="#org7d15cfc">3. Escalado</a></li>
+<li><a href="#org94daa18">4. Cizallamiento (Shearing)</a></li>
+<li><a href="#orgb3279a2">5. Reflexión (Reflection)</a></li>
 </ul>
 </li>
-<li><a href="#orgf3019f6">Conclusión</a></li>
+<li><a href="#orgc9ae6af">Ejemplos de Transformaciones Geométricas en Python usando OpenCV</a>
+<ul>
+<li><a href="#org175a803">1. Traslación</a></li>
+<li><a href="#orge212b75">2. Rotación (alrededor del centro de la imagen)</a></li>
+<li><a href="#org56b8008">3. Escalado</a></li>
+<li><a href="#orga77502a">4. Cizallamiento (Shearing)</a></li>
+<li><a href="#org95462fc">5. Reflexión (Reflection)</a></li>
+</ul>
+</li>
+<li><a href="#org5f0fb47">Primitivas de Dibujo</a></li>
+<li><a href="#org2efaa8b">Parametricas</a></li>
+<li><a href="#org7491725">Segmentación de color mediante el modelo de color HSV</a></li>
+<li><a href="#org20236fe">Capa de Harry Potter</a></li>
+<li><a href="#org20067bf">Efecto Gris np.where</a>
+<ul>
+<li><a href="#orgfbe5193">Sintaxis básica de np.where:</a></li>
+<li><a href="#orgc121dbc">Aplicación en procesamiento de imágenes:</a></li>
+</ul>
+</li>
+<li><a href="#org0e73dfd">Flujo optico</a></li>
+<li><a href="#org33fd1ec">Ejemplo de clasificación utilizando Haarcascades</a></li>
+<li><a href="#org92708dd">OpenGL</a></li>
+<li><a href="#org6bbbfde">Descripción de la Proyección Isométrica</a>
+<ul>
+<li><a href="#org49546f1">Ejemplo de Proyección Isométrica en OpenCV</a></li>
+</ul>
+</li>
+<li><a href="#org85b6013">Opengl Ejemplo</a></li>
+</ul>
+</li>
+<li><a href="#org10ee9a7">Introducción a OpenGL</a>
+<ul>
+<li><a href="#org65f8806">Características de OpenGL</a></li>
+<li><a href="#org15d36e2">Primeros pasos en OpenGL</a>
+<ul>
+<li><a href="#org67be80b">Configuración del Entorno</a></li>
+<li><a href="#org37e35dd">Estructura básica de un programa OpenGL</a></li>
+</ul>
+</li>
+<li><a href="#org735149e">Sistema de Coordenadas en OpenGL</a>
+<ul>
+<li><a href="#org17406fb">Coordenadas del Objeto</a></li>
+<li><a href="#org005107d">Coordenadas del Mundo</a></li>
+<li><a href="#org29e96dd">Coordenadas de Vista</a></li>
+<li><a href="#org9759199">Coordenadas de Recorte</a></li>
+<li><a href="#org445c436">Coordenadas Normalizadas del Dispositivo (NDC)</a></li>
+<li><a href="#org9afbc00">Coordenadas de Pantalla</a></li>
+</ul>
+</li>
+<li><a href="#org9de667d">Primitivas de Dibujo en OpenGL</a></li>
+<li><a href="#org5bbccf5">Tutorial de gluPerspective en OpenGL</a>
+<ul>
+<li><a href="#org15939c8">¿Qué es gluPerspective?</a></li>
+<li><a href="#org5cf21d4">Sintaxis</a></li>
+<li><a href="#orgb28bf44">Ejemplo Básico de Uso de gluPerspective</a></li>
+</ul>
+</li>
+<li><a href="#org6c15011">Objetos de Glut</a></li>
+<li><a href="#org53265a5">Transformaciones en OpenGL</a>
+<ul>
+<li><a href="#org3c9aeac">Traslación</a></li>
+<li><a href="#org69a0a33">Rotación</a></li>
+<li><a href="#org9b5ab5f">Escalado</a></li>
+</ul>
+</li>
+<li><a href="#orge3fd184">Iluminación y Materiales</a>
+<ul>
+<li><a href="#orgde80d46">Tipos de luces</a></li>
+<li><a href="#org870eb36">Materiales</a></li>
+</ul>
+</li>
+<li><a href="#org16cefcd">Sombras y Efectos Avanzados</a></li>
+<li><a href="#orgd9f0b16">OpenGL Moderno: Shaders y el Pipeline Gráfico</a>
+<ul>
+<li><a href="#org231c536">Vertex Shader</a></li>
+<li><a href="#org744c35e">Fragment Shader</a></li>
+<li><a href="#org35e952a">Geometry Shader</a></li>
+</ul>
+</li>
+<li><a href="#org82fe265">Conclusión</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org4804704" class="outline-2">
-<h2 id="org4804704">Manual de Instalación de Git</h2>
-<div class="outline-text-2" id="text-org4804704">
+<div id="outline-container-org9ff3097" class="outline-2">
+<h2 id="org9ff3097">Manual de Instalación de Git</h2>
+<div class="outline-text-2" id="text-org9ff3097">
 </div>
-<div id="outline-container-org019d711" class="outline-3">
-<h3 id="org019d711">Instalación en Windows</h3>
-<div class="outline-text-3" id="text-org019d711">
+<div id="outline-container-org6237afb" class="outline-3">
+<h3 id="org6237afb">Instalación en Windows</h3>
+<div class="outline-text-3" id="text-org6237afb">
 <ul class="org-ul">
 <li>Descarga el instalador desde [<a href="https://git-scm.com/">https://git-scm.com/</a>].</li>
 </ul>
@@ -520,13 +521,13 @@
 </div>
 </div>
 
-<div id="outline-container-orga52be5e" class="outline-3">
-<h3 id="orga52be5e">Instalación en macOS</h3>
-<div class="outline-text-3" id="text-orga52be5e">
+<div id="outline-container-org618410c" class="outline-3">
+<h3 id="org618410c">Instalación en macOS</h3>
+<div class="outline-text-3" id="text-org618410c">
 </div>
-<div id="outline-container-org0efb4ba" class="outline-4">
-<h4 id="org0efb4ba">Método recomendado: usando Homebrew</h4>
-<div class="outline-text-4" id="text-org0efb4ba">
+<div id="outline-container-orgbe504a8" class="outline-4">
+<h4 id="orgbe504a8">Método recomendado: usando Homebrew</h4>
+<div class="outline-text-4" id="text-orgbe504a8">
 <ul class="org-ul">
 <li>Si tienes Homebrew instalado, abre la terminal y ejecuta:</li>
 </ul>
@@ -537,9 +538,9 @@
 </div>
 </div>
 
-<div id="outline-container-org9adff0f" class="outline-4">
-<h4 id="org9adff0f">Método alternativo: paquete descargado</h4>
-<div class="outline-text-4" id="text-org9adff0f">
+<div id="outline-container-org75abe99" class="outline-4">
+<h4 id="org75abe99">Método alternativo: paquete descargado</h4>
+<div class="outline-text-4" id="text-org75abe99">
 <ul class="org-ul">
 <li>Descarga el instalador desde [<a href="https://git-scm.com/">https://git-scm.com/</a>].</li>
 <li>Ejecuta el paquete descargado (.dmg).</li>
@@ -557,9 +558,9 @@ Verifica la instalación abriendo la terminal y ejecutando:
 </div>
 </div>
 
-<div id="outline-container-org680b2d4" class="outline-3">
-<h3 id="org680b2d4">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</h3>
-<div class="outline-text-3" id="text-org680b2d4">
+<div id="outline-container-orgd7dd696" class="outline-3">
+<h3 id="orgd7dd696">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</h3>
+<div class="outline-text-3" id="text-orgd7dd696">
 <ul class="org-ul">
 <li><p>
 Abre la terminal y ejecuta:
@@ -581,9 +582,9 @@ Verifica la instalación ejecutando:
 </div>
 </div>
 
-<div id="outline-container-org98fbddd" class="outline-3">
-<h3 id="org98fbddd">Configuración básica de Git</h3>
-<div class="outline-text-3" id="text-org98fbddd">
+<div id="outline-container-orgf380df6" class="outline-3">
+<h3 id="orgf380df6">Configuración básica de Git</h3>
+<div class="outline-text-3" id="text-orgf380df6">
 <ul class="org-ul">
 <li><p>
 Configura tu nombre de usuario:
@@ -612,9 +613,9 @@ Verifica la configuración:
 </div>
 </div>
 
-<div id="outline-container-org80029bf" class="outline-3">
-<h3 id="org80029bf">Actualización de Git</h3>
-<div class="outline-text-3" id="text-org80029bf">
+<div id="outline-container-orgb64f4b2" class="outline-3">
+<h3 id="orgb64f4b2">Actualización de Git</h3>
+<div class="outline-text-3" id="text-orgb64f4b2">
 <ul class="org-ul">
 <li><b>Windows</b>: Ejecuta el instalador más reciente desde el sitio oficial.</li>
 <li><p>
@@ -637,13 +638,13 @@ Verifica la configuración:
 
 
 
-<div id="outline-container-org7d92b60" class="outline-3">
-<h3 id="org7d92b60">Configurar Llave SSH con GitHub</h3>
-<div class="outline-text-3" id="text-org7d92b60">
+<div id="outline-container-org24c162c" class="outline-3">
+<h3 id="org24c162c">Configurar Llave SSH con GitHub</h3>
+<div class="outline-text-3" id="text-org24c162c">
 </div>
-<div id="outline-container-org0d0e079" class="outline-4">
-<h4 id="org0d0e079">1. Verificar si ya tienes una llave SSH</h4>
-<div class="outline-text-4" id="text-org0d0e079">
+<div id="outline-container-orge361bb0" class="outline-4">
+<h4 id="orge361bb0">1. Verificar si ya tienes una llave SSH</h4>
+<div class="outline-text-4" id="text-orge361bb0">
 <ul class="org-ul">
 <li><p>
 Abre la terminal y ejecuta el siguiente comando para verificar si ya tienes llaves SSH generadas:
@@ -658,9 +659,9 @@ Abre la terminal y ejecuta el siguiente comando para verificar si ya tienes llav
 </div>
 </div>
 
-<div id="outline-container-orga6f559a" class="outline-4">
-<h4 id="orga6f559a">2. Generar una nueva llave SSH</h4>
-<div class="outline-text-4" id="text-orga6f559a">
+<div id="outline-container-orgaeb784d" class="outline-4">
+<h4 id="orgaeb784d">2. Generar una nueva llave SSH</h4>
+<div class="outline-text-4" id="text-orgaeb784d">
 <ul class="org-ul">
 <li><p>
 Si no tienes una llave SSH, genera una nueva con el siguiente comando (puedes cambiar `ed25519` por `rsa` si lo prefieres):
@@ -676,9 +677,9 @@ Si no tienes una llave SSH, genera una nueva con el siguiente comando (puedes ca
 </div>
 </div>
 
-<div id="outline-container-orgc4ed846" class="outline-4">
-<h4 id="orgc4ed846">3. Añadir la llave SSH al agente SSH</h4>
-<div class="outline-text-4" id="text-orgc4ed846">
+<div id="outline-container-orgbf7e211" class="outline-4">
+<h4 id="orgbf7e211">3. Añadir la llave SSH al agente SSH</h4>
+<div class="outline-text-4" id="text-orgbf7e211">
 <ul class="org-ul">
 <li><p>
 Para añadir tu nueva llave SSH al agente, asegúrate de que esté en ejecución:
@@ -699,9 +700,9 @@ Añade la llave SSH al agente:
 </div>
 </div>
 
-<div id="outline-container-org05d6022" class="outline-4">
-<h4 id="org05d6022">4. Copiar la llave SSH pública</h4>
-<div class="outline-text-4" id="text-org05d6022">
+<div id="outline-container-orga0a6a37" class="outline-4">
+<h4 id="orga0a6a37">4. Copiar la llave SSH pública</h4>
+<div class="outline-text-4" id="text-orga0a6a37">
 <ul class="org-ul">
 <li><p>
 Copia el contenido de tu llave pública para añadirla a GitHub:
@@ -716,9 +717,9 @@ Copia el contenido de tu llave pública para añadirla a GitHub:
 </div>
 </div>
 
-<div id="outline-container-orgda1d743" class="outline-4">
-<h4 id="orgda1d743">5. Añadir la llave SSH a GitHub</h4>
-<div class="outline-text-4" id="text-orgda1d743">
+<div id="outline-container-org052d255" class="outline-4">
+<h4 id="org052d255">5. Añadir la llave SSH a GitHub</h4>
+<div class="outline-text-4" id="text-org052d255">
 <ul class="org-ul">
 <li>Inicia sesión en tu cuenta de GitHub.</li>
 <li>Ve a la sección de <b>Settings</b> (Configuración).</li>
@@ -730,9 +731,9 @@ Copia el contenido de tu llave pública para añadirla a GitHub:
 </div>
 </div>
 
-<div id="outline-container-org121f3d6" class="outline-4">
-<h4 id="org121f3d6">6. Probar la conexión SSH con GitHub</h4>
-<div class="outline-text-4" id="text-org121f3d6">
+<div id="outline-container-orge82c3e5" class="outline-4">
+<h4 id="orge82c3e5">6. Probar la conexión SSH con GitHub</h4>
+<div class="outline-text-4" id="text-orge82c3e5">
 <ul class="org-ul">
 <li><p>
 Para verificar que todo está configurado correctamente, ejecuta el siguiente comando:
@@ -755,9 +756,9 @@ Hi username! You've successfully authenticated, but GitHub does not provide shel
 </div>
 </div>
 
-<div id="outline-container-orgba7cb81" class="outline-4">
-<h4 id="orgba7cb81">7. Usar la conexión SSH en repositorios de GitHub</h4>
-<div class="outline-text-4" id="text-orgba7cb81">
+<div id="outline-container-org8a1c360" class="outline-4">
+<h4 id="org8a1c360">7. Usar la conexión SSH en repositorios de GitHub</h4>
+<div class="outline-text-4" id="text-org8a1c360">
 <ul class="org-ul">
 <li><p>
 Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
@@ -773,9 +774,9 @@ Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
 
 
 
-<div id="outline-container-org8d7379d" class="outline-3">
-<h3 id="org8d7379d">Configurar Llave SSH con GitHub en Windows</h3>
-<div class="outline-text-3" id="text-org8d7379d">
+<div id="outline-container-org55a9ac0" class="outline-3">
+<h3 id="org55a9ac0">Configurar Llave SSH con GitHub en Windows</h3>
+<div class="outline-text-3" id="text-org55a9ac0">
 <ol class="org-ol">
 <li>Git Bash: En Windows, utilizas Git Bash como terminal para ejecutar los comandos, en lugar de la terminal estándar de Linux o macOS.</li>
 
@@ -785,18 +786,18 @@ Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
 
 
 
-<div id="outline-container-orge52dc34" class="outline-4">
-<h4 id="orge52dc34">1. Abrir Git Bash</h4>
-<div class="outline-text-4" id="text-orge52dc34">
+<div id="outline-container-orgc04c7b6" class="outline-4">
+<h4 id="orgc04c7b6">1. Abrir Git Bash</h4>
+<div class="outline-text-4" id="text-orgc04c7b6">
 <ul class="org-ul">
 <li>Abre <b><b>Git Bash</b></b> (es la terminal que se instala junto con Git en Windows).</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org3da218e" class="outline-4">
-<h4 id="org3da218e">2. Verificar si ya tienes una llave SSH</h4>
-<div class="outline-text-4" id="text-org3da218e">
+<div id="outline-container-org072f453" class="outline-4">
+<h4 id="org072f453">2. Verificar si ya tienes una llave SSH</h4>
+<div class="outline-text-4" id="text-org072f453">
 <ul class="org-ul">
 <li><p>
 En la terminal de Git Bash, ejecuta el siguiente comando para ver si ya tienes llaves SSH generadas:
@@ -811,9 +812,9 @@ En la terminal de Git Bash, ejecuta el siguiente comando para ver si ya tienes l
 </div>
 </div>
 
-<div id="outline-container-org91123c7" class="outline-4">
-<h4 id="org91123c7">3. Generar una nueva llave SSH</h4>
-<div class="outline-text-4" id="text-org91123c7">
+<div id="outline-container-org2aa3e1d" class="outline-4">
+<h4 id="org2aa3e1d">3. Generar una nueva llave SSH</h4>
+<div class="outline-text-4" id="text-org2aa3e1d">
 <ul class="org-ul">
 <li><p>
 Si no tienes una llave SSH, genera una nueva con el siguiente comando:
@@ -829,9 +830,9 @@ Si no tienes una llave SSH, genera una nueva con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-orgffa4cb9" class="outline-4">
-<h4 id="orgffa4cb9">4. Añadir la llave SSH al agente SSH</h4>
-<div class="outline-text-4" id="text-orgffa4cb9">
+<div id="outline-container-org6a85adc" class="outline-4">
+<h4 id="org6a85adc">4. Añadir la llave SSH al agente SSH</h4>
+<div class="outline-text-4" id="text-org6a85adc">
 <ul class="org-ul">
 <li><p>
 Asegúrate de que el agente SSH esté en ejecución. En Git Bash, ejecuta:
@@ -852,9 +853,9 @@ Añade tu nueva llave SSH al agente:
 </div>
 </div>
 
-<div id="outline-container-org7aff7a9" class="outline-4">
-<h4 id="org7aff7a9">5. Copiar la llave SSH pública</h4>
-<div class="outline-text-4" id="text-org7aff7a9">
+<div id="outline-container-org9d1e9e1" class="outline-4">
+<h4 id="org9d1e9e1">5. Copiar la llave SSH pública</h4>
+<div class="outline-text-4" id="text-org9d1e9e1">
 <ul class="org-ul">
 <li><p>
 Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta el siguiente comando en Git Bash:
@@ -869,9 +870,9 @@ Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta 
 </div>
 </div>
 
-<div id="outline-container-orgda2612a" class="outline-4">
-<h4 id="orgda2612a">6. Añadir la llave SSH a GitHub</h4>
-<div class="outline-text-4" id="text-orgda2612a">
+<div id="outline-container-org3bb33ce" class="outline-4">
+<h4 id="org3bb33ce">6. Añadir la llave SSH a GitHub</h4>
+<div class="outline-text-4" id="text-org3bb33ce">
 <ul class="org-ul">
 <li>Abre tu navegador web e inicia sesión en GitHub.</li>
 <li>Ve a la sección de <b>Settings</b> (Configuración).</li>
@@ -883,9 +884,9 @@ Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta 
 </div>
 </div>
 
-<div id="outline-container-org7e8410a" class="outline-4">
-<h4 id="org7e8410a">7. Probar la conexión SSH con GitHub</h4>
-<div class="outline-text-4" id="text-org7e8410a">
+<div id="outline-container-orgfca943d" class="outline-4">
+<h4 id="orgfca943d">7. Probar la conexión SSH con GitHub</h4>
+<div class="outline-text-4" id="text-orgfca943d">
 <ul class="org-ul">
 <li><p>
 Para asegurarte de que todo está correctamente configurado, prueba la conexión con GitHub desde Git Bash:
@@ -908,9 +909,9 @@ Hi username! You've successfully authenticated, but GitHub does not provide shel
 </div>
 </div>
 
-<div id="outline-container-orge49d42c" class="outline-4">
-<h4 id="orge49d42c">8. Usar la conexión SSH en repositorios de GitHub</h4>
-<div class="outline-text-4" id="text-orge49d42c">
+<div id="outline-container-org29b7057" class="outline-4">
+<h4 id="org29b7057">8. Usar la conexión SSH en repositorios de GitHub</h4>
+<div class="outline-text-4" id="text-org29b7057">
 <ul class="org-ul">
 <li><p>
 Para clonar un repositorio usando la URL SSH, ejecuta:
@@ -927,13 +928,13 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 
 
 
-<div id="outline-container-org3b04216" class="outline-3">
-<h3 id="org3b04216">Manual de Git en Windows</h3>
-<div class="outline-text-3" id="text-org3b04216">
+<div id="outline-container-orgb8d150d" class="outline-3">
+<h3 id="orgb8d150d">Manual de Git en Windows</h3>
+<div class="outline-text-3" id="text-orgb8d150d">
 </div>
-<div id="outline-container-orgad7ac11" class="outline-4">
-<h4 id="orgad7ac11">1. Instalar Git en Windows</h4>
-<div class="outline-text-4" id="text-orgad7ac11">
+<div id="outline-container-org303d129" class="outline-4">
+<h4 id="org303d129">1. Instalar Git en Windows</h4>
+<div class="outline-text-4" id="text-org303d129">
 <ul class="org-ul">
 <li>Visita [<a href="https://git-scm.com/">https://git-scm.com/</a>](<a href="https://git-scm.com/">https://git-scm.com/</a>) y descarga el instalador de Git para Windows.</li>
 <li>Ejecuta el archivo descargado (.exe).</li>
@@ -943,9 +944,9 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 </div>
 </div>
 
-<div id="outline-container-org5de2083" class="outline-4">
-<h4 id="org5de2083">2. Configurar Git</h4>
-<div class="outline-text-4" id="text-org5de2083">
+<div id="outline-container-org4ea0081" class="outline-4">
+<h4 id="org4ea0081">2. Configurar Git</h4>
+<div class="outline-text-4" id="text-org4ea0081">
 <ul class="org-ul">
 <li>Abre <b>Git Bash</b> y ejecuta los siguientes comandos para configurar tu identidad:</li>
 </ul>
@@ -967,9 +968,9 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 </div>
 </div>
 
-<div id="outline-container-org02ffdcb" class="outline-4">
-<h4 id="org02ffdcb">3. Clonar un repositorio</h4>
-<div class="outline-text-4" id="text-org02ffdcb">
+<div id="outline-container-orgf7c4f88" class="outline-4">
+<h4 id="orgf7c4f88">3. Clonar un repositorio</h4>
+<div class="outline-text-4" id="text-orgf7c4f88">
 <ul class="org-ul">
 <li>Para clonar un repositorio desde GitHub, usa el siguiente comando:</li>
 </ul>
@@ -985,9 +986,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org3c1dcc7" class="outline-4">
-<h4 id="org3c1dcc7">4. Comandos básicos de Git</h4>
-<div class="outline-text-4" id="text-org3c1dcc7">
+<div id="outline-container-orgf2d9691" class="outline-4">
+<h4 id="orgf2d9691">4. Comandos básicos de Git</h4>
+<div class="outline-text-4" id="text-orgf2d9691">
 <ul class="org-ul">
 <li><b>Verificar el estado del repositorio</b>:</li>
 </ul>
@@ -1035,9 +1036,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-orgb547f93" class="outline-4">
-<h4 id="orgb547f93">5. Actualizar el repositorio local</h4>
-<div class="outline-text-4" id="text-orgb547f93">
+<div id="outline-container-orgfd86083" class="outline-4">
+<h4 id="orgfd86083">5. Actualizar el repositorio local</h4>
+<div class="outline-text-4" id="text-orgfd86083">
 <ul class="org-ul">
 <li>Para obtener los últimos cambios del repositorio remoto:</li>
 </ul>
@@ -1049,9 +1050,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org5b6144b" class="outline-4">
-<h4 id="org5b6144b">6. Crear y cambiar de ramas (branches)</h4>
-<div class="outline-text-4" id="text-org5b6144b">
+<div id="outline-container-orgfb0f429" class="outline-4">
+<h4 id="orgfb0f429">6. Crear y cambiar de ramas (branches)</h4>
+<div class="outline-text-4" id="text-orgfb0f429">
 <ul class="org-ul">
 <li><b>Crear una nueva rama</b>:</li>
 </ul>
@@ -1081,9 +1082,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-orgac0d608" class="outline-4">
-<h4 id="orgac0d608">7. Ver historial de commits</h4>
-<div class="outline-text-4" id="text-orgac0d608">
+<div id="outline-container-org8a4fca0" class="outline-4">
+<h4 id="org8a4fca0">7. Ver historial de commits</h4>
+<div class="outline-text-4" id="text-org8a4fca0">
 <ul class="org-ul">
 <li>Para ver el historial de cambios del repositorio:</li>
 </ul>
@@ -1104,9 +1105,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org02a56ad" class="outline-4">
-<h4 id="org02a56ad">8. Configurar una llave SSH</h4>
-<div class="outline-text-4" id="text-org02a56ad">
+<div id="outline-container-orgae7c72b" class="outline-4">
+<h4 id="orgae7c72b">8. Configurar una llave SSH</h4>
+<div class="outline-text-4" id="text-orgae7c72b">
 <ul class="org-ul">
 <li><b>Generar una llave SSH</b>:</li>
 </ul>
@@ -1144,13 +1145,13 @@ Esto descargará el repositorio a tu computadora.
 </div>
 
 
-<div id="outline-container-org75a8134" class="outline-2">
-<h2 id="org75a8134">Manual de Instalación de Python en Windows</h2>
-<div class="outline-text-2" id="text-org75a8134">
+<div id="outline-container-orgb0de48f" class="outline-2">
+<h2 id="orgb0de48f">Manual de Instalación de Python en Windows</h2>
+<div class="outline-text-2" id="text-orgb0de48f">
 </div>
-<div id="outline-container-org1f9e13a" class="outline-3">
-<h3 id="org1f9e13a">Paso 1: Descarga de Python</h3>
-<div class="outline-text-3" id="text-org1f9e13a">
+<div id="outline-container-org4457943" class="outline-3">
+<h3 id="org4457943">Paso 1: Descarga de Python</h3>
+<div class="outline-text-3" id="text-org4457943">
 <ol class="org-ol">
 <li>Abre el navegador web y visita el sitio: <a href="https://www.python.org">https://www.python.org</a>.</li>
 <li>Ve a la pestaña "Downloads" y selecciona la versión más reciente para Windows.</li>
@@ -1159,9 +1160,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org2e20e99" class="outline-3">
-<h3 id="org2e20e99">Paso 2: Ejecutar el instalador</h3>
-<div class="outline-text-3" id="text-org2e20e99">
+<div id="outline-container-org69a8563" class="outline-3">
+<h3 id="org69a8563">Paso 2: Ejecutar el instalador</h3>
+<div class="outline-text-3" id="text-org69a8563">
 <ol class="org-ol">
 <li>Ejecuta el archivo descargado (.exe).</li>
 <li>Asegúrate de marcar la opción <code>Add Python to PATH</code> antes de proceder con la instalación.</li>
@@ -1171,9 +1172,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org8bff0b8" class="outline-3">
-<h3 id="org8bff0b8">Paso 3: Verificación de la instalación</h3>
-<div class="outline-text-3" id="text-org8bff0b8">
+<div id="outline-container-org7ca33a0" class="outline-3">
+<h3 id="org7ca33a0">Paso 3: Verificación de la instalación</h3>
+<div class="outline-text-3" id="text-org7ca33a0">
 <ol class="org-ol">
 <li>Abre la línea de comandos (cmd) escribiendo "cmd" en el menú de inicio.</li>
 <li><p>
@@ -1198,9 +1199,9 @@ Si todo está bien, verás el prompt interactivo de Python (tres símbolos <code
 </div>
 </div>
 
-<div id="outline-container-orgbcb5efe" class="outline-3">
-<h3 id="orgbcb5efe">Paso 4: Instalar pip y otros paquetes</h3>
-<div class="outline-text-3" id="text-orgbcb5efe">
+<div id="outline-container-org29fd2ef" class="outline-3">
+<h3 id="org29fd2ef">Paso 4: Instalar pip y otros paquetes</h3>
+<div class="outline-text-3" id="text-org29fd2ef">
 <ol class="org-ol">
 <li><p>
 Verifica si pip está instalado escribiendo en la línea de comandos:
@@ -1220,9 +1221,9 @@ Si necesitas instalar paquetes, usa pip con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-org8361f20" class="outline-3">
-<h3 id="org8361f20">Paso 5: Configuración del entorno de desarrollo</h3>
-<div class="outline-text-3" id="text-org8361f20">
+<div id="outline-container-org6b14383" class="outline-3">
+<h3 id="org6b14383">Paso 5: Configuración del entorno de desarrollo</h3>
+<div class="outline-text-3" id="text-org6b14383">
 <ol class="org-ol">
 <li>Instala un editor de código como:
 <ul class="org-ul">
@@ -1234,9 +1235,9 @@ Si necesitas instalar paquetes, usa pip con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-org5fea7ee" class="outline-3">
-<h3 id="org5fea7ee">Paso 6: Actualización de Python (opcional)</h3>
-<div class="outline-text-3" id="text-org5fea7ee">
+<div id="outline-container-orgb1cc380" class="outline-3">
+<h3 id="orgb1cc380">Paso 6: Actualización de Python (opcional)</h3>
+<div class="outline-text-3" id="text-orgb1cc380">
 <ul class="org-ul">
 <li>Para actualizar Python a una nueva versión en el futuro, descarga la última versión desde <a href="https://www.python.org/downloads/">python.org</a> y sigue los pasos de instalación.</li>
 </ul>
@@ -1246,13 +1247,13 @@ Si necesitas instalar paquetes, usa pip con el siguiente comando:
 
 
 
-<div id="outline-container-org0f623b2" class="outline-2">
-<h2 id="org0f623b2">Entornos Virtuales en Python</h2>
-<div class="outline-text-2" id="text-org0f623b2">
+<div id="outline-container-org496f633" class="outline-2">
+<h2 id="org496f633">Entornos Virtuales en Python</h2>
+<div class="outline-text-2" id="text-org496f633">
 </div>
-<div id="outline-container-orga60d400" class="outline-3">
-<h3 id="orga60d400">¿Qué es un Entorno Virtual?</h3>
-<div class="outline-text-3" id="text-orga60d400">
+<div id="outline-container-orgcc78cc1" class="outline-3">
+<h3 id="orgcc78cc1">¿Qué es un Entorno Virtual?</h3>
+<div class="outline-text-3" id="text-orgcc78cc1">
 <p>
 Un <b>entorno virtual</b> es una herramienta que permite crear un espacio
 aislado para instalar dependencias específicas de un proyecto en
@@ -1261,9 +1262,9 @@ Python. Esto evita conflictos entre paquetes de diferentes proyectos.
 </div>
 </div>
 
-<div id="outline-container-orgb57edb3" class="outline-3">
-<h3 id="orgb57edb3">Preparación: Instalación de Python y Visual Studio Code</h3>
-<div class="outline-text-3" id="text-orgb57edb3">
+<div id="outline-container-orgfbc2a45" class="outline-3">
+<h3 id="orgfbc2a45">Preparación: Instalación de Python y Visual Studio Code</h3>
+<div class="outline-text-3" id="text-orgfbc2a45">
 <ol class="org-ol">
 <li><p>
 Asegúrate de tener Python instalado en tu sistema. Puedes verificarlo con:
@@ -1278,9 +1279,9 @@ Asegúrate de tener Python instalado en tu sistema. Puedes verificarlo con:
 </div>
 </div>
 
-<div id="outline-container-orgfce5063" class="outline-3">
-<h3 id="orgfce5063">Crear un Entorno Virtual</h3>
-<div class="outline-text-3" id="text-orgfce5063">
+<div id="outline-container-org787933d" class="outline-3">
+<h3 id="org787933d">Crear un Entorno Virtual</h3>
+<div class="outline-text-3" id="text-org787933d">
 <p>
 Para crear un entorno virtual en la carpeta de tu proyecto:
 </p>
@@ -1301,9 +1302,9 @@ Usa el siguiente comando para crear el entorno virtual:
 </div>
 </div>
 
-<div id="outline-container-org02f8be7" class="outline-3">
-<h3 id="org02f8be7">Activar el Entorno Virtual</h3>
-<div class="outline-text-3" id="text-org02f8be7">
+<div id="outline-container-org23ea324" class="outline-3">
+<h3 id="org23ea324">Activar el Entorno Virtual</h3>
+<div class="outline-text-3" id="text-org23ea324">
 <p>
 Para activar el entorno virtual en la terminal de VS Code:
 </p>
@@ -1332,9 +1333,9 @@ Cuando el entorno esté activado, verás el nombre del entorno en la terminal.
 </div>
 </div>
 
-<div id="outline-container-orgc09fa90" class="outline-3">
-<h3 id="orgc09fa90">Configurar el Entorno Virtual en Visual Studio Code</h3>
-<div class="outline-text-3" id="text-orgc09fa90">
+<div id="outline-container-org8ab6b32" class="outline-3">
+<h3 id="org8ab6b32">Configurar el Entorno Virtual en Visual Studio Code</h3>
+<div class="outline-text-3" id="text-org8ab6b32">
 <p>
 Para que VS Code use el entorno virtual para ejecutar el código y detectar dependencias:
 </p>
@@ -1348,9 +1349,9 @@ entorno virtual (debería tener el nombre del entorno que creaste).</li>
 </div>
 </div>
 
-<div id="outline-container-orgc64add0" class="outline-3">
-<h3 id="orgc64add0">Instalar Paquetes en el Entorno Virtual</h3>
-<div class="outline-text-3" id="text-orgc64add0">
+<div id="outline-container-org3cbc7e2" class="outline-3">
+<h3 id="org3cbc7e2">Instalar Paquetes en el Entorno Virtual</h3>
+<div class="outline-text-3" id="text-org3cbc7e2">
 <p>
 Con el entorno activado en la terminal de VS Code, puedes instalar paquetes con `pip`:
 </p>
@@ -1362,9 +1363,9 @@ Con el entorno activado en la terminal de VS Code, puedes instalar paquetes con 
 </div>
 </div>
 
-<div id="outline-container-orgdaab416" class="outline-3">
-<h3 id="orgdaab416">Administrar Paquetes</h3>
-<div class="outline-text-3" id="text-orgdaab416">
+<div id="outline-container-org467cf23" class="outline-3">
+<h3 id="org467cf23">Administrar Paquetes</h3>
+<div class="outline-text-3" id="text-org467cf23">
 <p>
 Para ver los paquetes instalados en el entorno virtual:
 </p>
@@ -1398,9 +1399,9 @@ Para instalar todas las dependencias listadas en <b>requirements.txt</b> en otro
 </div>
 </div>
 
-<div id="outline-container-org64ac142" class="outline-3">
-<h3 id="org64ac142">Desactivar el Entorno Virtual</h3>
-<div class="outline-text-3" id="text-org64ac142">
+<div id="outline-container-orgdc4201f" class="outline-3">
+<h3 id="orgdc4201f">Desactivar el Entorno Virtual</h3>
+<div class="outline-text-3" id="text-orgdc4201f">
 <p>
 Para desactivar el entorno virtual en la terminal, ejecuta:
 </p>
@@ -1412,9 +1413,9 @@ Para desactivar el entorno virtual en la terminal, ejecuta:
 </div>
 </div>
 
-<div id="outline-container-orga78be3e" class="outline-3">
-<h3 id="orga78be3e">Eliminar el Entorno Virtual</h3>
-<div class="outline-text-3" id="text-orga78be3e">
+<div id="outline-container-org3e8c474" class="outline-3">
+<h3 id="org3e8c474">Eliminar el Entorno Virtual</h3>
+<div class="outline-text-3" id="text-org3e8c474">
 <p>
 Si deseas eliminar el entorno virtual, puedes simplemente borrar la carpeta:
 </p>
@@ -1427,9 +1428,9 @@ Si deseas eliminar el entorno virtual, puedes simplemente borrar la carpeta:
 </div>
 
 
-<div id="outline-container-orgd61cc8c" class="outline-3">
-<h3 id="orgd61cc8c">Consejos Adicionales para VS Code</h3>
-<div class="outline-text-3" id="text-orgd61cc8c">
+<div id="outline-container-org16e00b6" class="outline-3">
+<h3 id="org16e00b6">Consejos Adicionales para VS Code</h3>
+<div class="outline-text-3" id="text-org16e00b6">
 <ul class="org-ul">
 <li><p>
 <b><b>Terminal automática</b></b>: Cuando creas y activas un entorno en VS Code, puedes configurar el archivo `.vscode/settings.json` para que VS Code lo active automáticamente en cada terminal nueva:
@@ -1450,13 +1451,13 @@ Si deseas eliminar el entorno virtual, puedes simplemente borrar la carpeta:
 
 
 
-<div id="outline-container-org6c03c5c" class="outline-2">
-<h2 id="org6c03c5c">Introducción a la Graficación por computadora</h2>
-<div class="outline-text-2" id="text-org6c03c5c">
+<div id="outline-container-org55ac7ff" class="outline-2">
+<h2 id="org55ac7ff">Introducción a la Graficación por computadora</h2>
+<div class="outline-text-2" id="text-org55ac7ff">
 </div>
-<div id="outline-container-org921e03b" class="outline-3">
-<h3 id="org921e03b">Graficación por Computadora</h3>
-<div class="outline-text-3" id="text-org921e03b">
+<div id="outline-container-org40fbb32" class="outline-3">
+<h3 id="org40fbb32">Graficación por Computadora</h3>
+<div class="outline-text-3" id="text-org40fbb32">
 <p>
 La  Graficación por Computadora (o simplemente Graficación)
 se enfoca en el estudio y aplicación de técnicas, algoritmos y
@@ -1468,9 +1469,9 @@ los aspectos clave de esta disciplina:
 </p>
 </div>
 
-<div id="outline-container-org41d1cea" class="outline-4">
-<h4 id="org41d1cea">Objetivos de la Graficación por Computadora</h4>
-<div class="outline-text-4" id="text-org41d1cea">
+<div id="outline-container-org127c1e7" class="outline-4">
+<h4 id="org127c1e7">Objetivos de la Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-org127c1e7">
 <ol class="org-ol">
 <li><b>Generación de imágenes</b>: Crear imágenes digitales a partir de descripciones matemáticas y geométricas de objetos, en 2D y 3D.</li>
 <li><b>Modelado de objetos</b>: Crear representaciones matemáticas de objetos y escenas usando técnicas como polígonos, mallas y curvas.</li>
@@ -1484,9 +1485,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-org61564a6" class="outline-4">
-<h4 id="org61564a6">Áreas de estudio en Graficación por Computadora</h4>
-<div class="outline-text-4" id="text-org61564a6">
+<div id="outline-container-org54cc83b" class="outline-4">
+<h4 id="org54cc83b">Áreas de estudio en Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-org54cc83b">
 <ol class="org-ol">
 <li><b>Matemáticas</b>: Uso de geometría y álgebra lineal para realizar transformaciones geométricas y modelar objetos.</li>
 <li><b>Programación</b>: Conocimiento de lenguajes como C++, Python, GLSL y HLSL para implementar algoritmos gráficos.</li>
@@ -1497,9 +1498,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-orgf222716" class="outline-4">
-<h4 id="orgf222716">Aplicaciones de la Graficación por Computadora</h4>
-<div class="outline-text-4" id="text-orgf222716">
+<div id="outline-container-orge4eadbd" class="outline-4">
+<h4 id="orge4eadbd">Aplicaciones de la Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-orge4eadbd">
 <ul class="org-ul">
 <li><b>Videojuegos</b>: Creación de ambientes, personajes y efectos visuales.</li>
 <li><b>Cine y efectos visuales</b>: Creación de efectos especiales y animación por computadora.</li>
@@ -1510,9 +1511,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-org083635b" class="outline-4">
-<h4 id="org083635b">Temas principales en Graficación por Computadora</h4>
-<div class="outline-text-4" id="text-org083635b">
+<div id="outline-container-org5b56452" class="outline-4">
+<h4 id="org5b56452">Temas principales en Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-org5b56452">
 <ul class="org-ul">
 <li><b>Modelado 2D y 3D</b></li>
 <li><b>Algoritmos de rasterización</b></li>
@@ -1529,13 +1530,13 @@ los aspectos clave de esta disciplina:
 </div>
 
 
-<div id="outline-container-org3d8fa5c" class="outline-3">
-<h3 id="org3d8fa5c">Modelos de Color: RGB, CMY, HSV y HSL</h3>
+<div id="outline-container-org10111e7" class="outline-3">
+<h3 id="org10111e7">Modelos de Color: RGB, CMY, HSV y HSL</h3>
 </div>
 
-<div id="outline-container-org43245d9" class="outline-3">
-<h3 id="org43245d9">Introducción</h3>
-<div class="outline-text-3" id="text-org43245d9">
+<div id="outline-container-orgead576a" class="outline-3">
+<h3 id="orgead576a">Introducción</h3>
+<div class="outline-text-3" id="text-orgead576a">
 <p>
 Los <b>modelos de color</b> son representaciones matemáticas que describen
 cómo los colores pueden representarse en diversas formas utilizando
@@ -1547,22 +1548,22 @@ HSL.
 </div>
 </div>
 
-<div id="outline-container-org33c345f" class="outline-3">
-<h3 id="org33c345f">Modelo de Color RGB (Red, Green, Blue)</h3>
+<div id="outline-container-org7cc1b99" class="outline-3">
+<h3 id="org7cc1b99">Modelo de Color RGB (Red, Green, Blue)</h3>
 </div>
 
-<div id="outline-container-orgea0ff4e" class="outline-3">
-<h3 id="orgea0ff4e">Definición</h3>
-<div class="outline-text-3" id="text-orgea0ff4e">
+<div id="outline-container-org85739d9" class="outline-3">
+<h3 id="org85739d9">Definición</h3>
+<div class="outline-text-3" id="text-org85739d9">
 <p>
 El modelo de color <b>RGB</b> (Rojo, Verde, Azul) es un modelo de mezcla aditiva, que se utiliza principalmente en dispositivos que emiten luz, como pantallas, cámaras digitales y proyectores. Los tres colores primarios (Rojo, Verde y Azul) se combinan de diferentes maneras para crear una amplia gama de colores.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org9030ef0" class="outline-3">
-<h3 id="org9030ef0">Funcionamiento de la Mezcla Aditiva</h3>
-<div class="outline-text-3" id="text-org9030ef0">
+<div id="outline-container-orge6b21f0" class="outline-3">
+<h3 id="orge6b21f0">Funcionamiento de la Mezcla Aditiva</h3>
+<div class="outline-text-3" id="text-orge6b21f0">
 <p>
 En el modelo RGB, los colores se generan mediante la combinación de luz. Cuanto más intensa es la luz en cada canal (rojo, verde o azul), más claro es el color resultante. Cuando todas las intensidades están al máximo, el color resultante es blanco; cuando todas las intensidades están al mínimo, el resultado es negro.
 </p>
@@ -1588,9 +1589,9 @@ donde:
 </div>
 </div>
 
-<div id="outline-container-org0ab000a" class="outline-3">
-<h3 id="org0ab000a">Espacio de Color RGB</h3>
-<div class="outline-text-3" id="text-org0ab000a">
+<div id="outline-container-orgfbc9949" class="outline-3">
+<h3 id="orgfbc9949">Espacio de Color RGB</h3>
+<div class="outline-text-3" id="text-orgfbc9949">
 <p>
 El espacio de color <b>RGB</b> puede representarse como un cubo tridimensional, donde:
 </p>
@@ -1618,9 +1619,9 @@ Este espacio de color es útil para representar los colores generados en disposi
 </div>
 </div>
 
-<div id="outline-container-org5d56a24" class="outline-3">
-<h3 id="org5d56a24">Conversión a otros modelos de color</h3>
-<div class="outline-text-3" id="text-org5d56a24">
+<div id="outline-container-org4e8d901" class="outline-3">
+<h3 id="org4e8d901">Conversión a otros modelos de color</h3>
+<div class="outline-text-3" id="text-org4e8d901">
 <p>
 El modelo RGB puede convertirse a otros espacios de color como <b>CMY</b>, <b>HSV</b> o <b>HSL</b>. A continuación se muestra la conversión básica de RGB a CMY:
 </p>
@@ -1635,9 +1636,9 @@ donde \(R\), \(G\), y \(B\) son las intensidades de los canales en el rango de [
 </div>
 </div>
 
-<div id="outline-container-org26bb076" class="outline-3">
-<h3 id="org26bb076">Aplicaciones del Modelo RGB</h3>
-<div class="outline-text-3" id="text-org26bb076">
+<div id="outline-container-org3ad8041" class="outline-3">
+<h3 id="org3ad8041">Aplicaciones del Modelo RGB</h3>
+<div class="outline-text-3" id="text-org3ad8041">
 <p>
 El modelo de color RGB se usa ampliamente en:
 </p>
@@ -1649,9 +1650,9 @@ El modelo de color RGB se usa ampliamente en:
 </div>
 </div>
 
-<div id="outline-container-org26dcb30" class="outline-3">
-<h3 id="org26dcb30">Limitaciones del Modelo RGB</h3>
-<div class="outline-text-3" id="text-org26dcb30">
+<div id="outline-container-org049340a" class="outline-3">
+<h3 id="org049340a">Limitaciones del Modelo RGB</h3>
+<div class="outline-text-3" id="text-org049340a">
 <p>
 Aunque el modelo RGB es excelente para dispositivos que emiten luz, tiene algunas limitaciones:
 </p>
@@ -1666,9 +1667,9 @@ Aunque el modelo RGB es excelente para dispositivos que emiten luz, tiene alguna
 
 
 
-<div id="outline-container-org5d36657" class="outline-3">
-<h3 id="org5d36657">Modelo CMY (Cyan, Magenta, Yellow)</h3>
-<div class="outline-text-3" id="text-org5d36657">
+<div id="outline-container-orgfee484c" class="outline-3">
+<h3 id="orgfee484c">Modelo CMY (Cyan, Magenta, Yellow)</h3>
+<div class="outline-text-3" id="text-orgfee484c">
 <p>
 El modelo <b>CMY</b> es un modelo de mezcla sustractiva que utiliza los colores cian, magenta y amarillo. Es el modelo base para la impresión en color.
 </p>
@@ -1714,9 +1715,9 @@ Si los valores RGB están normalizados entre 0 y 1:
 </div>
 </div>
 
-<div id="outline-container-orge0e6374" class="outline-3">
-<h3 id="orge0e6374">Modelo HSV (Hue, Saturation, Value)</h3>
-<div class="outline-text-3" id="text-orge0e6374">
+<div id="outline-container-org73e83b3" class="outline-3">
+<h3 id="org73e83b3">Modelo HSV (Hue, Saturation, Value)</h3>
+<div class="outline-text-3" id="text-org73e83b3">
 <p>
 El modelo <b>HSV</b> es una representación más intuitiva del color basada en la percepción humana, donde el matiz, la saturación y el valor describen un color.
 </p>
@@ -1804,22 +1805,22 @@ donde \( L \) es el valor máximo de intensidad (por ejemplo, 255).
 </ul>
 </div>
 
-<div id="outline-container-orgd804586" class="outline-4">
-<h4 id="orgd804586">HSV opencv</h4>
+<div id="outline-container-org61d62c1" class="outline-4">
+<h4 id="org61d62c1">HSV opencv</h4>
 </div>
 
-<div id="outline-container-org73fd492" class="outline-4">
-<h4 id="org73fd492">Tutorial: Umbrales en el Modelo de Color HSV</h4>
-<div class="outline-text-4" id="text-org73fd492">
+<div id="outline-container-orgd8bdc6d" class="outline-4">
+<h4 id="orgd8bdc6d">Tutorial: Umbrales en el Modelo de Color HSV</h4>
+<div class="outline-text-4" id="text-orgd8bdc6d">
 <p>
 El espacio de color <b>HSV</b> (Hue, Saturation, Value) se utiliza para la segmentación de colores en OpenCV. A continuación, explicaremos los tres parámetros principales y cómo definir umbrales para detectar colores.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org22c408e" class="outline-4">
-<h4 id="org22c408e">Definición de los Parámetros del Modelo HSV</h4>
-<div class="outline-text-4" id="text-org22c408e">
+<div id="outline-container-orgc6c4e93" class="outline-4">
+<h4 id="orgc6c4e93">Definición de los Parámetros del Modelo HSV</h4>
+<div class="outline-text-4" id="text-orgc6c4e93">
 <ul class="org-ul">
 <li><b>Hue (H)</b>: Tono o color básico (rojo, verde, azul, etc.). En OpenCV va de 0 a 179.</li>
 <li><b>Saturation (S)</b>: Intensidad del color. Va de 0 a 255.</li>
@@ -1828,17 +1829,17 @@ El espacio de color <b>HSV</b> (Hue, Saturation, Value) se utiliza para la segme
 </div>
 </div>
 
-<div id="outline-container-org725c654" class="outline-4">
-<h4 id="org725c654">Detectar un color en el espacio HSV</h4>
-<div class="outline-text-4" id="text-org725c654">
+<div id="outline-container-org0c463b1" class="outline-4">
+<h4 id="org0c463b1">Detectar un color en el espacio HSV</h4>
+<div class="outline-text-4" id="text-org0c463b1">
 <p>
 Puedes definir un rango de color utilizando los valores de Hue, Saturation y Value para segmentar colores específicos en una imagen.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="orgff4ea34"></a>Código en Python para detectar un color (Verde)<br />
-<div class="outline-text-5" id="text-orgff4ea34">
+<li><a id="org40f156d"></a>Código en Python para detectar un color (Verde)<br />
+<div class="outline-text-5" id="text-org40f156d">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2
 <span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np
@@ -1871,9 +1872,9 @@ cv2.destroyAllWindows<span style="color: #c099ff;">()</span>
 </ul>
 </div>
 
-<div id="outline-container-org2e0febe" class="outline-4">
-<h4 id="org2e0febe">Explicación de los Parámetros:</h4>
-<div class="outline-text-4" id="text-org2e0febe">
+<div id="outline-container-org2b3510a" class="outline-4">
+<h4 id="org2b3510a">Explicación de los Parámetros:</h4>
+<div class="outline-text-4" id="text-org2b3510a">
 <ul class="org-ul">
 <li><b>lower<sub>green</sub> = np.array([35, 100, 100])</b>:
 <ul class="org-ul">
@@ -1892,9 +1893,9 @@ cv2.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orga3a09ba" class="outline-4">
-<h4 id="orga3a09ba">Ajustes de los Umbrales</h4>
-<div class="outline-text-4" id="text-orga3a09ba">
+<div id="outline-container-orgb979788" class="outline-4">
+<h4 id="orgb979788">Ajustes de los Umbrales</h4>
+<div class="outline-text-4" id="text-orgb979788">
 <p>
 Dependiendo de las condiciones de luz y el color exacto que deseas detectar, puedes ajustar los valores de Hue, Saturación y Brillo:
 </p>
@@ -1907,9 +1908,9 @@ Dependiendo de las condiciones de luz y el color exacto que deseas detectar, pue
 </div>
 </div>
 
-<div id="outline-container-org1f1d904" class="outline-4">
-<h4 id="org1f1d904">Ejemplo visual: Rango de tonos para detectar verde</h4>
-<div class="outline-text-4" id="text-org1f1d904">
+<div id="outline-container-orga7b1e94" class="outline-4">
+<h4 id="orga7b1e94">Ejemplo visual: Rango de tonos para detectar verde</h4>
+<div class="outline-text-4" id="text-orga7b1e94">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1949,9 +1950,9 @@ Dependiendo de las condiciones de luz y el color exacto que deseas detectar, pue
 </div>
 </div>
 
-<div id="outline-container-org72631e8" class="outline-4">
-<h4 id="org72631e8">Uso de <code>cv2.inRange</code></h4>
-<div class="outline-text-4" id="text-org72631e8">
+<div id="outline-container-orge80ffd1" class="outline-4">
+<h4 id="orge80ffd1">Uso de <code>cv2.inRange</code></h4>
+<div class="outline-text-4" id="text-orge80ffd1">
 <p>
 La función <code>cv2.inRange()</code> crea una máscara binaria donde los píxeles dentro del rango son blancos (255) y los fuera del rango son negros (0).
 </p>
@@ -1962,9 +1963,9 @@ La función <code>cv2.inRange()</code> crea una máscara binaria donde los píxe
 
 
 
-<div id="outline-container-orgb785f0f" class="outline-3">
-<h3 id="orgb785f0f">Modelo HSL (Hue, Saturation, Lightness)</h3>
-<div class="outline-text-3" id="text-orgb785f0f">
+<div id="outline-container-org10d273c" class="outline-3">
+<h3 id="org10d273c">Modelo HSL (Hue, Saturation, Lightness)</h3>
+<div class="outline-text-3" id="text-org10d273c">
 <p>
 El modelo <b>HSL</b> es similar al modelo HSV, pero en lugar de "valor" utiliza el término <b>luminosidad (Lightness)</b>, que representa la cantidad de luz que refleja un color.
 </p>
@@ -2039,13 +2040,13 @@ El modelo <b>HSL</b> es similar al modelo HSV, pero en lugar de "valor" utiliza 
 
 
 
-<div id="outline-container-org229cb34" class="outline-3">
-<h3 id="org229cb34">Función Bitwise opencv</h3>
-<div class="outline-text-3" id="text-org229cb34">
+<div id="outline-container-orge30bd79" class="outline-3">
+<h3 id="orge30bd79">Función Bitwise opencv</h3>
+<div class="outline-text-3" id="text-orge30bd79">
 </div>
-<div id="outline-container-org6675ddd" class="outline-4">
-<h4 id="org6675ddd">Tutorial: Operaciones Bitwise en OpenCV</h4>
-<div class="outline-text-4" id="text-org6675ddd">
+<div id="outline-container-orgb581ea3" class="outline-4">
+<h4 id="orgb581ea3">Tutorial: Operaciones Bitwise en OpenCV</h4>
+<div class="outline-text-4" id="text-orgb581ea3">
 <p>
 Las operaciones bitwise en OpenCV son útiles para realizar
 manipulaciones de imágenes como la creación de máscaras, la
@@ -2055,8 +2056,8 @@ combinación de imágenes, o efectos visuales.
 
 
 <ul class="org-ul">
-<li><a id="orge673ff1"></a>1. Operación <code>cv2.bitwise_and</code><br />
-<div class="outline-text-5" id="text-orge673ff1">
+<li><a id="orgd6dc340"></a>1. Operación <code>cv2.bitwise_and</code><br />
+<div class="outline-text-5" id="text-orgd6dc340">
 <p>
 Esta operación realiza una operación AND bit a bit sobre los píxeles
 correspondientes de dos imágenes. Devuelve una imagen donde un píxel
@@ -2091,8 +2092,8 @@ cv2.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </li>
 
-<li><a id="org521be48"></a>2. Operación <code>cv2.bitwise_or</code><br />
-<div class="outline-text-5" id="text-org521be48">
+<li><a id="orgaa640be"></a>2. Operación <code>cv2.bitwise_or</code><br />
+<div class="outline-text-5" id="text-orgaa640be">
 <p>
 Realiza una operación OR bit a bit entre los píxeles de dos imágenes. El resultado será 1 si al menos uno de los píxeles correspondientes es 1.
 </p>
@@ -2125,8 +2126,8 @@ cv2.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </li>
 
-<li><a id="org671284f"></a>3. Operación <code>cv2.bitwise_xor</code><br />
-<div class="outline-text-5" id="text-org671284f">
+<li><a id="org0432974"></a>3. Operación <code>cv2.bitwise_xor</code><br />
+<div class="outline-text-5" id="text-org0432974">
 <p>
 La operación XOR devuelve una imagen donde un píxel será 1 si exactamente uno de los píxeles correspondientes en las imágenes de entrada es 1.
 </p>
@@ -2159,8 +2160,8 @@ cv2.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </li>
 
-<li><a id="orgdd670c7"></a>4. Operación <code>cv2.bitwise_not</code><br />
-<div class="outline-text-5" id="text-orgdd670c7">
+<li><a id="org35cee77"></a>4. Operación <code>cv2.bitwise_not</code><br />
+<div class="outline-text-5" id="text-org35cee77">
 <p>
 La operación NOT invierte los colores de la imagen. Los píxeles blancos se convierten en negros y viceversa.
 </p>
@@ -2188,8 +2189,8 @@ cv2.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </li>
 
-<li><a id="orgc179143"></a>Ejemplo práctico: Enmascarar una región de interés (ROI)<br />
-<div class="outline-text-5" id="text-orgc179143">
+<li><a id="orgc140bb0"></a>Ejemplo práctico: Enmascarar una región de interés (ROI)<br />
+<div class="outline-text-5" id="text-orgc140bb0">
 <p>
 Aquí aplicamos operaciones bitwise para enmascarar y combinar una imagen.
 </p>
@@ -2244,26 +2245,26 @@ cv2.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 
 
-<div id="outline-container-org64f6a80" class="outline-3">
-<h3 id="org64f6a80">Definición: Operación Bit a Bit</h3>
-<div class="outline-text-3" id="text-org64f6a80">
+<div id="outline-container-orgeff1be1" class="outline-3">
+<h3 id="orgeff1be1">Definición: Operación Bit a Bit</h3>
+<div class="outline-text-3" id="text-orgeff1be1">
 <p>
 Una <b><b>operación bit a bit</b></b> (en inglés, <b>bitwise operation</b>) es una operación que se realiza directamente sobre los bits de los operandos. Las operaciones se ejecutan sobre los bits correspondientes de los números en formato binario.
 </p>
 </div>
 
-<div id="outline-container-orgba23422" class="outline-4">
-<h4 id="orgba23422">Principales operaciones bit a bit</h4>
-<div class="outline-text-4" id="text-orgba23422">
+<div id="outline-container-orgeee2afa" class="outline-4">
+<h4 id="orgeee2afa">Principales operaciones bit a bit</h4>
+<div class="outline-text-4" id="text-orgeee2afa">
 </div>
 <ul class="org-ul">
-<li><a id="org768725d"></a>1. AND bit a bit (<code>&amp;</code>)<br />
-<div class="outline-text-5" id="text-org768725d">
+<li><a id="org70323e6"></a>1. AND bit a bit (<code>&amp;</code>)<br />
+<div class="outline-text-5" id="text-org70323e6">
 <p>
 Devuelve `1` si ambos bits en la misma posición son `1`, de lo contrario devuelve `0`.
 </p>
 
-<pre class="example" id="org4ec9ec8">
+<pre class="example" id="orgdbf9859">
 A = 1010 (10 en decimal)
 B = 1100 (12 en decimal)
 Resultado: 1000 (8 en decimal)
@@ -2271,13 +2272,13 @@ Resultado: 1000 (8 en decimal)
 </div>
 </li>
 
-<li><a id="org6166dc3"></a>2. OR bit a bit (<code>|</code>)<br />
-<div class="outline-text-5" id="text-org6166dc3">
+<li><a id="orge7f68cc"></a>2. OR bit a bit (<code>|</code>)<br />
+<div class="outline-text-5" id="text-orge7f68cc">
 <p>
 Devuelve `1` si al menos uno de los bits en la misma posición es `1`, de lo contrario devuelve `0`.
 </p>
 
-<pre class="example" id="orged8d725">
+<pre class="example" id="org79e62ca">
 A = 1010 (10 en decimal)
 B = 1100 (12 en decimal)
 Resultado: 1110 (14 en decimal)
@@ -2285,13 +2286,13 @@ Resultado: 1110 (14 en decimal)
 </div>
 </li>
 
-<li><a id="orga10b3be"></a>3. XOR bit a bit (<code>^</code>)<br />
-<div class="outline-text-5" id="text-orga10b3be">
+<li><a id="orgf5c3afa"></a>3. XOR bit a bit (<code>^</code>)<br />
+<div class="outline-text-5" id="text-orgf5c3afa">
 <p>
 Devuelve `1` si los bits en la misma posición son diferentes, y `0` si son iguales.
 </p>
 
-<pre class="example" id="orgf0e2421">
+<pre class="example" id="orgc7567ac">
 A = 1010 (10 en decimal)
 B = 1100 (12 en decimal)
 Resultado: 0110 (6 en decimal)
@@ -2299,47 +2300,47 @@ Resultado: 0110 (6 en decimal)
 </div>
 </li>
 
-<li><a id="org9e954d9"></a>4. NOT bit a bit (~~)<br />
-<div class="outline-text-5" id="text-org9e954d9">
+<li><a id="orgabf9076"></a>4. NOT bit a bit (~~)<br />
+<div class="outline-text-5" id="text-orgabf9076">
 <p>
 Invierte los bits de un número: convierte los `0` en `1` y los `1` en `0`. En sistemas de complemento a dos, esto también implica cambiar el signo de un número entero.
 </p>
 
-<pre class="example" id="org39264fd">
+<pre class="example" id="orgddf426d">
 A = 1010 (10 en decimal)
 Resultado: 0101 (-11 en decimal, si estamos usando complemento a dos)
 </pre>
 </div>
 </li>
 
-<li><a id="org78ee6af"></a>5. Desplazamiento a la izquierda (<code>&lt;&lt;</code>)<br />
-<div class="outline-text-5" id="text-org78ee6af">
+<li><a id="org74fd7c8"></a>5. Desplazamiento a la izquierda (<code>&lt;&lt;</code>)<br />
+<div class="outline-text-5" id="text-org74fd7c8">
 <p>
 Desplaza todos los bits del número hacia la izquierda por un número específico de posiciones. Los bits desplazados fuera del límite se descartan y se rellenan con ceros en el extremo derecho.
 </p>
 
-<pre class="example" id="org9048317">
+<pre class="example" id="org95b06f5">
 A = 0001 (1 en decimal)
 A &lt;&lt; 2 = 0100 (4 en decimal)
 </pre>
 </div>
 </li>
 
-<li><a id="orgb875b7b"></a>6. Desplazamiento a la derecha (<code>&gt;&gt;</code>)<br />
-<div class="outline-text-5" id="text-orgb875b7b">
+<li><a id="org2bfe16b"></a>6. Desplazamiento a la derecha (<code>&gt;&gt;</code>)<br />
+<div class="outline-text-5" id="text-org2bfe16b">
 <p>
 Desplaza todos los bits del número hacia la derecha por un número específico de posiciones. Los bits desplazados fuera del límite se descartan y el bit más significativo depende del signo del número.
 </p>
 
-<pre class="example" id="orgd4d714c">
+<pre class="example" id="orgdaa10a4">
 A = 1000 (8 en decimal)
 A &gt;&gt; 2 = 0010 (2 en decimal)
 </pre>
 </div>
 </li>
 
-<li><a id="org8688f12"></a>Aplicaciones de las operaciones bit a bit<br />
-<div class="outline-text-5" id="text-org8688f12">
+<li><a id="org3e10b69"></a>Aplicaciones de las operaciones bit a bit<br />
+<div class="outline-text-5" id="text-org3e10b69">
 <ul class="org-ul">
 <li><b><b>Máscaras de bits</b></b>: Las operaciones bit a bit se usan para aplicar máscaras que seleccionan o modifican partes específicas de un número o secuencia binaria.</li>
 <li><b><b>Manipulación de imágenes</b></b>: En procesamiento de imágenes, las operaciones bit a bit son útiles para combinar y modificar píxeles en OpenCV.</li>
@@ -2353,13 +2354,13 @@ A &gt;&gt; 2 = 0010 (2 en decimal)
 
 
 
-<div id="outline-container-org72d365a" class="outline-3">
-<h3 id="org72d365a">Operadores Puntuales</h3>
-<div class="outline-text-3" id="text-org72d365a">
+<div id="outline-container-org1dc83eb" class="outline-3">
+<h3 id="org1dc83eb">Operadores Puntuales</h3>
+<div class="outline-text-3" id="text-org1dc83eb">
 </div>
-<div id="outline-container-orgd418c65" class="outline-4">
-<h4 id="orgd418c65">Definición</h4>
-<div class="outline-text-4" id="text-orgd418c65">
+<div id="outline-container-orge3d296c" class="outline-4">
+<h4 id="orge3d296c">Definición</h4>
+<div class="outline-text-4" id="text-orge3d296c">
 <p>
 Los <b>operadores puntuales</b> son una clase de transformaciones aplicadas
 en el procesamiento digital de imágenes que operan sobre cada píxel de
@@ -2370,9 +2371,9 @@ entrada, sin considerar los valores de los píxeles vecinos.
 </div>
 </div>
 
-<div id="outline-container-org00a9c98" class="outline-4">
-<h4 id="org00a9c98">Características</h4>
-<div class="outline-text-4" id="text-org00a9c98">
+<div id="outline-container-org97cd41d" class="outline-4">
+<h4 id="org97cd41d">Características</h4>
+<div class="outline-text-4" id="text-org97cd41d">
 <ol class="org-ol">
 <li><b>Independencia espacial</b>: Los operadores puntuales solo modifican
 cada píxel basado en su valor original, sin tener en cuenta su
@@ -2387,13 +2388,13 @@ real.</li>
 </div>
 </div>
 
-<div id="outline-container-orgb8b277b" class="outline-4">
-<h4 id="orgb8b277b">Tipos de Operadores Puntuales</h4>
-<div class="outline-text-4" id="text-orgb8b277b">
+<div id="outline-container-org336968b" class="outline-4">
+<h4 id="org336968b">Tipos de Operadores Puntuales</h4>
+<div class="outline-text-4" id="text-org336968b">
 </div>
 <ul class="org-ul">
-<li><a id="org538353b"></a>Operador de Identidad<br />
-<div class="outline-text-5" id="text-org538353b">
+<li><a id="org7b6f78a"></a>Operador de Identidad<br />
+<div class="outline-text-5" id="text-org7b6f78a">
 <ul class="org-ul">
 <li>No altera la imagen. Cada píxel de la imagen de salida tiene el
 mismo valor que el píxel correspondiente en la imagen de entrada.</li>
@@ -2402,8 +2403,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="orgb76646f"></a>Negativo de la Imagen<br />
-<div class="outline-text-5" id="text-orgb76646f">
+<li><a id="org1bbebe2"></a>Negativo de la Imagen<br />
+<div class="outline-text-5" id="text-org1bbebe2">
 <ul class="org-ul">
 <li>Este operador invierte los valores de los píxeles de una imagen, produciendo su negativo.</li>
 <li>Fórmula: \( g(x, y) = L - 1 - f(x, y) \), donde \( L \) es el valor máximo posible en la imagen (por ejemplo, 255 en imágenes de 8 bits).</li>
@@ -2412,8 +2413,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="org2da613d"></a>Umbralización (Thresholding)<br />
-<div class="outline-text-5" id="text-org2da613d">
+<li><a id="orgac2af39"></a>Umbralización (Thresholding)<br />
+<div class="outline-text-5" id="text-orgac2af39">
 <ul class="org-ul">
 <li>Convierte la imagen a una versión binaria, donde los píxeles con valores por encima de un umbral se establecen en un valor (generalmente blanco), y los que están por debajo se establecen en otro (generalmente negro).</li>
 <li>Fórmula: 
@@ -2427,8 +2428,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="org38d1ab1"></a>Corrección Gamma<br />
-<div class="outline-text-5" id="text-org38d1ab1">
+<li><a id="org92a50b7"></a>Corrección Gamma<br />
+<div class="outline-text-5" id="text-org92a50b7">
 <ul class="org-ul">
 <li>Ajusta los valores de intensidad de los píxeles para modificar el brillo o contraste de la imagen.</li>
 <li>Fórmula: \( g(x, y) = c \cdot f(x, y)^\gamma \), donde \( c \) es una constante de escala, y \( \gamma \) es el factor de corrección.</li>
@@ -2437,8 +2438,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="org88f5c60"></a>Transformaciones Logarítmicas<br />
-<div class="outline-text-5" id="text-org88f5c60">
+<li><a id="org67deffc"></a>Transformaciones Logarítmicas<br />
+<div class="outline-text-5" id="text-org67deffc">
 <ul class="org-ul">
 <li>Aumentan los detalles en regiones oscuras de la imagen al expandir los valores de intensidad bajos.</li>
 <li>Fórmula: \( g(x, y) = c \cdot \log(1 + f(x, y)) \), donde \( c \) es una constante.</li>
@@ -2447,8 +2448,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="orgfd6a1cc"></a>Corrección Lineal o Estiramiento de Contraste<br />
-<div class="outline-text-5" id="text-orgfd6a1cc">
+<li><a id="org613c7a5"></a>Corrección Lineal o Estiramiento de Contraste<br />
+<div class="outline-text-5" id="text-org613c7a5">
 <ul class="org-ul">
 <li>Expande los valores de intensidad en una imagen para cubrir un rango más amplio, aumentando el contraste.</li>
 <li>Fórmula:
@@ -2460,8 +2461,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="orgc64c369"></a>Transformaciones de Potencia (Raise to Power Transform)<br />
-<div class="outline-text-5" id="text-orgc64c369">
+<li><a id="orgbc282c8"></a>Transformaciones de Potencia (Raise to Power Transform)<br />
+<div class="outline-text-5" id="text-orgbc282c8">
 <ul class="org-ul">
 <li>Eleva cada valor de píxel a una potencia \( n \), lo que permite ajustar el brillo y contraste de una imagen.</li>
 <li>Fórmula: \( g(x, y) = c \cdot f(x, y)^n \).</li>
@@ -2471,9 +2472,9 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </ul>
 </div>
 
-<div id="outline-container-org5d288ed" class="outline-4">
-<h4 id="org5d288ed">Aplicaciones de Operadores Puntuales</h4>
-<div class="outline-text-4" id="text-org5d288ed">
+<div id="outline-container-org026c7f5" class="outline-4">
+<h4 id="org026c7f5">Aplicaciones de Operadores Puntuales</h4>
+<div class="outline-text-4" id="text-org026c7f5">
 <ul class="org-ul">
 <li><b>Corrección de imágenes</b>: Mejoran el brillo, contraste, y otros aspectos visuales de una imagen.</li>
 <li><b>Segmentación</b>: La umbralización es comúnmente usada para separar objetos de fondo en una imagen.</li>
@@ -2490,17 +2491,17 @@ En resumen, los <b>operadores puntuales</b> son una herramienta fundamental en e
 
 
 
-<div id="outline-container-org9eb680b" class="outline-3">
-<h3 id="org9eb680b">Proceso de Multiplicación de una Matriz de Transformación por una Coordenada de Píxel</h3>
-<div class="outline-text-3" id="text-org9eb680b">
+<div id="outline-container-orge632413" class="outline-3">
+<h3 id="orge632413">Proceso de Multiplicación de una Matriz de Transformación por una Coordenada de Píxel</h3>
+<div class="outline-text-3" id="text-orge632413">
 <p>
 Cuando aplicamos una transformación geométrica a una imagen, multiplicamos las coordenadas de cada píxel por una <b>matriz de transformación</b>. Este proceso se desglosa paso a paso de la siguiente manera.
 </p>
 </div>
 
-<div id="outline-container-org478166f" class="outline-4">
-<h4 id="org478166f">1. Representación de las coordenadas en forma homogénea</h4>
-<div class="outline-text-4" id="text-org478166f">
+<div id="outline-container-orgbff9070" class="outline-4">
+<h4 id="orgbff9070">1. Representación de las coordenadas en forma homogénea</h4>
+<div class="outline-text-4" id="text-orgbff9070">
 <p>
 Las coordenadas \((x, y)\) de un píxel se convierten a <b>coordenadas homogéneas</b> para que las traslaciones puedan representarse mediante multiplicaciones de matrices. Un píxel en coordenadas homogéneas es:
 </p>
@@ -2513,9 +2514,9 @@ y \\
 </div>
 </div>
 
-<div id="outline-container-orge15d4bf" class="outline-4">
-<h4 id="orge15d4bf">2. Definición de la matriz de transformación</h4>
-<div class="outline-text-4" id="text-orge15d4bf">
+<div id="outline-container-org9074a8f" class="outline-4">
+<h4 id="org9074a8f">2. Definición de la matriz de transformación</h4>
+<div class="outline-text-4" id="text-org9074a8f">
 <p>
 La matriz de transformación afín general tiene la forma:
 \[
@@ -2534,9 +2535,9 @@ a_{21} & a_{22} & t_y \\
 </div>
 </div>
 
-<div id="outline-container-orgb4318d5" class="outline-4">
-<h4 id="orgb4318d5">3. Multiplicación de la matriz por las coordenadas</h4>
-<div class="outline-text-4" id="text-orgb4318d5">
+<div id="outline-container-org8d17fc6" class="outline-4">
+<h4 id="org8d17fc6">3. Multiplicación de la matriz por las coordenadas</h4>
+<div class="outline-text-4" id="text-org8d17fc6">
 <p>
 Multiplicamos la matriz de transformación \(T\) por las coordenadas homogéneas \((x, y, 1)\) para obtener las nuevas coordenadas \((x', y', 1)\).
 </p>
@@ -2576,8 +2577,8 @@ La multiplicación de matrices se desglosa a continuación.
 </div>
 
 <ul class="org-ul">
-<li><a id="org722c475"></a>3.1 Cálculo del nuevo valor de \(x'\)<br />
-<div class="outline-text-5" id="text-org722c475">
+<li><a id="org8dd757d"></a>3.1 Cálculo del nuevo valor de \(x'\)<br />
+<div class="outline-text-5" id="text-org8dd757d">
 <p>
 \[
 x' = a_{11} \cdot x + a_{12} \cdot y + t_x
@@ -2586,8 +2587,8 @@ x' = a_{11} \cdot x + a_{12} \cdot y + t_x
 </div>
 </li>
 
-<li><a id="orgde15b4c"></a>3.2 Cálculo del nuevo valor de \(y'\)<br />
-<div class="outline-text-5" id="text-orgde15b4c">
+<li><a id="org03c0016"></a>3.2 Cálculo del nuevo valor de \(y'\)<br />
+<div class="outline-text-5" id="text-org03c0016">
 <p>
 \[
 y' = a_{21} \cdot x + a_{22} \cdot y + t_y
@@ -2596,8 +2597,8 @@ y' = a_{21} \cdot x + a_{22} \cdot y + t_y
 </div>
 </li>
 
-<li><a id="org2b26222"></a>3.3 El valor constante de la tercera coordenada<br />
-<div class="outline-text-5" id="text-org2b26222">
+<li><a id="org17bc95d"></a>3.3 El valor constante de la tercera coordenada<br />
+<div class="outline-text-5" id="text-org17bc95d">
 <p>
 La tercera coordenada se mantiene como \(1\), ya que no cambia en las transformaciones afines.
 </p>
@@ -2610,9 +2611,9 @@ La tercera coordenada se mantiene como \(1\), ya que no cambia en las transforma
 </ul>
 </div>
 
-<div id="outline-container-orgb8aa7a2" class="outline-4">
-<h4 id="orgb8aa7a2">4. Resultado final</h4>
-<div class="outline-text-4" id="text-orgb8aa7a2">
+<div id="outline-container-orgf0cf8ec" class="outline-4">
+<h4 id="orgf0cf8ec">4. Resultado final</h4>
+<div class="outline-text-4" id="text-orgf0cf8ec">
 <p>
 El resultado de la multiplicación es un nuevo vector con las coordenadas transformadas:
 </p>
@@ -2625,9 +2626,9 @@ y' \\
 </div>
 </div>
 
-<div id="outline-container-org0fefb52" class="outline-4">
-<h4 id="org0fefb52">Ejemplo concreto: Rotación</h4>
-<div class="outline-text-4" id="text-org0fefb52">
+<div id="outline-container-orgd3b8e80" class="outline-4">
+<h4 id="orgd3b8e80">Ejemplo concreto: Rotación</h4>
+<div class="outline-text-4" id="text-orgd3b8e80">
 <p>
 Si queremos rotar un píxel \((x, y)\) en un ángulo \(\theta\), usamos la matriz de rotación:
 </p>
@@ -2683,9 +2684,9 @@ y' = x \cdot \sin(\theta) + y \cdot \cos(\theta)
 </p>
 </div>
 </div>
-<div id="outline-container-org227c0d8" class="outline-4">
-<h4 id="org227c0d8">Resumen del proceso</h4>
-<div class="outline-text-4" id="text-org227c0d8">
+<div id="outline-container-org7cbd812" class="outline-4">
+<h4 id="org7cbd812">Resumen del proceso</h4>
+<div class="outline-text-4" id="text-org7cbd812">
 <ol class="org-ol">
 <li>Convertir las coordenadas \((x, y)\) a coordenadas homogéneas \((x, y, 1)\).</li>
 <li>Definir la matriz de transformación \(T\).</li>
@@ -2696,17 +2697,17 @@ y' = x \cdot \sin(\theta) + y \cdot \cos(\theta)
 </div>
 </div>
 
-<div id="outline-container-org69421a7" class="outline-3">
-<h3 id="org69421a7">Transformaciones Geométricas en Imágenes</h3>
-<div class="outline-text-3" id="text-org69421a7">
+<div id="outline-container-org034a0a0" class="outline-3">
+<h3 id="org034a0a0">Transformaciones Geométricas en Imágenes</h3>
+<div class="outline-text-3" id="text-org034a0a0">
 <p>
 Las <b>transformaciones geométricas</b> en imágenes permiten cambiar la posición, orientación y escala de las imágenes sin alterar su contenido. Estas transformaciones son esenciales en tareas como alineación de imágenes, registro de imágenes, realidad aumentada, y sistemas de visión por computadora.
 </p>
 </div>
 
-<div id="outline-container-org3324168" class="outline-4">
-<h4 id="org3324168">1. Traslación (Translation)</h4>
-<div class="outline-text-4" id="text-org3324168">
+<div id="outline-container-org79f11ce" class="outline-4">
+<h4 id="org79f11ce">1. Traslación (Translation)</h4>
+<div class="outline-text-4" id="text-org79f11ce">
 <p>
 La traslación desplaza la imagen en el espacio sin modificar su forma o tamaño. La fórmula matemática es:
 </p>
@@ -2733,9 +2734,9 @@ Donde \(t_x\) y \(t_y\) son las cantidades de desplazamiento. La matriz de trasl
 </div>
 </div>
 
-<div id="outline-container-orgcbbfb9e" class="outline-4">
-<h4 id="orgcbbfb9e">2. Rotación (Rotation)</h4>
-<div class="outline-text-4" id="text-orgcbbfb9e">
+<div id="outline-container-org083beab" class="outline-4">
+<h4 id="org083beab">2. Rotación (Rotation)</h4>
+<div class="outline-text-4" id="text-org083beab">
 <p>
 La rotación gira la imagen un ángulo \(\theta\). La ecuación de rotación es:
 </p>
@@ -2762,9 +2763,9 @@ La matriz de rotación es:
 </div>
 </div>
 
-<div id="outline-container-org2d16d23" class="outline-4">
-<h4 id="org2d16d23">3. Escalado (Scalin</h4>
-<div class="outline-text-4" id="text-org2d16d23">
+<div id="outline-container-orgca66183" class="outline-4">
+<h4 id="orgca66183">3. Escalado (Scalin</h4>
+<div class="outline-text-4" id="text-orgca66183">
 <p>
 g)
 </p>
@@ -2795,9 +2796,9 @@ La matriz correspondiente es:
 </div>
 </div>
 
-<div id="outline-container-org5ca25c1" class="outline-4">
-<h4 id="org5ca25c1">4. Cizallamiento (Shearing)</h4>
-<div class="outline-text-4" id="text-org5ca25c1">
+<div id="outline-container-org7199200" class="outline-4">
+<h4 id="org7199200">4. Cizallamiento (Shearing)</h4>
+<div class="outline-text-4" id="text-org7199200">
 <p>
 El cizallamiento inclina la imagen en una dirección específica. Las ecuaciones para un cizallamiento horizontal y vertical son:
 </p>
@@ -2845,9 +2846,9 @@ Vertical:
 </div>
 </div>
 
-<div id="outline-container-org6c95b20" class="outline-4">
-<h4 id="org6c95b20">5. Reflexión (Reflection)</h4>
-<div class="outline-text-4" id="text-org6c95b20">
+<div id="outline-container-orgded7f3f" class="outline-4">
+<h4 id="orgded7f3f">5. Reflexión (Reflection)</h4>
+<div class="outline-text-4" id="text-orgded7f3f">
 <p>
 La reflexión voltea la imagen sobre un eje. Las matrices para reflexiones sobre el eje \(x\) o \(y\) son:
 </p>
@@ -2874,9 +2875,9 @@ La reflexión voltea la imagen sobre un eje. Las matrices para reflexiones sobre
 </div>
 </div>
 
-<div id="outline-container-org2aa1965" class="outline-4">
-<h4 id="org2aa1965">6. Transformación Afín (Affine Transformation)</h4>
-<div class="outline-text-4" id="text-org2aa1965">
+<div id="outline-container-org5aa4b95" class="outline-4">
+<h4 id="org5aa4b95">6. Transformación Afín (Affine Transformation)</h4>
+<div class="outline-text-4" id="text-org5aa4b95">
 <p>
 Una transformación afín combina varias de las anteriores. Su matriz es:
 </p>
@@ -2893,9 +2894,9 @@ Una transformación afín combina varias de las anteriores. Su matriz es:
 </div>
 </div>
 
-<div id="outline-container-orgc6313e9" class="outline-4">
-<h4 id="orgc6313e9">7. Transformación Proyectiva (Homografía)</h4>
-<div class="outline-text-4" id="text-orgc6313e9">
+<div id="outline-container-orgd3f43c6" class="outline-4">
+<h4 id="orgd3f43c6">7. Transformación Proyectiva (Homografía)</h4>
+<div class="outline-text-4" id="text-orgd3f43c6">
 <p>
 La homografía proyecta una imagen en un nuevo plano, alterando su perspectiva. La matriz homográfica es:
 </p>
@@ -2912,9 +2913,9 @@ La homografía proyecta una imagen en un nuevo plano, alterando su perspectiva. 
 </div>
 </div>
 
-<div id="outline-container-org0575a76" class="outline-4">
-<h4 id="org0575a76">Aplicaciones</h4>
-<div class="outline-text-4" id="text-org0575a76">
+<div id="outline-container-org698b232" class="outline-4">
+<h4 id="org698b232">Aplicaciones</h4>
+<div class="outline-text-4" id="text-org698b232">
 <p>
 Las transformaciones geométricas se utilizan en:
 </p>
@@ -2936,9 +2937,9 @@ Las transformaciones geométricas se utilizan en:
 
 
 
-<div id="outline-container-orgf26b4ea" class="outline-2">
-<h2 id="orgf26b4ea">Actividades</h2>
-<div class="outline-text-2" id="text-orgf26b4ea">
+<div id="outline-container-orgdcc6ac3" class="outline-2">
+<h2 id="orgdcc6ac3">Actividades</h2>
+<div class="outline-text-2" id="text-orgdcc6ac3">
 <ul class="org-ul">
 <li>Generar una imagen tipo pixel art utilizando una matriz de enteros en el rango de 0 a 255.</li>
 <li>Generar al menos cinco operadores puntuales utilizando la imagen generada o una imagen previamente cargada.</li>
@@ -2955,17 +2956,17 @@ Todas las actividades anteriores deben estar documentadas en formato Markdown en
 </div>
 
 
-<div id="outline-container-org0093430" class="outline-2">
-<h2 id="org0093430">Programación</h2>
-<div class="outline-text-2" id="text-org0093430">
+<div id="outline-container-org5271076" class="outline-2">
+<h2 id="org5271076">Programación</h2>
+<div class="outline-text-2" id="text-org5271076">
 </div>
-<div id="outline-container-orgd4f23fc" class="outline-3">
-<h3 id="orgd4f23fc">Programas Unidad 1</h3>
-<div class="outline-text-3" id="text-orgd4f23fc">
+<div id="outline-container-org6096293" class="outline-3">
+<h3 id="org6096293">Programas Unidad 1</h3>
+<div class="outline-text-3" id="text-org6096293">
 </div>
-<div id="outline-container-org6a866ba" class="outline-4">
-<h4 id="org6a866ba">Creación de una Imagen</h4>
-<div class="outline-text-4" id="text-org6a866ba">
+<div id="outline-container-org1416d0f" class="outline-4">
+<h4 id="org1416d0f">Creación de una Imagen</h4>
+<div class="outline-text-4" id="text-org1416d0f">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa la librer&#237;a NumPy, &#250;til para trabajar con arreglos y operaciones num&#233;ricas.</span>
 <span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv     <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa la librer&#237;a OpenCV, que se utiliza para procesamiento de im&#225;genes.</span>
@@ -2997,9 +2998,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgd572f4a" class="outline-4">
-<h4 id="orgd572f4a">Cargar Imagen</h4>
-<div class="outline-text-4" id="text-orgd572f4a">
+<div id="outline-container-orgf5b3de1" class="outline-4">
+<h4 id="orgf5b3de1">Cargar Imagen</h4>
+<div class="outline-text-4" id="text-orgf5b3de1">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa la librer&#237;a OpenCV, que se usa para el procesamiento de im&#225;genes y videos.</span>
 
@@ -3021,9 +3022,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgd227972" class="outline-4">
-<h4 id="orgd227972">Split y Merge Imagen</h4>
-<div class="outline-text-4" id="text-orgd227972">
+<div id="outline-container-org0faa7c0" class="outline-4">
+<h4 id="org0faa7c0">Split y Merge Imagen</h4>
+<div class="outline-text-4" id="text-org0faa7c0">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa OpenCV, que es &#250;til para procesamiento de im&#225;genes.</span>
 <span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Importa NumPy, que es &#250;til para trabajar con matrices y operaciones num&#233;ricas.</span>
@@ -3079,9 +3080,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org2ef201a" class="outline-4">
-<h4 id="org2ef201a">Ejemplo de Operador Puntual en Imágenes</h4>
-<div class="outline-text-4" id="text-org2ef201a">
+<div id="outline-container-orge666a65" class="outline-4">
+<h4 id="orge666a65">Ejemplo de Operador Puntual en Imágenes</h4>
+<div class="outline-text-4" id="text-orge666a65">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv
 
@@ -3106,9 +3107,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgedb1b83" class="outline-4">
-<h4 id="orgedb1b83">Cargar vídeo Opencv</h4>
-<div class="outline-text-4" id="text-orgedb1b83">
+<div id="outline-container-org277b641" class="outline-4">
+<h4 id="org277b641">Cargar vídeo Opencv</h4>
+<div class="outline-text-4" id="text-org277b641">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv
 <span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np
@@ -3142,13 +3143,13 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 
 
 
-<div id="outline-container-org824e624" class="outline-3">
-<h3 id="org824e624">Ejemplos de Transformaciones Geométricas en Modo Raw en Python</h3>
-<div class="outline-text-3" id="text-org824e624">
+<div id="outline-container-org1a46d8e" class="outline-3">
+<h3 id="org1a46d8e">Ejemplos de Transformaciones Geométricas en Modo Raw en Python</h3>
+<div class="outline-text-3" id="text-org1a46d8e">
 </div>
-<div id="outline-container-orgda71621" class="outline-4">
-<h4 id="orgda71621">1. Traslación</h4>
-<div class="outline-text-4" id="text-orgda71621">
+<div id="outline-container-org1763d06" class="outline-4">
+<h4 id="org1763d06">1. Traslación</h4>
+<div class="outline-text-4" id="text-org1763d06">
 <p>
 En esta transformación, desplazamos la imagen en el espacio sumando un valor fijo a las coordenadas de los píxeles.
 </p>
@@ -3187,9 +3188,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org04b1f67" class="outline-4">
-<h4 id="org04b1f67">2. Rotación (alrededor del centro de la imagen)</h4>
-<div class="outline-text-4" id="text-org04b1f67">
+<div id="outline-container-org0dae4a9" class="outline-4">
+<h4 id="org0dae4a9">2. Rotación (alrededor del centro de la imagen)</h4>
+<div class="outline-text-4" id="text-org0dae4a9">
 <p>
 La rotación se realiza alrededor del centro de la imagen, utilizando las fórmulas matemáticas correspondientes.
 </p>
@@ -3233,9 +3234,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgcb5cab5" class="outline-4">
-<h4 id="orgcb5cab5">3. Escalado</h4>
-<div class="outline-text-4" id="text-orgcb5cab5">
+<div id="outline-container-org7d15cfc" class="outline-4">
+<h4 id="org7d15cfc">3. Escalado</h4>
+<div class="outline-text-4" id="text-org7d15cfc">
 <p>
 El escalado cambia el tamaño de la imagen multiplicando las coordenadas por un factor de escala.
 </p>
@@ -3273,9 +3274,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org46d643e" class="outline-4">
-<h4 id="org46d643e">4. Cizallamiento (Shearing)</h4>
-<div class="outline-text-4" id="text-org46d643e">
+<div id="outline-container-org94daa18" class="outline-4">
+<h4 id="org94daa18">4. Cizallamiento (Shearing)</h4>
+<div class="outline-text-4" id="text-org94daa18">
 <p>
 En el cizallamiento, los píxeles se desplazan en una dirección proporcional a otra, lo que inclina la imagen.
 </p>
@@ -3314,17 +3315,17 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org78f00a3" class="outline-4">
-<h4 id="org78f00a3">5. Reflexión (Reflection)</h4>
-<div class="outline-text-4" id="text-org78f00a3">
+<div id="outline-container-orgb3279a2" class="outline-4">
+<h4 id="orgb3279a2">5. Reflexión (Reflection)</h4>
+<div class="outline-text-4" id="text-orgb3279a2">
 <p>
 La reflexión voltea la imagen sobre un eje, como el eje vertical o horizontal.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="org049b07e"></a>Reflexión horizontal<br />
-<div class="outline-text-5" id="text-org049b07e">
+<li><a id="org2e6b77d"></a>Reflexión horizontal<br />
+<div class="outline-text-5" id="text-org2e6b77d">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv
 <span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np
@@ -3353,8 +3354,8 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </li>
 
-<li><a id="org02240f9"></a>Reflexión vertical<br />
-<div class="outline-text-5" id="text-org02240f9">
+<li><a id="org0707c5c"></a>Reflexión vertical<br />
+<div class="outline-text-5" id="text-org0707c5c">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv
 <span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np
@@ -3387,13 +3388,13 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 
 
-<div id="outline-container-org43c1ae7" class="outline-3">
-<h3 id="org43c1ae7">Ejemplos de Transformaciones Geométricas en Python usando OpenCV</h3>
-<div class="outline-text-3" id="text-org43c1ae7">
+<div id="outline-container-orgc9ae6af" class="outline-3">
+<h3 id="orgc9ae6af">Ejemplos de Transformaciones Geométricas en Python usando OpenCV</h3>
+<div class="outline-text-3" id="text-orgc9ae6af">
 </div>
-<div id="outline-container-orgbae6b8e" class="outline-4">
-<h4 id="orgbae6b8e">1. Traslación</h4>
-<div class="outline-text-4" id="text-orgbae6b8e">
+<div id="outline-container-org175a803" class="outline-4">
+<h4 id="org175a803">1. Traslación</h4>
+<div class="outline-text-4" id="text-org175a803">
 <p>
 En OpenCV, la traslación se realiza usando matrices de transformación afín y la función `cv.warpAffine()`.
 </p>
@@ -3427,9 +3428,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org6f511e4" class="outline-4">
-<h4 id="org6f511e4">2. Rotación (alrededor del centro de la imagen)</h4>
-<div class="outline-text-4" id="text-org6f511e4">
+<div id="outline-container-orge212b75" class="outline-4">
+<h4 id="orge212b75">2. Rotación (alrededor del centro de la imagen)</h4>
+<div class="outline-text-4" id="text-orge212b75">
 <p>
 La rotación alrededor del centro de la imagen se puede realizar con la función `cv.getRotationMatrix2D()`.
 </p>
@@ -3466,9 +3467,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org3c4a950" class="outline-4">
-<h4 id="org3c4a950">3. Escalado</h4>
-<div class="outline-text-4" id="text-org3c4a950">
+<div id="outline-container-org56b8008" class="outline-4">
+<h4 id="org56b8008">3. Escalado</h4>
+<div class="outline-text-4" id="text-org56b8008">
 <p>
 El escalado se puede realizar usando la función `cv.resize()`.
 </p>
@@ -3496,9 +3497,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org7dfeb02" class="outline-4">
-<h4 id="org7dfeb02">4. Cizallamiento (Shearing)</h4>
-<div class="outline-text-4" id="text-org7dfeb02">
+<div id="outline-container-orga77502a" class="outline-4">
+<h4 id="orga77502a">4. Cizallamiento (Shearing)</h4>
+<div class="outline-text-4" id="text-orga77502a">
 <p>
 El cizallamiento se puede realizar creando una matriz de transformación afín personalizada.
 </p>
@@ -3532,17 +3533,17 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org0facb4a" class="outline-4">
-<h4 id="org0facb4a">5. Reflexión (Reflection)</h4>
-<div class="outline-text-4" id="text-org0facb4a">
+<div id="outline-container-org95462fc" class="outline-4">
+<h4 id="org95462fc">5. Reflexión (Reflection)</h4>
+<div class="outline-text-4" id="text-org95462fc">
 <p>
 En OpenCV, la reflexión de una imagen se realiza con la función `cv.flip()`.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="orge15e089"></a>Reflexión horizontal<br />
-<div class="outline-text-5" id="text-orge15e089">
+<li><a id="orga4b97f9"></a>Reflexión horizontal<br />
+<div class="outline-text-5" id="text-orga4b97f9">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv
 
@@ -3562,8 +3563,8 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </li>
 
-<li><a id="org3b3fafa"></a>Reflexión vertical<br />
-<div class="outline-text-5" id="text-org3b3fafa">
+<li><a id="orgcb9585b"></a>Reflexión vertical<br />
+<div class="outline-text-5" id="text-orgcb9585b">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv
 
@@ -3586,9 +3587,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgbea68b6" class="outline-3">
-<h3 id="orgbea68b6">Primitivas de Dibujo</h3>
-<div class="outline-text-3" id="text-orgbea68b6">
+<div id="outline-container-org5f0fb47" class="outline-3">
+<h3 id="org5f0fb47">Primitivas de Dibujo</h3>
+<div class="outline-text-3" id="text-org5f0fb47">
 <div class="org-src-container">
 <pre class="src src-python">
 <span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv
@@ -3633,9 +3634,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgd8d16e2" class="outline-3">
-<h3 id="orgd8d16e2">Parametricas</h3>
-<div class="outline-text-3" id="text-orgd8d16e2">
+<div id="outline-container-org2efaa8b" class="outline-3">
+<h3 id="org2efaa8b">Parametricas</h3>
+<div class="outline-text-3" id="text-org2efaa8b">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np
 <span style="color: #c099ff;">import</span> cv2
@@ -3794,9 +3795,9 @@ cv2.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgba83eb8" class="outline-3">
-<h3 id="orgba83eb8">Segmentación de color mediante el modelo de color HSV</h3>
-<div class="outline-text-3" id="text-orgba83eb8">
+<div id="outline-container-org7491725" class="outline-3">
+<h3 id="org7491725">Segmentación de color mediante el modelo de color HSV</h3>
+<div class="outline-text-3" id="text-org7491725">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2 <span style="color: #c099ff;">as</span> cv
 
@@ -3870,9 +3871,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 
 
 
-<div id="outline-container-org5739c84" class="outline-3">
-<h3 id="org5739c84">Capa de Harry Potter</h3>
-<div class="outline-text-3" id="text-org5739c84">
+<div id="outline-container-org20236fe" class="outline-3">
+<h3 id="org20236fe">Capa de Harry Potter</h3>
+<div class="outline-text-3" id="text-org20236fe">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2
 <span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np
@@ -3937,9 +3938,9 @@ cv2.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 
 
-<div id="outline-container-orgd259e0e" class="outline-3">
-<h3 id="orgd259e0e">Efecto Gris np.where</h3>
-<div class="outline-text-3" id="text-orgd259e0e">
+<div id="outline-container-org20067bf" class="outline-3">
+<h3 id="org20067bf">Efecto Gris np.where</h3>
+<div class="outline-text-3" id="text-org20067bf">
 <p>
 La función <b>np.where</b> de NumPy es muy útil cuando se quiere
 seleccionar elementos de un arreglo o imagen basado en una
@@ -3948,9 +3949,9 @@ contexto de imágenes.
 </p>
 </div>
 
-<div id="outline-container-org85889d4" class="outline-4">
-<h4 id="org85889d4">Sintaxis básica de np.where:</h4>
-<div class="outline-text-4" id="text-org85889d4">
+<div id="outline-container-orgfbe5193" class="outline-4">
+<h4 id="orgfbe5193">Sintaxis básica de np.where:</h4>
+<div class="outline-text-4" id="text-orgfbe5193">
 <div class="org-src-container">
 <pre class="src src-python">np.where<span style="color: #c099ff;">(</span>condici&#243;n, valor_si_verdadero, valor_si_falso<span style="color: #c099ff;">)</span>
 </pre>
@@ -3964,8 +3965,8 @@ contexto de imágenes.
 </div>
 
 <ul class="org-ul">
-<li><a id="orge78b8f5"></a>Ejemplo sencillo:<br />
-<div class="outline-text-5" id="text-orge78b8f5">
+<li><a id="org3ebf119"></a>Ejemplo sencillo:<br />
+<div class="outline-text-5" id="text-org3ebf119">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np
 
@@ -3992,9 +3993,9 @@ En este ejemplo, la condición `array &gt; 3` se cumple para los elementos 4 y 5
 </ul>
 </div>
 
-<div id="outline-container-orgb52c94b" class="outline-4">
-<h4 id="orgb52c94b">Aplicación en procesamiento de imágenes:</h4>
-<div class="outline-text-4" id="text-orgb52c94b">
+<div id="outline-container-orgc121dbc" class="outline-4">
+<h4 id="orgc121dbc">Aplicación en procesamiento de imágenes:</h4>
+<div class="outline-text-4" id="text-orgc121dbc">
 <p>
 Cuando manipulamos imágenes, cada pixel tiene tres valores (R, G,
 B). La idea es usar `np.where` para verificar si un pixel cumple con
@@ -4006,8 +4007,8 @@ grises.
 </div>
 
 <ul class="org-ul">
-<li><a id="org7053677"></a>Parte del código relevante:<br />
-<div class="outline-text-5" id="text-org7053677">
+<li><a id="org9dc70bc"></a>Parte del código relevante:<br />
+<div class="outline-text-5" id="text-org9dc70bc">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #ff98a4;">imagen_colores_resaltados</span> = np.where<span style="color: #c099ff;">(</span>mascara_rojo<span style="color: #ff995e;">[</span>:, :, <span style="color: #ff995e;">None</span><span style="color: #ff995e;">]</span> == 255, imagen, imagen_gris_bgr<span style="color: #c099ff;">)</span>
 </pre>
@@ -4015,8 +4016,8 @@ grises.
 </div>
 </li>
 
-<li><a id="org6c7f318"></a>Desglose:<br />
-<div class="outline-text-5" id="text-org6c7f318">
+<li><a id="org012c97a"></a>Desglose:<br />
+<div class="outline-text-5" id="text-org012c97a">
 <ol class="org-ol">
 <li><b>`mascara<sub>rojo</sub>[:, :, None] == 255`</b>:
 <ul class="org-ul">
@@ -4045,8 +4046,8 @@ formato BGR. Se usa en las posiciones donde la condición es
 </div>
 </li>
 
-<li><a id="orgd224ccf"></a>Ejemplo visual:<br />
-<div class="outline-text-5" id="text-orgd224ccf">
+<li><a id="org654563b"></a>Ejemplo visual:<br />
+<div class="outline-text-5" id="text-org654563b">
 <p>
 Imagina que tienes un pixel con los siguientes valores RGB: `(255, 0,
 0)` (un rojo intenso). Si este pixel cae dentro del rango de color
@@ -4090,8 +4091,8 @@ En el resultado, los pixeles que coinciden con el color rojo permanecen iguales,
 </div>
 </li>
 
-<li><a id="org7748a1b"></a>¿Cómo funciona esto para toda la imagen?<br />
-<div class="outline-text-5" id="text-org7748a1b">
+<li><a id="org85cc4db"></a>¿Cómo funciona esto para toda la imagen?<br />
+<div class="outline-text-5" id="text-org85cc4db">
 <p>
 `np.where` revisa cada pixel de la imagen:
 </p>
@@ -4191,9 +4192,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 
 
-<div id="outline-container-org7191ab2" class="outline-3">
-<h3 id="org7191ab2">Flujo optico</h3>
-<div class="outline-text-3" id="text-org7191ab2">
+<div id="outline-container-org0e73dfd" class="outline-3">
+<h3 id="org0e73dfd">Flujo optico</h3>
+<div class="outline-text-3" id="text-org0e73dfd">
 <div class="org-src-container">
 <pre class="src src-python">
 <span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np
@@ -4318,9 +4319,9 @@ cv.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 
 
-<div id="outline-container-orgebd36c9" class="outline-3">
-<h3 id="orgebd36c9">Ejemplo de clasificación utilizando Haarcascades</h3>
-<div class="outline-text-3" id="text-orgebd36c9">
+<div id="outline-container-org33fd1ec" class="outline-3">
+<h3 id="org33fd1ec">Ejemplo de clasificación utilizando Haarcascades</h3>
+<div class="outline-text-3" id="text-org33fd1ec">
 <ul class="org-ul">
 <li><a href="https://github.com/opencv/opencv/tree/master/data/haarcascades">Clasificadores Haarcascades de la librería Opencv</a></li>
 <li><a href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_objdetect/py_face_detection/py_face_detection.html">Tutorial Haarcascades</a></li>
@@ -4489,15 +4490,15 @@ cv2.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 
 
-<div id="outline-container-org6884c1c" class="outline-3">
-<h3 id="org6884c1c">OpenGL</h3>
+<div id="outline-container-org92708dd" class="outline-3">
+<h3 id="org92708dd">OpenGL</h3>
 </div>
 
 
 
-<div id="outline-container-org5105a5d" class="outline-3">
-<h3 id="org5105a5d">Descripción de la Proyección Isométrica</h3>
-<div class="outline-text-3" id="text-org5105a5d">
+<div id="outline-container-org6bbbfde" class="outline-3">
+<h3 id="org6bbbfde">Descripción de la Proyección Isométrica</h3>
+<div class="outline-text-3" id="text-org6bbbfde">
 <p>
 La proyección isométrica es un tipo de proyección axonométrica que
 representa un objeto 3D en un espacio 2D sin perspectiva. Esto
@@ -4517,9 +4518,9 @@ simple sin distorsión de perspectiva.
 </div>
 
 
-<div id="outline-container-org9c16acb" class="outline-4">
-<h4 id="org9c16acb">Ejemplo de Proyección Isométrica en OpenCV</h4>
-<div class="outline-text-4" id="text-org9c16acb">
+<div id="outline-container-org49546f1" class="outline-4">
+<h4 id="org49546f1">Ejemplo de Proyección Isométrica en OpenCV</h4>
+<div class="outline-text-4" id="text-org49546f1">
 <p>
 Este ejemplo en OpenCV muestra cómo proyectar un cubo 3D en 2D
 utilizando una proyección isométrica. Cada vértice del cubo se
@@ -4529,8 +4530,8 @@ del cubo.
 </div>
 
 <ul class="org-ul">
-<li><a id="org7642527"></a>Código en Python<br />
-<div class="outline-text-5" id="text-org7642527">
+<li><a id="org2beb598"></a>Código en Python<br />
+<div class="outline-text-5" id="text-org2beb598">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> cv2
 <span style="color: #c099ff;">import</span> numpy <span style="color: #c099ff;">as</span> np
@@ -4591,8 +4592,8 @@ cv2.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </li>
 
-<li><a id="org549f3c8"></a>Explicación del Código<br />
-<div class="outline-text-5" id="text-org549f3c8">
+<li><a id="org7f3dd60"></a>Explicación del Código<br />
+<div class="outline-text-5" id="text-org7f3dd60">
 <ol class="org-ol">
 <li><b><b>Definición de Vértices y Aristas</b></b>:
 <ul class="org-ul">
@@ -4614,8 +4615,8 @@ cv2.destroyAllWindows<span style="color: #c099ff;">()</span>
 </div>
 </li>
 
-<li><a id="orgdd346f6"></a>Salida Esperada<br />
-<div class="outline-text-5" id="text-orgdd346f6">
+<li><a id="org70bc3c4"></a>Salida Esperada<br />
+<div class="outline-text-5" id="text-org70bc3c4">
 <p>
 La ventana mostrará un cubo en perspectiva isométrica. Las aristas se
 dibujan en blanco y el cubo parece tener profundidad, aunque es solo
@@ -4633,9 +4634,9 @@ Este ejemplo simula un efecto 3D mediante una proyección isométrica,
 </div>
 
 
-<div id="outline-container-org89261f2" class="outline-3">
-<h3 id="org89261f2">Opengl Ejemplo</h3>
-<div class="outline-text-3" id="text-org89261f2">
+<div id="outline-container-org85b6013" class="outline-3">
+<h3 id="org85b6013">Opengl Ejemplo</h3>
+<div class="outline-text-3" id="text-org85b6013">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #c099ff;">import</span> glfw
 <span style="color: #c099ff;">from</span> OpenGL.GL <span style="color: #c099ff;">import</span> glClear, glClearColor, glBegin, GL_QUADS, glEnd, glVertex2f, glColor3f, GL_COLOR_BUFFER_BIT, GL_TRIANGLES
@@ -4744,9 +4745,9 @@ Este ejemplo simula un efecto 3D mediante una proyección isométrica,
 </div>
 
 
-<div id="outline-container-org2be069d" class="outline-2">
-<h2 id="org2be069d">Introducción a OpenGL</h2>
-<div class="outline-text-2" id="text-org2be069d">
+<div id="outline-container-org10ee9a7" class="outline-2">
+<h2 id="org10ee9a7">Introducción a OpenGL</h2>
+<div class="outline-text-2" id="text-org10ee9a7">
 <p>
 OpenGL (Open Graphics Library) es una API de gráficos que permite a
 los desarrolladores crear gráficos en 2D y 3D. Fue desarrollada por
@@ -4757,9 +4758,9 @@ entornos de realidad virtual y aumentada.
 </p>
 </div>
 
-<div id="outline-container-orgf23e61a" class="outline-3">
-<h3 id="orgf23e61a">Características de OpenGL</h3>
-<div class="outline-text-3" id="text-orgf23e61a">
+<div id="outline-container-org65f8806" class="outline-3">
+<h3 id="org65f8806">Características de OpenGL</h3>
+<div class="outline-text-3" id="text-org65f8806">
 <ul class="org-ul">
 <li><b><b>Plataforma abierta</b></b>: OpenGL es multiplataforma y funciona en
 Windows, macOS, y Linux.</li>
@@ -4773,18 +4774,18 @@ gráficos simples en 2D hasta gráficos avanzados en 3D.</li>
 </div>
 </div>
 
-<div id="outline-container-org0d75bab" class="outline-3">
-<h3 id="org0d75bab">Primeros pasos en OpenGL</h3>
-<div class="outline-text-3" id="text-org0d75bab">
+<div id="outline-container-org15d36e2" class="outline-3">
+<h3 id="org15d36e2">Primeros pasos en OpenGL</h3>
+<div class="outline-text-3" id="text-org15d36e2">
 <p>
 Para empezar a trabajar con OpenGL, necesitas entender algunos de sus
 conceptos y configuraciones básicas.
 </p>
 </div>
 
-<div id="outline-container-orgccb4da9" class="outline-4">
-<h4 id="orgccb4da9">Configuración del Entorno</h4>
-<div class="outline-text-4" id="text-orgccb4da9">
+<div id="outline-container-org67be80b" class="outline-4">
+<h4 id="org67be80b">Configuración del Entorno</h4>
+<div class="outline-text-4" id="text-org67be80b">
 <p>
 Para utilizar OpenGL en Python, necesitas instalar las siguientes
 bibliotecas:
@@ -4797,9 +4798,9 @@ bibliotecas:
 </div>
 </div>
 
-<div id="outline-container-orgdb40710" class="outline-4">
-<h4 id="orgdb40710">Estructura básica de un programa OpenGL</h4>
-<div class="outline-text-4" id="text-orgdb40710">
+<div id="outline-container-org37e35dd" class="outline-4">
+<h4 id="org37e35dd">Estructura básica de un programa OpenGL</h4>
+<div class="outline-text-4" id="text-org37e35dd">
 <p>
 Un programa básico de OpenGL tiene una estructura general que incluye
 la configuración de la ventana, la inicialización del contexto de
@@ -4809,9 +4810,9 @@ OpenGL, el renderizado de objetos y el bucle principal.
 </div>
 </div>
 
-<div id="outline-container-org6edd6cb" class="outline-3">
-<h3 id="org6edd6cb">Sistema de Coordenadas en OpenGL</h3>
-<div class="outline-text-3" id="text-org6edd6cb">
+<div id="outline-container-org735149e" class="outline-3">
+<h3 id="org735149e">Sistema de Coordenadas en OpenGL</h3>
+<div class="outline-text-3" id="text-org735149e">
 <p>
 En OpenGL, las coordenadas pasan por una serie de transformaciones
 para dibujar objetos en pantalla. Aquí están los principales sistemas
@@ -4819,9 +4820,9 @@ de coordenadas:
 </p>
 </div>
 
-<div id="outline-container-org0c87635" class="outline-4">
-<h4 id="org0c87635">Coordenadas del Objeto</h4>
-<div class="outline-text-4" id="text-org0c87635">
+<div id="outline-container-org17406fb" class="outline-4">
+<h4 id="org17406fb">Coordenadas del Objeto</h4>
+<div class="outline-text-4" id="text-org17406fb">
 <p>
 Este es el espacio de coordenadas local de cada objeto. Aquí
 defines los vértices en relación con el centro del objeto.
@@ -4829,27 +4830,27 @@ defines los vértices en relación con el centro del objeto.
 </div>
 </div>
 
-<div id="outline-container-org3149050" class="outline-4">
-<h4 id="org3149050">Coordenadas del Mundo</h4>
-<div class="outline-text-4" id="text-org3149050">
+<div id="outline-container-org005107d" class="outline-4">
+<h4 id="org005107d">Coordenadas del Mundo</h4>
+<div class="outline-text-4" id="text-org005107d">
 <p>
 Transforman las coordenadas del objeto para situarlo en el mundo virtual.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org58757a6" class="outline-4">
-<h4 id="org58757a6">Coordenadas de Vista</h4>
-<div class="outline-text-4" id="text-org58757a6">
+<div id="outline-container-org29e96dd" class="outline-4">
+<h4 id="org29e96dd">Coordenadas de Vista</h4>
+<div class="outline-text-4" id="text-org29e96dd">
 <p>
 Ajustan la posición del objeto en relación con la cámara u observador.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org67c30ad" class="outline-4">
-<h4 id="org67c30ad">Coordenadas de Recorte</h4>
-<div class="outline-text-4" id="text-org67c30ad">
+<div id="outline-container-org9759199" class="outline-4">
+<h4 id="org9759199">Coordenadas de Recorte</h4>
+<div class="outline-text-4" id="text-org9759199">
 <p>
 Aplican la proyección para determinar qué partes del objeto son
 visibles y cuáles están fuera del campo de visión.
@@ -4857,9 +4858,9 @@ visibles y cuáles están fuera del campo de visión.
 </div>
 </div>
 
-<div id="outline-container-org3790a13" class="outline-4">
-<h4 id="org3790a13">Coordenadas Normalizadas del Dispositivo (NDC)</h4>
-<div class="outline-text-4" id="text-org3790a13">
+<div id="outline-container-org445c436" class="outline-4">
+<h4 id="org445c436">Coordenadas Normalizadas del Dispositivo (NDC)</h4>
+<div class="outline-text-4" id="text-org445c436">
 <p>
 Las coordenadas se normalizan al rango [-1, 1] en cada eje, para
 definir la porción visible de la escena.
@@ -4867,9 +4868,9 @@ definir la porción visible de la escena.
 </div>
 </div>
 
-<div id="outline-container-org690ddc9" class="outline-4">
-<h4 id="org690ddc9">Coordenadas de Pantalla</h4>
-<div class="outline-text-4" id="text-org690ddc9">
+<div id="outline-container-org9afbc00" class="outline-4">
+<h4 id="org9afbc00">Coordenadas de Pantalla</h4>
+<div class="outline-text-4" id="text-org9afbc00">
 <p>
 Las coordenadas normalizadas se mapean a píxeles en la pantalla
 según la resolución de la ventana.
@@ -4878,9 +4879,9 @@ según la resolución de la ventana.
 </div>
 </div>
 
-<div id="outline-container-org9995c7d" class="outline-3">
-<h3 id="org9995c7d">Primitivas de Dibujo en OpenGL</h3>
-<div class="outline-text-3" id="text-org9995c7d">
+<div id="outline-container-org9de667d" class="outline-3">
+<h3 id="org9de667d">Primitivas de Dibujo en OpenGL</h3>
+<div class="outline-text-3" id="text-org9de667d">
 <p>
 OpenGL permite dibujar figuras básicas conocidas como primitivas,
 entre las que se incluyen:
@@ -5303,7 +5304,7 @@ Ejemplo de uso de <b><b>GL<sub>TRIANGLES</sub></b></b> para dibujar un triángul
 <span style="color: #ff98a4;">movement_direction</span> = 1  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Direcci&#243;n del movimiento (1 a la derecha, -1 a la izquierda)</span>
 
 <span style="color: #c099ff;">def</span> <span style="color: #82aaff;">init</span><span style="color: #c099ff;">()</span>:
-<span style="background-color: #2f334d;"> </span>   glClearColor<span style="color: #c099ff;">(</span>0.0, 0.0, 0.0, 1.0<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Fondo negro</span>
+<span style="background-color: #2f334d;"> </span>   glClearColor<span style="color: #c099ff;">(</span>0.5, 0.8, 1.0, 1.0<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Fondo negro</span>
 <span style="background-color: #2f334d;"> </span>   glEnable<span style="color: #c099ff;">(</span>GL_DEPTH_TEST<span style="color: #c099ff;">)</span>            <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Activar prueba de profundidad</span>
 <span style="background-color: #2f334d;"> </span>   glEnable<span style="color: #c099ff;">(</span>GL_LIGHTING<span style="color: #c099ff;">)</span>              <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Activar iluminaci&#243;n</span>
 <span style="background-color: #2f334d;"> </span>   glEnable<span style="color: #c099ff;">(</span>GL_LIGHT0<span style="color: #c099ff;">)</span>                <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Activar la luz 0</span>
@@ -5330,7 +5331,7 @@ Ejemplo de uso de <b><b>GL<sub>TRIANGLES</sub></b></b> para dibujar un triángul
 <span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">global</span> rotation_angle, movement_offset
 <span style="background-color: #2f334d;"> </span>   glClear<span style="color: #c099ff;">(</span>GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT<span style="color: #c099ff;">)</span>
 <span style="background-color: #2f334d;"> </span>   glLoadIdentity<span style="color: #c099ff;">()</span>
-<span style="background-color: #2f334d;"> </span>   glTranslatef<span style="color: #c099ff;">(</span>movement_offset, 0.0, -5<span style="color: #c099ff;">)</span>      <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Mover la esfera en vaiv&#233;n</span>
+<span style="background-color: #2f334d;"> </span>   glTranslatef<span style="color: #c099ff;">(</span>movement_offset, 0.0, -50<span style="color: #c099ff;">)</span>      <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Mover la esfera en vaiv&#233;n</span>
 <span style="background-color: #2f334d;"> </span>   glRotatef<span style="color: #c099ff;">(</span>rotation_angle, 0, 1, 0<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Rotar la esfera sobre su eje Y</span>
 
 <span style="background-color: #2f334d;"> </span>   quadric = gluNewQuadric<span style="color: #c099ff;">()</span>
@@ -5348,9 +5349,9 @@ Ejemplo de uso de <b><b>GL<sub>TRIANGLES</sub></b></b> para dibujar un triángul
 
 <span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Actualizar el movimiento de vaiv&#233;n</span>
 <span style="background-color: #2f334d;"> </span>   movement_offset += movement_speed * movement_direction
-<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">if</span> movement_offset &gt; 2.0:       <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Limite derecho</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">if</span> movement_offset &gt; 3.0:       <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Limite derecho</span>
 <span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   movement_direction = -1     <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Cambiar direcci&#243;n hacia la izquierda</span>
-<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">elif</span> movement_offset &lt; -2.0:    <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Limite izquierdo</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">elif</span> movement_offset &lt; -3.0:    <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Limite izquierdo</span>
 <span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   movement_direction = 1      <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Cambiar direcci&#243;n hacia la derecha</span>
 
 <span style="color: #c099ff;">def</span> <span style="color: #82aaff;">main</span><span style="color: #c099ff;">()</span>:
@@ -5578,9 +5579,9 @@ Ejemplo de uso de <b><b>GL<sub>TRIANGLES</sub></b></b> para dibujar un triángul
 </div>
 
 
-<div id="outline-container-org704b587" class="outline-3">
-<h3 id="org704b587">Tutorial de gluPerspective en OpenGL</h3>
-<div class="outline-text-3" id="text-org704b587">
+<div id="outline-container-org5bbccf5" class="outline-3">
+<h3 id="org5bbccf5">Tutorial de gluPerspective en OpenGL</h3>
+<div class="outline-text-3" id="text-org5bbccf5">
 <p>
 Este tutorial describe cómo utilizar la función <code>gluPerspective</code> en
 OpenGL para definir la proyección en perspectiva en una escena 3D. La
@@ -5590,9 +5591,9 @@ más pequeños.
 </p>
 </div>
 
-<div id="outline-container-org5b346d9" class="outline-4">
-<h4 id="org5b346d9">¿Qué es gluPerspective?</h4>
-<div class="outline-text-4" id="text-org5b346d9">
+<div id="outline-container-org15939c8" class="outline-4">
+<h4 id="org15939c8">¿Qué es gluPerspective?</h4>
+<div class="outline-text-4" id="text-org15939c8">
 <p>
 La función <code>gluPerspective</code> establece una proyección en perspectiva para
 la cámara, creando una "pirámide de visión" o "frustum" en la que los
@@ -5604,9 +5605,9 @@ de profundidad en la escena.
 
 
 
-<div id="outline-container-org23b0813" class="outline-4">
-<h4 id="org23b0813">Sintaxis</h4>
-<div class="outline-text-4" id="text-org23b0813">
+<div id="outline-container-org5cf21d4" class="outline-4">
+<h4 id="org5cf21d4">Sintaxis</h4>
+<div class="outline-text-4" id="text-org5cf21d4">
 <div class="org-src-container">
 <pre class="src src-python">gluPerspective<span style="color: #c099ff;">(</span>fovY, aspect, zNear, zFar<span style="color: #c099ff;">)</span>
 </pre>
@@ -5625,9 +5626,9 @@ lejanos que <code>zFar</code> no se renderizan.</li>
 </div>
 </div>
 
-<div id="outline-container-orgbee46d1" class="outline-4">
-<h4 id="orgbee46d1">Ejemplo Básico de Uso de gluPerspective</h4>
-<div class="outline-text-4" id="text-orgbee46d1">
+<div id="outline-container-orgb28bf44" class="outline-4">
+<h4 id="orgb28bf44">Ejemplo Básico de Uso de gluPerspective</h4>
+<div class="outline-text-4" id="text-orgb28bf44">
 <p>
 Este ejemplo muestra cómo configurar <code>gluPerspective</code> en una escena de OpenGL en Python, utilizando PyOpenGL y GLFW.
 </p>
@@ -5691,35 +5692,495 @@ Este ejemplo muestra cómo configurar <code>gluPerspective</code> en una escena 
 </div>
 
 
-<div id="outline-container-org11af388" class="outline-3">
-<h3 id="org11af388">Transformaciones en OpenGL</h3>
-<div class="outline-text-3" id="text-org11af388">
+<div id="outline-container-org6c15011" class="outline-3">
+<h3 id="org6c15011">Objetos de Glut</h3>
+<div class="outline-text-3" id="text-org6c15011">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #c099ff;">import</span> glfw
+<span style="color: #c099ff;">from</span> OpenGL.GL <span style="color: #c099ff;">import</span> *
+<span style="color: #c099ff;">from</span> OpenGL.GLU <span style="color: #c099ff;">import</span> *
+
+<span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Variables globales para el &#225;ngulo de rotaci&#243;n</span>
+<span style="color: #ff98a4;">angle</span> = 0.0
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">init</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Inicializa los par&#225;metros de OpenGL"""</span>
+<span style="background-color: #2f334d;"> </span>   glClearColor<span style="color: #c099ff;">(</span>0.5, 0.8, 1.0, 1.0<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Fondo azul cielo</span>
+<span style="background-color: #2f334d;"> </span>   glEnable<span style="color: #c099ff;">(</span>GL_DEPTH_TEST<span style="color: #c099ff;">)</span>           <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Habilita la prueba de profundidad</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">draw_cube</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Dibuja la base de la casa como un cubo"""</span>
+<span style="background-color: #2f334d;"> </span>   glBegin<span style="color: #c099ff;">(</span>GL_QUADS<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Frente</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.8, 0.5, 0.2<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Marr&#243;n</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Atr&#225;s</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.7, 0.4, 0.2<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Izquierda</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.6, 0.3, 0.1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Derecha</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.6, 0.3, 0.1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Arriba</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.9, 0.5, 0.3<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Abajo</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.5, 0.3, 0.1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glEnd<span style="color: #c099ff;">()</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">draw_roof</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Dibuja el techo de la casa como una pir&#225;mide"""</span>
+<span style="background-color: #2f334d;"> </span>   glBegin<span style="color: #c099ff;">(</span>GL_TRIANGLES<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.9, 0.1, 0.1<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Rojo</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Frente</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>0, 2, 0<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Atr&#225;s</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>0, 2, 0<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Izquierda</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>0, 2, 0<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Derecha</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>0, 2, 0<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glEnd<span style="color: #c099ff;">()</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">display</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Renderiza la escena"""</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">global</span> angle
+<span style="background-color: #2f334d;"> </span>   glClear<span style="color: #c099ff;">(</span>GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glLoadIdentity<span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Configuraci&#243;n de la c&#225;mara</span>
+<span style="background-color: #2f334d;"> </span>   gluLookAt<span style="color: #c099ff;">(</span>4, 3, 10, 0, 1, 0, 0, 1, 0<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Mira la casa desde un poco m&#225;s lejos</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Rotar la escena</span>
+<span style="background-color: #2f334d;"> </span>   glRotatef<span style="color: #c099ff;">(</span>angle, 0, 1, 0<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Dibujar la casa</span>
+<span style="background-color: #2f334d;"> </span>   draw_cube<span style="color: #c099ff;">()</span>
+<span style="background-color: #2f334d;"> </span>   draw_roof<span style="color: #c099ff;">()</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">main</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Funci&#243;n principal"""</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">global</span> angle
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Inicializa GLFW</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">if</span> <span style="color: #c099ff;">not</span> glfw.init<span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">print</span><span style="color: #c099ff;">(</span><span style="color: #c3e88d;">"No se pudo inicializar GLFW"</span><span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">return</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Crea la ventana</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #ff98a4;">window</span> = glfw.create_window<span style="color: #c099ff;">(</span>800, 600, <span style="color: #c3e88d;">"Casa 3D con GLFW y OpenGL"</span>, <span style="color: #ff995e;">None</span>, <span style="color: #ff995e;">None</span><span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">if</span> <span style="color: #c099ff;">not</span> <span style="color: #ff98a4;">window</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   glfw.terminate<span style="color: #c099ff;">()</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">print</span><span style="color: #c099ff;">(</span><span style="color: #c3e88d;">"No se pudo crear la ventana"</span><span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">return</span>
+
+<span style="background-color: #2f334d;"> </span>   glfw.make_context_current<span style="color: #c099ff;">(</span>window<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Configura OpenGL</span>
+<span style="background-color: #2f334d;"> </span>   init<span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Bucle principal</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">while</span> <span style="color: #c099ff;">not</span> glfw.window_should_close<span style="color: #c099ff;">(</span>window<span style="color: #c099ff;">)</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Rotaci&#243;n autom&#225;tica</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   angle += 0.5
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">if</span> angle &gt; 360:
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #ff98a4;">angle</span> -= 360
+
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Renderizar</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   display<span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Intercambiar buffers</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   glfw.swap_buffers<span style="color: #c099ff;">(</span>window<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Poll events</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   glfw.poll_events<span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Finaliza GLFW</span>
+<span style="background-color: #2f334d;"> </span>   glfw.terminate<span style="color: #c099ff;">()</span>
+
+<span style="color: #c099ff;">if</span> <span style="color: #c099ff;">__name__</span> == <span style="color: #c3e88d;">"__main__"</span>:
+<span style="background-color: #2f334d;"> </span>   main<span style="color: #c099ff;">()</span>
+
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #c099ff;">import</span> glfw
+<span style="color: #c099ff;">from</span> OpenGL.GL <span style="color: #c099ff;">import</span> *
+<span style="color: #c099ff;">from</span> OpenGL.GLU <span style="color: #c099ff;">import</span> gluPerspective, gluLookAt
+<span style="color: #c099ff;">import</span> sys
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">init</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Configuraci&#243;n inicial de OpenGL"""</span>
+<span style="background-color: #2f334d;"> </span>   glClearColor<span style="color: #c099ff;">(</span>0.5, 0.8, 1.0, 1.0<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Fondo azul cielo</span>
+<span style="background-color: #2f334d;"> </span>   glEnable<span style="color: #c099ff;">(</span>GL_DEPTH_TEST<span style="color: #c099ff;">)</span>           <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Activar prueba de profundidad</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Configuraci&#243;n de la perspectiva</span>
+<span style="background-color: #2f334d;"> </span>   glMatrixMode<span style="color: #c099ff;">(</span>GL_PROJECTION<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   gluPerspective<span style="color: #c099ff;">(</span>60, 1.0, 0.1, 100.0<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Campo de visi&#243;n m&#225;s amplio</span>
+<span style="background-color: #2f334d;"> </span>   glMatrixMode<span style="color: #c099ff;">(</span>GL_MODELVIEW<span style="color: #c099ff;">)</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">draw_cube</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Dibuja el cubo (base de la casa)"""</span>
+<span style="background-color: #2f334d;"> </span>   glBegin<span style="color: #c099ff;">(</span>GL_QUADS<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.8, 0.5, 0.2<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Marr&#243;n para todas las caras</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Frente</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Atr&#225;s</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Izquierda</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Derecha</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Arriba</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.9, 0.6, 0.3<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Color diferente para el techo</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Abajo</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.6, 0.4, 0.2<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Suelo m&#225;s oscuro</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glEnd<span style="color: #c099ff;">()</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">draw_roof</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Dibuja el techo (pir&#225;mide)"""</span>
+<span style="background-color: #2f334d;"> </span>   glBegin<span style="color: #c099ff;">(</span>GL_TRIANGLES<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.9, 0.1, 0.1<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Rojo brillante</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Frente</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>0, 2, 0<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Atr&#225;s</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>0, 2, 0<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Izquierda</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>0, 2, 0<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Derecha</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>0, 2, 0<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glEnd<span style="color: #c099ff;">()</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">draw_ground</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Dibuja un plano para representar el suelo o calle"""</span>
+<span style="background-color: #2f334d;"> </span>   glBegin<span style="color: #c099ff;">(</span>GL_QUADS<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.3, 0.3, 0.3<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Gris oscuro para la calle</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Coordenadas del plano</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-10, 0, 10<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>10, 0, 10<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>10, 0, -10<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-10, 0, -10<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glEnd<span style="color: #c099ff;">()</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">draw_house</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Dibuja una casa sobre un plano"""</span>
+<span style="background-color: #2f334d;"> </span>   glClear<span style="color: #c099ff;">(</span>GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glLoadIdentity<span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Configuraci&#243;n de la c&#225;mara</span>
+<span style="background-color: #2f334d;"> </span>   gluLookAt<span style="color: #c099ff;">(</span>4, 3, 8,  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Posici&#243;n de la c&#225;mara</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span> 0, 1, 0,  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Punto al que mira</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span> 0, 1, 0<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Vector hacia arriba</span>
+
+<span style="background-color: #2f334d;"> </span>   draw_ground<span style="color: #c099ff;">()</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Dibuja el suelo</span>
+<span style="background-color: #2f334d;"> </span>   draw_cube<span style="color: #c099ff;">()</span>    <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Dibuja la base de la casa</span>
+<span style="background-color: #2f334d;"> </span>   draw_roof<span style="color: #c099ff;">()</span>    <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Dibuja el techo</span>
+
+<span style="background-color: #2f334d;"> </span>   glfw.swap_buffers<span style="color: #c099ff;">(</span>window<span style="color: #c099ff;">)</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">main</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">global</span> window
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Inicializar GLFW</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">if</span> <span style="color: #c099ff;">not</span> glfw.init<span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   sys.<span style="color: #ff995e;">exit</span><span style="color: #c099ff;">()</span>
+<span style="background-color: #2f334d;"> </span>   
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Crear ventana de GLFW</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #ff98a4;">width</span>, <span style="color: #ff98a4;">height</span> = 800, 600
+<span style="background-color: #2f334d;"> </span>   <span style="color: #ff98a4;">window</span> = glfw.create_window<span style="color: #c099ff;">(</span>width, height, <span style="color: #c3e88d;">"Casa 3D con Base"</span>, <span style="color: #ff995e;">None</span>, <span style="color: #ff995e;">None</span><span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">if</span> <span style="color: #c099ff;">not</span> window:
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   glfw.terminate<span style="color: #c099ff;">()</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   sys.<span style="color: #ff995e;">exit</span><span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   glfw.make_context_current<span style="color: #c099ff;">(</span>window<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glViewport<span style="color: #c099ff;">(</span>0, 0, width, height<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   init<span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Bucle principal</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">while</span> <span style="color: #c099ff;">not</span> glfw.window_should_close<span style="color: #c099ff;">(</span>window<span style="color: #c099ff;">)</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   draw_house<span style="color: #c099ff;">()</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   glfw.poll_events<span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   glfw.terminate<span style="color: #c099ff;">()</span>
+
+<span style="color: #c099ff;">if</span> <span style="color: #c099ff;">__name__</span> == <span style="color: #c3e88d;">"__main__"</span>:
+<span style="background-color: #2f334d;"> </span>   main<span style="color: #c099ff;">()</span>
+
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #c099ff;">import</span> glfw
+<span style="color: #c099ff;">from</span> OpenGL.GL <span style="color: #c099ff;">import</span> *
+<span style="color: #c099ff;">from</span> OpenGL.GLU <span style="color: #c099ff;">import</span> gluPerspective, gluLookAt
+<span style="color: #c099ff;">import</span> sys
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">init</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Configuraci&#243;n inicial de OpenGL"""</span>
+<span style="background-color: #2f334d;"> </span>   glClearColor<span style="color: #c099ff;">(</span>0.5, 0.8, 1.0, 1.0<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Fondo azul cielo</span>
+<span style="background-color: #2f334d;"> </span>   glEnable<span style="color: #c099ff;">(</span>GL_DEPTH_TEST<span style="color: #c099ff;">)</span>           <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Activar prueba de profundidad</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Configuraci&#243;n de la perspectiva</span>
+<span style="background-color: #2f334d;"> </span>   glMatrixMode<span style="color: #c099ff;">(</span>GL_PROJECTION<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   gluPerspective<span style="color: #c099ff;">(</span>60, 1.0, 0.1, 100.0<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Campo de visi&#243;n m&#225;s amplio</span>
+<span style="background-color: #2f334d;"> </span>   glMatrixMode<span style="color: #c099ff;">(</span>GL_MODELVIEW<span style="color: #c099ff;">)</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">draw_cube</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Dibuja el cubo (base de la casa)"""</span>
+<span style="background-color: #2f334d;"> </span>   glBegin<span style="color: #c099ff;">(</span>GL_QUADS<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.8, 0.5, 0.2<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Marr&#243;n para todas las caras</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Frente</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Atr&#225;s</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Izquierda</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Derecha</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Arriba</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.9, 0.6, 0.3<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Color diferente para el techo</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Abajo</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.6, 0.4, 0.2<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Suelo m&#225;s oscuro</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 0, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glEnd<span style="color: #c099ff;">()</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">draw_roof</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Dibuja el techo (pir&#225;mide)"""</span>
+<span style="background-color: #2f334d;"> </span>   glBegin<span style="color: #c099ff;">(</span>GL_TRIANGLES<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.9, 0.1, 0.1<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Rojo brillante</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Frente</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>0, 2, 0<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Atr&#225;s</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>0, 2, 0<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Izquierda</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>0, 2, 0<span style="color: #c099ff;">)</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Derecha</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, -1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>1, 1, 1<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>0, 2, 0<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glEnd<span style="color: #c099ff;">()</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">draw_ground</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Dibuja un plano para representar el suelo o calle"""</span>
+<span style="background-color: #2f334d;"> </span>   glBegin<span style="color: #c099ff;">(</span>GL_QUADS<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glColor3f<span style="color: #c099ff;">(</span>0.3, 0.3, 0.3<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Gris oscuro para la calle</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Coordenadas del plano</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-20, 0, 20<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>20, 0, 20<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>20, 0, -20<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glVertex3f<span style="color: #c099ff;">(</span>-20, 0, -20<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glEnd<span style="color: #c099ff;">()</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">draw_house</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Dibuja una casa (base + techo)"""</span>
+<span style="background-color: #2f334d;"> </span>   draw_cube<span style="color: #c099ff;">()</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Base de la casa</span>
+<span style="background-color: #2f334d;"> </span>   draw_roof<span style="color: #c099ff;">()</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Techo</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">draw_scene</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #9ba5db;">"""Dibuja toda la escena con 4 casas"""</span>
+<span style="background-color: #2f334d;"> </span>   glClear<span style="color: #c099ff;">(</span>GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glLoadIdentity<span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Configuraci&#243;n de la c&#225;mara</span>
+<span style="background-color: #2f334d;"> </span>   gluLookAt<span style="color: #c099ff;">(</span>10, 8, 15,  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Posici&#243;n de la c&#225;mara</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span> 0, 0, 0,    <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Punto al que mira</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span> 0, 1, 0<span style="color: #c099ff;">)</span>    <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Vector hacia arriba</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Dibujar el suelo</span>
+<span style="background-color: #2f334d;"> </span>   draw_ground<span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Dibujar las casas en diferentes posiciones</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #ff98a4;">positions</span> = <span style="color: #c099ff;">[</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #ff995e;">(</span>-5, 0, -5<span style="color: #ff995e;">)</span>,  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Casa 1</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #ff995e;">(</span>5, 0, -5<span style="color: #ff995e;">)</span>,   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Casa 2</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #ff995e;">(</span>-5, 0, 5<span style="color: #ff995e;">)</span>,   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Casa 3</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   <span style="color: #ff995e;">(</span>5, 0, 5<span style="color: #ff995e;">)</span>     <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Casa 4</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">]</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">for</span> pos <span style="color: #c099ff;">in</span> positions:
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   glPushMatrix<span style="color: #c099ff;">()</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   glTranslatef<span style="color: #c099ff;">(</span>*pos<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Mover la casa a la posici&#243;n actual</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   draw_house<span style="color: #c099ff;">()</span>        <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Dibujar la casa</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   glPopMatrix<span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   glfw.swap_buffers<span style="color: #c099ff;">(</span>window<span style="color: #c099ff;">)</span>
+
+<span style="color: #c099ff;">def</span> <span style="color: #82aaff;">main</span><span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">global</span> window
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Inicializar GLFW</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">if</span> <span style="color: #c099ff;">not</span> glfw.init<span style="color: #c099ff;">()</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   sys.<span style="color: #ff995e;">exit</span><span style="color: #c099ff;">()</span>
+<span style="background-color: #2f334d;"> </span>   
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Crear ventana de GLFW</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #ff98a4;">width</span>, <span style="color: #ff98a4;">height</span> = 800, 600
+<span style="background-color: #2f334d;"> </span>   <span style="color: #ff98a4;">window</span> = glfw.create_window<span style="color: #c099ff;">(</span>width, height, <span style="color: #c3e88d;">"Escena con 4 casas"</span>, <span style="color: #ff995e;">None</span>, <span style="color: #ff995e;">None</span><span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">if</span> <span style="color: #c099ff;">not</span> window:
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   glfw.terminate<span style="color: #c099ff;">()</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   sys.<span style="color: #ff995e;">exit</span><span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   glfw.make_context_current<span style="color: #c099ff;">(</span>window<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   glViewport<span style="color: #c099ff;">(</span>0, 0, width, height<span style="color: #c099ff;">)</span>
+<span style="background-color: #2f334d;"> </span>   init<span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   <span style="color: #7a88cf;"># </span><span style="color: #7a88cf;">Bucle principal</span>
+<span style="background-color: #2f334d;"> </span>   <span style="color: #c099ff;">while</span> <span style="color: #c099ff;">not</span> glfw.window_should_close<span style="color: #c099ff;">(</span>window<span style="color: #c099ff;">)</span>:
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   draw_scene<span style="color: #c099ff;">()</span>
+<span style="background-color: #2f334d;"> </span>   <span style="background-color: #2f334d;"> </span>   glfw.poll_events<span style="color: #c099ff;">()</span>
+
+<span style="background-color: #2f334d;"> </span>   glfw.terminate<span style="color: #c099ff;">()</span>
+
+<span style="color: #c099ff;">if</span> <span style="color: #c099ff;">__name__</span> == <span style="color: #c3e88d;">"__main__"</span>:
+<span style="background-color: #2f334d;"> </span>   main<span style="color: #c099ff;">()</span>
+
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org53265a5" class="outline-3">
+<h3 id="org53265a5">Transformaciones en OpenGL</h3>
+<div class="outline-text-3" id="text-org53265a5">
 <p>
 Las transformaciones de OpenGL son fundamentales para mover, rotar y escalar los objetos en la escena.
 </p>
 </div>
 
-<div id="outline-container-org022fea8" class="outline-4">
-<h4 id="org022fea8">Traslación</h4>
-<div class="outline-text-4" id="text-org022fea8">
+<div id="outline-container-org3c9aeac" class="outline-4">
+<h4 id="org3c9aeac">Traslación</h4>
+<div class="outline-text-4" id="text-org3c9aeac">
 <p>
 Mueve un objeto de una posición a otra.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org0ccacf6" class="outline-4">
-<h4 id="org0ccacf6">Rotación</h4>
-<div class="outline-text-4" id="text-org0ccacf6">
+<div id="outline-container-org69a0a33" class="outline-4">
+<h4 id="org69a0a33">Rotación</h4>
+<div class="outline-text-4" id="text-org69a0a33">
 <p>
 Gira un objeto alrededor de un eje.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org18acda7" class="outline-4">
-<h4 id="org18acda7">Escalado</h4>
-<div class="outline-text-4" id="text-org18acda7">
+<div id="outline-container-org9b5ab5f" class="outline-4">
+<h4 id="org9b5ab5f">Escalado</h4>
+<div class="outline-text-4" id="text-org9b5ab5f">
 <p>
 Cambia el tamaño del objeto.
 </p>
@@ -5746,17 +6207,17 @@ Ejemplo de cómo aplicar una transformación de escalado y rotación:
 
 
 
-<div id="outline-container-org6ae7845" class="outline-3">
-<h3 id="org6ae7845">Iluminación y Materiales</h3>
-<div class="outline-text-3" id="text-org6ae7845">
+<div id="outline-container-orge3fd184" class="outline-3">
+<h3 id="orge3fd184">Iluminación y Materiales</h3>
+<div class="outline-text-3" id="text-orge3fd184">
 <p>
 En OpenGL, puedes aplicar iluminación y definir materiales para que los objetos interactúen con la luz de manera realista.
 </p>
 </div>
 
-<div id="outline-container-org28c0317" class="outline-4">
-<h4 id="org28c0317">Tipos de luces</h4>
-<div class="outline-text-4" id="text-org28c0317">
+<div id="outline-container-orgde80d46" class="outline-4">
+<h4 id="orgde80d46">Tipos de luces</h4>
+<div class="outline-text-4" id="text-orgde80d46">
 <ul class="org-ul">
 <li><b><b>Luz ambiental</b></b>: Luz sin una dirección específica que ilumina
 toda la escena.</li>
@@ -5770,9 +6231,9 @@ a un reflector.</li>
 </div>
 </div>
 
-<div id="outline-container-orge9590e4" class="outline-4">
-<h4 id="orge9590e4">Materiales</h4>
-<div class="outline-text-4" id="text-orge9590e4">
+<div id="outline-container-org870eb36" class="outline-4">
+<h4 id="org870eb36">Materiales</h4>
+<div class="outline-text-4" id="text-org870eb36">
 <p>
 Puedes definir propiedades de los materiales, como el color y la
 reflectividad, para cada objeto.
@@ -5781,44 +6242,44 @@ reflectividad, para cada objeto.
 </div>
 </div>
 
-<div id="outline-container-orge31065d" class="outline-3">
-<h3 id="orge31065d">Sombras y Efectos Avanzados</h3>
-<div class="outline-text-3" id="text-orge31065d">
+<div id="outline-container-org16cefcd" class="outline-3">
+<h3 id="org16cefcd">Sombras y Efectos Avanzados</h3>
+<div class="outline-text-3" id="text-org16cefcd">
 <p>
 OpenGL también permite generar sombras y efectos avanzados como transparencia, texturas y sombreado por vértices.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org90cebd8" class="outline-3">
-<h3 id="org90cebd8">OpenGL Moderno: Shaders y el Pipeline Gráfico</h3>
-<div class="outline-text-3" id="text-org90cebd8">
+<div id="outline-container-orgd9f0b16" class="outline-3">
+<h3 id="orgd9f0b16">OpenGL Moderno: Shaders y el Pipeline Gráfico</h3>
+<div class="outline-text-3" id="text-orgd9f0b16">
 <p>
 OpenGL moderno (a partir de OpenGL 3.0) ha evolucionado hacia un modelo basado en shaders. Los shaders son pequeños programas que se ejecutan en la GPU y permiten controlar de manera detallada el comportamiento del pipeline gráfico.
 </p>
 </div>
 
-<div id="outline-container-org2616461" class="outline-4">
-<h4 id="org2616461">Vertex Shader</h4>
-<div class="outline-text-4" id="text-org2616461">
+<div id="outline-container-org231c536" class="outline-4">
+<h4 id="org231c536">Vertex Shader</h4>
+<div class="outline-text-4" id="text-org231c536">
 <p>
 Procesa cada vértice y aplica transformaciones para determinar su posición en la pantalla.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org417023c" class="outline-4">
-<h4 id="org417023c">Fragment Shader</h4>
-<div class="outline-text-4" id="text-org417023c">
+<div id="outline-container-org744c35e" class="outline-4">
+<h4 id="org744c35e">Fragment Shader</h4>
+<div class="outline-text-4" id="text-org744c35e">
 <p>
 Calcula el color final de cada píxel en la superficie de los objetos.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org4a87d2a" class="outline-4">
-<h4 id="org4a87d2a">Geometry Shader</h4>
-<div class="outline-text-4" id="text-org4a87d2a">
+<div id="outline-container-org35e952a" class="outline-4">
+<h4 id="org35e952a">Geometry Shader</h4>
+<div class="outline-text-4" id="text-org35e952a">
 <p>
 Opcional, permite manipular primitivas completas (como puntos, líneas o triángulos).
 </p>
@@ -5841,9 +6302,9 @@ Opcional, permite manipular primitivas completas (como puntos, líneas o triáng
 </div>
 </div>
 
-<div id="outline-container-orgf3019f6" class="outline-3">
-<h3 id="orgf3019f6">Conclusión</h3>
-<div class="outline-text-3" id="text-orgf3019f6">
+<div id="outline-container-org82fe265" class="outline-3">
+<h3 id="org82fe265">Conclusión</h3>
+<div class="outline-text-3" id="text-org82fe265">
 <p>
 OpenGL es una herramienta poderosa y flexible para el renderizado de
 gráficos en 2D y 3D. Aunque es de bajo nivel y puede requerir trabajo
@@ -5864,7 +6325,7 @@ en tiempo real.
 </div>
 <div id="postamble" class="status">
 <p class="author">Autor: likcos</p>
-<p class="date">Created: 2024-11-13 mié 13:51</p>
+<p class="date">Created: 2024-11-19 mar 13:02</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
