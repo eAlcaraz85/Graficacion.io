@@ -3894,154 +3894,8 @@ if __name__ == "__main__":
 
 
 ** Objetos de Glut
-#+BEGIN_SRC python :results output :tangle code/casa.py
-import glfw
-from OpenGL.GL import *
-from OpenGL.GLU import *
 
-# Variables globales para el ángulo de rotación
-angle = 0.0
-
-def init():
-    """Inicializa los parámetros de OpenGL"""
-    glClearColor(0.5, 0.8, 1.0, 1.0)  # Fondo azul cielo
-    glEnable(GL_DEPTH_TEST)           # Habilita la prueba de profundidad
-
-def draw_cube():
-    """Dibuja la base de la casa como un cubo"""
-    glBegin(GL_QUADS)
-    # Frente
-    glColor3f(0.8, 0.5, 0.2)  # Marrón
-    glVertex3f(-1, 0, 1)
-    glVertex3f(1, 0, 1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(-1, 1, 1)
-
-    # Atrás
-    glColor3f(0.7, 0.4, 0.2)
-    glVertex3f(-1, 0, -1)
-    glVertex3f(1, 0, -1)
-    glVertex3f(1, 1, -1)
-    glVertex3f(-1, 1, -1)
-
-    # Izquierda
-    glColor3f(0.6, 0.3, 0.1)
-    glVertex3f(-1, 0, -1)
-    glVertex3f(-1, 0, 1)
-    glVertex3f(-1, 1, 1)
-    glVertex3f(-1, 1, -1)
-
-    # Derecha
-    glColor3f(0.6, 0.3, 0.1)
-    glVertex3f(1, 0, -1)
-    glVertex3f(1, 0, 1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(1, 1, -1)
-
-    # Arriba
-    glColor3f(0.9, 0.5, 0.3)
-    glVertex3f(-1, 1, -1)
-    glVertex3f(1, 1, -1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(-1, 1, 1)
-
-    # Abajo
-    glColor3f(0.5, 0.3, 0.1)
-    glVertex3f(-1, 0, -1)
-    glVertex3f(1, 0, -1)
-    glVertex3f(1, 0, 1)
-    glVertex3f(-1, 0, 1)
-    glEnd()
-
-def draw_roof():
-    """Dibuja el techo de la casa como una pirámide"""
-    glBegin(GL_TRIANGLES)
-    glColor3f(0.9, 0.1, 0.1)  # Rojo
-
-    # Frente
-    glVertex3f(-1, 1, 1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(0, 2, 0)
-
-    # Atrás
-    glVertex3f(-1, 1, -1)
-    glVertex3f(1, 1, -1)
-    glVertex3f(0, 2, 0)
-
-    # Izquierda
-    glVertex3f(-1, 1, -1)
-    glVertex3f(-1, 1, 1)
-    glVertex3f(0, 2, 0)
-
-    # Derecha
-    glVertex3f(1, 1, -1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(0, 2, 0)
-    glEnd()
-
-def display():
-    """Renderiza la escena"""
-    global angle
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glLoadIdentity()
-
-    # Configuración de la cámara
-    gluLookAt(4, 3, 10, 0, 1, 0, 0, 1, 0)  # Mira la casa desde un poco más lejos
-
-    # Rotar la escena
-    glRotatef(angle, 0, 1, 0)
-
-    # Dibujar la casa
-    draw_cube()
-    draw_roof()
-
-def main():
-    """Función principal"""
-    global angle
-
-    # Inicializa GLFW
-    if not glfw.init():
-        print("No se pudo inicializar GLFW")
-        return
-
-    # Crea la ventana
-    window = glfw.create_window(800, 600, "Casa 3D con GLFW y OpenGL", None, None)
-    if not window:
-        glfw.terminate()
-        print("No se pudo crear la ventana")
-        return
-
-    glfw.make_context_current(window)
-
-    # Configura OpenGL
-    init()
-
-    # Bucle principal
-    while not glfw.window_should_close(window):
-        # Rotación automática
-        angle += 0.5
-        if angle > 360:
-            angle -= 360
-
-        # Renderizar
-        display()
-
-        # Intercambiar buffers
-        glfw.swap_buffers(window)
-
-        # Poll events
-        glfw.poll_events()
-
-    # Finaliza GLFW
-    glfw.terminate()
-
-if __name__ == "__main__":
-    main()
-
-#+END_SRC
-
-#+RESULTS:
-
+- casa
 #+BEGIN_SRC python :results output :tangle code/ejemplo.py
 import glfw
 from OpenGL.GL import *
@@ -4187,7 +4041,7 @@ if __name__ == "__main__":
 #+END_SRC
 
 #+RESULTS:
-
+- Casas 
 #+BEGIN_SRC python :results output :tangle code/casas.py
 import glfw
 from OpenGL.GL import *
@@ -4201,7 +4055,7 @@ def init():
 
     # Configuración de la perspectiva
     glMatrixMode(GL_PROJECTION)
-    gluPerspective(60, 1.0, 0.1, 100.0)  # Campo de visión más amplio
+    gluPerspective(60, 1, 6, 100.0)  # Campo de visión más amplio
     glMatrixMode(GL_MODELVIEW)
 
 def draw_cube():
@@ -4212,37 +4066,37 @@ def draw_cube():
     # Frente
     glVertex3f(-1, 0, 1)
     glVertex3f(1, 0, 1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(-1, 1, 1)
+    glVertex3f(1, 5, 1)
+    glVertex3f(-1, 5, 1)
 
     # Atrás
     glVertex3f(-1, 0, -1)
     glVertex3f(1, 0, -1)
-    glVertex3f(1, 1, -1)
-    glVertex3f(-1, 1, -1)
+    glVertex3f(1, 5, -1)
+    glVertex3f(-1, 5, -1)
 
     # Izquierda
     glVertex3f(-1, 0, -1)
     glVertex3f(-1, 0, 1)
-    glVertex3f(-1, 1, 1)
-    glVertex3f(-1, 1, -1)
+    glVertex3f(-1, 5, 1)
+    glVertex3f(-1, 5, -1)
 
     # Derecha
     glVertex3f(1, 0, -1)
     glVertex3f(1, 0, 1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(1, 1, -1)
+    glVertex3f(1, 5, 1)
+    glVertex3f(1, 5, -1)
 
     # Arriba
     glColor3f(0.9, 0.6, 0.3)  # Color diferente para el techo
-    glVertex3f(-1, 1, -1)
-    glVertex3f(1, 1, -1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(-1, 1, 1)
+    glVertex3f(-1, 5, -1)
+    glVertex3f(1, 5, -1)
+    glVertex3f(1, 5, 1)
+    glVertex3f(-1, 5, 1)
 
     # Abajo
     glColor3f(0.6, 0.4, 0.2)  # Suelo más oscuro
-    glVertex3f(-1, 0, -1)
+    glVertex3f(-1,0 , -1)
     glVertex3f(1, 0, -1)
     glVertex3f(1, 0, 1)
     glVertex3f(-1, 0, 1)
@@ -4254,24 +4108,24 @@ def draw_roof():
     glColor3f(0.9, 0.1, 0.1)  # Rojo brillante
 
     # Frente
-    glVertex3f(-1, 1, 1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(0, 2, 0)
+    glVertex3f(-1, 5, 1)
+    glVertex3f(1, 5, 1)
+    glVertex3f(0, 9, 0)
 
-    # Atrás
-    glVertex3f(-1, 1, -1)
-    glVertex3f(1, 1, -1)
-    glVertex3f(0, 2, 0)
+    # Atrás     x  y   z 
+    glVertex3f(-1, 5, -1)
+    glVertex3f(1, 5, -1)
+    glVertex3f(0, 9, 0)
 
     # Izquierda
-    glVertex3f(-1, 1, -1)
-    glVertex3f(-1, 1, 1)
-    glVertex3f(0, 2, 0)
+    glVertex3f(-1, 5, -1)
+    glVertex3f(-1, 5, 1)
+    glVertex3f(0, 9, 0)
 
     # Derecha
-    glVertex3f(1, 1, -1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(0, 2, 0)
+    glVertex3f(1, 5, -1)
+    glVertex3f(1, 5, 1)
+    glVertex3f(0, 9, 0)
     glEnd()
 
 def draw_ground():
@@ -4309,7 +4163,9 @@ def draw_scene():
         (-5, 0, -5),  # Casa 1
         (5, 0, -5),   # Casa 2
         (-5, 0, 5),   # Casa 3
-        (5, 0, 5)     # Casa 4
+        (5, 0, 5),
+        (0, 0, 0),
+        
     ]
     for pos in positions:
         glPushMatrix()
@@ -4351,6 +4207,99 @@ if __name__ == "__main__":
 
 #+RESULTS:
 
+- Arbol 
+#+BEGIN_SRC python :results output :tangle code/arbol.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import gluPerspective, gluLookAt, gluNewQuadric, gluCylinder, gluSphere
+import sys
+def init():
+    """Configuración inicial de OpenGL"""
+    glClearColor(0.5, 0.8, 1.0, 1.0)  # Fondo azul cielo
+    glEnable(GL_DEPTH_TEST)           # Activar prueba de profundidad
+
+    # Configuración de la perspectiva
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(60, 1.0, 0.1, 100.0)  # Campo de visión más amplio
+    glMatrixMode(GL_MODELVIEW)
+
+def draw_trunk():
+    """Dibuja el tronco del árbol como un cilindro"""
+    glPushMatrix()
+    glColor3f(0.6, 0.3, 0.1)  # Marrón para el tronco
+    glTranslatef(0.0, 0.0, 0.0)  # Posicionar el tronco
+    glRotatef(-90, 1, 0, 0)  # Rota para orientar el cilindro verticalmente
+    quadric = gluNewQuadric()
+    gluCylinder(quadric, 0.3, 0.3, 2.0, 32, 32)  # Radio y altura del cilindro
+    glPopMatrix()
+
+def draw_foliage():
+    """Dibuja las hojas del árbol como una esfera"""
+    glPushMatrix()
+    glColor3f(0.1, 0.8, 0.1)  # Verde para las hojas
+    glTranslatef(0.0, 2.0, 0.0)  # Posicionar las hojas encima del tronco
+    quadric = gluNewQuadric()
+    gluSphere(quadric, 1.0, 32, 32)  # Radio de la esfera
+    glPopMatrix()
+
+def draw_ground():
+    """Dibuja un plano para representar el suelo"""
+    glBegin(GL_QUADS)
+    glColor3f(0.3, 0.3, 0.3)  # Gris oscuro para el suelo
+    glVertex3f(-10, 0, 10)
+    glVertex3f(10, 0, 10)
+    glVertex3f(10, 0, -10)
+    glVertex3f(-10, 0, -10)
+    glEnd()
+
+def draw_tree():
+    """Dibuja un árbol completo"""
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+
+    # Configuración de la cámara
+    gluLookAt(4, 3, 8,  # Posición de la cámara
+              0, 1, 0,  # Punto al que mira
+              0, 1, 0)  # Vector hacia arriba
+
+    draw_ground()  # Dibuja el suelo
+    draw_trunk()   # Dibuja el tronco
+    draw_foliage() # Dibuja las hojas
+
+    glfw.swap_buffers(window)
+
+def main():
+    global window
+
+    # Inicializar GLFW
+    if not glfw.init():
+        sys.exit()
+    
+    # Crear ventana de GLFW
+    width, height = 800, 600
+    window = glfw.create_window(width, height, "Árbol 3D con Tronco y Hojas", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+
+    glfw.make_context_current(window)
+    glViewport(0, 0, width, height)
+    init()
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        draw_tree()
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+
+
+#+END_SRC
+
+#+RESULTS:
 
 ** Transformaciones en OpenGL
 Las transformaciones de OpenGL son fundamentales para mover, rotar y escalar los objetos en la escena.
