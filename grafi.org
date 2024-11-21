@@ -4040,8 +4040,9 @@ if __name__ == "__main__":
 
 #+END_SRC
 
-#+RESULTS:
-- Casas 
+
+- casas 
+
 #+BEGIN_SRC python :results output :tangle code/casas.py
 import glfw
 from OpenGL.GL import *
@@ -4069,7 +4070,7 @@ def draw_cube():
     glVertex3f(1, 5, 1)
     glVertex3f(-1, 5, 1)
 
-    # Atrás
+    # Atrás     X  Y   Z
     glVertex3f(-1, 0, -1)
     glVertex3f(1, 0, -1)
     glVertex3f(1, 5, -1)
