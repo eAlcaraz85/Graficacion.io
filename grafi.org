@@ -4644,7 +4644,7 @@ def main():
     # Carga de texturas
     trunk_texture = load_texture("trunk.jpg")      # Textura para el tronco
     foliage_texture = load_texture("foliage.jpg") # Textura para las hojas
-    ground_texture = load_texture("ground.jpg")   # Textura para el suelo
+    ground_texture = load_texture("groud.jpg")   # Textura para el suelo
 
     # Bucle principal
     while not glfw.window_should_close(window):
@@ -4775,9 +4775,9 @@ def main():
     init()
 
     # Carga de texturas BMP
-    trunk_texture = load_texture("trunk.jpg")      # Textura para el tronco
-    foliage_texture = load_texture("foliage.jpg") # Textura para las hojas
-    ground_texture = load_texture("ground.jpg")   # Textura para el suelo
+    trunk_texture = load_texture("trunk.bmp")      # Textura para el tronco
+    foliage_texture = load_texture("foliage.bmp") # Textura para las hojas
+    ground_texture = load_texture("groud.bmp")   # Textura para el suelo
 
     if not trunk_texture or not foliage_texture or not ground_texture:
         print("Error al cargar texturas.")
@@ -4794,6 +4794,119 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :results output :tangle code/textura.py
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+
+def load_texture(image_path):
+    texture_id = glGenTextures(1)
+    glBindTexture(GL_TEXTURE_2D, texture_id)
+    
+    # Cargar imagen de textura
+    from PIL import Image
+    img = Image.open(image_path)
+    img_data = img.tobytes("raw", "RGB", 0, -1)
+    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img.width, img.height, 0,
+                 GL_RGB, GL_UNSIGNED_BYTE, img_data)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+    return texture_id
+
+def display():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glEnable(GL_TEXTURE_2D)
+    
+    # Crear un objeto cuadrático
+    quadric = gluNewQuadric()
+    gluQuadricTexture(quadric, GL_TRUE)  # Habilitar texturas
+    gluQuadricNormals(quadric, GLU_SMOOTH)
+    
+    # Dibujar una esfera con textura
+    glBindTexture(GL_TEXTURE_2D, texture_id)
+    gluSphere(quadric, 1.0, 32, 32)
+    
+    gluDeleteQuadric(quadric)
+    glDisable(GL_TEXTURE_2D)
+    glutSwapBuffers()
+
+def main():
+    global texture_id
+    glutInit()
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
+    glutInitWindowSize(800, 600)
+    glutCreateWindow("Textura")
+    
+    glEnable(GL_DEPTH_TEST)
+    texture_id = load_texture("/home/likcos/Materias/Graficacion/code/foliage.bmp")
+    glutDisplayFunc(display)
+    glutMainLoop()
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+
+
+#+BEGIN_SRC python :results output :tangle code/textura2.py
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+
+def load_texture(image_path):
+    texture_id = glGenTextures(1)
+    glBindTexture(GL_TEXTURE_2D, texture_id)
+    
+    from PIL import Image
+    img = Image.open(image_path).convert("RGB")
+    img_data = img.tobytes("raw", "RGB", 0, -1)
+    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img.width, img.height, 0,
+                 GL_RGB, GL_UNSIGNED_BYTE, img_data)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+    return texture_id
+
+def display():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glEnable(GL_TEXTURE_2D)
+    
+    quadric = gluNewQuadric()
+    gluQuadricTexture(quadric, GL_TRUE)
+    gluQuadricNormals(quadric, GLU_SMOOTH)
+    
+    glBindTexture(GL_TEXTURE_2D, texture_id)
+    glPushMatrix()
+    glTranslatef(0.0, 0.0, -5.0)
+    gluSphere(quadric, 1.0, 32, 32)
+    glPopMatrix()
+    
+    gluDeleteQuadric(quadric)
+    glDisable(GL_TEXTURE_2D)
+    glutSwapBuffers()
+
+def main():
+    global texture_id
+    glutInit()
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
+    glutInitWindowSize(800, 600)
+    glutCreateWindow("Esfera con textura a color")
+    
+    glEnable(GL_DEPTH_TEST)
+    texture_id = load_texture("/home/likcos/Materias/Graficacion/code/foliage.png")
+    glutDisplayFunc(display)
+    glutMainLoop()
+
+if __name__ == "__main__":
+    main()
 
 #+END_SRC
 
