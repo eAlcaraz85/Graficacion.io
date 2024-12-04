@@ -4303,6 +4303,7 @@ if __name__ == "__main__":
 
 #+RESULTS:
 
+
 #+BEGIN_SRC python :results output :tangle code/arbol2.py
 import glfw
 from OpenGL.GL import *
@@ -4385,6 +4386,418 @@ if __name__ == "__main__":
 
 #+RESULTS:
 
+#+BEGIN_SRC python :results output :tangle code/arbol3.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import gluPerspective, gluLookAt, gluNewQuadric, gluCylinder, gluSphere
+import sys
+
+# Variables globales para la cámara
+camera_pos = [4.0, 3.0, 8.0]  # Posición de la cámara
+camera_target = [0.0, 1.0, 0.0]  # Punto al que mira
+camera_up = [0.0, 1.0, 0.0]  # Vector hacia arriba
+
+# Variables para el movimiento
+camera_speed = 0.2  # Velocidad de movimiento
+keys = {}  # Diccionario para controlar el estado de las teclas
+
+
+def init():
+    """Configuración inicial de OpenGL"""
+    glClearColor(0.5, 0.8, 1.0, 1.0)  # Fondo azul cielo
+    glEnable(GL_DEPTH_TEST)           # Activar prueba de profundidad
+
+    # Configuración de la perspectiva
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(60, 1.0, 0.1, 100.0)  # Campo de visión más amplio
+    glMatrixMode(GL_MODELVIEW)
+
+
+def draw_trunk():
+    """Dibuja el tronco del árbol como un cilindro"""
+    glPushMatrix()
+    glColor3f(0.6, 0.3, 0.1)  # Marrón para el tronco
+    glTranslatef(0.0, 0.0, 0.0)  # Posicionar el tronco
+    glRotatef(-90, 1, 0, 0)  # Rota para orientar el cilindro verticalmente
+    quadric = gluNewQuadric()
+    gluCylinder(quadric, 0.3, 0.3, 2.0, 32, 32)  # Radio y altura del cilindro
+    glPopMatrix()
+
+
+def draw_foliage():
+    """Dibuja las hojas del árbol como una esfera"""
+    glPushMatrix()
+    glColor3f(0.1, 0.8, 0.1)  # Verde para las hojas
+    glTranslatef(0.0, 2.0, 0.0)  # Posicionar las hojas encima del tronco
+    quadric = gluNewQuadric()
+    gluSphere(quadric, 1.0, 32, 32)  # Radio de la esfera
+    glPopMatrix()
+
+
+def draw_ground():
+    """Dibuja un plano para representar el suelo"""
+    glBegin(GL_QUADS)
+    glColor3f(0.3, 0.3, 0.3)  # Gris oscuro para el suelo
+    glVertex3f(-10, 0, 10)
+    glVertex3f(10, 0, 10)
+    glVertex3f(10, 0, -10)
+    glVertex3f(-10, 0, -10)
+    glEnd()
+
+
+def draw_scene():
+    """Dibuja la escena completa"""
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+
+    # Configuración de la cámara
+    gluLookAt(camera_pos[0], camera_pos[1], camera_pos[2],  # Posición de la cámara
+              camera_target[0], camera_target[1], camera_target[2],  # Punto al que mira
+              camera_up[0], camera_up[1], camera_up[2])  # Vector hacia arriba
+
+    draw_ground()  # Dibuja el suelo
+    draw_trunk()   # Dibuja el tronco
+    draw_foliage() # Dibuja las hojas
+
+    glfw.swap_buffers(window)
+
+
+def process_input():
+    """Procesa el estado de las teclas para mover la cámara"""
+    global camera_pos
+
+    if keys.get(glfw.KEY_W, False):  # Mover hacia adelante
+        camera_pos[2] -= camera_speed
+    if keys.get(glfw.KEY_S, False):  # Mover hacia atrás
+        camera_pos[2] += camera_speed
+    if keys.get(glfw.KEY_A, False):  # Mover a la izquierda
+        camera_pos[0] -= camera_speed
+    if keys.get(glfw.KEY_D, False):  # Mover a la derecha
+        camera_pos[0] += camera_speed
+    if keys.get(glfw.KEY_UP, False):  # Subir
+        camera_pos[1] += camera_speed
+    if keys.get(glfw.KEY_DOWN, False):  # Bajar
+        camera_pos[1] -= camera_speed
+
+
+def key_callback(window, key, scancode, action, mods):
+    """Actualiza el estado de las teclas"""
+    if action == glfw.PRESS:
+        keys[key] = True
+    elif action == glfw.RELEASE:
+        keys[key] = False
+
+
+def main():
+    global window
+
+    # Inicializar GLFW
+    if not glfw.init():
+        sys.exit()
+    
+    # Crear ventana de GLFW
+    width, height = 800, 600
+    window = glfw.create_window(width, height, "Mover Escena Completa", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+
+    glfw.make_context_current(window)
+    glViewport(0, 0, width, height)
+    init()
+
+    # Configurar callback de teclado
+    glfw.set_key_callback(window, key_callback)
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        process_input()  # Procesar teclas presionadas
+        draw_scene()
+        glfw.poll_events()
+
+    glfw.terminate()
+
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+
+
+#+BEGIN_SRC python :results output :tangle code/arboltextures.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import gluPerspective, gluLookAt, gluNewQuadric, gluCylinder, gluSphere
+from PIL import Image
+import sys
+
+def init():
+    """Configuración inicial de OpenGL"""
+    glClearColor(0.5, 0.8, 1.0, 1.0)  # Fondo azul cielo
+    glEnable(GL_DEPTH_TEST)           # Activar prueba de profundidad
+    glEnable(GL_LIGHTING)             # Activar luces
+    glEnable(GL_LIGHT0)               # Luz básica
+    glEnable(GL_COLOR_MATERIAL)       # Materiales de color para reflejar luz
+    glShadeModel(GL_SMOOTH)           # Sombreado suave
+    glEnable(GL_TEXTURE_2D)           # Activar texturas
+
+    # Configuración de la perspectiva
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(60, 1.0, 0.1, 100.0)  # Campo de visión más amplio
+    glMatrixMode(GL_MODELVIEW)
+
+    # Luz ambiental y difusa
+    light_pos = [10, 10, 10, 1.0]  # Posición de la luz
+    light_ambient = [0.3, 0.3, 0.3, 1.0]
+    light_diffuse = [0.8, 0.8, 0.8, 1.0]
+    glLightfv(GL_LIGHT0, GL_POSITION, light_pos)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse)
+
+def load_texture(filename):
+    """Carga una textura desde un archivo de imagen"""
+    img = Image.open(filename)
+    img_data = img.tobytes("raw", "RGB", 0, -1)
+
+    texture_id = glGenTextures(1)
+    glBindTexture(GL_TEXTURE_2D, texture_id)
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, img.width, img.height, 0, GL_RGB, GL_UNSIGNED_BYTE, img_data)
+
+    return texture_id
+
+def draw_trunk(texture_id):
+    """Dibuja el tronco del árbol como un cilindro con textura"""
+    glPushMatrix()
+    glBindTexture(GL_TEXTURE_2D, texture_id)  # Vincula la textura
+    glColor3f(1.0, 1.0, 1.0)  # Color blanco para mostrar la textura
+    glTranslatef(0.0, 0.0, 0.0)
+    glRotatef(-90, 1, 0, 0)  # Orienta el cilindro verticalmente
+    quadric = gluNewQuadric()
+    gluQuadricTexture(quadric, GL_TRUE)
+    gluCylinder(quadric, 0.3, 0.3, 2.0, 32, 32)
+    glPopMatrix()
+
+def draw_foliage(texture_id):
+    """Dibuja las hojas del árbol como una esfera con textura"""
+    glPushMatrix()
+    glBindTexture(GL_TEXTURE_2D, texture_id)  # Vincula la textura
+    glColor3f(1.0, 1.0, 1.0)  # Color blanco para mostrar la textura
+    glTranslatef(0.0, 2.0, 0.0)
+    quadric = gluNewQuadric()
+    gluQuadricTexture(quadric, GL_TRUE)
+    gluSphere(quadric, 1.0, 32, 32)
+    glPopMatrix()
+
+def draw_ground(texture_id):
+    """Dibuja un plano para representar el suelo con textura"""
+    glBindTexture(GL_TEXTURE_2D, texture_id)  # Vincula la textura
+    glBegin(GL_QUADS)
+    glColor3f(1.0, 1.0, 1.0)  # Color blanco para mostrar la textura
+    glTexCoord2f(0.0, 0.0); glVertex3f(-10, 0, 10)
+    glTexCoord2f(1.0, 0.0); glVertex3f(10, 0, 10)
+    glTexCoord2f(1.0, 1.0); glVertex3f(10, 0, -10)
+    glTexCoord2f(0.0, 1.0); glVertex3f(-10, 0, -10)
+    glEnd()
+
+def draw_tree(trunk_texture, foliage_texture, ground_texture):
+    """Dibuja un árbol completo"""
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+
+    # Configuración de la cámara
+    gluLookAt(4, 3, 8,  # Posición de la cámara
+              0, 1, 0,  # Punto al que mira
+              0, 1, 0)  # Vector hacia arriba
+
+    draw_ground(ground_texture)  # Dibuja el suelo
+    draw_trunk(trunk_texture)   # Dibuja el tronco
+    draw_foliage(foliage_texture) # Dibuja las hojas
+
+    glfw.swap_buffers(window)
+
+def main():
+    global window
+
+    # Inicializar GLFW
+    if not glfw.init():
+        sys.exit()
+    
+    # Crear ventana de GLFW
+    width, height = 800, 600
+    window = glfw.create_window(width, height, "Árbol 3D con Texturas y Luz", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+
+    glfw.make_context_current(window)
+    glViewport(0, 0, width, height)
+    init()
+
+    # Carga de texturas
+    trunk_texture = load_texture("trunk.jpg")      # Textura para el tronco
+    foliage_texture = load_texture("foliage.jpg") # Textura para las hojas
+    ground_texture = load_texture("ground.jpg")   # Textura para el suelo
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        draw_tree(trunk_texture, foliage_texture, ground_texture)
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+
+
+#+BEGIN_SRC python :results output :tangle code/arboltextures3.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import gluPerspective, gluLookAt, gluNewQuadric, gluCylinder, gluSphere
+import struct
+
+# Función para cargar una textura BMP
+def load_texture(filename):
+    """Carga un archivo BMP y genera una textura de OpenGL"""
+    with open(filename, "rb") as f:
+        header = f.read(54)  # Cabecera BMP de 54 bytes
+        width, height = struct.unpack("ii", header[18:26])
+        data_offset = struct.unpack("I", header[10:14])[0]
+        
+        f.seek(data_offset)
+        data = f.read()
+
+    # almacena píxeles en orden BGR, los convertimos a RGB
+    image_data = bytearray()
+    for i in range(0, len(data), 3):
+        image_data.extend([data[i + 2], data[i + 1], data[i]])
+
+    texture_id = glGenTextures(1)
+    glBindTexture(GL_TEXTURE_2D, texture_id)
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image_data)
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+
+    return texture_id
+
+def init():
+    """Configuración inicial de OpenGL"""
+    glClearColor(0.5, 0.8, 1.0, 1.0)  # Fondo azul cielo
+    glEnable(GL_DEPTH_TEST)           # Activar prueba de profundidad
+    glEnable(GL_TEXTURE_2D)           # Activar texturas
+    glShadeModel(GL_SMOOTH)           # Sombreado suave
+
+    # Configuración de la perspectiva
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(60, 1.0, 0.1, 100.0)  # Campo de visión
+    glMatrixMode(GL_MODELVIEW)
+
+def draw_trunk(texture_id):
+    """Dibuja el tronco del árbol como un cilindro texturizado"""
+    glPushMatrix()
+    glBindTexture(GL_TEXTURE_2D, texture_id)
+    glColor3f(1.0, 1.0, 1.0)  # Blanco para mostrar la textura
+    glTranslatef(0.0, 0.0, 0.0)
+    glRotatef(-90, 1, 0, 0)  # Rotar para orientar verticalmente
+    quadric = gluNewQuadric()
+    gluQuadricTexture(quadric, GL_TRUE)
+    gluCylinder(quadric, 0.3, 0.3, 2.0, 32, 32)
+    glPopMatrix()
+
+def draw_foliage(texture_id):
+    """Dibuja las hojas del árbol como una esfera texturizada"""
+    glPushMatrix()
+    glBindTexture(GL_TEXTURE_2D, texture_id)
+    glColor3f(1.0, 1.0, 1.0)  # Blanco para mostrar la textura
+    glTranslatef(0.0, 2.0, 0.0)
+    quadric = gluNewQuadric()
+    gluQuadricTexture(quadric, GL_TRUE)
+    gluSphere(quadric, 1.0, 32, 32)
+    glPopMatrix()
+
+def draw_ground(texture_id):
+    """Dibuja un plano para representar el suelo con textura"""
+    glBindTexture(GL_TEXTURE_2D, texture_id)
+    glBegin(GL_QUADS)
+    glColor3f(1.0, 1.0, 1.0)  # Blanco para mostrar la textura
+    glTexCoord2f(0.0, 0.0); glVertex3f(-10, 0, 10)
+    glTexCoord2f(1.0, 0.0); glVertex3f(10, 0, 10)
+    glTexCoord2f(1.0, 1.0); glVertex3f(10, 0, -10)
+    glTexCoord2f(0.0, 1.0); glVertex3f(-10, 0, -10)
+    glEnd()
+
+def draw_tree(trunk_texture, foliage_texture, ground_texture):
+    """Dibuja un árbol completo"""
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+
+    # Configuración de la cámara
+    gluLookAt(4, 3, 8,  # Posición de la cámara
+              0, 1, 0,  # Punto al que mira
+              0, 1, 0)  # Vector hacia arriba
+
+    draw_ground(ground_texture)  # Dibuja el suelo
+    draw_trunk(trunk_texture)   # Dibuja el tronco
+    draw_foliage(foliage_texture) # Dibuja las hojas
+
+    glfw.swap_buffers(window)
+
+def main():
+    global window
+
+    # Inicializar GLFW
+    if not glfw.init():
+        sys.exit()
+    
+    # Crear ventana de GLFW
+    width, height = 800, 600
+    window = glfw.create_window(width, height, "Árbol con Texturas", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+
+    glfw.make_context_current(window)
+    glViewport(0, 0, width, height)
+    init()
+
+    # Carga de texturas BMP
+    trunk_texture = load_texture("trunk.jpg")      # Textura para el tronco
+    foliage_texture = load_texture("foliage.jpg") # Textura para las hojas
+    ground_texture = load_texture("ground.jpg")   # Textura para el suelo
+
+    if not trunk_texture or not foliage_texture or not ground_texture:
+        print("Error al cargar texturas.")
+        glfw.terminate()
+        sys.exit()
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        draw_tree(trunk_texture, foliage_texture, ground_texture)
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+
+
+#+END_SRC
+
+#+RESULTS:
 
 
 ** Transformaciones en OpenGL
