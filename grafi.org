@@ -4799,6 +4799,8 @@ if __name__ == "__main__":
 
 #+RESULTS:
 
+texturas blanco y negro
+
 #+BEGIN_SRC python :results output :tangle code/textura.py
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -4855,12 +4857,15 @@ if __name__ == "__main__":
 
 #+RESULTS:
 
+texturas de color 
 
 #+BEGIN_SRC python :results output :tangle code/textura2.py
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from PIL import Image
+
+#pip install Pillow
 
 def load_texture(image_path):
     # Generar y enlazar una textura
@@ -4918,7 +4923,7 @@ def display():
     # Dibujar la esfera pequeña
     glPushMatrix()
     glColor3f(1.0, 1.0, 1.0)  #  no altere la textura
-    glTranslatef(0.0, 0.0, -5.0)  # Mover la esfera para que sea visible
+    glTranslatef(0.0, 0.0, -2.0)  # Mover la esfera para que sea visible
     gluSphere(quadric, 0.5, 32, 32)  # Esfera con radio 0.5
     glPopMatrix()
     
