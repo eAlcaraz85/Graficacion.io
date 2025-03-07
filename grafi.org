@@ -1435,6 +1435,165 @@ g)
 
 
 
+
+**   Landmarks 
+En visión artificial, el término landmark se refiere a puntos clave
+dentro de una imagen que ayudan a describir características
+importantes de un objeto. Estos puntos de referencia se utilizan en
+tareas como el reconocimiento facial, el registro de imágenes médicas,
+la segmentación de objetos y la detección de estructuras en imágenes
+biomédicas.
+
+*** Fundamentos de los Landmarks
+Los landmarks se caracterizan por ser:
+
+- Puntos de interés dentro de una imagen que representan estructuras significativas.
+
+- Invariantes a transformaciones como traslación, rotación y cambios de escala.
+
+- Utilizados en modelos de alineación y reconocimiento de patrones.
+
+Dependiendo del contexto, los landmarks pueden ser seleccionados manualmente o detectados automáticamente mediante algoritmos especializados.
+
+*** Aplicaciones de los Landmarks
+
+**** Reconocimiento Facial
+En el reconocimiento facial, se utilizan landmarks para identificar
+estructuras anatómicas del rostro, como los ojos, la nariz y la
+boca. Un ejemplo común es el modelo de 68 puntos faciales utilizado en
+bibliotecas como dlib, donde cada punto representa una característica
+clave del rostro.
+
+**** Registro y Segmentación de Imágenes Médicas
+Los landmarks juegan un papel clave en el registro de imágenes
+médicas, facilitando la comparación de imágenes de distintos pacientes
+o en diferentes momentos temporales. Se utilizan en la detección de
+estructuras anatómicas en radiografías, tomografías y microscopía.
+
+**** Seguimiento de Movimiento y Estimación de Postura
+Los sistemas de visión artificial pueden detectar landmarks en el
+cuerpo humano para el análisis de la postura y el seguimiento de
+movimientos en tiempo real, como en aplicaciones deportivas y
+rehabilitación médica.
+
+**** Detección de Características en Citología Cervical
+En el análisis de imágenes de citología cervical, los landmarks pueden
+utilizarse para localizar estructuras celulares relevantes,
+facilitando la segmentación y clasificación de células en exámenes de
+Papanicolaou.
+
+*** Métodos de Detección de Landmarks
+Existen varios métodos para la detección de landmarks, que se pueden clasificar en dos grandes categorías:
+
+**** Métodos Clásicos
+
+SIFT (Scale-Invariant Feature Transform): Detecta puntos clave
+invariables a cambios de escala y rotación.
+
+SURF (Speeded-Up Robust Features): Similar a SIFT pero más rápido.
+
+ORB (Oriented FAST and Rotated BRIEF): Optimizado para detección
+rápida en tiempo real.
+
+**** Métodos Basados en Aprendizaje Profundo
+
+Redes neuronales convolucionales (CNNs): Utilizadas en el
+reconocimiento facial y análisis biomédico.
+
+MediaPipe: Biblioteca de Google para la detección de landmarks en
+tiempo real.
+
+Modelos de Regresión de Forma Activa (ASM) y Modelos de Forma
+Constrained Local Models (CLM): Métodos específicos para la detección
+de formas anatómicas.
+
+
+
+
+
+
+** Detección de Manos con MediaPipe en Python
+
+*** Introducción
+  MediaPipe es una
+librería desarrollada por Google Research, diseñada para el
+procesamiento eficiente de datos en tiempo real. Fue lanzada para
+facilitar el desarrollo de aplicaciones de visión por computadora,
+realidad aumentada y aprendizaje automático en dispositivos móviles y
+computadoras.
+
+MediaPipe Hands utiliza modelos preentrenados basados en redes
+neuronales para detectar y seguir 21 puntos clave de la mano,
+permitiendo análisis de gestos y seguimiento preciso.
+
+
+
+*** Instalación de Dependencias
+Para ejecutar el código, se necesita instalar los siguientes paquetes en Python:
+
+#+begin_src sh
+pip install mediapipe opencv-python
+#+end_src
+
+*** Código para Detección de Manos en Tiempo Real
+Este es un un código en Python que detecta manos usando MediaPipe y OpenCV.
+
+#+begin_src python :results output :exports both
+import cv2
+import mediapipe as mp
+
+# Inicializar MediaPipe Hands
+mp_hands = mp.solutions.hands
+mp_drawing = mp.solutions.drawing_utils
+hands = mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+
+# Captura de video
+cap = cv2.VideoCapture(0)
+
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Convertir imagen a RGB
+    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    
+    # Detectar manos
+    results = hands.process(frame_rgb)
+
+    # Dibujar los puntos clave y conexiones
+    if results.multi_hand_landmarks:
+        for hand_landmarks in results.multi_hand_landmarks:
+            mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+
+    # Mostrar la imagen
+    cv2.imshow("Salida", frame)
+
+    # Salir con 'q'
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+#+end_src
+
+#+RESULTS:
+
+*** Explicación del Código
+1. Se inicializa MediaPipe Hands con una confianza mínima de detección y seguimiento del 50%.
+2. Se usa OpenCV para capturar video en tiempo real.
+3. Se convierte el fotograma de BGR a RGB, ya que MediaPipe trabaja con imágenes en formato RGB.
+4. Se procesan los fotogramas y se extraen las coordenadas de la mano si se detecta.
+5. Se dibujan los puntos clave de la mano y sus conexiones en la imagen original.
+6. Se muestra el resultado en una ventana de OpenCV.
+
+*** Mejoras Posibles
+- Contar cuántas manos hay con =len(results.multi_hand_landmarks)=.
+- Detectar gestos analizando las posiciones de los dedos.
+- Guardar las coordenadas para análisis posterior.
+
+
+
    
 * Actividades
 
