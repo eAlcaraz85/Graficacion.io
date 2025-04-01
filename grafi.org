@@ -1776,7 +1776,7 @@ def reconocer_letra(hand_landmarks, frame):
 
     # Mostrar los números de los landmarks en la imagen
     for i, (x, y) in enumerate(dedos):
-        cv2.circle(frame, (x, y), 5, (0, 255, 0), -1)  # Puntos verdes
+        cv2.circle(frame, (x, y), 5, (0, 234, 0), -1)  # Puntos verdes
         cv2.putText(frame, str(i), (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1)
 
     # Dibujar coordenadas del pulgar
@@ -1853,11 +1853,11 @@ import mediapipe as mp
 
 # Inicializar MediaPipe Face Mesh
 mp_face_mesh = mp.solutions.face_mesh
-face_mesh = mp_face_mesh.FaceMesh(static_image_mode=False, max_num_faces=1, min_detection_confidence=0.5, min_tracking_confidence=0.5)
+face_mesh = mp_face_mesh.FaceMesh(static_image_mode=False, max_num_faces=2, min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
 # Inicializar dibujador de MediaPipe
 mp_drawing = mp.solutions.drawing_utils
-drawing_spec = mp_drawing.DrawingSpec(thickness=1, circle_radius=1, color=(0, 255, 0))  # Puntos verdes
+drawing_spec = mp_drawing.DrawingSpec(thickness=1, circle_radius=1, color=(234, 255, 233))  # Puntos verdes
 
 # Captura de video
 cap = cv2.VideoCapture(0)
@@ -1867,7 +1867,7 @@ while cap.isOpened():
     if not ret:
         break
 
-    frame = cv2.flip(frame, 1)  # Espejo para mayor naturalidad
+    frqame = cv2.flip(frame, 1)  # Espejo para mayor naturalidad
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     results = face_mesh.process(rgb_frame)
 
@@ -1875,7 +1875,7 @@ while cap.isOpened():
         for face_landmarks in results.multi_face_landmarks:
             mp_drawing.draw_landmarks(frame, face_landmarks, mp_face_mesh.FACEMESH_TESSELATION, drawing_spec, drawing_spec)
 
-    cv2.imshow("Puntos Faciales - MediaPipe", frame)
+    cv2.imshow('PuntosFacialesMediaPipe', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
@@ -3892,8 +3892,8 @@ conceptos y configuraciones básicas.
 Para utilizar OpenGL en Python, necesitas instalar las siguientes
 bibliotecas:
 #+begin_src shell
-  pip install PyOpenGL PyOpenGL_accelerate glfw pygames
-  pip install PyOpenGL glfw
+  pip install PyOpenGL PyOpenGL_accelerate glfw 
+  pip install PyOpenGL glfw PyFreeGLUT
 #+end_src
 
 *** Estructura básica de un programa OpenGL
@@ -3929,6 +3929,7 @@ de coordenadas:
    según la resolución de la ventana.
 
 ** Primitivas de Dibujo en OpenGL
+
 OpenGL permite dibujar figuras básicas conocidas como primitivas,
 entre las que se incluyen:
 
@@ -3937,22 +3938,347 @@ entre las que se incluyen:
    - **GL_TRIANGLES**: Triángulos entre grupos de tres vértices.
    - **GL_QUADS**: Cuadrados entre grupos de cuatro vértices (obsoleto en OpenGL moderno).
 
+
+
 Ejemplo de uso de **GL_TRIANGLES** para dibujar un triángulo:
 
-#+begin_src python
-  import glfw
-  from OpenGL.GL import *
-  from OpenGL.GLU import *
 
-  def draw_triangle():
-      glBegin(GL_TRIANGLES)
-      glColor3f(1.0, 0.0, 0.0)  # Rojo
-      glVertex2f(-0.5, -0.5)    # Vértice inferior izquierdo
-      glColor3f(0.0, 1.0, 0.0)  # Verde
-      glVertex2f(0.5, -0.5)     # Vértice inferior derecho
-      glColor3f(0.0, 0.0, 1.0)  # Azul
-      glVertex2f(0.0, 0.5)      # Vértice superior
-      glEnd()
+*** Código en Python con OpenGL y GLUT
+
+Este código utiliza OpenGL y GLUT en Python para dibujar un
+triángulo. A continuación, se describen en detalle las funciones y
+líneas de código, así como su propósito y parámetros utilizados.
+
+**** Importación de módulos
+
+Se importan los módulos necesarios para trabajar con OpenGL y GLUT en Python.
+
+#+BEGIN_SRC python
+import sys
+from OpenGL.GL import *
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
+#+END_SRC
+
+- *import sys*: Se importa el módulo `sys`, que proporciona acceso a
+  algunas variables y funciones específicos del sistema. En este caso,
+  se usa para acceder a los argumentos de la línea de comandos al
+  iniciar el programa.
+  
+- *from OpenGL.GL import*: Se importa todo el módulo `GL` de
+  OpenGL. Este módulo contiene las funciones necesarias para manejar
+  las operaciones gráficas, como la manipulación de la ventana, la
+  configuración de colores, la creación de objetos y más.
+
+- *from OpenGL.GLUT import*: Se importa el módulo `GLUT` de OpenGL, que
+  es la biblioteca utilizada para crear y gestionar ventanas, manejar
+  la interacción del usuario y ejecutar un bucle de eventos en el
+  sistema. Aquí se utiliza para crear la ventana y controlar la
+  visualización.
+
+- *from OpenGL.GLU import*: Se importa el módulo `GLU` de OpenGL. GLU
+  (OpenGL Utility Library) ofrece funciones adicionales que
+  simplifican algunas operaciones gráficas complejas, como las
+  proyecciones en perspectiva, que se utilizan en este código.
+
+**** Función `init()`
+
+La función `init()` realiza las configuraciones iniciales para la
+visualización, como establecer el color de fondo, definir la
+proyección y configurar las matrices.
+
+#+BEGIN_SRC python
+def init():
+    glClearColor(0.0, 0.0, 0.0, 1.0)  # Establecer color de fondo
+    glMatrixMode(GL_PROJECTION)  # Establecer la matriz de proyección
+    glLoadIdentity()  # Restablecer la matriz a la identidad
+    gluPerspective(45, 1.0, 0.1, 50.0)  # Configuración de perspectiva
+    glMatrixMode(GL_MODELVIEW)  # Establecer la matriz de modelo de vista
+#+END_SRC
+
+- **`glClearColor(0.0, 0.0, 0.0, 1.0)`**: Define el color de fondo de la
+  ventana. Los valores (0.0, 0.0, 0.0) representan el color negro, y
+  el valor 1.0 en el último parámetro significa opacidad total (sin
+  transparencia).
+
+- **`glMatrixMode(GL_PROJECTION)`**: Establece que la matriz activa sea
+  la matriz de proyección, que es la encargada de definir cómo se
+  proyectan los objetos 3D en la pantalla.
+
+- **`glLoadIdentity()`**: Restablece la matriz activa a la matriz
+  identidad. Este comando es necesario para borrar cualquier
+  transformación previa antes de aplicar nuevas transformaciones.
+
+- **`gluPerspective(45, 1.0, 0.1, 50.0)`**: Configura una proyección en
+  perspectiva. El primer parámetro (45) es el ángulo de visión en
+  grados. El segundo parámetro (1.0) es la relación de aspecto, que
+  debe ser igual a la relación entre el ancho y la altura de la
+  ventana (en este caso, una ventana cuadrada). El tercer parámetro
+  (0.1) define la distancia mínima (cerca) del plano de corte, y el
+  cuarto parámetro (50.0) define la distancia máxima (lejos) del plano
+  de corte.
+
+- **`glMatrixMode(GL_MODELVIEW)`**: Cambia la matriz activa de nuevo a
+  la de modelo de vista. Esto significa que las siguientes
+  transformaciones (como traslación o rotación de objetos) afectarán a
+  los objetos en el espacio 3D.
+
+**** Función `display()`
+
+La función `display()` se encarga de limpiar los buffers y dibujar los
+objetos en pantalla, en este caso, un triángulo. La función se llama
+constantemente para actualizar la ventana.
+
+#+BEGIN_SRC python
+def display():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)  # Limpiar buffers
+    glLoadIdentity()  # Restablecer transformaciones previas
+    glTranslatef(0.0, 0.0, -5)  # Mover la cámara hacia atrás
+
+    # Dibujar un triángulo
+    glBegin(GL_TRIANGLES)  # Inicia la especificación de los vértices para un triángulo
+    glColor3f(1.0, 0.0, 0.0)  # Rojo
+    glVertex3f(-1.0, -1.0, 0.0)  # Primer vértice
+    glColor3f(0.0, 1.0, 0.0)  # Verde
+    glVertex3f(1.0, -1.0, 0.0)  # Segundo vértice
+    glColor3f(0.0, 0.0, 1.0)  # Azul
+    glVertex3f(0.0, 1.0, 0.0)  # Tercer vértice
+    glEnd()  # Finaliza el bloque de dibujo
+
+    glutSwapBuffers()  # Intercambiar buffers
+#+END_SRC
+
+- *glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)*: Limpia los
+  buffers de color y profundidad. Esto borra lo que se haya dibujado
+  anteriormente en la ventana, asegurando que cada nueva imagen se
+  dibuje sobre un fondo limpio.
+
+- *glLoadIdentity()*: Restablece las transformaciones actuales, como
+  traslación, rotación, o escala, para asegurarse de que el triángulo
+  se dibuje en su posición inicial.
+
+- *glTranslatef(0.0, 0.0, -5)*: Aplica una traslación a la
+  cámara. Este comando mueve la vista de la cámara a lo largo del eje
+  Z, alejándola 5 unidades para que el triángulo sea visible en la
+  pantalla.
+
+- *glBegin(GL_TRIANGLES)*: Inicia la especificación de los vértices
+  para un objeto en forma de triángulo. Todos los vértices dentro de
+  este bloque serán interpretados como parte de un triángulo.
+
+- *glColor3f(1.0, 0.0, 0.0)*: Establece el color del primer vértice
+  del triángulo a rojo (con valores de 1.0 para rojo y 0.0 para verde
+  y azul).
+
+- *glVertex3f(-1.0, -1.0, 0.0)*: Define las coordenadas (x, y, z)
+  del primer vértice del triángulo.
+
+- *glColor3f(0.0, 1.0, 0.0)*: Establece el color del segundo vértice
+  del triángulo a verde.
+
+- *glVertex3f(1.0, -1.0, 0.0)*: Define las coordenadas del segundo
+  vértice del triángulo.
+
+- *glColor3f(0.0, 0.0, 1.0)*: Establece el color del tercer vértice
+  del triángulo a azul.
+
+- *glVertex3f(0.0, 1.0, 0.0)*: Define las coordenadas del tercer
+  vértice del triángulo.
+
+- *glEnd()*: Finaliza la especificación del triángulo. Todos los
+  vértices y colores definidos entre `glBegin` y `glEnd` forman un
+  triángulo.
+
+- *glutSwapBuffers()*: Intercambia los buffers de pantalla en una
+  ventana de doble buffer. Esto garantiza que lo que se dibujó se
+  renderice en la ventana de manera eficiente, evitando parpadeos.
+
+**** Función `main()`
+
+La función `main()` inicializa GLUT, configura la ventana y asigna la función de visualización. También lanza el bucle principal de GLUT.
+
+#+BEGIN_SRC python
+def main():
+    glutInit(sys.argv)  # Inicializar GLUT
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)  # Establecer modo de visualización
+    glutInitWindowSize(800, 600)  # Establecer tamaño de la ventana
+    glutCreateWindow("Triángulo con GLUT y Python")  # Crear ventana con título
+
+    init()  # Llamar a la función de configuración inicial
+    glutDisplayFunc(display)  # Asignar función de visualización
+    glutMainLoop()  # Comenzar el bucle principal de GLUT
+#+END_SRC
+
+- *glutInit(sys.argv)*: Inicializa GLUT y permite pasar parámetros
+  desde la línea de comandos.
+
+- *glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)*:
+  Establece el modo de visualización. Usamos un modo de doble buffer,
+  el modelo RGB para el color y un buffer de profundidad para
+  gestionar la visibilidad de objetos en 3D.
+
+- *glutInitWindowSize(800, 600)*: Define el tamaño de la ventana
+  (800 píxeles de ancho por 600 píxeles de altura).
+
+- *glutCreateWindow("Triángulo con GLUT y Python")*: Crea una
+  ventana con el título especificado.
+
+- *init()*: Llama a la función `init()`, que establece las
+  configuraciones iniciales de OpenGL.
+
+- *glutDisplayFunc(display)*: Asocia la función `display()` con el
+  proceso de renderizado de la ventana. Esta función se llamará cada
+  vez que sea necesario actualizar la ventana.
+
+- *glutMainLoop()*: Inicia el bucle principal de GLUT, que gestiona
+  la ventana, la entrada del usuario y la actualización de la
+  pantalla.
+
+**** Ejecución del código
+
+Este bloque final se asegura de que el código se ejecute correctamente cuando se llama al archivo directamente.
+
+#+BEGIN_SRC python
+if __name__ == "__main__":
+    main()  # Llamar a la función principal para ejecutar el programa
+#+END_SRC
+
+Este código completa la configuración para mostrar un triángulo 3D en
+una ventana utilizando OpenGL y GLUT, con el fondo negro y los colores
+rojo, verde y azul para los vértices del triángulo.
+
+
+
+
+#+BEGIN_SRC python :results output :tangle code/triangulo.py
+import sys
+from OpenGL.GL import *
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
+
+def init():
+    glClearColor(0.0, 0.0, 0.0, 1.0)  # Establecer color de fondo
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(45, 1.0, 0.1, 50.0)  # Configuración de perspectiva
+    glMatrixMode(GL_MODELVIEW)
+
+def display():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)  # Limpiar buffers
+    glLoadIdentity()
+    glTranslatef(0.0, 0.0, -5)  # Mover la cámara hacia atrás
+
+    # Dibujar un triángulo
+    glBegin(GL_TRIANGLES)
+    glColor3f(1.0, 0.0, 0.0)  # Rojo
+    glVertex3f(-1.0, -1.0, 0.0)
+    glColor3f(0.0, 1.0, 0.0)  # Verde
+    glVertex3f(1.0, -1.0, 0.0)
+    glColor3f(0.0, 0.0, 1.0)  # Azul
+    glVertex3f(0.0, 1.0, 0.0)
+    glEnd()
+
+    glutSwapBuffers()  # Intercambiar buffers
+
+def main():
+    # Inicializar GLUT
+    glutInit(sys.argv)
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
+    glutInitWindowSize(800, 600)
+    glutCreateWindow("Triángulo con GLUT y Python")
+
+    init()
+    glutDisplayFunc(display)
+    glutMainLoop()
+
+if __name__ == "__main__":
+    main()
+#+END_SRC
+
+#+RESULTS:
+
+
+
+#+BEGIN_SRC python :results output
+import glfw
+from OpenGL.GL import *
+
+# Inicializar GLFW
+if not glfw.init():
+    raise Exception("No se pudo inicializar GLFW")
+
+# Crear ventana
+window = glfw.create_window(800, 600, "OpenGL Test", None, None)
+if not window:
+    glfw.terminate()
+    raise Exception("No se pudo crear la ventana GLFW")
+
+# Activar el contexto
+glfw.make_context_current(window)
+
+# Obtener versión de OpenGL
+version = glGetString(GL_VERSION)
+print("Versión de OpenGL:", version.decode("utf-8"))
+
+# Terminar GLFW
+glfw.terminate()
+
+#+END_SRC
+
+#+RESULTS:
+: Versión de OpenGL: 4.6 (Compatibility Profile) Mesa 22.3.6
+
+
+#+begin_src python
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+
+def draw_triangle():
+    # Dibuja un triángulo con OpenGL
+    glBegin(GL_TRIANGLES)
+    glColor3f(1.0, 0.0, 0.0)  # Rojo
+    glVertex2f(-0.5, -0.5)    # Vértice inferior izquierdo
+    glColor3f(0.0, 1.0, 0.0)  # Verde
+    glVertex2f(0.5, -0.5)     # Vértice inferior derecho
+    glColor3f(0.0, 0.0, 1.0)  # Azul
+    glVertex2f(0.0, 0.5)      # Vértice superior
+    glEnd()
+
+def main():
+    # Inicializa GLFW
+    if not glfw.init():
+        return
+
+    # Crear la ventana
+    window = glfw.create_window(800, 600, "OpenGL Triángulo", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    # Hacer el contexto de OpenGL actual para la ventana
+    glfw.make_context_current(window)
+
+    # Configurar la proyección (2D simple)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0)  # Proyección ortográfica 2D
+    glMatrixMode(GL_MODELVIEW)
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        glClear(GL_COLOR_BUFFER_BIT)  # Limpiar la pantalla con color de fondo
+
+        draw_triangle()  # Dibujar el triángulo
+
+        glfw.swap_buffers(window)  # Intercambiar los buffers
+        glfw.poll_events()  # Comprobar eventos
+
+    # Finalizar GLFW
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
 #+end_src
 
 #+RESULTS:
