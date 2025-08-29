@@ -507,7 +507,172 @@ rm -rf nombre_entorno
 
 
 
-   
+
+
+
+* nEntornos virtuales en Python (Windows + VS Code)
+
+** 1. ¿Qué es un entorno virtual?
+Un entorno virtual (venv) es un espacio aislado para instalar librerías
+sin afectar el Python del sistema ni otros proyectos.
+
+Cada proyecto debe tener su propio venv para evitar conflictos.
+
+** 2. Requisitos previos
+- Tener Python instalado (>= 3.6 recomendado).
+- Verificar en la terminal (CMD o PowerShell):
+
+  #+begin_src powershell
+  python --version
+  pip --version
+  #+end_src
+
+Si no aparecen, asegúrate de que Python esté en el PATH de Windows.
+
+** 3. Crear un entorno virtual
+Dentro de la carpeta de tu proyecto, ejecuta:
+
+#+begin_src powershell
+python -m venv venv
+#+end_src
+
+Esto creará una carpeta llamada =venv/=.  
+Dentro estarán los binarios y scripts de activación.
+
+** 4. Activar el entorno virtual
+Según la terminal que uses en Windows:
+
+- CMD:
+  #+begin_src cmd
+  venv\Scripts\activate.bat
+  #+end_src
+
+- PowerShell:
+  #+begin_src powershell
+  .\venv\Scripts\Activate.ps1
+  #+end_src
+
+- Git Bash (si lo usas):
+  #+begin_src sh
+  source venv/Scripts/activate
+  #+end_src
+
+Cuando está activo verás algo como:
+=(venv) C:\Users\TuUsuario\proyecto>=
+
+** 5. Problema común: PowerShell bloquea Activate.ps1
+Por seguridad, PowerShell no permite ejecutar scripts .ps1.
+
+Verás un error como:
+#+begin_example
+Execution Policy restricts running scripts
+#+end_example
+
+Para solucionarlo (solo una vez):
+
+1. Abre PowerShell como Administrador.
+2. Ejecuta:
+   #+begin_src powershell
+   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+   #+end_src
+
+Esto permite ejecutar scripts locales como Activate.ps1.
+
+** 6. Desactivar el entorno virtual
+Para salir del entorno:
+#+begin_src powershell
+deactivate
+#+end_src
+
+** 7. Instalar paquetes dentro del entorno
+Ejemplo:
+#+begin_src powershell
+pip install requests
+#+end_src
+
+Guardar dependencias en un archivo:
+#+begin_src powershell
+pip freeze > requirements.txt
+#+end_src
+
+Instalarlas en otro entorno:
+#+begin_src powershell
+pip install -r requirements.txt
+#+end_src
+
+** 8. Integrar el entorno en VS Code
+1. Instalar la extensión **Python (Microsoft)**.
+2. Abrir la carpeta del proyecto en VS Code.
+3. =Ctrl+Shift+P= → escribir "Python: Select Interpreter".
+   Si no aparece, configurarlo manualmente (ver abajo).
+4. Seleccionar el intérprete de =venv\Scripts\python.exe=.
+
+** 9. Configuración manual en settings.json
+Si VS Code no detecta el intérprete, forzar la ruta en
+=/.vscode/settings.json=:
+
+#+begin_src json
+{
+    "python.defaultInterpreterPath": "C:\\Users\\TuUsuario\\proyecto\\venv\\Scripts\\python.exe",
+    "python.terminal.activateEnvironment": true
+}
+#+end_src
+
+** 10. Diferencias entre los scripts de activación
+Dentro de =venv\Scripts= verás varios archivos:
+
+- =activate.bat= → Para CMD.
+- =Activate.ps1= → Para PowerShell.
+- =activate= (sin extensión) → Para Git Bash / WSL.
+- =deactivate.bat= → Desactiva el entorno en CMD.
+
+Debes usar el que corresponda a tu terminal actual.
+
+** 11. Buenas prácticas
+- Un venv por proyecto.
+- Incluir =venv/= en el .gitignore si usas Git.
+- Siempre usar requirements.txt para compartir dependencias.
+- Activar el entorno desde la terminal integrada de VS Code.
+
+** 12. Ejemplo de flujo completo
+1. Crear proyecto:
+   #+begin_src powershell
+   mkdir mi_proyecto
+   cd mi_proyecto
+   python -m venv venv
+   #+end_src
+
+2. Activar entorno:
+   #+begin_src powershell
+   .\venv\Scripts\Activate.ps1
+   #+end_src
+
+3. Instalar dependencias:
+   #+begin_src powershell
+   pip install requests flask
+   pip freeze > requirements.txt
+   #+end_src
+
+4. Configurar VS Code en =.vscode/settings.json=:
+   #+begin_src json
+   {
+       "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+       "python.analysis.extraPaths": ["${workspaceFolder}"],
+       "python.terminal.activateEnvironment": true
+   }
+   #+end_src
+
+5. Probar en VS Code:
+   #+begin_src python
+   import requests
+   print("Hola desde el venv!")
+   #+end_src
+
+
+
+
+
+
 * Introducción a la Graficación por computadora 
    
 ** Graficación por Computadora
@@ -1754,6 +1919,8 @@ cv2.destroyAllWindows()
 
 #+RESULTS:
 
+Landmark distancia Euclidiana
+
 #+BEGIN_SRC python
 import cv2
 import mediapipe as mp
@@ -1793,7 +1960,7 @@ def reconocer_letra(hand_landmarks, frame):
                 cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2, cv2.LINE_AA)
 
 
-    cv2.circle(frame, (pulgar[0]+20,pulgar[1]+20), int(distancia_indice_medio), (34,234,65), -1 )
+    #cv2.circle(frame, (pulgar[0]+20,pulgar[1]+20), int(distancia_indice_medio), (34,234,65), -1 )
     
     # Lógica para reconocer algunas letras
     if distancia_pulgar_indice < 30 and distancia_indice_medio > 50:
@@ -2049,7 +2216,7 @@ import cv2 as cv  # Importa la librería OpenCV, que se usa para el procesamient
 
 # Lee una imagen desde el archivo 'tr.png'. 
 # El segundo argumento '1' indica que se leerá la imagen en color (1 para color, 0 para escala de grises, -1 para incluir el canal alfa si existe).
-img = cv.imread('tr.png', 1)
+img = cv.imread('tr.png', 0)
 
 # Muestra la imagen leída en una ventana llamada 'ejemplo'.
 cv.imshow('ejemplo', img)
@@ -2071,7 +2238,7 @@ import cv2 as cv  # Importa OpenCV, que es útil para procesamiento de imágenes
 import numpy as np  # Importa NumPy, que es útil para trabajar con matrices y operaciones numéricas.
 
 # Carga la imagen '1a.png' en color (1 para color, 0 para escala de grises).
-img = cv.imread('1a.png', 1)
+img = cv.imread('1a.png', 0)
 
 # Crea una imagen vacía (llena de ceros, que representa color negro) con el mismo tamaño que la imagen original.
 # La imagen vacía tiene un solo canal (escala de grises), por lo que se usa `img.shape[:2]` para obtener las dimensiones de la imagen (alto, ancho).
@@ -2084,9 +2251,9 @@ print(img.shape[:2])
 r, g, b = cv.split(img)
 
 # Recombina los canales, pero los reorganiza como rojo, azul y verde (RBG en lugar de RGB).
-#r2 = cv.merge([img2, img2, r])
-#g2 = cv.merge([img2, g, img2])
-#b2 = cv.merge([b, img2, img2])
+r2 = cv.merge([img2, img2, r])
+g2 = cv.merge([img2, g, img2])
+b2 = cv.merge([b, img2, img2])
 img3 = cv.merge([b, r, g])
 # Crea una imagen que contiene solo el canal rojo, llenando los otros dos canales (verde y azul) con ceros (negro).
 #r = cv.merge([r, img2, img2])
@@ -2099,6 +2266,9 @@ img3 = cv.merge([b, r, g])
 
 # Muestra la imagen original en una ventana llamada 'ejemplo'.
 cv.imshow('ejemplo', img)
+cv.imshow('r2', r2)
+cv.imshow('g2', g2)
+cv.imshow('b2', b2)
 
 # Muestra la imagen que contiene solo el canal rojo.
 #cv.imshow('r', r)
@@ -2126,7 +2296,6 @@ cv.destroyAllWindows()
 #+END_SRC
 
 #+RESULTS:
-: None
 
 *** Ejemplo de Operador Puntual en Imágenes 
 #+BEGIN_SRC python :results output
@@ -2247,6 +2416,9 @@ cv.imshow('Imagen Trasladada', translated_img)
 cv.waitKey(0)
 cv.destroyAllWindows()
 #+END_SRC
+
+#+RESULTS:
+: None
 
 *** 2. Rotación (alrededor del centro de la imagen)
 La rotación se realiza alrededor del centro de la imagen, utilizando las fórmulas matemáticas correspondientes.
@@ -3911,10 +4083,12 @@ de coordenadas:
    defines los vértices en relación con el centro del objeto.
 
 *** Coordenadas del Mundo
-   Transforman las coordenadas del objeto para situarlo en el mundo virtual.
+   Transforman las coordenadas del objeto para situarlo en el mundo
+   virtual.
 
 *** Coordenadas de Vista
-   Ajustan la posición del objeto en relación con la cámara u observador.
+   Ajustan la posición del objeto en relación con la cámara u
+   observador.
 
 *** Coordenadas de Recorte
    Aplican la proyección para determinar qué partes del objeto son
@@ -3936,7 +4110,8 @@ entre las que se incluyen:
    - **GL_POINTS**: Puntos individuales.
    - **GL_LINES**: Líneas entre pares de vértices.
    - **GL_TRIANGLES**: Triángulos entre grupos de tres vértices.
-   - **GL_QUADS**: Cuadrados entre grupos de cuatro vértices (obsoleto en OpenGL moderno).
+   - **GL_QUADS**: Cuadrados entre grupos de cuatro vértices (obsoleto
+     en OpenGL moderno).
 
 
 
@@ -4033,7 +4208,7 @@ constantemente para actualizar la ventana.
 def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)  # Limpiar buffers
     glLoadIdentity()  # Restablecer transformaciones previas
-    glTranslatef(0.0, 0.0, -5)  # Mover la cámara hacia atrás
+    glTranslatef(0.0, 0.0, -1)  # Mover la cámara hacia atrás
 
     # Dibujar un triángulo
     glBegin(GL_TRIANGLES)  # Inicia la especificación de los vértices para un triángulo
@@ -4047,6 +4222,9 @@ def display():
 
     glutSwapBuffers()  # Intercambiar buffers
 #+END_SRC
+
+#+RESULTS:
+: None
 
 - *glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)*: Limpia los
   buffers de color y profundidad. Esto borra lo que se haya dibujado
@@ -4166,7 +4344,7 @@ def init():
 def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)  # Limpiar buffers
     glLoadIdentity()
-    glTranslatef(0.0, 0.0, -5)  # Mover la cámara hacia atrás
+    glTranslatef(0.0, 0.0, -3)  # Mover la cámara hacia atrás
 
     # Dibujar un triángulo
     glBegin(GL_TRIANGLES)
@@ -4229,7 +4407,7 @@ glfw.terminate()
 : Versión de OpenGL: 4.6 (Compatibility Profile) Mesa 22.3.6
 
 
-#+begin_src python
+#+begin_src python :results output :tangle code/triangulo2.py
 import glfw
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -4683,7 +4861,7 @@ def init():
 
     # Configuración de la perspectiva
     glMatrixMode(GL_PROJECTION)
-    gluPerspective(45, 1.0, 0.1, 50.0)
+    gluPerspective(10, 1.0, 0.1, 50.0)
     glMatrixMode(GL_MODELVIEW)
 
     # Configuración de la luz
@@ -4696,7 +4874,7 @@ def init():
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light)
 
     # Configuración de las propiedades de material
-    material_diffuse = [1, 0.2, 1.0, 0.0]  # Color difuso (azul claro)
+    material_diffuse = [0.0, 0.9, 0.2, 0.0]  # Color difuso (azul claro)
     glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse)
 
 def draw_sphere(radius=1, slices=32, stacks=32):
@@ -4887,9 +5065,11 @@ def draw_snowman():
     glRotatef(rotation_angle, 0, 0, 1)  # Rotación en el eje Y
 
     # Cuerpo
-    glColor3f(1, 1, 1)
+    glColor3f(1, 0, 0)
     draw_sphere(1.0, 0, 0, 0)     # Base
+    glColor3f(0, 1, 0)
     draw_sphere(0.75, 0, 1.2, 0)  # Cuerpo medio
+    glColor3f(0, 0, 1)
     draw_sphere(0.5, 0, 2.2, 0)   # Cabeza
 
     # Ojos
@@ -4982,9 +5162,10 @@ gluPerspective(fovY, aspect, zNear, zFar)
   lejanos que =zFar= no se renderizan.
 
 *** Ejemplo Básico de Uso de gluPerspective
-Este ejemplo muestra cómo configurar =gluPerspective= en una escena de OpenGL en Python, utilizando PyOpenGL y GLFW.
+Este ejemplo muestra cómo configurar =gluPerspective= en una escena de
+OpenGL en Python, utilizando PyOpenGL y GLFW.
 
-#+BEGIN_SRC python
+#+BEGIN_SRC python :results output:tangle code/ejemplo.py
 import glfw
 from OpenGL.GL import *
 from OpenGL.GLU import gluPerspective
@@ -5148,7 +5329,7 @@ def draw_house():
     glLoadIdentity()
 
     # Configuración de la cámara
-    gluLookAt(4, 3, 8,  # Posición de la cámara
+    gluLookAt(4, 4, 8,  # Posición de la cámara
               0, 1, 0,  # Punto al que mira
               0, 1, 0)  # Vector hacia arriba
 
@@ -5187,6 +5368,8 @@ if __name__ == "__main__":
     main()
 
 #+END_SRC
+
+#+RESULTS:
 
 
 - casas 
@@ -5460,11 +5643,11 @@ import sys
 # Variables globales para controlar la posición del cuadrado
 square_x = 0.0
 square_y = 0.0
-speed = 0.05  # Velocidad de movimiento
+speed = 0.005  # Velocidad de movimiento
 
 def init():
     """Configuración inicial de OpenGL"""
-    glClearColor(0.0, 0.0, 0.0, 1.0)  # Fondo negro
+    glClearColor(1.0, 1.0, 0.5, 1.0)  # Fondo negro
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
     glOrtho(-1, 1, -1, 1, -1, 1)  # Configurar un sistema de coordenadas 2D
@@ -5579,9 +5762,26 @@ def draw_foliage():
     glTranslatef(0.0, 2.0, 0.0)  # Posicionar las hojas encima del tronco
     quadric = gluNewQuadric()
     gluSphere(quadric, 1.0, 32, 32)  # Radio de la esfera
+    glColor3f(1, 0, 0)  # Verde para las hojas
+    glTranslatef(0.0, 3.0, 0.0)  # Posicionar las hojas encima del tronco
+    quadric = gluNewQuadric()
+    gluSphere(quadric, 1.0, 32, 32)  # Radio de la esfera
+    
+
+
     glPopMatrix()
 
 
+def draw_foliage2():
+    """Dibuja las hojas del árbol como una esfera"""
+    glPushMatrix()
+    glColor3f(0.1, 0.6, 0.0)  # Verde para las hojas
+    glTranslatef(0.0, 2.5, 0.0)  # Posicionar las hojas encima del tronco
+    quadric = gluNewQuadric()
+    gluSphere(quadric, 1.0, 32, 32)  # Radio de la esfera
+    glPopMatrix()
+
+    
 def draw_ground():
     """Dibuja un plano para representar el suelo"""
     glBegin(GL_QUADS)
@@ -5606,6 +5806,7 @@ def draw_scene():
     draw_ground()  # Dibuja el suelo
     draw_trunk()   # Dibuja el tronco
     draw_foliage() # Dibuja las hojas
+    draw_foliage2() # Dibuja las hojas
 
     glfw.swap_buffers(window)
 
@@ -5672,6 +5873,159 @@ if __name__ == "__main__":
 #+END_SRC
 
 #+RESULTS:
+
+#+BEGIN_SRC python :results output :tangle code/ojo.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+
+def draw_eye():
+    # Globo ocular
+    glColor3f(1.0, 1.0, 1.0)
+    glutSolidSphere(1.0, 50, 50)
+
+    # Iris (azul)
+    glColor3f(0.3, 0.5, 0.9)
+    glPushMatrix()
+    glTranslatef(0, 0, 0.57)
+    glutSolidSphere(0.2, 30, 30)
+    glPopMatrix()
+
+    # Pupila (negra)
+    glColor3f(0.0, 0.0, 0.0)
+    glPushMatrix()
+    glTranslatef(0, 0, 1.02)
+    glutSolidSphere(0.2, 20, 20)
+    glPopMatrix()
+
+    # Nervio óptico
+    glColor3f(1.0, 0.6, 0.6)
+    glPushMatrix()
+    glTranslatef(0, 0, -1.0)
+    glRotatef(-90, 1, 0, 0)
+    quad = gluNewQuadric()
+    gluCylinder(quad, 0.15, 0.05, 0.6, 20, 20)
+    glPopMatrix()
+
+def main():
+    if not glfw.init():
+        return
+    window = glfw.create_window(800, 600, "Ojo 3D con OpenGL", None, None)
+    if not window:
+        glfw.terminate()
+        return
+    glfw.make_context_current(window)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_COLOR_MATERIAL)
+
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(45, 800 / 600, 0.1, 50.0)
+    glMatrixMode(GL_MODELVIEW)
+
+    while not glfw.window_should_close(window):
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glLoadIdentity()
+        gluLookAt(3, 1.5, 3, 0, 0, 0, 0, 1, 0)
+
+        draw_eye()
+
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    glutInit()
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+
+
+
+#+BEGIN_SRC python :results output :tangle code/cerebro.py
+import sys
+import math
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+
+def draw_fold(x, y, z, scale):
+    # Dibuja una curva simulando un pliegue
+    glPushMatrix()
+    glTranslatef(x, y, z)
+    glScalef(scale, scale, scale)
+    for t in range(0, 180, 20):
+        glPushMatrix()
+        angle = math.radians(t)
+        xt = math.cos(angle)
+        yt = math.sin(angle)
+        glTranslatef(xt * 0.3, yt * 0.3, 0)
+        glutSolidSphere(0.2, 20, 20)
+        glPopMatrix()
+    glPopMatrix()
+
+def draw_brain():
+    glColor3f(1.0, 0.7, 0.75)  # Color rosado claro
+    
+    # Parte principal del cerebro
+    for i in range(-2, 3):
+        for j in range(-1, 2):
+            draw_fold(i * 0.4, j * 0.4, 0, 0.6)
+
+    # Tallo cerebral
+    glColor3f(0.9, 0.5, 0.6)
+    glPushMatrix()
+    glTranslatef(0, -1.2, 0)
+    glRotatef(-90, 1, 0, 0)
+    glutSolidCylinder(0.2, 1.0, 20, 20)
+    glPopMatrix()
+
+def main():
+    if not glfw.init():
+        return
+
+    window = glfw.create_window(800, 600, "Cerebro de perfil - OpenGL", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    glfw.make_context_current(window)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_COLOR_MATERIAL)
+
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(45, 800 / 600, 0.1, 50.0)
+    glMatrixMode(GL_MODELVIEW)
+
+    while not glfw.window_should_close(window):
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glLoadIdentity()
+        # Cámara de lado (vista de perfil)
+        gluLookAt(3, 1.5, 3, 0, 0, 0, 0, 1, 0)
+
+        draw_brain()
+
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    glutInit()
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+
 
 
 #+BEGIN_SRC python :results output :tangle code/arboltextures.py
@@ -6041,9 +6395,9 @@ def init_lighting():
     glEnable(GL_COLOR_MATERIAL)  # Habilitar el material basado en colores
 
     # Configuración de la luz
-    light_pos = [1.0, 1.0, 1.0, 0.0]  # Posición de la luz
+    light_pos = [0.5, 0.5, 0.5, 0.0]  # Posición de la luz
     light_ambient = [0.2, 0.2, 0.2, 1.0]  # Luz ambiental
-    light_diffuse = [0.8, 0.8, 0.8, 1.0]  # Luz difusa
+    light_diffuse = [1.0, 1.0, 1.0, 1.0]  # Luz difusa
     light_specular = [1.0, 1.0, 1.0, 1.0]  # Luz especular
 
     glLightfv(GL_LIGHT0, GL_POSITION, light_pos)
@@ -6052,8 +6406,8 @@ def init_lighting():
     glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular)
 
     # Configuración del material
-    material_specular = [1.0, 1.0, 1.0, 1.0]
-    material_shininess = [50.0]
+    material_specular = [0.1, 0.1, 0.1, 1.0]
+    material_shininess = [10.0]
     glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular)
     glMaterialfv(GL_FRONT, GL_SHININESS, material_shininess)
 
@@ -6098,7 +6452,7 @@ def main():
     glutCreateWindow("Esfera con textura e iluminación")
     
     glEnable(GL_DEPTH_TEST)  # Habilitar prueba de profundidad
-    texture_id = load_texture("/home/likcos/Materias/Graficacion/code/tex1.png")
+    texture_id = load_texture("/home/likcos/Materias/Graficacion/code/fol.png")
     
     init_lighting()  # Inicializar iluminación
     
@@ -6113,19 +6467,177 @@ if __name__ == "__main__":
 
 #+RESULTS:
 
+persona
+
+#+BEGIN_SRC python :results output :tangle code/persona.py
+import glfw
+from OpenGL.GL import *
+import numpy as np
+from ctypes import c_void_p
+from pyrr import Matrix44
+
+# ----------------- Shaders -----------------
+vertex_shader_source = """
+#version 330 core
+layout(location = 0) in vec3 position;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+void main() {
+    gl_Position = projection * view * model * vec4(position, 1.0);
+}
+"""
+
+fragment_shader_source = """
+#version 330 core
+out vec4 FragColor;
+void main() {
+    FragColor = vec4(0.6, 0.8, 1.0, 1.0);
+}
+"""
+
+def compile_shader(source, shader_type):
+    shader = glCreateShader(shader_type)
+    glShaderSource(shader, source)
+    glCompileShader(shader)
+    return shader
+
+def create_shader_program():
+    vs = compile_shader(vertex_shader_source, GL_VERTEX_SHADER)
+    fs = compile_shader(fragment_shader_source, GL_FRAGMENT_SHADER)
+    program = glCreateProgram()
+    glAttachShader(program, vs)
+    glAttachShader(program, fs)
+    glLinkProgram(program)
+    return program
+
+# ----------------- Cubo -----------------
+cube_vertices = np.array([
+    # front face
+    -0.5, -0.5,  0.5,   0.5, -0.5,  0.5,   0.5,  0.5,  0.5,
+    -0.5, -0.5,  0.5,   0.5,  0.5,  0.5,  -0.5,  0.5,  0.5,
+    # back face
+    -0.5, -0.5, -0.5,  -0.5,  0.5, -0.5,   0.5,  0.5, -0.5,
+    -0.5, -0.5, -0.5,   0.5,  0.5, -0.5,   0.5, -0.5, -0.5,
+    # sides
+    -0.5,  0.5, -0.5,  -0.5,  0.5,  0.5,   0.5,  0.5,  0.5,
+    -0.5,  0.5, -0.5,   0.5,  0.5,  0.5,   0.5,  0.5, -0.5,
+    -0.5, -0.5, -0.5,   0.5, -0.5, -0.5,   0.5, -0.5,  0.5,
+    -0.5, -0.5, -0.5,   0.5, -0.5,  0.5,  -0.5, -0.5,  0.5,
+    -0.5, -0.5, -0.5,  -0.5, -0.5,  0.5,  -0.5,  0.5,  0.5,
+    -0.5, -0.5, -0.5,  -0.5,  0.5,  0.5,  -0.5,  0.5, -0.5,
+     0.5, -0.5, -0.5,   0.5,  0.5, -0.5,   0.5,  0.5,  0.5,
+     0.5, -0.5, -0.5,   0.5,  0.5,  0.5,   0.5, -0.5,  0.5
+], dtype=np.float32)
+
+def draw_cube(program, model):
+    glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, model.astype(np.float32))
+    glDrawArrays(GL_TRIANGLES, 0, 36)
+
+# ----------------- Main -----------------
+def main():
+    if not glfw.init():
+        return
+    window = glfw.create_window(800, 600, "Persona en OpenGL + GLFW", None, None)
+    glfw.make_context_current(window)
+
+    program = create_shader_program()
+    glUseProgram(program)
+
+    # Crear VAO/VBO
+    vao = glGenVertexArrays(1)
+    glBindVertexArray(vao)
+
+    vbo = glGenBuffers(1)
+    glBindBuffer(GL_ARRAY_BUFFER, vbo)
+    glBufferData(GL_ARRAY_BUFFER, cube_vertices.nbytes, cube_vertices, GL_STATIC_DRAW)
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, c_void_p(0))
+    glEnableVertexAttribArray(0)
+
+    glEnable(GL_DEPTH_TEST)
+
+    # Matrices de cámara
+    view = Matrix44.look_at(
+        eye=[3, 3, 6],
+        target=[0, 1, 0],
+        up=[0, 1, 0]
+    )
+    projection = Matrix44.perspective_projection(45.0, 800/600, 0.1, 100.0)
+    glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, view.astype(np.float32))
+    glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, projection.astype(np.float32))
+
+    while not glfw.window_should_close(window):
+        glfw.poll_events()
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+        # Dibuja partes del cuerpo
+        partes = [
+            Matrix44.from_translation([0, 1, 0]) @ Matrix44.from_scale([0.5, 1.0, 0.3]),  # torso
+            Matrix44.from_translation([0, 2.2, 0]) @ Matrix44.from_scale([0.4, 0.4, 0.4]),  # cabeza
+            Matrix44.from_translation([-0.6, 1.0, 0]) @ Matrix44.from_scale([0.2, 0.8, 0.2]),  # brazo izq
+            Matrix44.from_translation([0.6, 1.0, 0]) @ Matrix44.from_scale([0.2, 0.8, 0.2]),   # brazo der
+            Matrix44.from_translation([-0.3, 0.0, 0]) @ Matrix44.from_scale([0.2, 1.0, 0.2]),  # pierna izq
+            Matrix44.from_translation([0.3, 0.0, 0]) @ Matrix44.from_scale([0.2, 1.0, 0.2]),   # pierna der
+        ]
+
+        for model in partes:
+            draw_cube(program, model)
+
+        glfw.swap_buffers(window)
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+
+
 
 ** Transformaciones en OpenGL
-Las transformaciones de OpenGL son fundamentales para mover, rotar y escalar los objetos en la escena.
+Las transformaciones de OpenGL son fundamentales para mover, rotar y
+escalar los objetos en la escena.
 
 *** Traslación
    Mueve un objeto de una posición a otra.
+   
+| 1 | 0 | 0 | tx |
+|---+---+---+----|
+| 0 | 1 | 0 | ty |
+|---+---+---+----|
+| 0 | 0 | 1 | tz |
 
+(x+- tx,y+-ty, z+-tz)
+
+
+ 
+   
 *** Rotación
    Gira un objeto alrededor de un eje.
+
+| cost | sent | cost |
+|------+------+------|
+| sent | cost | sent |
+|------+------+------|
+|      |      | cost |
+
+
 
 *** Escalado
    Cambia el tamaño del objeto.
 
+   | k | 0 | 0 |
+   |---+---+---|
+   | 0 | k | 0 |
+   |---+---+---|
+   | 0 | 0 | k |
+   
+
+
+   
 Ejemplo de cómo aplicar una transformación de escalado y rotación:
 
 #+begin_src python
@@ -6140,10 +6652,13 @@ Ejemplo de cómo aplicar una transformación de escalado y rotación:
   glPopMatrix()         # Restaurar la matriz original
 #+end_src
 
+#+RESULTS:
+
 
 
 ** Iluminación y Materiales
-En OpenGL, puedes aplicar iluminación y definir materiales para que los objetos interactúen con la luz de manera realista.
+En OpenGL, puedes aplicar iluminación y definir materiales para que
+los objetos interactúen con la luz de manera realista.
 
 *** Tipos de luces
    - **Luz ambiental**: Luz sin una dirección específica que ilumina
@@ -6158,9 +6673,10 @@ En OpenGL, puedes aplicar iluminación y definir materiales para que los objetos
 *** Materiales
    Puedes definir propiedades de los materiales, como el color y la
    reflectividad, para cada objeto.
-
+   
 ** Sombras y Efectos Avanzados
-   OpenGL también permite generar sombras y efectos avanzados como transparencia, texturas y sombreado por vértices.
+   OpenGL también permite generar sombras y efectos avanzados como
+   transparencia, texturas y sombreado por vértices.
 
 ** OpenGL Moderno: Shaders y el Pipeline Gráfico
 OpenGL moderno (a partir de OpenGL 3.0) ha evolucionado hacia un modelo basado en shaders. Los shaders son pequeños programas que se ejecutan en la GPU y permiten controlar de manera detallada el comportamiento del pipeline gráfico.
@@ -6187,6 +6703,9 @@ OpenGL moderno (a partir de OpenGL 3.0) ha evolucionado hacia un modelo basado e
   }
   """
 #+end_src
+
+
+
 
 ** Conclusión
 OpenGL es una herramienta poderosa y flexible para el renderizado de
