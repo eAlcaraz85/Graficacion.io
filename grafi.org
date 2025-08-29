@@ -674,7 +674,10 @@ Debes usar el que corresponda a tu terminal actual.
 
 
 * Introducción a la Graficación por computadora 
-   
+
+
+
+
 ** Graficación por Computadora
 
 La  Graficación por Computadora (o simplemente Graficación)
@@ -720,6 +723,185 @@ los aspectos clave de esta disciplina:
    - *Programación de shaders*
    - *Interacción gráfica y diseño de interfaces*
    
+
+
+** ¿Qué es una imagen? (definición formal)
+Una *imagen digital* puede verse como una función discreta bidimensional:
+\[
+I : D \subset \mathbb{Z}^2 \to \mathbb{R}^k
+\]
+donde \(D=\{0,\dots,M-1\}\times\{0,\dots,N-1\}\) es la malla de píxeles y \(k\) es el número de canales:
+- Escala de grises: \(k=1\), \(I(x,y)\in[0,L-1]\).
+- Color RGB: \(k=3\), \(I(x,y)=(R,G,B)\), con cada canal en \([0,L-1]\).
+
+*** Imagen continua, muestreo y cuantización
+- *Modelo continuo*: \(f:\mathbb{R}^2\to\mathbb{R}\).
+- *Muestreo espacial* (pasos \(T_x,T_y\)):
+\[
+I[m,n]=f(mT_x,nT_y),\quad m,n\in\mathbb{Z}.
+\]
+- *Cuantización* (niveles \(L\)):
+\[
+Q(I)=\operatorname{round}\!\left(\frac{L-1}{I_{\max}-I_{\min}}(I-I_{\min})\right).
+\]
+- *Criterio de Nyquist* (no aliasing): la frecuencia de muestreo debe ser al menos el doble de la frecuencia espacial máxima del contenido.
+
+*** Representación matricial y tensores
+Una imagen gris \(M\times N\) es una matriz:
+\[
+I=\big[I(m,n)\big]_{m=0..M-1,\;n=0..N-1}.
+\]
+Una imagen RGB es un tensor \(M\times N\times 3\) o, equivalentemente, tres matrices \(R,G,B\).
+
+*** Transformaciones de intensidad (píxel a píxel)
+- *Brillo*:
+\[
+I'(x,y)=I(x,y)+\beta.
+\]
+- *Contraste lineal*:
+\[
+I'(x,y)=\alpha\,I(x,y)+\beta.
+\]
+- *Clampeo* (saturación a \([0,L-1]\)):
+\[
+I''(x,y)=\min(\max(I'(x,y),0),L-1).
+\]
+
+*** Color: modelos y conversiones
+**** De RGB a escala de grises (luminancia aproximada)
+\[
+Y \approx 0.2126\,R + 0.7152\,G + 0.0722\,B.
+\]
+**** Transformación lineal genérica
+\[
+\begin{bmatrix} C_1\\ C_2\\ C_3\end{bmatrix}
+=
+\mathbf{M}
+\begin{bmatrix} R\\ G\\ B\end{bmatrix}
++
+\mathbf{b},
+\]
+con \(\mathbf{M}\in\mathbb{R}^{3\times 3}\), \(\mathbf{b}\in\mathbb{R}^3\). (Ej.: RGB↔YCbCr, RGB↔XYZ.)
+
+**** Geometría de imágenes (transformaciones espaciales)
+Una transformación geométrica mueve coordenadas:
+\[
+(x',y')=T(x,y).
+\]
+**** Afin (matriz \(2\times2\) + traslación)
+\[
+\begin{bmatrix}x'\\y'\end{bmatrix}
+=
+\underbrace{\begin{bmatrix}a&b\\c&d\end{bmatrix}}_{\text{rotación+escala+cisalla}}
+\begin{bmatrix}x\\y\end{bmatrix}
++
+\begin{bmatrix}t_x\\t_y\end{bmatrix}.
+\]
+**** Homografía (proyectiva) con coordenadas homogéneas
+\[
+\lambda\begin{bmatrix}x'\\y'\\1\end{bmatrix}
+=
+\mathbf{H}
+\begin{bmatrix}x\\y\\1\end{bmatrix},\quad \mathbf{H}\in\mathbb{R}^{3\times3}.
+\]
+**** Interpolación (para muestrear \(I\) en coordenadas no enteras)
+- *Vecino más cercano*: \(I'(x',y')=I(\operatorname{round}(x),\operatorname{round}(y))\).
+- *Bilineal*:
+\[
+I'(x',y')
+= \sum_{i\in\{0,1\}}\sum_{j\in\{0,1\}} w_{ij}\, I(\lfloor x\rfloor+i,\lfloor y\rfloor+j),
+\]
+con pesos \(w_{ij}\) que dependen de las distancias fraccionales.
+- *Bicúbica*: combinación cúbica 1D por filas y columnas.
+
+*** Filtrado espacial (convolución) y operadores diferenciales
+**** Convolución discreta 2D
+\[
+(I * h)(x,y) = \sum_{u}\sum_{v} I(x-u,y-v)\,h(u,v).
+\]
+**** Nucleos frecuentes (ejemplos)
+- *Media (blur) \(3\times3\)*:
+\[
+h=\frac{1}{9}\begin{bmatrix}1&1&1\\1&1&1\\1&1&1\end{bmatrix}.
+\]
+- *Gaussiano* (continua):
+\[
+G_\sigma(x,y)=\frac{1}{2\pi\sigma^2}\exp\!\left(-\frac{x^2+y^2}{2\sigma^2}\right).
+\]
+- *Sobel (gradiente)*:
+\[
+S_x=\begin{bmatrix}-1&0&1\\-2&0&2\\-1&0&1\end{bmatrix},\quad
+S_y=\begin{bmatrix}-1&-2&-1\\0&0&0\\1&2&1\end{bmatrix}.
+\]
+**** Magnitud y dirección del gradiente
+\[
+\nabla I = (I_x,I_y),\quad
+\|\nabla I\| = \sqrt{I_x^2+I_y^2},\quad
+\theta=\operatorname{atan2}(I_y,I_x).
+\]
+**** Laplaciano (detector de bordes)
+\[
+\nabla^2 I \approx
+\begin{bmatrix}0&1&0\\1&-4&1\\0&1&0\end{bmatrix} * I
+\quad\text{o}\quad
+\begin{bmatrix}1&1&1\\1&-8&1\\1&1&1\end{bmatrix} * I.
+\]
+**** LoG (Laplaciano de Gauss) — *suaviza y deriva*
+\[
+\text{LoG}_\sigma = \nabla^2(G_\sigma * I) = (\nabla^2 G_\sigma) * I.
+\]
+
+*** Dominio de la frecuencia (DFT 2D)
+*** Transformada discreta de Fourier 2D
+\[
+F(u,v)=\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}
+I(x,y)\,e^{-j2\pi\left(\frac{ux}{M}+\frac{vy}{N}\right)}.
+\]
+**** Inversa
+\[
+I(x,y)=\frac{1}{MN}\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}
+F(u,v)\,e^{+j2\pi\left(\frac{ux}{M}+\frac{vy}{N}\right)}.
+\]
+**** Relación con convolución
+\[
+\mathcal{F}\{I*h\} = \mathcal{F}\{I\}\cdot \mathcal{F}\{h\}.
+\]
+Filtros paso-bajo/alto pueden definirse multiplicando en frecuencia.
+
+*** Formación de imagen (modelo pinhole simplificado)
+**** Proyección perspectiva
+\[
+\lambda
+\begin{bmatrix}x\\y\\1\end{bmatrix}
+=n
+\mathbf{K}\,[\,\mathbf{R}\mid\mathbf{t}\,]
+\begin{bmatrix}X\\Y\\Z\\1\end{bmatrix},
+\quad
+\mathbf{K}=
+\begin{bmatrix}f_x&0&c_x\\0&f_y&c_y\\0&0&1\end{bmatrix}.
+\]
+\( (X,Y,Z) \) son coordenadas 3D; \( (x,y) \) coordenadas de imagen;
+\(\mathbf{K}\) = parámetros intrínsecos; \(\mathbf{R},\mathbf{t}\) = pose de la cámara.
+*** Iluminación lambertiana (intensidad difusa)
+\[
+I \propto \rho\,(\mathbf{n}\cdot\mathbf{l}),
+\]
+albedo \(\rho\), normal \(\mathbf{n}\), dirección de luz \(\mathbf{l}\).
+
+*** Estadística básica de intensidades (útil para normalización)
+- *Media*:
+\[
+\mu=\frac{1}{MN}\sum_{x,y} I(x,y).
+\]
+- *Varianza*:
+\[
+\sigma^2=\frac{1}{MN}\sum_{x,y}\big(I(x,y)-\mu\big)^2.
+\]
+- *Normalización z*:
+\[
+I'(x,y)=\frac{I(x,y)-\mu}{\sigma}.
+\]
+
 
 ** Modelos de Color: RGB, CMY, HSV y HSL
 
@@ -2123,6 +2305,9 @@ cv2.destroyAllWindows()
 
 #+RESULTS:
 : None
+
+
+
 
 
 
