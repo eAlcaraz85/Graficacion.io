@@ -510,7 +510,7 @@ rm -rf nombre_entorno
 
 
 
-* nEntornos virtuales en Python (Windows + VS Code)
+* Entornos virtuales en Python (Windows + VS Code)
 
 ** 1. ¿Qué es un entorno virtual?
 Un entorno virtual (venv) es un espacio aislado para instalar librerías
@@ -916,10 +916,18 @@ HSL.
 ** Modelo de Color RGB (Red, Green, Blue)
 
 ** Definición
-El modelo de color *RGB* (Rojo, Verde, Azul) es un modelo de mezcla aditiva, que se utiliza principalmente en dispositivos que emiten luz, como pantallas, cámaras digitales y proyectores. Los tres colores primarios (Rojo, Verde y Azul) se combinan de diferentes maneras para crear una amplia gama de colores.
+El modelo de color *RGB* (Rojo, Verde, Azul) es un modelo de mezcla
+aditiva, que se utiliza principalmente en dispositivos que emiten luz,
+como pantallas, cámaras digitales y proyectores. Los tres colores
+primarios (Rojo, Verde y Azul) se combinan de diferentes maneras para
+crear una amplia gama de colores.
 
 ** Funcionamiento de la Mezcla Aditiva
-En el modelo RGB, los colores se generan mediante la combinación de luz. Cuanto más intensa es la luz en cada canal (rojo, verde o azul), más claro es el color resultante. Cuando todas las intensidades están al máximo, el color resultante es blanco; cuando todas las intensidades están al mínimo, el resultado es negro.
+En el modelo RGB, los colores se generan mediante la combinación de
+luz. Cuanto más intensa es la luz en cada canal (rojo, verde o azul),
+más claro es el color resultante. Cuando todas las intensidades están
+al máximo, el color resultante es blanco; cuando todas las
+intensidades están al mínimo, el resultado es negro.
 
 - *Fórmula para la mezcla aditiva*:
   \[
@@ -1512,12 +1520,195 @@ En resumen, los *operadores puntuales* son una herramienta fundamental en el pro
 
 
 
+** Explicación detallada de los Momentos
+
+Los **momentos** son valores estadísticos calculados a partir de los píxeles de un objeto.
+Se utilizan para describir:
+- El área.
+- La posición.
+- La orientación.
+- La forma.
+
+OpenCV devuelve un diccionario con varios tipos de momentos:
+
+*** Momentos espaciales
+Son los básicos, dependen de la posición en la imagen.
+
+- m00 → Área del objeto.  
+  Es equivalente a la suma de todos los píxeles blancos dentro del contorno.
+
+- m10 y m01 → Primer momento en x y en y.  
+  Se usan para calcular el **centroide** (punto medio) de la figura:
+  \[
+  cx = \frac{m10}{m00}, \quad cy = \frac{m01}{m00}
+  \]
+
+- m20, m02, m11 → Segundo orden de los momentos espaciales.  
+  Describen cómo está distribuida la masa del objeto respecto a los ejes.
+
+*** Momentos centrales (mu)
+Los momentos centrales se calculan respecto al centroide, y por lo tanto son **invariantes a la traslación** (no importa dónde esté el objeto en la imagen).
+
+- mu20, mu02 → Relacionados con la dispersión horizontal y vertical.  
+  Sirven para calcular la **orientación y elongación** del objeto.
+
+- mu11 → Describe la correlación entre los ejes x e y.  
+  Si es cero, indica que la figura está alineada con los ejes.
+
+*** Momentos normalizados (nu)
+Se obtienen dividiendo los momentos centrales por una potencia de m00.  
+Esto hace que sean **invariantes a la escala** (el tamaño del objeto no afecta).
+
+*** Hu Moments
+Los **Hu Moments** (siete en total) son combinaciones matemáticas de los momentos normalizados.  
+Sus propiedades:
+- Invariantes a **traslación** (no importa la posición).  
+- Invariantes a **escala** (no importa el tamaño).  
+- Invariantes a **rotación** (no importa la orientación).  
+- Incluso algunos son invariantes a simetría espejo.  
+
+Se usan en reconocimiento de patrones.  
+Ejemplo: distinguir entre un círculo y un triángulo, aunque estén en posiciones diferentes y con tamaños distintos.
+
+*** Resumen gráfico
+1. m00 → área.  
+2. (m10, m01) → centroide.  
+3. (mu20, mu11, mu02) → forma y orientación.  
+4. Hu Moments → descripción única de la figura, útil para comparar.
+
+
+
+** Cálculo de los momentos espaciales (m00)
+
+Los **momentos espaciales** se definen como:
+
+\[
+m_{ij} = \sum_x \sum_y x^i \, y^j \, f(x,y)
+\]
+
+donde:
+- \(x, y\) → coordenadas de los píxeles.
+- \(i, j\) → orden del momento.
+- \(f(x,y)\) → valor del píxel (en imágenes binarias es 1 para blanco y 0 para negro).
+
+*** Ejemplo específico de m00
+Si \(i = 0\) y \(j = 0\):
+
+\[
+m_{00} = \sum_x \sum_y f(x,y)
+\]
+
+Esto significa que **m00 es simplemente la suma de todos los píxeles blancos dentro del contorno**.  
+En una imagen binaria (0 y 255), normalmente se normaliza para que los píxeles valgan 1 en blanco.  
+Por lo tanto:
+
+- Si un objeto ocupa 500 píxeles → \(m00 = 500\).  
+- Es equivalente al **área** del contorno.
+
+*** Ejemplo en código
+#+begin_src python :results output
+import cv2
+import numpy as np
+
+# Crear una imagen negra con un círculo blanco
+img = np.zeros((200,200), dtype=np.uint8)
+cv2.circle(img, (100,100), 40, 255, -1)
+
+# Calcular contornos
+contours, _ = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+# Momentos del primer contorno
+M = cv2.moments(contours[0])
+
+print("m00 (área):", M["m00"])
+print("Área con cv2.contourArea:", cv2.contourArea(contours[0]))
+#+end_src
+
+La salida mostrará que `m00` y el área calculada con `cv2.contourArea()` son prácticamente iguales.
+
+
+
+
+
+** Cálculo exacto del centroide con momentos
+
+La fórmula general para los momentos espaciales es:
+
+\[
+m_{ij} = \sum_x \sum_y x^i \, y^j \, f(x,y)
+\]
+
+donde:
+- \(f(x,y)\) = valor del píxel en la posición \((x,y)\).
+- En imágenes binarias, \(f(x,y) = 1\) si el píxel pertenece al objeto, y \(0\) en caso contrario.
+
+*** Fórmulas del centroide
+El centroide \((c_x, c_y)\) se obtiene como:
+
+\[
+c_x = \frac{m_{10}}{m_{00}}, \quad c_y = \frac{m_{01}}{m_{00}}
+\]
+
+donde:
+- \(m_{00}\) = área (número de píxeles del objeto).  
+- \(m_{10} = \sum_x \sum_y x \cdot f(x,y)\)  
+- \(m_{01} = \sum_x \sum_y y \cdot f(x,y)\)  
+
+Es decir:
+- \(m_{10}\) acumula la **suma de las coordenadas x de todos los píxeles** del objeto.  
+- \(m_{01}\) acumula la **suma de las coordenadas y de todos los píxeles** del objeto.  
+
+Cuando divides por \(m_{00}\) (área), lo que obtienes es el **promedio de las coordenadas x e y**, que corresponde al centro de masa.
+
+*** Ejemplo manual
+Supongamos un objeto con 4 píxeles en coordenadas:
+- (1,1), (1,2), (2,1), (2,2)
+
+Cálculos:
+- \(m_{00} = 4\)  (4 píxeles en total).  
+- \(m_{10} = 1+1+2+2 = 6\).  
+- \(m_{01} = 1+2+1+2 = 6\).  
+
+Centroide:
+\[
+c_x = \frac{6}{4} = 1.5, \quad c_y = \frac{6}{4} = 1.5
+\]
+
+*** Ejemplo en OpenCV
+#+begin_src python :results output
+import cv2
+import numpy as np
+
+# Imagen negra con un rectángulo blanco
+img = np.zeros((200,200), dtype=np.uint8)
+cv2.rectangle(img, (50,50), (150,150), 255, -1)
+
+# Contornos
+contours, _ = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+# Momentos
+M = cv2.moments(contours[0])
+
+# Centroide
+cx = int(M["m10"] / M["m00"])
+cy = int(M["m01"] / M["m00"])
+
+print("Centroide exacto:", (cx, cy))
+#+end_src
+
+Si corres este código, el centroide saldrá en **(100,100)**, que es justo el centro geométrico del rectángulo.
+
+
+
+
 ** Proceso de Multiplicación de una Matriz de Transformación por una Coordenada de Píxel
 
 Cuando aplicamos una transformación geométrica a una imagen, multiplicamos las coordenadas de cada píxel por una *matriz de transformación*. Este proceso se desglosa paso a paso de la siguiente manera.
 
 *** 1. Representación de las coordenadas en forma homogénea
-Las coordenadas \((x, y)\) de un píxel se convierten a *coordenadas homogéneas* para que las traslaciones puedan representarse mediante multiplicaciones de matrices. Un píxel en coordenadas homogéneas es:
+Las coordenadas \((x, y)\) de un píxel se convierten a *coordenadas
+homogéneas* para que las traslaciones puedan representarse mediante
+multiplicaciones de matrices. Un píxel en coordenadas homogéneas es:
 
 \begin{pmatrix}
 x \\
@@ -1784,7 +1975,7 @@ g)
 
 
 
-**   Landmarks 
+** Landmarks 
 En visión artificial, el término landmark se refiere a puntos clave
 dentro de una imagen que ayudan a describir características
 importantes de un objeto. Estos puntos de referencia se utilizan en
@@ -2367,26 +2558,23 @@ cv.destroyAllWindows()
 #+BEGIN_SRC python
 import numpy as np   # Importa la librería NumPy, útil para trabajar con arreglos y operaciones numéricas.
 import cv2 as cv     # Importa la librería OpenCV, que se utiliza para procesamiento de imágenes.
-
 # Crea una imagen de 500x500 píxeles, todos con valor 240 (gris claro). 
 # La imagen tiene solo un canal (escala de grises) y está inicializada con valores de tipo uint8 (enteros sin signo de 8 bits).
-img = np.ones((500, 500), dtype=np.uint8) * 240
-
+img = np.ones((500, 500), dtype=np.uint8)*255 
 # Modifica algunos píxeles específicos en las coordenadas (30, 30) a (30, 35) para que tengan un valor de 1 (casi negro).
 # Esto creará una pequeña línea vertical de 6 píxeles en la imagen de color casi negro.
-img[30, 30] = 1
+for i in range(30):
+    img[i, i] = 159
+
 img[30, 31] = 1
 img[30, 32] = 1
 img[30, 33] = 1
 img[30, 34] = 1
 img[30, 35] = 1
-
 # Muestra la imagen en una ventana con el título 'img'. 
 cv.imshow('img', img)
-
 # Espera a que el usuario presione cualquier tecla para continuar.
 cv.waitKey()
-
 # Cierra todas las ventanas creadas por OpenCV.
 cv.destroyAllWindows()
 
@@ -2418,28 +2606,29 @@ cv.destroyAllWindows()
 : None
 
 *** Split y Merge Imagen 
+
 #+BEGIN_SRC python :result output
 import cv2 as cv  # Importa OpenCV, que es útil para procesamiento de imágenes.
 import numpy as np  # Importa NumPy, que es útil para trabajar con matrices y operaciones numéricas.
 
 # Carga la imagen '1a.png' en color (1 para color, 0 para escala de grises).
-img = cv.imread('1a.png', 0)
+img = cv.imread('1a.png', 1)
 
 # Crea una imagen vacía (llena de ceros, que representa color negro) con el mismo tamaño que la imagen original.
 # La imagen vacía tiene un solo canal (escala de grises), por lo que se usa `img.shape[:2]` para obtener las dimensiones de la imagen (alto, ancho).
 img2 = np.zeros((img.shape[:2]), dtype=np.uint8)
 
 # Imprime las dimensiones de la imagen en la terminal (alto, ancho).
-print(img.shape[:2])
+print(img.shape)
 
 # Separa los canales rojo (r), verde (g) y azul (b) de la imagen utilizando la función `cv.split()`.
 r, g, b = cv.split(img)
 
 # Recombina los canales, pero los reorganiza como rojo, azul y verde (RBG en lugar de RGB).
 r2 = cv.merge([img2, img2, r])
-g2 = cv.merge([img2, g, img2])
+g2 = cv.merge([img, g, img2])
 b2 = cv.merge([b, img2, img2])
-img3 = cv.merge([b, r, g])
+#img3 = cv.merge([b, r, g])
 # Crea una imagen que contiene solo el canal rojo, llenando los otros dos canales (verde y azul) con ceros (negro).
 #r = cv.merge([r, img2, img2])
 
@@ -2451,26 +2640,13 @@ img3 = cv.merge([b, r, g])
 
 # Muestra la imagen original en una ventana llamada 'ejemplo'.
 cv.imshow('ejemplo', img)
+cv.imshow('npzeros', img2)
 cv.imshow('r2', r2)
 cv.imshow('g2', g2)
 cv.imshow('b2', b2)
 
-# Muestra la imagen que contiene solo el canal rojo.
-#cv.imshow('r', r)
-#cv.imshow('r2', r2)
-
-
-
-# Muestra la imagen que contiene solo el canal verde.
-#cv.imshow('g', g)
-#cv.imshow('g2', g2)
-
-# Muestra la imagen que contiene solo el canal azul.
-#cv.imshow('b', b)
-#cv.imshow('b2', b2)
-
 # Muestra la imagen con los canales reorganizados (RBG en lugar de RGB).
-cv.imshow('img3', img3)
+#cv.imshow('img3', img3)
 
 # Espera indefinidamente a que el usuario presione una tecla.
 cv.waitKey(0)
@@ -2481,8 +2657,10 @@ cv.destroyAllWindows()
 #+END_SRC
 
 #+RESULTS:
+: None
 
 *** Ejemplo de Operador Puntual en Imágenes 
+
 #+BEGIN_SRC python :results output
 import cv2 as cv
 
@@ -2491,12 +2669,7 @@ cv.imshow('salida', img)
 x,y=img.shape
 for i in range(x):
 	for j in range(y):
-		if(img[i,j]>150):
-			img[i,j]=255
-		else:
-			img[i,j]=0
-
-
+                img[i,j]=255-img[i,j]
 cv.imshow('negativo', img)
 print( img.shape, x , y)
 cv.waitKey(0)
@@ -2518,6 +2691,9 @@ while(True):
     ret, img = cap.read()
     if ret:
         cv.imshow('video', img)
+        img2 = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+        cv.imshow('video1', img2)
+        
         k =cv.waitKey(1) & 0xFF
         if k == 27 :
 	    break
@@ -2565,6 +2741,99 @@ cv.destroyAllWindows()
 : None
 
  
+*** Conteo
+
+#+BEGIN_SRC python
+import cv2
+import numpy as np
+
+COLOR_MANCHA = 90
+COLOR_FONDO = 200
+TIEMPO_ESPERA = 10 
+
+# --- Carga y preprocesamiento de la imagen ---
+img_gray = cv2.imread("salida1.png", cv2.IMREAD_GRAYSCALE)
+
+if img_gray is None:
+    print("Error: No se pudo cargar la imagen. Asegúrate de que 'salida1.png' existe.")
+    exit()
+
+# Redimensionar
+escala = 0.7
+dim = (int(img_gray.shape[1] * escala), int(img_gray.shape[0] * escala))
+img_gray_resized = cv2.resize(img_gray, dim, interpolation=cv2.INTER_AREA)
+
+# Binarizar: las manchas son 255 (blanco), el fondo es 0 (negro)
+_, binary_img = cv2.threshold(img_gray_resized, 127, 255, cv2.THRESH_BINARY)
+
+filas, cols = binary_img.shape
+visitado = np.zeros((filas, cols), dtype=bool)
+
+# Copiar la imagen binarizada para trabajar sobre ella
+output_img = binary_img.copy()
+
+vecinos_8_direcciones = [(-1, -1), (-1, 0), (-1, 1),
+                         (0, -1), (0, 1),
+                         (1, -1), (1, 0), (1, 1)]
+
+conteo = 0
+cv2.namedWindow("Img")
+
+for i in range(filas):
+    for j in range(cols):
+        # Si el usuario presiona 'q', salimos de los bucles
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+        if not visitado[i, j]:
+            # Si el píxel es una mancha, la procesamos y la contamos
+            if binary_img[i, j] == 255:
+                conteo += 1
+                
+                pila = [(i, j)]
+                visitado[i, j] = True
+                
+                while pila:
+                    x, y = pila.pop()
+                    output_img[x, y] = COLOR_MANCHA
+                    
+                    # Mostrar la animación para cada píxel de la mancha
+                    cv2.imshow("Proceso de Conteo y Pintado", output_img)
+                    if cv2.waitKey(TIEMPO_ESPERA) & 0xFF == ord('q'):
+                        break
+                    
+                    for dx, dy in vecinos_8_direcciones:
+                        nx, ny = x + dx, y + dy
+                        
+                        if 0 <= nx < filas and 0 <= ny < cols and \
+                           binary_img[nx, ny] == 255 and not visitado[nx, ny]:
+                            visitado[nx, ny] = True
+                            pila.append((nx, ny))
+                # Salir del bucle si se presionó 'q' en el bucle interno
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+            # Si el píxel es parte del fondo, lo coloreamos y lo marcamos como visitado
+            else:
+                output_img[i, j] = COLOR_FONDO
+                visitado[i, j] = True
+                
+                # Mostrar la animación para los píxeles del fondo
+                cv2.imshow("Proceso de Conteo y Pintado", output_img)
+                if cv2.waitKey(TIEMPO_ESPERA // 5) & 0xFF == ord('q'): # Fondo más rápido
+                    break
+    # Salir del bucle exterior si se presionó 'q'
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+# --- Mostrar el resultado final y limpiar ---
+print(f"Número de manchas encontradas: {conteo}")
+cv2.imshow("Resultado Final", output_img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+#+END_SRC
+
+#+RESULTS:
+
 
 ** Ejemplos de Transformaciones Geométricas en Modo Raw en Python
 
@@ -2590,8 +2859,8 @@ dx, dy = 100, 50
 # Trasladar la imagen
 for i in range(x):
     for j in range(y):
-        new_x = i + dy
-        new_y = j + dx
+        new_x = i + 20
+        new_y = j + 30
         if 0 <= new_x < x and 0 <= new_y < y:
             translated_img[new_x, new_y] = img[i, j]
 
@@ -2616,11 +2885,14 @@ import math
 # Cargar la imagen en escala de grises
 img = cv.imread('tr.png', 0)
 
+print(img.shape)
 # Obtener el tamaño de la imagen
 x, y = img.shape
 
 # Crear una imagen vacía para almacenar el resultado
+
 rotated_img = np.zeros((x*2, y*2), dtype=np.uint8)
+
 xx, yy = rotated_img.shape
 # Calcular el centro de la imagen
 cx, cy = int(x  // 2), int(y  // 2)
@@ -2646,6 +2918,86 @@ cv.destroyAllWindows()
 
 #+RESULTS:
 : None
+
+#+BEGIN_SRC python
+import cv2 as cv
+import numpy as np
+import math
+
+# Cargar la imagen en escala de grises
+img = cv.imread('tr.png', 0)
+
+print(img.shape)
+# Obtener el tamaño de la imagen
+x, y = img.shape
+
+# Crear una imagen vacía para almacenar el resultado
+
+rotated_img = np.zeros((x*2, y*2), dtype=np.uint8)
+
+xx, yy = rotated_img.shape
+# Calcular el centro de la imagen
+cx, cy = int(x  // 2), int(y  // 2)
+
+# Definir el ángulo de rotación (en grados) y convertirlo a radianes
+angle = 45
+theta = math.radians(angle)
+
+# Rotar la imagen
+for i in range(x):
+    for j in range(y):
+        new_x = int(((j * math.cos(theta) + i * math.sin(theta))+100)*2) 
+        new_y = int(((- j * math.sin(theta) + i * math.cos(theta))+100)*2)
+        if 0 <= new_x < yy and 0 <= new_y < xx:
+            rotated_img[new_y, new_x] = img[i, j]
+
+# Mostrar la imagen original y la rotada
+cv.imshow('Imagen Original', img)
+cv.imshow('Imagen Rotada (modo raw)', rotated_img)
+cv.waitKey(0)
+cv.destroyAllWindows()
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :results output 
+import cv2 as cv
+import numpy as np
+import math
+
+# Cargar la imagen en escala de grises
+img = cv.imread('tr.png', 0)
+print(img.shape)
+# Obtener el tamaño de la imagen
+x, y = img.shape
+# Crear una imagen vacía para almacenar el resultado
+img2 = np.ones((x*2, y*2), dtype=np.uint8)*234
+xx, yy = img2.shape
+print(xx, yy)
+# Calcular el centro de la imagen
+cy, cx = int(xx  // 2), int(yy  // 2)
+# Definir el ángulo de rotación (en grados) y convertirlo a radianes
+# Rotar la imagen
+for i in range(x):
+    for j in range(y):
+        new_x = j+cx 
+        new_y = i+cy
+        if 0 <= new_x < yy and 0 <= new_y < xx:
+            img2[new_y, new_x] = img[i, j]
+
+# Mostrar la imagen original y la rotada
+cv.imshow('Imagen Original', img)
+cv.imshow('Imagen Rotada (modo raw)', img2)
+cv.waitKey(0)
+cv.destroyAllWindows()
+#+END_SRC
+
+#+RESULTS:
+: (632, 635)
+: 1264 1270
+
+
+
 
 *** 3. Escalado
 El escalado cambia el tamaño de la imagen multiplicando las coordenadas por un factor de escala.
@@ -2772,7 +3124,8 @@ cv.destroyAllWindows()
 ** Ejemplos de Transformaciones Geométricas en Python usando OpenCV
 
 *** 1. Traslación
-En OpenCV, la traslación se realiza usando matrices de transformación afín y la función `cv.warpAffine()`.
+En OpenCV, la traslación se realiza usando matrices de transformación
+afín y la función `cv.warpAffine()`.
 
 #+BEGIN_SRC python
 import cv2 as cv
@@ -2843,7 +3196,7 @@ import numpy as np
 img = cv.imread('tr.png', 1)
 
 # Definir el factor de escala
-scale_x, scale_y = 0.5, 0.5
+scale_x, scale_y = 2, 2
 
 # Aplicar el escalado usando cv.resize()
 scaled_img = cv.resize(img, None, fx=scale_x, fy=scale_y)
@@ -2924,17 +3277,52 @@ cv.waitKey(0)
 cv.destroyAllWindows()
 #+END_SRC
 
+
 ** Primitivas de Dibujo
+
+
+#+BEGIN_SRC python
+import cv2 as cv
+import numpy as np 
+
+img = np.ones((500,500), np.uint8)*150 
+cv.rectangle(img, (10,10), (200,100), (34,56,100), -1)
+cv.circle(img, (255,255), 1, (23, 43, 144), -1 )
+cv.line(img, (255,255), (200,100), (23, 244, 144), 4)
+for i in range(400):
+    cv.circle(img, (i,i), i , (255, 0, 0), -1 )
+    cv.rectangle(img, (10+i,10), (200,100), (34,56,100), -1)
+
+    cv.imshow('img', img)
+    #img = np.ones((500,500,3), np.uint8)*150 
+    cv.waitKey(30)
+    
+
+
+
+
+cv.imshow('img', img)
+cv.waitKey(0)
+cv.destroyAllWindows()
+
+
+
+
+
+
+#+END_SRC
+
+#+RESULTS:
+: None
 
 #+BEGIN_SRC python
 
 import cv2 as cv
 import numpy as np
-
+valor::int
 img = np.ones((500, 500, 3), dtype=np.uint8)*255 
 cv.circle(img, (250, 250), 50, (0,234,21), -1)
 cv.circle(img, (250, 250), 30, (0,0,0), -1)
-
 cv.line(img, (1,1), (230, 240), (0,234,21), 3   )
 cv.rectangle(img, (20,20), (50,60), (0,0,0), 3 )
 pts = np.array([[10,5],[20,30],[70,20],[50,10]], np.int32)
@@ -2951,14 +3339,30 @@ cv.destroyAllWindows()
 #+RESULTS:
 : None
 
-#+BEGIN_SRC python
+#+BEGIN_SRC python :results output
 import cv2 as cv
 import numpy as np
 
-img = np.ones((500, 500, 3), dtype=np.uint8)*255 
+img = np.ones((500, 600, 3), dtype=np.uint8)*255 
+x,y,z  = img.shape
 
-for i in range(400):
+window_name = 'Image'
+
+# font
+font = cv.FONT_HERSHEY_SIMPLEX
+fontScale = 1
+color = (255, 0, 0)
+thickness = 2
+ 
+# Using cv2.putText() method
+
+
+for i in range(x):
+    for j in range(y):
     img = np.ones((500, 500, 3), dtype=np.uint8)*255 
+    cv.putText(img, 'x= '+str(i)+'y= '+str(i), (i-30, i-30), font, 
+                   fontScale, color, thickness, cv.LINE_AA)
+
     cv.circle(img, (0+i, 0+i), 20, (0,234,21), -1)
     cv.imshow('img', img)
     cv.waitKey(40)
@@ -2970,12 +3374,54 @@ cv.destroyAllWindows()
 #+END_SRC
 
 #+RESULTS:
+
+
+#+BEGIN_SRC python
+import cv2
+import numpy as np
+
+# Dimensiones de la ventana
+ancho, alto = 600, 400
+# Crear fondo negro
+fondo = np.zeros((alto, ancho, 3), dtype=np.uint8)
+# Posición inicial de la bolita
+pos_x, pos_y = 100, 100
+# Velocidades en x e y
+vel_x, vel_y = 5, 3
+# Radio de la bolita
+radio = 20
+
+while True:
+    # Crear fondo negro en cada frame
+    fondo = np.zeros((alto, ancho, 3), dtype=np.uint8)
+
+    # Dibujar bolita
+       
+    cv2.circle(fondo, (pos_x, pos_y), radio, (0, 255, 0), -1)
+#    
+#    # Actualizar posición
+    pos_x += vel_x
+    pos_y += vel_y
+#
+#    # Rebote en los bordes
+    if pos_x - radio <= 0 or pos_x + radio >= ancho:
+        vel_x = -vel_x
+    if pos_y - radio <= 0 or pos_y + radio >= alto:
+        vel_y = -vel_y
+#
+    # Mostrar ventana
+    cv2.imshow("Bolita en movimiento", fondo)
+
+    # Esperar 30 ms, salir con ESC
+    if cv2.waitKey(30) & 0xFF == 27:
+        break
+
+cv2.destroyAllWindows()
+
+#+END_SRC
+
+#+RESULTS:
 : None
-
-
-
-
-
 
 
 ** Parametricas
@@ -3270,7 +3716,7 @@ theta = 0  # Ángulo inicial
 
 while True:  # Bucle infinito
     # Limpiar la imagen
-    img = np.ones((width, height, 3), dtype=np.uint8) * 255
+    #img = np.ones((width, height, 3), dtype=np.uint8) * 255
     
     # Dibujar la curva completa desde 0 hasta theta
     for t in np.arange(0, theta, theta_increment):
@@ -3288,7 +3734,7 @@ while True:  # Bucle infinito
     
     # Mostrar la imagen
     cv2.imshow("Parametric Animation", img)
-    img = np.ones((width, height, 3), dtype=np.uint8) * 255
+    #img = np.ones((width, height, 3), dtype=np.uint8) * 255
     
     # Incrementar el ángulo
     theta += theta_increment
@@ -3309,31 +3755,35 @@ cv2.destroyAllWindows()
 #+RESULTS:
 : None
 
+
 ** Segmentación de color mediante el modelo de color HSV
 
-#+BEGIN_SRC python
+#+BEGIN_SRC python :results output
 import cv2 as cv
 
-img = cv.imread('tr.png', 1)
+img = cv.imread('salida.png', 1)
 hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 uba=(10, 255, 255)
 ubb=(0, 60 ,60)
-uba2=(180, 255, 255)
-ubb2=(172, 60,60)
+uba1=(180, 255, 255)
+ubb1=(170, 60 ,60)
 mask1 = cv.inRange(hsv, ubb, uba)
-mask2 = cv.inRange(hsv, ubb2, uba2)
-mask = mask1+mask2
+mask2 = cv.inRange(hsv, ubb1, uba1)
+mask = mask1 + mask2
 res = cv.bitwise_and(img, img, mask=mask)
 cv.imshow('mask1', mask1)
 cv.imshow('mask2', mask2)
 cv.imshow('mask', mask)
+
 cv.imshow('res', res)
+cv.imshow('img', img)
+cv.imshow('hsv', hsv)
+
 cv.waitKey(0)
 cv.destroyAllWindows()
 #+END_SRC
 
 #+RESULTS:
-: None
 
 #+BEGIN_SRC python
 import cv2 as cv
@@ -3344,8 +3794,8 @@ while(True):
     if ret:
         cv.imshow('video', img)
         hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
-        uba=(90, 255, 255)
-        ubb=(40, 40 ,40)
+        uba=(10, 255, 255)
+        ubb=(0, 40 ,40)
         mask = cv.inRange(hsv, ubb, uba)
         res = cv.bitwise_and(img, img, mask=mask)
         cv.imshow('res', res)
@@ -3362,9 +3812,146 @@ cv.destroyAllWindows()
 #+RESULTS:
 : None
 
+*** Dibujo utilizando seguimiento por colorn 
+#+BEGIN_SRC python
+import cv2
+import numpy as np
+
+# Captura de video
+cap = cv2.VideoCapture(0)
+
+# Crear un lienzo para dibujar
+ret, frame = cap.read()
+canvas = np.zeros_like(frame)
+
+# Rango de color (ejemplo: azul)
+lower_blue = np.array([0, 110, 110])
+upper_blue = np.array([10, 255, 255])
+
+# Variable para guardar último punto
+prev_center = None
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+    
+    # Convertir a HSV
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    
+    # Crear máscara
+    mask = cv2.inRange(hsv, lower_blue, upper_blue)
+    
+    # Filtrar ruido
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, np.ones((5,5), np.uint8))
+    mask = cv2.morphologyEx(mask, cv2.MORPH_DILATE, np.ones((5,5), np.uint8))
+    
+    # Buscar contornos
+    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+    if contours:
+        # Contorno más grande
+        c = max(contours, key=cv2.contourArea)
+        (x, y, w, h) = cv2.boundingRect(c)
+        center = (x + w//2, y + h//2)
+        
+        # Dibujar círculo en la cámara
+        cv2.circle(frame, center, 5, (0, 0, 255), -1)
+        
+        # Dibujar línea en el lienzo
+        if prev_center is not None:
+            cv2.line(canvas, prev_center, center, (0, 255, 0), 5)
+        
+        prev_center = center
+    else:
+        prev_center = None
+    
+    # Combinar la cámara y el lienzo
+    combined = cv2.add(frame, canvas)
+    
+    # Mostrar resultados
+    cv2.imshow("Dibujo", combined)
+    cv2.imshow("Mascara", mask)
+    
+    key = cv2.waitKey(1) & 0xFF
+    if key == 27:  # ESC para salir
+        break
+    elif key == ord('c'):  # 'c' para limpiar el lienzo
+        canvas = np.zeros_like(frame)
+
+cap.release()
+cv2.destroyAllWindows()
+
+#+END_SRC
+
+#+RESULTS:
+: None
 
 
+#+BEGIN_SRC python
+import cv2
+import numpy as np
 
+
+camara = cv2.VideoCapture(0)
+
+# Creamos un lienzo vacío
+ret, cuadro = camara.read()
+lienzo = np.zeros_like(cuadro)
+
+# Rango del color rojo en HSV
+u_bajo = np.array([0, 150, 50])
+u_alto = np.array([10, 255, 255])
+
+punto_anterior = None
+umbral_distancia = 50  # para evitar trazos largos falsos
+
+while True:
+    ret, cuadro = camara.read()
+    if not ret:
+        break
+    
+    hsv = cv2.cvtColor(cuadro, cv2.COLOR_BGR2HSV)
+    mascara = cv2.inRange(hsv, u_bajo, u_alto)
+
+    # Momentos de la máscara (para calcular el centroide)
+    momentos = cv2.moments(mascara)
+    if momentos["m00"] > 0:  # hay píxeles del color buscado
+        cx = int(momentos["m10"] / momentos["m00"])
+        cy = int(momentos["m01"] / momentos["m00"])
+        punto_actual = (cx, cy)
+
+        # Dibujar punto en la cámara
+        cv2.circle(cuadro, punto_actual, 5, (0, 0, 255), -1)
+
+        # Dibujar línea en el lienzo si el salto no es muy grande
+        if punto_anterior is not None:
+            distancia = np.linalg.norm(np.array(punto_actual) - np.array(punto_anterior))
+            if distancia < umbral_distancia:
+                cv2.line(lienzo, punto_anterior, punto_actual, (0, 255, 0), 5)
+
+        punto_anterior = punto_actual
+    else:
+        punto_anterior = None
+
+    combinado = cv2.add(cuadro, lienzo)
+
+    cv2.imshow("Dibujo en vivo", combinado)
+    cv2.imshow("Mascara de color", mascara)
+    cv2.imshow("Lienzo", lienzo)
+    tecla = cv2.waitKey(1) & 0xFF
+    if tecla == 27:  # ESC para salir
+        break
+    elif tecla == ord('c'):  # limpiar lienzo
+        lienzo = np.zeros_like(cuadro)
+
+camara.release()
+cv2.destroyAllWindows()
+
+#+END_SRC
+
+#+RESULTS:
+: None
 
 
 
@@ -3395,8 +3982,8 @@ while cap.isOpened():
     # Convertir el cuadro a espacio de color HSV
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     # Definir el rango de color de la tela (verde, en este caso) en HSV
-    lower_green = np.array([80, 40, 40])
-    upper_green = np.array([145, 255, 255])
+    lower_green = np.array([40, 40, 40])
+    upper_green = np.array([90, 255, 255])
     # Crear una máscara que detecta el área verde
     mask = cv2.inRange(hsv, lower_green, upper_green)
     # Refinar la máscara (puedes ajustar los parámetros para mejorar la detección)
