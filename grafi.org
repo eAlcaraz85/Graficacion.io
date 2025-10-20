@@ -9,7 +9,9 @@
 #+HTML_HEAD: <style> #content{max-width:1800px;}</style>
 #+HTML_HEAD: <style>pre.src {background-color: #303030; color: #e5e5e5;}</style>
 #+OPTIONS: tex:t
-#+HTML_MATHJAX: t
+#+HTML_MATHJAX: t 
+ 
+
 
 * Manual de Instalación de Git
 ** Instalación en Windows
@@ -1701,20 +1703,100 @@ Si corres este código, el centroide saldrá en **(100,100)**, que es justo el c
 
 
 
+
+** Comparación entre Centroide (momentos) y Bounding Box (extremos)
+
+Existen dos técnicas principales para calcular el "centro" de un objeto en visión
+por computadora:
+
+1. **Centroide (momentos)**:  
+   Calcula el centro de masa de todos los píxeles.  
+   Fórmula:
+   \[
+   c_x = \frac{m_{10}}{m_{00}}, \quad c_y = \frac{m_{01}}{m_{00}}
+   \]
+
+2. **Centro geométrico del bounding box (extremos)**:  
+   Calcula el punto medio entre el borde más lejano a la izquierda/derecha y el
+   más alto/bajo.  
+   Fórmula:
+   \[
+   c_x = \frac{x_{\min} + x_{\max}}{2}, \quad c_y = \frac{y_{\min} + y_{\max}}{2}
+   \]
+
+*** Código de ejemplo en Python
+#+begin_src python :results output
+import cv2
+import numpy as np
+
+# Crear imagen negra con dos manchas de diferente tamaño
+img = np.zeros((300,300), dtype=np.uint8)
+cv2.circle(img, (80,150), 40, 255, -1)   # Mancha grande
+cv2.circle(img, (200,150), 20, 255, -1)  # Mancha pequeña
+
+# Obtener contornos
+contours, _ = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+c = max(contours, key=cv2.contourArea)   # Tomamos el mayor contorno
+
+# ================================
+# Centroide con momentos
+M = cv2.moments(c)
+cx_m = int(M["m10"] / M["m00"])
+cy_m = int(M["m01"] / M["m00"])
+
+# ================================
+# Centro geométrico con bounding box
+x, y, w, h = cv2.boundingRect(c)
+cx_b = x + w//2
+cy_b = y + h//2
+
+# ================================
+# Dibujar resultados
+img_color = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+cv2.drawContours(img_color, [c], -1, (0,255,0), 2)           # Contorno en verde
+cv2.circle(img_color, (cx_m, cy_m), 5, (0,0,255), -1)        # Centroide en rojo
+cv2.circle(img_color, (cx_b, cy_b), 5, (255,0,0), -1)        # Bounding box en azul
+cv2.rectangle(img_color, (x,y), (x+w,y+h), (255,255,0), 2)   # Caja delimitadora
+
+cv2.imshow("Centroide (rojo) vs BoundingBox (azul)", img_color)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+print("Centroide (momentos):", (cx_m, cy_m))
+print("Centro bounding box:", (cx_b, cy_b))
+#+end_src
+
+*** Interpretación
+- El **centroide (rojo)** se desplazará hacia la mancha más grande porque
+  representa el promedio ponderado de todos los píxeles.  
+- El **centro del bounding box (azul)** estará justo en el medio de los extremos
+  del objeto, sin importar qué mancha sea más grande.
+
+*** Conclusión
+- El **centroide** es más preciso para análisis de formas y seguimiento.  
+- El **bounding box** es más rápido y se usa en detección de objetos.
+
+
+
+
+
+
 ** Proceso de Multiplicación de una Matriz de Transformación por una Coordenada de Píxel
 
 Cuando aplicamos una transformación geométrica a una imagen, multiplicamos las coordenadas de cada píxel por una *matriz de transformación*. Este proceso se desglosa paso a paso de la siguiente manera.
 
 *** 1. Representación de las coordenadas en forma homogénea
+
 Las coordenadas \((x, y)\) de un píxel se convierten a *coordenadas
 homogéneas* para que las traslaciones puedan representarse mediante
 multiplicaciones de matrices. Un píxel en coordenadas homogéneas es:
-
+\[
 \begin{pmatrix}
 x \\
 y \\
 1
 \end{pmatrix}
+\]
 
 *** 2. Definición de la matriz de transformación
 La matriz de transformación afín general tiene la forma:
@@ -1732,7 +1814,7 @@ a_{21} & a_{22} & t_y \\
 *** 3. Multiplicación de la matriz por las coordenadas
 Multiplicamos la matriz de transformación \(T\) por las coordenadas homogéneas \((x, y, 1)\) para obtener las nuevas coordenadas \((x', y', 1)\).
 
-$$
+
 \begin{pmatrix}
 x' \\
 y' \\
@@ -1740,8 +1822,8 @@ y' \\
 \end{pmatrix}
 =
 \begin{pmatrix}
-a_{11} & a_{12} & t_x \\
-a_{21} & a_{22} & t_y \\
+\cos(\theta) & -\sin(\theta) & 0 \\
+\sin(\theta) & \cos(\theta) & 0 \\
 0 & 0 & 1
 \end{pmatrix}
 \cdot
@@ -1750,7 +1832,6 @@ x \\
 y \\
 1
 \end{pmatrix}
-$$
 
 
 La multiplicación de matrices se desglosa a continuación.
@@ -2075,9 +2156,10 @@ pip install mediapipe opencv-python
 #+end_src
 
 *** Código para Detección de Manos en Tiempo Real
-Este es un un código en Python que detecta manos usando MediaPipe y OpenCV.
+Este es un un código en Python que detecta manos usando MediaPipe y
+OpenCV.
 
-#+begin_src python :results output :exports both
+#+begin_src python :results output 
 import cv2
 import mediapipe as mp
 
@@ -2099,7 +2181,7 @@ while cap.isOpened():
     
     # Detectar manos
     results = hands.process(frame_rgb)
-
+    print(results.multi_hand_landmarks)
     # Dibujar los puntos clave y conexiones
     if results.multi_hand_landmarks:
         for hand_landmarks in results.multi_hand_landmarks:
@@ -2149,7 +2231,7 @@ while cap.isOpened():
                 h,w,_ =frame.shape
                 x,y=int(landmark.x*w), int(landmark.y*h)
 
-                cv2.circle(frame, (x,y), 2, (12, 233,4), -1)
+                cv2.circle(frame, (x,y), 4, (12, 233,4), -1)
             #mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
     # Mostrar la imagen
@@ -2294,7 +2376,7 @@ cv2.destroyAllWindows()
 
 Landmark distancia Euclidiana
 
-#+BEGIN_SRC python
+#+BEGIN_SRC python :results output
 import cv2
 import mediapipe as mp
 import numpy as np
@@ -2310,7 +2392,6 @@ def reconocer_letra(hand_landmarks, frame):
     
     # Obtener coordenadas de los puntos clave en píxeles
     dedos = [(int(hand_landmarks.landmark[i].x * w), int(hand_landmarks.landmark[i].y * h)) for i in range(21)]
-    
     # Obtener posiciones clave (puntas de los dedos)
     pulgar, indice, medio, anular, meñique = dedos[4], dedos[8], dedos[12], dedos[16], dedos[20]
 
@@ -2329,6 +2410,10 @@ def reconocer_letra(hand_landmarks, frame):
     distancia_pulgar_indice = np.linalg.norm(np.array(pulgar) - np.array(indice))
     distancia_indice_medio = np.linalg.norm(np.array(indice) - np.array(medio))
 
+    cv2.circle(frame, (200,200), int(distancia_indice_medio), (244,34,12), 2)
+    
+
+    
     cv2.putText(frame, f'({distancia_pulgar_indice})', (pulgar[0]-40, pulgar[1] - 45), 
                 cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2, cv2.LINE_AA)
 
@@ -2362,7 +2447,7 @@ while cap.isOpened():
     # Dibujar puntos de la mano y reconocer letras
     if results.multi_hand_landmarks:
         for hand_landmarks in results.multi_hand_landmarks:
-            mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+            #mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
             
             # Identificar la letra
             letra_detectada = reconocer_letra(hand_landmarks, frame)
@@ -2385,7 +2470,6 @@ cv2.destroyAllWindows()
 #+END_SRC
 
 #+RESULTS:
-: None
 
 #+BEGIN_SRC python
 import cv2
@@ -2499,6 +2583,64 @@ cv2.destroyAllWindows()
 
 
 
+#+BEGIN_SRC python :results output
+import cv2
+import mediapipe as mp
+
+mp_hands = mp.solutions.hands
+mp_drawing = mp.solutions.drawing_utils
+hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.5)
+
+cap = cv2.VideoCapture(0)
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+    frame= cv2.flip(frame, 1)
+    # Convertir imagen a RGB (MediaPipe usa RGB)
+    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    results = hands.process(frame_rgb)
+
+    # Variables para guardar coordenadas
+    left_index = None
+    right_index = None
+
+    if results.multi_hand_landmarks and results.multi_handedness:
+        for hand_landmarks, handedness in zip(results.multi_hand_landmarks, results.multi_handedness):
+            label = handedness.classification[0].label  # 'Left' o 'Right'
+            #print(label)
+            h, w, _ = frame.shape
+
+            # Coordenadas del índice (landmark 8)
+            index_tip = hand_landmarks.landmark[8]
+            x, y = int(index_tip.x * w), int(index_tip.y * h)
+
+            # Guardar según la mano
+            if label == 'Left':
+                left_index = (x, y)
+            elif label == 'Right':
+                right_index = (x, y)
+
+            # Dibujar los landmarks (opcional)
+            mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+
+        # Si ambas manos detectadas, dibujar línea entre los dos puntos
+        if left_index and right_index:
+            cv2.line(frame, left_index, right_index, (0, 255, 0), 3)
+            cv2.circle(frame, left_index, 8, (255, 0, 0), -1)
+            cv2.circle(frame, right_index, 8, (0, 0, 255), -1)
+
+    cv2.imshow("Line", frame)
+
+    if cv2.waitKey(1) & 0xFF == 27:
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+#+END_SRC
+
+#+RESULTS:
 
 
 
@@ -2959,6 +3101,7 @@ cv.destroyAllWindows()
 #+END_SRC
 
 #+RESULTS:
+: None
 
 #+BEGIN_SRC python :results output 
 import cv2 as cv
@@ -3812,7 +3955,7 @@ cv.destroyAllWindows()
 #+RESULTS:
 : None
 
-*** Dibujo utilizando seguimiento por colorn 
+*** Dibujo utilizando seguimiento por color 
 #+BEGIN_SRC python
 import cv2
 import numpy as np
@@ -3913,7 +4056,8 @@ while True:
     
     hsv = cv2.cvtColor(cuadro, cv2.COLOR_BGR2HSV)
     mascara = cv2.inRange(hsv, u_bajo, u_alto)
-
+    cv2.rectangle(cuadro, (10,10), (100,100), (0,0,255), -1)
+    cv2.flip
     # Momentos de la máscara (para calcular el centroide)
     momentos = cv2.moments(mascara)
     if momentos["m00"] > 0:  # hay píxeles del color buscado
@@ -3923,7 +4067,8 @@ while True:
 
         # Dibujar punto en la cámara
         cv2.circle(cuadro, punto_actual, 5, (0, 0, 255), -1)
-
+        cv2.putText(cuadro, f'({int(cx)}, {int(cy)})', (int(cx-10), int(cy-10)), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 25, 235), 2)
+   
         # Dibujar línea en el lienzo si el salto no es muy grande
         if punto_anterior is not None:
             distancia = np.linalg.norm(np.array(punto_actual) - np.array(punto_anterior))
@@ -3982,8 +4127,8 @@ while cap.isOpened():
     # Convertir el cuadro a espacio de color HSV
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     # Definir el rango de color de la tela (verde, en este caso) en HSV
-    lower_green = np.array([40, 40, 40])
-    upper_green = np.array([90, 255, 255])
+    lower_green = np.array([170, 40, 40])
+    upper_green = np.array([180, 255, 255])
     # Crear una máscara que detecta el área verde
     mask = cv2.inRange(hsv, lower_green, upper_green)
     # Refinar la máscara (puedes ajustar los parámetros para mejorar la detección)
@@ -4440,13 +4585,13 @@ while True:
         n1 = int(w/2)
         frame = cv.rectangle(frame, (x,y), (x+w, y+h), (0, 255, 0), 2)
         frame = cv.circle(frame, (x+n1,y+m1), int(w/2) , (255, 0 ,0), 2 )
-        #img = 180- frame[y:y+h,x:x+w]
+        img = 180- frame[y:y+h,x:x+w]
         #count = count + 1   
     
     #name = '/home/likcos/imgs/cara'+str(count)+'.jpg'
     #cv.imwrite(name, frame)
     cv.imshow('rostros', frame)
-    #cv.imshow('cara', img)
+    cv.imshow('cara', img)
     
     k = cv.waitKey(1)
     if k == 27:
@@ -4472,13 +4617,14 @@ while True:
     for(x,y,w,h) in rostros:
         res = int((w+h)/8)
         img = cv.rectangle(img, (x,y), (x+w, y+h), (234, 23,23), 5)
-        img = cv.rectangle(img, (x,int(y+h/2)), (x+w, y+h), (0,255,0),5 )
+        #img = cv.rectangle(img, (x,int(y+h/2)), (x+w, y+h), (0,255,0),5 )
         img = cv.circle(img, (x + int(w*0.3), y + int(h*0.4)) , 21, (0, 0, 0), 2 )
         img = cv.circle(img, (x + int(w*0.7), y + int(h*0.4)) , 21, (0, 0, 0), 2 )
         img = cv.circle(img, (x + int(w*0.3), y + int(h*0.4)) , 20, (255, 255, 255), -1 )
         img = cv.circle(img, (x + int(w*0.7), y + int(h*0.4)) , 20, (255, 255, 255), -1 )
         img = cv.circle(img, (x + int(w*0.3), y + int(h*0.4)) , 5, (0, 0, 255), -1 )
         img = cv.circle(img, (x + int(w*0.7), y + int(h*0.4)) , 5, (0, 0, 255), -1 )
+        img = cv.rectangle(img, (x+10,y+10), (x+w, y+h), (234,0 ,234), 5)
 
     cv.imshow('img', img)
     if cv.waitKey(1)== ord('q'):
