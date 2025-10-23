@@ -2644,7 +2644,7 @@ cv2.destroyAllWindows()
 #+RESULTS:
 
 
-SRC python
+#+BEGIN_SRC python
 import cv2
 import mediapipe as mp
 

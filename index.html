@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
 <head>
-<!-- 2025-10-23 jue 13:18 -->
+<!-- 2025-10-23 jue 13:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Apuntes Graficación</title>
@@ -230,357 +230,357 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgbee7ec4">Manual de Instalación de Git</a>
+<li><a href="#org3283bd6">Manual de Instalación de Git</a>
 <ul>
-<li><a href="#org99a1753">Instalación en Windows</a></li>
-<li><a href="#orgfd1f0d4">Instalación en macOS</a>
+<li><a href="#org81dc5da">Instalación en Windows</a></li>
+<li><a href="#orgf3fa8c5">Instalación en macOS</a>
 <ul>
-<li><a href="#org9a7429a">Método recomendado: usando Homebrew</a></li>
-<li><a href="#org1997672">Método alternativo: paquete descargado</a></li>
+<li><a href="#orga8d5880">Método recomendado: usando Homebrew</a></li>
+<li><a href="#org7404f86">Método alternativo: paquete descargado</a></li>
 </ul>
 </li>
-<li><a href="#org144f1b9">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</a></li>
-<li><a href="#org6d207f9">Configuración básica de Git</a></li>
-<li><a href="#org4427188">Actualización de Git</a></li>
-<li><a href="#org4868d03">Configurar Llave SSH con GitHub</a>
+<li><a href="#orgc3ac950">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</a></li>
+<li><a href="#orgb07cb9d">Configuración básica de Git</a></li>
+<li><a href="#org96a581f">Actualización de Git</a></li>
+<li><a href="#org06a8abd">Configurar Llave SSH con GitHub</a>
 <ul>
-<li><a href="#org0f19966">1. Verificar si ya tienes una llave SSH</a></li>
-<li><a href="#org07956c2">2. Generar una nueva llave SSH</a></li>
-<li><a href="#org7c2ec7a">3. Añadir la llave SSH al agente SSH</a></li>
-<li><a href="#org6a3ce5d">4. Copiar la llave SSH pública</a></li>
-<li><a href="#org8b06a45">5. Añadir la llave SSH a GitHub</a></li>
-<li><a href="#org6a0f2d1">6. Probar la conexión SSH con GitHub</a></li>
-<li><a href="#orge135dfc">7. Usar la conexión SSH en repositorios de GitHub</a></li>
+<li><a href="#orgf96efbf">1. Verificar si ya tienes una llave SSH</a></li>
+<li><a href="#org03a1178">2. Generar una nueva llave SSH</a></li>
+<li><a href="#org2b6e0b5">3. Añadir la llave SSH al agente SSH</a></li>
+<li><a href="#org898d217">4. Copiar la llave SSH pública</a></li>
+<li><a href="#org5038a5a">5. Añadir la llave SSH a GitHub</a></li>
+<li><a href="#orgfc50cf7">6. Probar la conexión SSH con GitHub</a></li>
+<li><a href="#orgb260f10">7. Usar la conexión SSH en repositorios de GitHub</a></li>
 </ul>
 </li>
-<li><a href="#org8d3fbc4">Configurar Llave SSH con GitHub en Windows</a>
+<li><a href="#org82f8be1">Configurar Llave SSH con GitHub en Windows</a>
 <ul>
-<li><a href="#org9f8861a">1. Abrir Git Bash</a></li>
-<li><a href="#orge910a24">2. Verificar si ya tienes una llave SSH</a></li>
-<li><a href="#org59aab8b">3. Generar una nueva llave SSH</a></li>
-<li><a href="#org1b0baaf">4. Añadir la llave SSH al agente SSH</a></li>
-<li><a href="#orgabcc4b2">5. Copiar la llave SSH pública</a></li>
-<li><a href="#orga0f3e7f">6. Añadir la llave SSH a GitHub</a></li>
-<li><a href="#orgf8ac537">7. Probar la conexión SSH con GitHub</a></li>
-<li><a href="#orgcef3b87">8. Usar la conexión SSH en repositorios de GitHub</a></li>
+<li><a href="#orga03ebd7">1. Abrir Git Bash</a></li>
+<li><a href="#org9aba63d">2. Verificar si ya tienes una llave SSH</a></li>
+<li><a href="#org138a49a">3. Generar una nueva llave SSH</a></li>
+<li><a href="#org5ff8c33">4. Añadir la llave SSH al agente SSH</a></li>
+<li><a href="#orgd4c7a6b">5. Copiar la llave SSH pública</a></li>
+<li><a href="#org1d2c145">6. Añadir la llave SSH a GitHub</a></li>
+<li><a href="#orge3ac9c6">7. Probar la conexión SSH con GitHub</a></li>
+<li><a href="#org916e200">8. Usar la conexión SSH en repositorios de GitHub</a></li>
 </ul>
 </li>
-<li><a href="#orgc3eaab7">Manual de Git en Windows</a>
+<li><a href="#orge29cbfc">Manual de Git en Windows</a>
 <ul>
-<li><a href="#org3de07b0">1. Instalar Git en Windows</a></li>
-<li><a href="#org028aa49">2. Configurar Git</a></li>
-<li><a href="#org6986243">3. Clonar un repositorio</a></li>
-<li><a href="#org320ac7b">4. Comandos básicos de Git</a></li>
-<li><a href="#org78b9dfd">5. Actualizar el repositorio local</a></li>
-<li><a href="#orgee72158">6. Crear y cambiar de ramas (branches)</a></li>
-<li><a href="#org54c141e">7. Ver historial de commits</a></li>
-<li><a href="#orgbf62883">8. Configurar una llave SSH</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org4d15c2d">Manual de Instalación de Python en Windows</a>
-<ul>
-<li><a href="#org89f076b">Paso 1: Descarga de Python</a></li>
-<li><a href="#orgde2dfa0">Paso 2: Ejecutar el instalador</a></li>
-<li><a href="#orgef97205">Paso 3: Verificación de la instalación</a></li>
-<li><a href="#org8624b42">Paso 4: Instalar pip y otros paquetes</a></li>
-<li><a href="#org9e79920">Paso 5: Configuración del entorno de desarrollo</a></li>
-<li><a href="#orge9b3941">Paso 6: Actualización de Python (opcional)</a></li>
-</ul>
-</li>
-<li><a href="#org4eab63c">Entornos Virtuales en Python</a>
-<ul>
-<li><a href="#orgbf7bb2c">¿Qué es un Entorno Virtual?</a></li>
-<li><a href="#org5a72962">Preparación: Instalación de Python y Visual Studio Code</a></li>
-<li><a href="#orge32f5a6">Crear un Entorno Virtual</a></li>
-<li><a href="#org87bf433">Activar el Entorno Virtual</a></li>
-<li><a href="#orgbb5bdff">Configurar el Entorno Virtual en Visual Studio Code</a></li>
-<li><a href="#org038ee47">Instalar Paquetes en el Entorno Virtual</a></li>
-<li><a href="#org9486a75">Administrar Paquetes</a></li>
-<li><a href="#org7d0fd1f">Desactivar el Entorno Virtual</a></li>
-<li><a href="#orga069961">Eliminar el Entorno Virtual</a></li>
-<li><a href="#org44b1c49">Consejos Adicionales para VS Code</a></li>
-</ul>
-</li>
-<li><a href="#orgdaea50e">Entornos virtuales en Python (Windows + VS Code)</a>
-<ul>
-<li><a href="#orgfd453cc">1. ¿Qué es un entorno virtual?</a></li>
-<li><a href="#orgac0e9f7">2. Requisitos previos</a></li>
-<li><a href="#org23b514b">3. Crear un entorno virtual</a></li>
-<li><a href="#org9847f90">4. Activar el entorno virtual</a></li>
-<li><a href="#orgced03b7">5. Problema común: PowerShell bloquea Activate.ps1</a></li>
-<li><a href="#org80562b0">6. Desactivar el entorno virtual</a></li>
-<li><a href="#orgad891ac">7. Instalar paquetes dentro del entorno</a></li>
-<li><a href="#org6879de1">8. Integrar el entorno en VS Code</a></li>
-<li><a href="#org2d96c4c">9. Configuración manual en settings.json</a></li>
-<li><a href="#org3cf2961">10. Diferencias entre los scripts de activación</a></li>
-<li><a href="#org39af930">11. Buenas prácticas</a></li>
-<li><a href="#org54adf49">12. Ejemplo de flujo completo</a></li>
-</ul>
-</li>
-<li><a href="#org5e347d3">Introducción a la Graficación por computadora</a>
-<ul>
-<li><a href="#org84fcf3d">Graficación por Computadora</a>
-<ul>
-<li><a href="#org1830d9d">Objetivos de la Graficación por Computadora</a></li>
-<li><a href="#orgd95dfc9">Áreas de estudio en Graficación por Computadora</a></li>
-<li><a href="#org20ab2f6">Aplicaciones de la Graficación por Computadora</a></li>
-<li><a href="#org930f302">Temas principales en Graficación por Computadora</a></li>
-</ul>
-</li>
-<li><a href="#org2bebd2f">¿Qué es una imagen? (definición formal)</a>
-<ul>
-<li><a href="#org2324af4">Imagen continua, muestreo y cuantización</a></li>
-<li><a href="#org5cc9717">Representación matricial y tensores</a></li>
-<li><a href="#org1b50240">Transformaciones de intensidad (píxel a píxel)</a></li>
-<li><a href="#org4c13ec9">Color: modelos y conversiones</a></li>
-<li><a href="#org61f4a54">Filtrado espacial (convolución) y operadores diferenciales</a></li>
-<li><a href="#orgc99b800">Dominio de la frecuencia (DFT 2D)</a></li>
-<li><a href="#org8b6baab">Transformada discreta de Fourier 2D</a></li>
-<li><a href="#orge9e87f2">Formación de imagen (modelo pinhole simplificado)</a></li>
-<li><a href="#org64872da">Iluminación lambertiana (intensidad difusa)</a></li>
-<li><a href="#orgd5b5ec1">Estadística básica de intensidades (útil para normalización)</a></li>
-</ul>
-</li>
-<li><a href="#org0b78e9c">Modelos de Color: RGB, CMY, HSV y HSL</a></li>
-<li><a href="#org27aa3ec">Introducción</a></li>
-<li><a href="#org4ea2c66">Modelo de Color RGB (Red, Green, Blue)</a></li>
-<li><a href="#orge37bae2">Definición</a></li>
-<li><a href="#org805709f">Funcionamiento de la Mezcla Aditiva</a></li>
-<li><a href="#org38cea65">Espacio de Color RGB</a></li>
-<li><a href="#org49032dd">Conversión a otros modelos de color</a></li>
-<li><a href="#orga1ac37a">Aplicaciones del Modelo RGB</a></li>
-<li><a href="#org1046491">Limitaciones del Modelo RGB</a></li>
-<li><a href="#orgd51849f">Modelo CMY (Cyan, Magenta, Yellow)</a></li>
-<li><a href="#orga248369">Modelo HSV (Hue, Saturation, Value)</a>
-<ul>
-<li><a href="#org9034bfc">HSV opencv</a></li>
-<li><a href="#org1daf341">Tutorial: Umbrales en el Modelo de Color HSV</a></li>
-<li><a href="#org4b1b5db">Definición de los Parámetros del Modelo HSV</a></li>
-<li><a href="#orgf8d1a68">Detectar un color en el espacio HSV</a></li>
-<li><a href="#org99d1271">Explicación de los Parámetros:</a></li>
-<li><a href="#orgcb1376c">Ajustes de los Umbrales</a></li>
-<li><a href="#org4d9c96c">Ejemplo visual: Rango de tonos para detectar verde</a></li>
-<li><a href="#org46789ec">Uso de <code>cv2.inRange</code></a></li>
-</ul>
-</li>
-<li><a href="#orga08ea71">Modelo HSL (Hue, Saturation, Lightness)</a></li>
-<li><a href="#org7d58874">Función Bitwise opencv</a>
-<ul>
-<li><a href="#org1c4e1cf">Tutorial: Operaciones Bitwise en OpenCV</a></li>
-</ul>
-</li>
-<li><a href="#orge56835d">Definición: Operación Bit a Bit</a>
-<ul>
-<li><a href="#org4a2fb1e">Principales operaciones bit a bit</a></li>
-</ul>
-</li>
-<li><a href="#orgf9961f8">Operadores Puntuales</a>
-<ul>
-<li><a href="#org673331a">Definición</a></li>
-<li><a href="#org46acb3c">Características</a></li>
-<li><a href="#org1e6975e">Tipos de Operadores Puntuales</a></li>
-<li><a href="#orgcf5eccd">Aplicaciones de Operadores Puntuales</a></li>
-</ul>
-</li>
-<li><a href="#orgca664c4">Explicación detallada de los Momentos</a>
-<ul>
-<li><a href="#orgf1c2b3d">Momentos espaciales</a></li>
-<li><a href="#org4aa137b">Momentos centrales (mu)</a></li>
-<li><a href="#org41b7c6b">Momentos normalizados (nu)</a></li>
-<li><a href="#org43f021e">Hu Moments</a></li>
-<li><a href="#orgbd462a4">Resumen gráfico</a></li>
-</ul>
-</li>
-<li><a href="#org6eacc90">Cálculo de los momentos espaciales (m00)</a>
-<ul>
-<li><a href="#orgd11ec23">Ejemplo específico de m00</a></li>
-<li><a href="#orgf367d69">Ejemplo en código</a></li>
-</ul>
-</li>
-<li><a href="#orga8e8d18">Cálculo exacto del centroide con momentos</a>
-<ul>
-<li><a href="#org9612969">Fórmulas del centroide</a></li>
-<li><a href="#orgd053433">Ejemplo manual</a></li>
-<li><a href="#org4cc1128">Ejemplo en OpenCV</a></li>
-</ul>
-</li>
-<li><a href="#org46f3673">Comparación entre Centroide (momentos) y Bounding Box (extremos)</a>
-<ul>
-<li><a href="#orgddafc98">Código de ejemplo en Python</a></li>
-<li><a href="#orgf76cc22">Interpretación</a></li>
-<li><a href="#orgcd0a64f">Conclusión</a></li>
-</ul>
-</li>
-<li><a href="#org5fe5df4">Proceso de Multiplicación de una Matriz de Transformación por una Coordenada de Píxel</a>
-<ul>
-<li><a href="#org31f1c92">1. Representación de las coordenadas en forma homogénea</a></li>
-<li><a href="#org9aadad2">2. Definición de la matriz de transformación</a></li>
-<li><a href="#org5463a8b">3. Multiplicación de la matriz por las coordenadas</a></li>
-<li><a href="#org81c5c38">4. Resultado final</a></li>
-<li><a href="#org2fae5f2">Ejemplo concreto: Rotación</a></li>
-<li><a href="#org6bc2b33">Resumen del proceso</a></li>
-</ul>
-</li>
-<li><a href="#org8266117">Transformaciones Geométricas en Imágenes</a>
-<ul>
-<li><a href="#org00cf4bf">1. Traslación (Translation)</a></li>
-<li><a href="#org41cece2">2. Rotación (Rotation)</a></li>
-<li><a href="#org9f4ab5d">3. Escalado (Scalin</a></li>
-<li><a href="#org6094016">4. Cizallamiento (Shearing)</a></li>
-<li><a href="#orgcca7c33">5. Reflexión (Reflection)</a></li>
-<li><a href="#orga663c6d">6. Transformación Afín (Affine Transformation)</a></li>
-<li><a href="#orgcb89e7b">7. Transformación Proyectiva (Homografía)</a></li>
-<li><a href="#org93be4ed">Aplicaciones</a></li>
-</ul>
-</li>
-<li><a href="#org412bf88">Landmarks</a>
-<ul>
-<li><a href="#org0163b21">Fundamentos de los Landmarks</a></li>
-<li><a href="#orgf5fec27">Aplicaciones de los Landmarks</a></li>
-<li><a href="#orgca9366f">Métodos de Detección de Landmarks</a></li>
-</ul>
-</li>
-<li><a href="#orgc89df4f">Detección de Manos con MediaPipe en Python</a>
-<ul>
-<li><a href="#org6928302">Introducción</a></li>
-<li><a href="#org56c807b">Instalación de Dependencias</a></li>
-<li><a href="#orgb209c8d">Código para Detección de Manos en Tiempo Real</a></li>
-<li><a href="#orgf3cc6d0">Explicación del Código</a></li>
-<li><a href="#orgbedd9ab">Mejoras Posibles</a></li>
-<li><a href="#org8a6bc7e">Indice de dedos en mediapipe</a></li>
-<li><a href="#org0d27752">Medipipe Reconocimiento de letras</a></li>
+<li><a href="#org2329b2f">1. Instalar Git en Windows</a></li>
+<li><a href="#org662b285">2. Configurar Git</a></li>
+<li><a href="#org97d44e6">3. Clonar un repositorio</a></li>
+<li><a href="#orgd6ad420">4. Comandos básicos de Git</a></li>
+<li><a href="#org35f59c4">5. Actualizar el repositorio local</a></li>
+<li><a href="#org665ead5">6. Crear y cambiar de ramas (branches)</a></li>
+<li><a href="#org97612b5">7. Ver historial de commits</a></li>
+<li><a href="#org71028b8">8. Configurar una llave SSH</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org6d9f462">Actividades</a></li>
-<li><a href="#org78fefe8">Programación</a>
+<li><a href="#orga542c27">Manual de Instalación de Python en Windows</a>
 <ul>
-<li><a href="#org8dfd794">Programas Unidad 1</a>
-<ul>
-<li><a href="#org6cc544c">Creación de una Imagen</a></li>
-<li><a href="#org137a011">Cargar Imagen</a></li>
-<li><a href="#orgc635705">Split y Merge Imagen</a></li>
-<li><a href="#org94b72f8">Ejemplo de Operador Puntual en Imágenes</a></li>
-<li><a href="#org7ae5bba">Cargar vídeo Opencv</a></li>
-<li><a href="#org88bc8af">Conteo</a></li>
+<li><a href="#org1543f8d">Paso 1: Descarga de Python</a></li>
+<li><a href="#orgc36dfeb">Paso 2: Ejecutar el instalador</a></li>
+<li><a href="#org539b4d0">Paso 3: Verificación de la instalación</a></li>
+<li><a href="#orgb5bac4b">Paso 4: Instalar pip y otros paquetes</a></li>
+<li><a href="#orgf854c66">Paso 5: Configuración del entorno de desarrollo</a></li>
+<li><a href="#orgb25ac8a">Paso 6: Actualización de Python (opcional)</a></li>
 </ul>
 </li>
-<li><a href="#org822f11c">Ejemplos de Transformaciones Geométricas en Modo Raw en Python</a>
+<li><a href="#orgfd0ea03">Entornos Virtuales en Python</a>
 <ul>
-<li><a href="#orga6f2177">1. Traslación</a></li>
-<li><a href="#org0d0fa51">2. Rotación (alrededor del centro de la imagen)</a></li>
-<li><a href="#org6bdcdff">3. Escalado</a></li>
-<li><a href="#orga095689">4. Cizallamiento (Shearing)</a></li>
-<li><a href="#org15c8e46">5. Reflexión (Reflection)</a></li>
+<li><a href="#orge5b3284">¿Qué es un Entorno Virtual?</a></li>
+<li><a href="#orgce2a90b">Preparación: Instalación de Python y Visual Studio Code</a></li>
+<li><a href="#orgb8a3389">Crear un Entorno Virtual</a></li>
+<li><a href="#org4453dc4">Activar el Entorno Virtual</a></li>
+<li><a href="#orgfb5318b">Configurar el Entorno Virtual en Visual Studio Code</a></li>
+<li><a href="#org49b9bf6">Instalar Paquetes en el Entorno Virtual</a></li>
+<li><a href="#orgd4f1de3">Administrar Paquetes</a></li>
+<li><a href="#org1727b00">Desactivar el Entorno Virtual</a></li>
+<li><a href="#orgeed5b4e">Eliminar el Entorno Virtual</a></li>
+<li><a href="#org4a9dbc8">Consejos Adicionales para VS Code</a></li>
 </ul>
 </li>
-<li><a href="#org2fde9f1">Ejemplos de Transformaciones Geométricas en Python usando OpenCV</a>
+<li><a href="#org203522f">Entornos virtuales en Python (Windows + VS Code)</a>
 <ul>
-<li><a href="#org2ede79a">1. Traslación</a></li>
-<li><a href="#org98e1d93">2. Rotación (alrededor del centro de la imagen)</a></li>
-<li><a href="#orgea5779d">3. Escalado</a></li>
-<li><a href="#org87cf458">4. Cizallamiento (Shearing)</a></li>
-<li><a href="#org4f057e6">5. Reflexión (Reflection)</a></li>
+<li><a href="#org5635c72">1. ¿Qué es un entorno virtual?</a></li>
+<li><a href="#org92c7f9a">2. Requisitos previos</a></li>
+<li><a href="#org425127f">3. Crear un entorno virtual</a></li>
+<li><a href="#org557ed87">4. Activar el entorno virtual</a></li>
+<li><a href="#orgf1c3baf">5. Problema común: PowerShell bloquea Activate.ps1</a></li>
+<li><a href="#org3da14a5">6. Desactivar el entorno virtual</a></li>
+<li><a href="#orgb2fb40e">7. Instalar paquetes dentro del entorno</a></li>
+<li><a href="#org69c4ac0">8. Integrar el entorno en VS Code</a></li>
+<li><a href="#orgdcc8ff2">9. Configuración manual en settings.json</a></li>
+<li><a href="#org43be814">10. Diferencias entre los scripts de activación</a></li>
+<li><a href="#orga58cb7a">11. Buenas prácticas</a></li>
+<li><a href="#orgaeb469b">12. Ejemplo de flujo completo</a></li>
 </ul>
 </li>
-<li><a href="#org6bd30f6">Primitivas de Dibujo</a></li>
-<li><a href="#org22d609e">Parametricas</a></li>
-<li><a href="#org4523aa2">Segmentación de color mediante el modelo de color HSV</a>
+<li><a href="#org451b823">Introducción a la Graficación por computadora</a>
 <ul>
-<li><a href="#org539cd0b">Dibujo utilizando seguimiento por color</a></li>
-</ul>
-</li>
-<li><a href="#org8f455ac">Capa de Harry Potter</a></li>
-<li><a href="#orgb3a921b">Efecto Gris np.where</a>
+<li><a href="#orgf21baa6">Graficación por Computadora</a>
 <ul>
-<li><a href="#orgc186bf0">Sintaxis básica de np.where:</a></li>
-<li><a href="#org3ee25b1">Aplicación en procesamiento de imágenes:</a></li>
+<li><a href="#org65c5d5f">Objetivos de la Graficación por Computadora</a></li>
+<li><a href="#org5f7b2a6">Áreas de estudio en Graficación por Computadora</a></li>
+<li><a href="#orgd648a9a">Aplicaciones de la Graficación por Computadora</a></li>
+<li><a href="#org0b0030a">Temas principales en Graficación por Computadora</a></li>
 </ul>
 </li>
-<li><a href="#org3997a2c">Flujo optico</a></li>
-<li><a href="#orgb6d1b94">Ejemplo de clasificación utilizando Haarcascades</a></li>
-<li><a href="#org3553db7">OpenGL</a></li>
-<li><a href="#org3886c4b">Descripción de la Proyección Isométrica</a>
+<li><a href="#org11cc00d">¿Qué es una imagen? (definición formal)</a>
 <ul>
-<li><a href="#orgdb21245">Ejemplo de Proyección Isométrica en OpenCV</a></li>
+<li><a href="#orgf50e1e7">Imagen continua, muestreo y cuantización</a></li>
+<li><a href="#org4a16398">Representación matricial y tensores</a></li>
+<li><a href="#orgc68a5fe">Transformaciones de intensidad (píxel a píxel)</a></li>
+<li><a href="#org626ee70">Color: modelos y conversiones</a></li>
+<li><a href="#org0501188">Filtrado espacial (convolución) y operadores diferenciales</a></li>
+<li><a href="#org4cec193">Dominio de la frecuencia (DFT 2D)</a></li>
+<li><a href="#org24ad85f">Transformada discreta de Fourier 2D</a></li>
+<li><a href="#org5b47483">Formación de imagen (modelo pinhole simplificado)</a></li>
+<li><a href="#org4939149">Iluminación lambertiana (intensidad difusa)</a></li>
+<li><a href="#org7861a74">Estadística básica de intensidades (útil para normalización)</a></li>
 </ul>
 </li>
-<li><a href="#orgfecaf3e">Opengl Ejemplo</a></li>
-</ul>
-</li>
-<li><a href="#org58324d1">Introducción a OpenGL</a>
+<li><a href="#org99cde51">Modelos de Color: RGB, CMY, HSV y HSL</a></li>
+<li><a href="#org713a224">Introducción</a></li>
+<li><a href="#orgf1b159e">Modelo de Color RGB (Red, Green, Blue)</a></li>
+<li><a href="#org98a808f">Definición</a></li>
+<li><a href="#org449439b">Funcionamiento de la Mezcla Aditiva</a></li>
+<li><a href="#orgb9e96b0">Espacio de Color RGB</a></li>
+<li><a href="#orgb77d5ff">Conversión a otros modelos de color</a></li>
+<li><a href="#org467f8fd">Aplicaciones del Modelo RGB</a></li>
+<li><a href="#org5b6487b">Limitaciones del Modelo RGB</a></li>
+<li><a href="#org896ef80">Modelo CMY (Cyan, Magenta, Yellow)</a></li>
+<li><a href="#org42afd67">Modelo HSV (Hue, Saturation, Value)</a>
 <ul>
-<li><a href="#org3e4c08c">Características de OpenGL</a></li>
-<li><a href="#org45c50c8">Primeros pasos en OpenGL</a>
+<li><a href="#orgcad5635">HSV opencv</a></li>
+<li><a href="#orgd67efc6">Tutorial: Umbrales en el Modelo de Color HSV</a></li>
+<li><a href="#orgf189b56">Definición de los Parámetros del Modelo HSV</a></li>
+<li><a href="#orgb785d47">Detectar un color en el espacio HSV</a></li>
+<li><a href="#org85008ef">Explicación de los Parámetros:</a></li>
+<li><a href="#orgbeb865b">Ajustes de los Umbrales</a></li>
+<li><a href="#org7966ade">Ejemplo visual: Rango de tonos para detectar verde</a></li>
+<li><a href="#orgb6b2df2">Uso de <code>cv2.inRange</code></a></li>
+</ul>
+</li>
+<li><a href="#org9caec36">Modelo HSL (Hue, Saturation, Lightness)</a></li>
+<li><a href="#orgfbcc8ec">Función Bitwise opencv</a>
 <ul>
-<li><a href="#org9a8aa0d">Configuración del Entorno</a></li>
-<li><a href="#org9e44a32">Estructura básica de un programa OpenGL</a></li>
+<li><a href="#org819b0b7">Tutorial: Operaciones Bitwise en OpenCV</a></li>
 </ul>
 </li>
-<li><a href="#org1293092">Sistema de Coordenadas en OpenGL</a>
+<li><a href="#org3fc1358">Definición: Operación Bit a Bit</a>
 <ul>
-<li><a href="#org550e6cf">Coordenadas del Objeto</a></li>
-<li><a href="#org8d01d38">Coordenadas del Mundo</a></li>
-<li><a href="#orgafdd5a2">Coordenadas de Vista</a></li>
-<li><a href="#orgc636e5d">Coordenadas de Recorte</a></li>
-<li><a href="#org797b3fe">Coordenadas Normalizadas del Dispositivo (NDC)</a></li>
-<li><a href="#org7f9585c">Coordenadas de Pantalla</a></li>
+<li><a href="#org4d7f2ce">Principales operaciones bit a bit</a></li>
 </ul>
 </li>
-<li><a href="#org782854c">Primitivas de Dibujo en OpenGL</a>
+<li><a href="#org24a107e">Operadores Puntuales</a>
 <ul>
-<li><a href="#org92b104d">Código en Python con OpenGL y GLUT</a></li>
+<li><a href="#orgeafa4af">Definición</a></li>
+<li><a href="#org7f0ae7b">Características</a></li>
+<li><a href="#org4f41c43">Tipos de Operadores Puntuales</a></li>
+<li><a href="#org947330b">Aplicaciones de Operadores Puntuales</a></li>
 </ul>
 </li>
-<li><a href="#org3c3ef62">Tutorial de gluPerspective en OpenGL</a>
+<li><a href="#orgbddcde7">Explicación detallada de los Momentos</a>
 <ul>
-<li><a href="#orgb488390">¿Qué es gluPerspective?</a></li>
-<li><a href="#orge42f5b6">Sintaxis</a></li>
-<li><a href="#orgbf3bb47">Ejemplo Básico de Uso de gluPerspective</a></li>
+<li><a href="#org04bcb88">Momentos espaciales</a></li>
+<li><a href="#org971ceb2">Momentos centrales (mu)</a></li>
+<li><a href="#org296762c">Momentos normalizados (nu)</a></li>
+<li><a href="#orgab83e2c">Hu Moments</a></li>
+<li><a href="#org31f8ccf">Resumen gráfico</a></li>
 </ul>
 </li>
-<li><a href="#orgce6a7af">Objetos de Glut</a></li>
-<li><a href="#orgc0fd886">Transformaciones en OpenGL</a>
+<li><a href="#org611a7ff">Cálculo de los momentos espaciales (m00)</a>
 <ul>
-<li><a href="#org8651638">Traslación</a></li>
-<li><a href="#org332c71d">Rotación</a></li>
-<li><a href="#orgb04a19b">Escalado</a></li>
+<li><a href="#orga882579">Ejemplo específico de m00</a></li>
+<li><a href="#orgab66080">Ejemplo en código</a></li>
 </ul>
 </li>
-<li><a href="#org5dccb33">Iluminación y Materiales</a>
+<li><a href="#orga5fd8d1">Cálculo exacto del centroide con momentos</a>
 <ul>
-<li><a href="#orgd59b968">Tipos de luces</a></li>
-<li><a href="#org8ad779c">Materiales</a></li>
+<li><a href="#orgf8ee923">Fórmulas del centroide</a></li>
+<li><a href="#org0ce570b">Ejemplo manual</a></li>
+<li><a href="#orgba42614">Ejemplo en OpenCV</a></li>
 </ul>
 </li>
-<li><a href="#org643fde1">Sombras y Efectos Avanzados</a></li>
-<li><a href="#org75c647d">OpenGL Moderno: Shaders y el Pipeline Gráfico</a>
+<li><a href="#orga43b62f">Comparación entre Centroide (momentos) y Bounding Box (extremos)</a>
 <ul>
-<li><a href="#org04a8d0f">Vertex Shader</a></li>
-<li><a href="#org1d80423">Fragment Shader</a></li>
-<li><a href="#orga8d0c89">Geometry Shader</a></li>
+<li><a href="#org5b0ce12">Código de ejemplo en Python</a></li>
+<li><a href="#org492cbe1">Interpretación</a></li>
+<li><a href="#org0ad55b0">Conclusión</a></li>
 </ul>
 </li>
-<li><a href="#org0b5d49b">Conclusión</a></li>
+<li><a href="#orgb6b4998">Proceso de Multiplicación de una Matriz de Transformación por una Coordenada de Píxel</a>
+<ul>
+<li><a href="#orge8caa40">1. Representación de las coordenadas en forma homogénea</a></li>
+<li><a href="#org08c3653">2. Definición de la matriz de transformación</a></li>
+<li><a href="#org398982d">3. Multiplicación de la matriz por las coordenadas</a></li>
+<li><a href="#org804a852">4. Resultado final</a></li>
+<li><a href="#org0df2658">Ejemplo concreto: Rotación</a></li>
+<li><a href="#orgf6872f4">Resumen del proceso</a></li>
 </ul>
 </li>
-<li><a href="#org908fb82">Proyecto Final</a></li>
+<li><a href="#org6bcc0fb">Transformaciones Geométricas en Imágenes</a>
+<ul>
+<li><a href="#org76e47e4">1. Traslación (Translation)</a></li>
+<li><a href="#orga5900d1">2. Rotación (Rotation)</a></li>
+<li><a href="#org1f0a456">3. Escalado (Scalin</a></li>
+<li><a href="#org1f3d1d8">4. Cizallamiento (Shearing)</a></li>
+<li><a href="#org6421907">5. Reflexión (Reflection)</a></li>
+<li><a href="#org9d1f636">6. Transformación Afín (Affine Transformation)</a></li>
+<li><a href="#orga30e839">7. Transformación Proyectiva (Homografía)</a></li>
+<li><a href="#org9b5a4ad">Aplicaciones</a></li>
+</ul>
+</li>
+<li><a href="#orge062e80">Landmarks</a>
+<ul>
+<li><a href="#org144d79c">Fundamentos de los Landmarks</a></li>
+<li><a href="#orgc0f3420">Aplicaciones de los Landmarks</a></li>
+<li><a href="#orgcbc6c33">Métodos de Detección de Landmarks</a></li>
+</ul>
+</li>
+<li><a href="#org4d19476">Detección de Manos con MediaPipe en Python</a>
+<ul>
+<li><a href="#orgc912656">Introducción</a></li>
+<li><a href="#orgbdb1185">Instalación de Dependencias</a></li>
+<li><a href="#orgfedb217">Código para Detección de Manos en Tiempo Real</a></li>
+<li><a href="#orgfd5dd5d">Explicación del Código</a></li>
+<li><a href="#orgdebf91b">Mejoras Posibles</a></li>
+<li><a href="#orgeea0fb8">Indice de dedos en mediapipe</a></li>
+<li><a href="#orgae04e39">Medipipe Reconocimiento de letras</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgc07d178">Actividades</a></li>
+<li><a href="#org23b316d">Programación</a>
+<ul>
+<li><a href="#org33f431e">Programas Unidad 1</a>
+<ul>
+<li><a href="#org7c56859">Creación de una Imagen</a></li>
+<li><a href="#orgd87b4cb">Cargar Imagen</a></li>
+<li><a href="#org206c302">Split y Merge Imagen</a></li>
+<li><a href="#org79b5db9">Ejemplo de Operador Puntual en Imágenes</a></li>
+<li><a href="#org6336c5f">Cargar vídeo Opencv</a></li>
+<li><a href="#orgdb9e71a">Conteo</a></li>
+</ul>
+</li>
+<li><a href="#org43c044e">Ejemplos de Transformaciones Geométricas en Modo Raw en Python</a>
+<ul>
+<li><a href="#org9217d04">1. Traslación</a></li>
+<li><a href="#org175d851">2. Rotación (alrededor del centro de la imagen)</a></li>
+<li><a href="#org4005d23">3. Escalado</a></li>
+<li><a href="#org8cd8e26">4. Cizallamiento (Shearing)</a></li>
+<li><a href="#orge5fb885">5. Reflexión (Reflection)</a></li>
+</ul>
+</li>
+<li><a href="#orgde24532">Ejemplos de Transformaciones Geométricas en Python usando OpenCV</a>
+<ul>
+<li><a href="#org40ed702">1. Traslación</a></li>
+<li><a href="#orgf19b4f6">2. Rotación (alrededor del centro de la imagen)</a></li>
+<li><a href="#org38bf908">3. Escalado</a></li>
+<li><a href="#orgf32e9a1">4. Cizallamiento (Shearing)</a></li>
+<li><a href="#org2d4fa87">5. Reflexión (Reflection)</a></li>
+</ul>
+</li>
+<li><a href="#org99f0fc3">Primitivas de Dibujo</a></li>
+<li><a href="#orgf3b5f80">Parametricas</a></li>
+<li><a href="#org9ec3d26">Segmentación de color mediante el modelo de color HSV</a>
+<ul>
+<li><a href="#org6ca4c8e">Dibujo utilizando seguimiento por color</a></li>
+</ul>
+</li>
+<li><a href="#orga61f912">Capa de Harry Potter</a></li>
+<li><a href="#orga838f02">Efecto Gris np.where</a>
+<ul>
+<li><a href="#org43c40d2">Sintaxis básica de np.where:</a></li>
+<li><a href="#org4269547">Aplicación en procesamiento de imágenes:</a></li>
+</ul>
+</li>
+<li><a href="#org8f590da">Flujo optico</a></li>
+<li><a href="#org1db770c">Ejemplo de clasificación utilizando Haarcascades</a></li>
+<li><a href="#org163439c">OpenGL</a></li>
+<li><a href="#org9f552bc">Descripción de la Proyección Isométrica</a>
+<ul>
+<li><a href="#org36f096b">Ejemplo de Proyección Isométrica en OpenCV</a></li>
+</ul>
+</li>
+<li><a href="#org429081b">Opengl Ejemplo</a></li>
+</ul>
+</li>
+<li><a href="#org8d270a4">Introducción a OpenGL</a>
+<ul>
+<li><a href="#orga63b73d">Características de OpenGL</a></li>
+<li><a href="#org4dc2386">Primeros pasos en OpenGL</a>
+<ul>
+<li><a href="#org7f80af1">Configuración del Entorno</a></li>
+<li><a href="#orgfacd407">Estructura básica de un programa OpenGL</a></li>
+</ul>
+</li>
+<li><a href="#orgd293fce">Sistema de Coordenadas en OpenGL</a>
+<ul>
+<li><a href="#org69637a2">Coordenadas del Objeto</a></li>
+<li><a href="#org467d71d">Coordenadas del Mundo</a></li>
+<li><a href="#org389a115">Coordenadas de Vista</a></li>
+<li><a href="#orgf54003f">Coordenadas de Recorte</a></li>
+<li><a href="#orgf799521">Coordenadas Normalizadas del Dispositivo (NDC)</a></li>
+<li><a href="#org4abbbcc">Coordenadas de Pantalla</a></li>
+</ul>
+</li>
+<li><a href="#orgef74647">Primitivas de Dibujo en OpenGL</a>
+<ul>
+<li><a href="#org4714e0b">Código en Python con OpenGL y GLUT</a></li>
+</ul>
+</li>
+<li><a href="#org4d5820e">Tutorial de gluPerspective en OpenGL</a>
+<ul>
+<li><a href="#org42055cb">¿Qué es gluPerspective?</a></li>
+<li><a href="#org59e4563">Sintaxis</a></li>
+<li><a href="#orgc126563">Ejemplo Básico de Uso de gluPerspective</a></li>
+</ul>
+</li>
+<li><a href="#org244947a">Objetos de Glut</a></li>
+<li><a href="#org50f1ea5">Transformaciones en OpenGL</a>
+<ul>
+<li><a href="#org2651597">Traslación</a></li>
+<li><a href="#org384af8d">Rotación</a></li>
+<li><a href="#orgc925354">Escalado</a></li>
+</ul>
+</li>
+<li><a href="#org31e03b5">Iluminación y Materiales</a>
+<ul>
+<li><a href="#orgd87d2b7">Tipos de luces</a></li>
+<li><a href="#orgd05c201">Materiales</a></li>
+</ul>
+</li>
+<li><a href="#org21657a6">Sombras y Efectos Avanzados</a></li>
+<li><a href="#org23d66e8">OpenGL Moderno: Shaders y el Pipeline Gráfico</a>
+<ul>
+<li><a href="#org64ab5f7">Vertex Shader</a></li>
+<li><a href="#org6947a55">Fragment Shader</a></li>
+<li><a href="#org7580adf">Geometry Shader</a></li>
+</ul>
+</li>
+<li><a href="#org459f1c1">Conclusión</a></li>
+</ul>
+</li>
+<li><a href="#org4ca8020">Proyecto Final</a></li>
 </ul>
 </div>
 </div>
 
 
 
-<div id="outline-container-orgbee7ec4" class="outline-2">
-<h2 id="orgbee7ec4">Manual de Instalación de Git</h2>
-<div class="outline-text-2" id="text-orgbee7ec4">
+<div id="outline-container-org3283bd6" class="outline-2">
+<h2 id="org3283bd6">Manual de Instalación de Git</h2>
+<div class="outline-text-2" id="text-org3283bd6">
 </div>
-<div id="outline-container-org99a1753" class="outline-3">
-<h3 id="org99a1753">Instalación en Windows</h3>
-<div class="outline-text-3" id="text-org99a1753">
+<div id="outline-container-org81dc5da" class="outline-3">
+<h3 id="org81dc5da">Instalación en Windows</h3>
+<div class="outline-text-3" id="text-org81dc5da">
 <ul class="org-ul">
 <li>Descarga el instalador desde [<a href="https://git-scm.com/">https://git-scm.com/</a>].</li>
 </ul>
@@ -610,13 +610,13 @@
 </div>
 </div>
 
-<div id="outline-container-orgfd1f0d4" class="outline-3">
-<h3 id="orgfd1f0d4">Instalación en macOS</h3>
-<div class="outline-text-3" id="text-orgfd1f0d4">
+<div id="outline-container-orgf3fa8c5" class="outline-3">
+<h3 id="orgf3fa8c5">Instalación en macOS</h3>
+<div class="outline-text-3" id="text-orgf3fa8c5">
 </div>
-<div id="outline-container-org9a7429a" class="outline-4">
-<h4 id="org9a7429a">Método recomendado: usando Homebrew</h4>
-<div class="outline-text-4" id="text-org9a7429a">
+<div id="outline-container-orga8d5880" class="outline-4">
+<h4 id="orga8d5880">Método recomendado: usando Homebrew</h4>
+<div class="outline-text-4" id="text-orga8d5880">
 <ul class="org-ul">
 <li>Si tienes Homebrew instalado, abre la terminal y ejecuta:</li>
 </ul>
@@ -627,9 +627,9 @@
 </div>
 </div>
 
-<div id="outline-container-org1997672" class="outline-4">
-<h4 id="org1997672">Método alternativo: paquete descargado</h4>
-<div class="outline-text-4" id="text-org1997672">
+<div id="outline-container-org7404f86" class="outline-4">
+<h4 id="org7404f86">Método alternativo: paquete descargado</h4>
+<div class="outline-text-4" id="text-org7404f86">
 <ul class="org-ul">
 <li>Descarga el instalador desde [<a href="https://git-scm.com/">https://git-scm.com/</a>].</li>
 <li>Ejecuta el paquete descargado (.dmg).</li>
@@ -647,9 +647,9 @@ Verifica la instalación abriendo la terminal y ejecutando:
 </div>
 </div>
 
-<div id="outline-container-org144f1b9" class="outline-3">
-<h3 id="org144f1b9">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</h3>
-<div class="outline-text-3" id="text-org144f1b9">
+<div id="outline-container-orgc3ac950" class="outline-3">
+<h3 id="orgc3ac950">Instalación en Linux (Distribuciones basadas en Debian/Ubuntu)</h3>
+<div class="outline-text-3" id="text-orgc3ac950">
 <ul class="org-ul">
 <li><p>
 Abre la terminal y ejecuta:
@@ -671,9 +671,9 @@ Verifica la instalación ejecutando:
 </div>
 </div>
 
-<div id="outline-container-org6d207f9" class="outline-3">
-<h3 id="org6d207f9">Configuración básica de Git</h3>
-<div class="outline-text-3" id="text-org6d207f9">
+<div id="outline-container-orgb07cb9d" class="outline-3">
+<h3 id="orgb07cb9d">Configuración básica de Git</h3>
+<div class="outline-text-3" id="text-orgb07cb9d">
 <ul class="org-ul">
 <li><p>
 Configura tu nombre de usuario:
@@ -702,9 +702,9 @@ Verifica la configuración:
 </div>
 </div>
 
-<div id="outline-container-org4427188" class="outline-3">
-<h3 id="org4427188">Actualización de Git</h3>
-<div class="outline-text-3" id="text-org4427188">
+<div id="outline-container-org96a581f" class="outline-3">
+<h3 id="org96a581f">Actualización de Git</h3>
+<div class="outline-text-3" id="text-org96a581f">
 <ul class="org-ul">
 <li><b>Windows</b>: Ejecuta el instalador más reciente desde el sitio oficial.</li>
 <li><p>
@@ -727,13 +727,13 @@ Verifica la configuración:
 
 
 
-<div id="outline-container-org4868d03" class="outline-3">
-<h3 id="org4868d03">Configurar Llave SSH con GitHub</h3>
-<div class="outline-text-3" id="text-org4868d03">
+<div id="outline-container-org06a8abd" class="outline-3">
+<h3 id="org06a8abd">Configurar Llave SSH con GitHub</h3>
+<div class="outline-text-3" id="text-org06a8abd">
 </div>
-<div id="outline-container-org0f19966" class="outline-4">
-<h4 id="org0f19966">1. Verificar si ya tienes una llave SSH</h4>
-<div class="outline-text-4" id="text-org0f19966">
+<div id="outline-container-orgf96efbf" class="outline-4">
+<h4 id="orgf96efbf">1. Verificar si ya tienes una llave SSH</h4>
+<div class="outline-text-4" id="text-orgf96efbf">
 <ul class="org-ul">
 <li><p>
 Abre la terminal y ejecuta el siguiente comando para verificar si ya tienes llaves SSH generadas:
@@ -748,9 +748,9 @@ Abre la terminal y ejecuta el siguiente comando para verificar si ya tienes llav
 </div>
 </div>
 
-<div id="outline-container-org07956c2" class="outline-4">
-<h4 id="org07956c2">2. Generar una nueva llave SSH</h4>
-<div class="outline-text-4" id="text-org07956c2">
+<div id="outline-container-org03a1178" class="outline-4">
+<h4 id="org03a1178">2. Generar una nueva llave SSH</h4>
+<div class="outline-text-4" id="text-org03a1178">
 <ul class="org-ul">
 <li><p>
 Si no tienes una llave SSH, genera una nueva con el siguiente comando (puedes cambiar `ed25519` por `rsa` si lo prefieres):
@@ -766,9 +766,9 @@ Si no tienes una llave SSH, genera una nueva con el siguiente comando (puedes ca
 </div>
 </div>
 
-<div id="outline-container-org7c2ec7a" class="outline-4">
-<h4 id="org7c2ec7a">3. Añadir la llave SSH al agente SSH</h4>
-<div class="outline-text-4" id="text-org7c2ec7a">
+<div id="outline-container-org2b6e0b5" class="outline-4">
+<h4 id="org2b6e0b5">3. Añadir la llave SSH al agente SSH</h4>
+<div class="outline-text-4" id="text-org2b6e0b5">
 <ul class="org-ul">
 <li><p>
 Para añadir tu nueva llave SSH al agente, asegúrate de que esté en ejecución:
@@ -789,9 +789,9 @@ Añade la llave SSH al agente:
 </div>
 </div>
 
-<div id="outline-container-org6a3ce5d" class="outline-4">
-<h4 id="org6a3ce5d">4. Copiar la llave SSH pública</h4>
-<div class="outline-text-4" id="text-org6a3ce5d">
+<div id="outline-container-org898d217" class="outline-4">
+<h4 id="org898d217">4. Copiar la llave SSH pública</h4>
+<div class="outline-text-4" id="text-org898d217">
 <ul class="org-ul">
 <li><p>
 Copia el contenido de tu llave pública para añadirla a GitHub:
@@ -806,9 +806,9 @@ Copia el contenido de tu llave pública para añadirla a GitHub:
 </div>
 </div>
 
-<div id="outline-container-org8b06a45" class="outline-4">
-<h4 id="org8b06a45">5. Añadir la llave SSH a GitHub</h4>
-<div class="outline-text-4" id="text-org8b06a45">
+<div id="outline-container-org5038a5a" class="outline-4">
+<h4 id="org5038a5a">5. Añadir la llave SSH a GitHub</h4>
+<div class="outline-text-4" id="text-org5038a5a">
 <ul class="org-ul">
 <li>Inicia sesión en tu cuenta de GitHub.</li>
 <li>Ve a la sección de <b>Settings</b> (Configuración).</li>
@@ -820,9 +820,9 @@ Copia el contenido de tu llave pública para añadirla a GitHub:
 </div>
 </div>
 
-<div id="outline-container-org6a0f2d1" class="outline-4">
-<h4 id="org6a0f2d1">6. Probar la conexión SSH con GitHub</h4>
-<div class="outline-text-4" id="text-org6a0f2d1">
+<div id="outline-container-orgfc50cf7" class="outline-4">
+<h4 id="orgfc50cf7">6. Probar la conexión SSH con GitHub</h4>
+<div class="outline-text-4" id="text-orgfc50cf7">
 <ul class="org-ul">
 <li><p>
 Para verificar que todo está configurado correctamente, ejecuta el siguiente comando:
@@ -845,9 +845,9 @@ Hi username! You've successfully authenticated, but GitHub does not provide shel
 </div>
 </div>
 
-<div id="outline-container-orge135dfc" class="outline-4">
-<h4 id="orge135dfc">7. Usar la conexión SSH en repositorios de GitHub</h4>
-<div class="outline-text-4" id="text-orge135dfc">
+<div id="outline-container-orgb260f10" class="outline-4">
+<h4 id="orgb260f10">7. Usar la conexión SSH en repositorios de GitHub</h4>
+<div class="outline-text-4" id="text-orgb260f10">
 <ul class="org-ul">
 <li><p>
 Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
@@ -863,9 +863,9 @@ Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
 
 
 
-<div id="outline-container-org8d3fbc4" class="outline-3">
-<h3 id="org8d3fbc4">Configurar Llave SSH con GitHub en Windows</h3>
-<div class="outline-text-3" id="text-org8d3fbc4">
+<div id="outline-container-org82f8be1" class="outline-3">
+<h3 id="org82f8be1">Configurar Llave SSH con GitHub en Windows</h3>
+<div class="outline-text-3" id="text-org82f8be1">
 <ol class="org-ol">
 <li>Git Bash: En Windows, utilizas Git Bash como terminal para ejecutar los comandos, en lugar de la terminal estándar de Linux o macOS.</li>
 
@@ -875,18 +875,18 @@ Para clonar un repositorio usando SSH, utiliza la URL SSH del repositorio:
 
 
 
-<div id="outline-container-org9f8861a" class="outline-4">
-<h4 id="org9f8861a">1. Abrir Git Bash</h4>
-<div class="outline-text-4" id="text-org9f8861a">
+<div id="outline-container-orga03ebd7" class="outline-4">
+<h4 id="orga03ebd7">1. Abrir Git Bash</h4>
+<div class="outline-text-4" id="text-orga03ebd7">
 <ul class="org-ul">
 <li>Abre <b><b>Git Bash</b></b> (es la terminal que se instala junto con Git en Windows).</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orge910a24" class="outline-4">
-<h4 id="orge910a24">2. Verificar si ya tienes una llave SSH</h4>
-<div class="outline-text-4" id="text-orge910a24">
+<div id="outline-container-org9aba63d" class="outline-4">
+<h4 id="org9aba63d">2. Verificar si ya tienes una llave SSH</h4>
+<div class="outline-text-4" id="text-org9aba63d">
 <ul class="org-ul">
 <li><p>
 En la terminal de Git Bash, ejecuta el siguiente comando para ver si ya tienes llaves SSH generadas:
@@ -901,9 +901,9 @@ En la terminal de Git Bash, ejecuta el siguiente comando para ver si ya tienes l
 </div>
 </div>
 
-<div id="outline-container-org59aab8b" class="outline-4">
-<h4 id="org59aab8b">3. Generar una nueva llave SSH</h4>
-<div class="outline-text-4" id="text-org59aab8b">
+<div id="outline-container-org138a49a" class="outline-4">
+<h4 id="org138a49a">3. Generar una nueva llave SSH</h4>
+<div class="outline-text-4" id="text-org138a49a">
 <ul class="org-ul">
 <li><p>
 Si no tienes una llave SSH, genera una nueva con el siguiente comando:
@@ -919,9 +919,9 @@ Si no tienes una llave SSH, genera una nueva con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-org1b0baaf" class="outline-4">
-<h4 id="org1b0baaf">4. Añadir la llave SSH al agente SSH</h4>
-<div class="outline-text-4" id="text-org1b0baaf">
+<div id="outline-container-org5ff8c33" class="outline-4">
+<h4 id="org5ff8c33">4. Añadir la llave SSH al agente SSH</h4>
+<div class="outline-text-4" id="text-org5ff8c33">
 <ul class="org-ul">
 <li><p>
 Asegúrate de que el agente SSH esté en ejecución. En Git Bash, ejecuta:
@@ -942,9 +942,9 @@ Añade tu nueva llave SSH al agente:
 </div>
 </div>
 
-<div id="outline-container-orgabcc4b2" class="outline-4">
-<h4 id="orgabcc4b2">5. Copiar la llave SSH pública</h4>
-<div class="outline-text-4" id="text-orgabcc4b2">
+<div id="outline-container-orgd4c7a6b" class="outline-4">
+<h4 id="orgd4c7a6b">5. Copiar la llave SSH pública</h4>
+<div class="outline-text-4" id="text-orgd4c7a6b">
 <ul class="org-ul">
 <li><p>
 Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta el siguiente comando en Git Bash:
@@ -959,9 +959,9 @@ Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta 
 </div>
 </div>
 
-<div id="outline-container-orga0f3e7f" class="outline-4">
-<h4 id="orga0f3e7f">6. Añadir la llave SSH a GitHub</h4>
-<div class="outline-text-4" id="text-orga0f3e7f">
+<div id="outline-container-org1d2c145" class="outline-4">
+<h4 id="org1d2c145">6. Añadir la llave SSH a GitHub</h4>
+<div class="outline-text-4" id="text-org1d2c145">
 <ul class="org-ul">
 <li>Abre tu navegador web e inicia sesión en GitHub.</li>
 <li>Ve a la sección de <b>Settings</b> (Configuración).</li>
@@ -973,9 +973,9 @@ Para añadir la llave SSH a GitHub, necesitas copiar tu llave pública. Ejecuta 
 </div>
 </div>
 
-<div id="outline-container-orgf8ac537" class="outline-4">
-<h4 id="orgf8ac537">7. Probar la conexión SSH con GitHub</h4>
-<div class="outline-text-4" id="text-orgf8ac537">
+<div id="outline-container-orge3ac9c6" class="outline-4">
+<h4 id="orge3ac9c6">7. Probar la conexión SSH con GitHub</h4>
+<div class="outline-text-4" id="text-orge3ac9c6">
 <ul class="org-ul">
 <li><p>
 Para asegurarte de que todo está correctamente configurado, prueba la conexión con GitHub desde Git Bash:
@@ -998,9 +998,9 @@ Hi username! You've successfully authenticated, but GitHub does not provide shel
 </div>
 </div>
 
-<div id="outline-container-orgcef3b87" class="outline-4">
-<h4 id="orgcef3b87">8. Usar la conexión SSH en repositorios de GitHub</h4>
-<div class="outline-text-4" id="text-orgcef3b87">
+<div id="outline-container-org916e200" class="outline-4">
+<h4 id="org916e200">8. Usar la conexión SSH en repositorios de GitHub</h4>
+<div class="outline-text-4" id="text-org916e200">
 <ul class="org-ul">
 <li><p>
 Para clonar un repositorio usando la URL SSH, ejecuta:
@@ -1017,13 +1017,13 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 
 
 
-<div id="outline-container-orgc3eaab7" class="outline-3">
-<h3 id="orgc3eaab7">Manual de Git en Windows</h3>
-<div class="outline-text-3" id="text-orgc3eaab7">
+<div id="outline-container-orge29cbfc" class="outline-3">
+<h3 id="orge29cbfc">Manual de Git en Windows</h3>
+<div class="outline-text-3" id="text-orge29cbfc">
 </div>
-<div id="outline-container-org3de07b0" class="outline-4">
-<h4 id="org3de07b0">1. Instalar Git en Windows</h4>
-<div class="outline-text-4" id="text-org3de07b0">
+<div id="outline-container-org2329b2f" class="outline-4">
+<h4 id="org2329b2f">1. Instalar Git en Windows</h4>
+<div class="outline-text-4" id="text-org2329b2f">
 <ul class="org-ul">
 <li>Visita [<a href="https://git-scm.com/">https://git-scm.com/</a>](<a href="https://git-scm.com/">https://git-scm.com/</a>) y descarga el instalador de Git para Windows.</li>
 <li>Ejecuta el archivo descargado (.exe).</li>
@@ -1033,9 +1033,9 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 </div>
 </div>
 
-<div id="outline-container-org028aa49" class="outline-4">
-<h4 id="org028aa49">2. Configurar Git</h4>
-<div class="outline-text-4" id="text-org028aa49">
+<div id="outline-container-org662b285" class="outline-4">
+<h4 id="org662b285">2. Configurar Git</h4>
+<div class="outline-text-4" id="text-org662b285">
 <ul class="org-ul">
 <li>Abre <b>Git Bash</b> y ejecuta los siguientes comandos para configurar tu identidad:</li>
 </ul>
@@ -1057,9 +1057,9 @@ Para clonar un repositorio usando la URL SSH, ejecuta:
 </div>
 </div>
 
-<div id="outline-container-org6986243" class="outline-4">
-<h4 id="org6986243">3. Clonar un repositorio</h4>
-<div class="outline-text-4" id="text-org6986243">
+<div id="outline-container-org97d44e6" class="outline-4">
+<h4 id="org97d44e6">3. Clonar un repositorio</h4>
+<div class="outline-text-4" id="text-org97d44e6">
 <ul class="org-ul">
 <li>Para clonar un repositorio desde GitHub, usa el siguiente comando:</li>
 </ul>
@@ -1075,9 +1075,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org320ac7b" class="outline-4">
-<h4 id="org320ac7b">4. Comandos básicos de Git</h4>
-<div class="outline-text-4" id="text-org320ac7b">
+<div id="outline-container-orgd6ad420" class="outline-4">
+<h4 id="orgd6ad420">4. Comandos básicos de Git</h4>
+<div class="outline-text-4" id="text-orgd6ad420">
 <ul class="org-ul">
 <li><b>Verificar el estado del repositorio</b>:</li>
 </ul>
@@ -1125,9 +1125,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org78b9dfd" class="outline-4">
-<h4 id="org78b9dfd">5. Actualizar el repositorio local</h4>
-<div class="outline-text-4" id="text-org78b9dfd">
+<div id="outline-container-org35f59c4" class="outline-4">
+<h4 id="org35f59c4">5. Actualizar el repositorio local</h4>
+<div class="outline-text-4" id="text-org35f59c4">
 <ul class="org-ul">
 <li>Para obtener los últimos cambios del repositorio remoto:</li>
 </ul>
@@ -1139,9 +1139,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-orgee72158" class="outline-4">
-<h4 id="orgee72158">6. Crear y cambiar de ramas (branches)</h4>
-<div class="outline-text-4" id="text-orgee72158">
+<div id="outline-container-org665ead5" class="outline-4">
+<h4 id="org665ead5">6. Crear y cambiar de ramas (branches)</h4>
+<div class="outline-text-4" id="text-org665ead5">
 <ul class="org-ul">
 <li><b>Crear una nueva rama</b>:</li>
 </ul>
@@ -1171,9 +1171,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-org54c141e" class="outline-4">
-<h4 id="org54c141e">7. Ver historial de commits</h4>
-<div class="outline-text-4" id="text-org54c141e">
+<div id="outline-container-org97612b5" class="outline-4">
+<h4 id="org97612b5">7. Ver historial de commits</h4>
+<div class="outline-text-4" id="text-org97612b5">
 <ul class="org-ul">
 <li>Para ver el historial de cambios del repositorio:</li>
 </ul>
@@ -1194,9 +1194,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-orgbf62883" class="outline-4">
-<h4 id="orgbf62883">8. Configurar una llave SSH</h4>
-<div class="outline-text-4" id="text-orgbf62883">
+<div id="outline-container-org71028b8" class="outline-4">
+<h4 id="org71028b8">8. Configurar una llave SSH</h4>
+<div class="outline-text-4" id="text-org71028b8">
 <ul class="org-ul">
 <li><b>Generar una llave SSH</b>:</li>
 </ul>
@@ -1234,13 +1234,13 @@ Esto descargará el repositorio a tu computadora.
 </div>
 
 
-<div id="outline-container-org4d15c2d" class="outline-2">
-<h2 id="org4d15c2d">Manual de Instalación de Python en Windows</h2>
-<div class="outline-text-2" id="text-org4d15c2d">
+<div id="outline-container-orga542c27" class="outline-2">
+<h2 id="orga542c27">Manual de Instalación de Python en Windows</h2>
+<div class="outline-text-2" id="text-orga542c27">
 </div>
-<div id="outline-container-org89f076b" class="outline-3">
-<h3 id="org89f076b">Paso 1: Descarga de Python</h3>
-<div class="outline-text-3" id="text-org89f076b">
+<div id="outline-container-org1543f8d" class="outline-3">
+<h3 id="org1543f8d">Paso 1: Descarga de Python</h3>
+<div class="outline-text-3" id="text-org1543f8d">
 <ol class="org-ol">
 <li>Abre el navegador web y visita el sitio: <a href="https://www.python.org">https://www.python.org</a>.</li>
 <li>Ve a la pestaña "Downloads" y selecciona la versión más reciente para Windows.</li>
@@ -1249,9 +1249,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-orgde2dfa0" class="outline-3">
-<h3 id="orgde2dfa0">Paso 2: Ejecutar el instalador</h3>
-<div class="outline-text-3" id="text-orgde2dfa0">
+<div id="outline-container-orgc36dfeb" class="outline-3">
+<h3 id="orgc36dfeb">Paso 2: Ejecutar el instalador</h3>
+<div class="outline-text-3" id="text-orgc36dfeb">
 <ol class="org-ol">
 <li>Ejecuta el archivo descargado (.exe).</li>
 <li>Asegúrate de marcar la opción <code>Add Python to PATH</code> antes de proceder con la instalación.</li>
@@ -1261,9 +1261,9 @@ Esto descargará el repositorio a tu computadora.
 </div>
 </div>
 
-<div id="outline-container-orgef97205" class="outline-3">
-<h3 id="orgef97205">Paso 3: Verificación de la instalación</h3>
-<div class="outline-text-3" id="text-orgef97205">
+<div id="outline-container-org539b4d0" class="outline-3">
+<h3 id="org539b4d0">Paso 3: Verificación de la instalación</h3>
+<div class="outline-text-3" id="text-org539b4d0">
 <ol class="org-ol">
 <li>Abre la línea de comandos (cmd) escribiendo "cmd" en el menú de inicio.</li>
 <li><p>
@@ -1288,9 +1288,9 @@ Si todo está bien, verás el prompt interactivo de Python (tres símbolos <code
 </div>
 </div>
 
-<div id="outline-container-org8624b42" class="outline-3">
-<h3 id="org8624b42">Paso 4: Instalar pip y otros paquetes</h3>
-<div class="outline-text-3" id="text-org8624b42">
+<div id="outline-container-orgb5bac4b" class="outline-3">
+<h3 id="orgb5bac4b">Paso 4: Instalar pip y otros paquetes</h3>
+<div class="outline-text-3" id="text-orgb5bac4b">
 <ol class="org-ol">
 <li><p>
 Verifica si pip está instalado escribiendo en la línea de comandos:
@@ -1310,9 +1310,9 @@ Si necesitas instalar paquetes, usa pip con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-org9e79920" class="outline-3">
-<h3 id="org9e79920">Paso 5: Configuración del entorno de desarrollo</h3>
-<div class="outline-text-3" id="text-org9e79920">
+<div id="outline-container-orgf854c66" class="outline-3">
+<h3 id="orgf854c66">Paso 5: Configuración del entorno de desarrollo</h3>
+<div class="outline-text-3" id="text-orgf854c66">
 <ol class="org-ol">
 <li>Instala un editor de código como:
 <ul class="org-ul">
@@ -1324,9 +1324,9 @@ Si necesitas instalar paquetes, usa pip con el siguiente comando:
 </div>
 </div>
 
-<div id="outline-container-orge9b3941" class="outline-3">
-<h3 id="orge9b3941">Paso 6: Actualización de Python (opcional)</h3>
-<div class="outline-text-3" id="text-orge9b3941">
+<div id="outline-container-orgb25ac8a" class="outline-3">
+<h3 id="orgb25ac8a">Paso 6: Actualización de Python (opcional)</h3>
+<div class="outline-text-3" id="text-orgb25ac8a">
 <ul class="org-ul">
 <li>Para actualizar Python a una nueva versión en el futuro, descarga la última versión desde <a href="https://www.python.org/downloads/">python.org</a> y sigue los pasos de instalación.</li>
 </ul>
@@ -1336,13 +1336,13 @@ Si necesitas instalar paquetes, usa pip con el siguiente comando:
 
 
 
-<div id="outline-container-org4eab63c" class="outline-2">
-<h2 id="org4eab63c">Entornos Virtuales en Python</h2>
-<div class="outline-text-2" id="text-org4eab63c">
+<div id="outline-container-orgfd0ea03" class="outline-2">
+<h2 id="orgfd0ea03">Entornos Virtuales en Python</h2>
+<div class="outline-text-2" id="text-orgfd0ea03">
 </div>
-<div id="outline-container-orgbf7bb2c" class="outline-3">
-<h3 id="orgbf7bb2c">¿Qué es un Entorno Virtual?</h3>
-<div class="outline-text-3" id="text-orgbf7bb2c">
+<div id="outline-container-orge5b3284" class="outline-3">
+<h3 id="orge5b3284">¿Qué es un Entorno Virtual?</h3>
+<div class="outline-text-3" id="text-orge5b3284">
 <p>
 Un <b>entorno virtual</b> es una herramienta que permite crear un espacio
 aislado para instalar dependencias específicas de un proyecto en
@@ -1351,9 +1351,9 @@ Python. Esto evita conflictos entre paquetes de diferentes proyectos.
 </div>
 </div>
 
-<div id="outline-container-org5a72962" class="outline-3">
-<h3 id="org5a72962">Preparación: Instalación de Python y Visual Studio Code</h3>
-<div class="outline-text-3" id="text-org5a72962">
+<div id="outline-container-orgce2a90b" class="outline-3">
+<h3 id="orgce2a90b">Preparación: Instalación de Python y Visual Studio Code</h3>
+<div class="outline-text-3" id="text-orgce2a90b">
 <ol class="org-ol">
 <li><p>
 Asegúrate de tener Python instalado en tu sistema. Puedes verificarlo con:
@@ -1368,9 +1368,9 @@ Asegúrate de tener Python instalado en tu sistema. Puedes verificarlo con:
 </div>
 </div>
 
-<div id="outline-container-orge32f5a6" class="outline-3">
-<h3 id="orge32f5a6">Crear un Entorno Virtual</h3>
-<div class="outline-text-3" id="text-orge32f5a6">
+<div id="outline-container-orgb8a3389" class="outline-3">
+<h3 id="orgb8a3389">Crear un Entorno Virtual</h3>
+<div class="outline-text-3" id="text-orgb8a3389">
 <p>
 Para crear un entorno virtual en la carpeta de tu proyecto:
 </p>
@@ -1391,9 +1391,9 @@ Usa el siguiente comando para crear el entorno virtual:
 </div>
 </div>
 
-<div id="outline-container-org87bf433" class="outline-3">
-<h3 id="org87bf433">Activar el Entorno Virtual</h3>
-<div class="outline-text-3" id="text-org87bf433">
+<div id="outline-container-org4453dc4" class="outline-3">
+<h3 id="org4453dc4">Activar el Entorno Virtual</h3>
+<div class="outline-text-3" id="text-org4453dc4">
 <p>
 Para activar el entorno virtual en la terminal de VS Code:
 </p>
@@ -1422,9 +1422,9 @@ Cuando el entorno esté activado, verás el nombre del entorno en la terminal.
 </div>
 </div>
 
-<div id="outline-container-orgbb5bdff" class="outline-3">
-<h3 id="orgbb5bdff">Configurar el Entorno Virtual en Visual Studio Code</h3>
-<div class="outline-text-3" id="text-orgbb5bdff">
+<div id="outline-container-orgfb5318b" class="outline-3">
+<h3 id="orgfb5318b">Configurar el Entorno Virtual en Visual Studio Code</h3>
+<div class="outline-text-3" id="text-orgfb5318b">
 <p>
 Para que VS Code use el entorno virtual para ejecutar el código y detectar dependencias:
 </p>
@@ -1438,9 +1438,9 @@ entorno virtual (debería tener el nombre del entorno que creaste).</li>
 </div>
 </div>
 
-<div id="outline-container-org038ee47" class="outline-3">
-<h3 id="org038ee47">Instalar Paquetes en el Entorno Virtual</h3>
-<div class="outline-text-3" id="text-org038ee47">
+<div id="outline-container-org49b9bf6" class="outline-3">
+<h3 id="org49b9bf6">Instalar Paquetes en el Entorno Virtual</h3>
+<div class="outline-text-3" id="text-org49b9bf6">
 <p>
 Con el entorno activado en la terminal de VS Code, puedes instalar paquetes con `pip`:
 </p>
@@ -1452,9 +1452,9 @@ Con el entorno activado en la terminal de VS Code, puedes instalar paquetes con 
 </div>
 </div>
 
-<div id="outline-container-org9486a75" class="outline-3">
-<h3 id="org9486a75">Administrar Paquetes</h3>
-<div class="outline-text-3" id="text-org9486a75">
+<div id="outline-container-orgd4f1de3" class="outline-3">
+<h3 id="orgd4f1de3">Administrar Paquetes</h3>
+<div class="outline-text-3" id="text-orgd4f1de3">
 <p>
 Para ver los paquetes instalados en el entorno virtual:
 </p>
@@ -1488,9 +1488,9 @@ Para instalar todas las dependencias listadas en <b>requirements.txt</b> en otro
 </div>
 </div>
 
-<div id="outline-container-org7d0fd1f" class="outline-3">
-<h3 id="org7d0fd1f">Desactivar el Entorno Virtual</h3>
-<div class="outline-text-3" id="text-org7d0fd1f">
+<div id="outline-container-org1727b00" class="outline-3">
+<h3 id="org1727b00">Desactivar el Entorno Virtual</h3>
+<div class="outline-text-3" id="text-org1727b00">
 <p>
 Para desactivar el entorno virtual en la terminal, ejecuta:
 </p>
@@ -1502,9 +1502,9 @@ Para desactivar el entorno virtual en la terminal, ejecuta:
 </div>
 </div>
 
-<div id="outline-container-orga069961" class="outline-3">
-<h3 id="orga069961">Eliminar el Entorno Virtual</h3>
-<div class="outline-text-3" id="text-orga069961">
+<div id="outline-container-orgeed5b4e" class="outline-3">
+<h3 id="orgeed5b4e">Eliminar el Entorno Virtual</h3>
+<div class="outline-text-3" id="text-orgeed5b4e">
 <p>
 Si deseas eliminar el entorno virtual, puedes simplemente borrar la carpeta:
 </p>
@@ -1517,9 +1517,9 @@ Si deseas eliminar el entorno virtual, puedes simplemente borrar la carpeta:
 </div>
 
 
-<div id="outline-container-org44b1c49" class="outline-3">
-<h3 id="org44b1c49">Consejos Adicionales para VS Code</h3>
-<div class="outline-text-3" id="text-org44b1c49">
+<div id="outline-container-org4a9dbc8" class="outline-3">
+<h3 id="org4a9dbc8">Consejos Adicionales para VS Code</h3>
+<div class="outline-text-3" id="text-org4a9dbc8">
 <ul class="org-ul">
 <li><p>
 <b><b>Terminal automática</b></b>: Cuando creas y activas un entorno en VS Code, puedes configurar el archivo `.vscode/settings.json` para que VS Code lo active automáticamente en cada terminal nueva:
@@ -1542,13 +1542,13 @@ Si deseas eliminar el entorno virtual, puedes simplemente borrar la carpeta:
 
 
 
-<div id="outline-container-orgdaea50e" class="outline-2">
-<h2 id="orgdaea50e">Entornos virtuales en Python (Windows + VS Code)</h2>
-<div class="outline-text-2" id="text-orgdaea50e">
+<div id="outline-container-org203522f" class="outline-2">
+<h2 id="org203522f">Entornos virtuales en Python (Windows + VS Code)</h2>
+<div class="outline-text-2" id="text-org203522f">
 </div>
-<div id="outline-container-orgfd453cc" class="outline-3">
-<h3 id="orgfd453cc">1. ¿Qué es un entorno virtual?</h3>
-<div class="outline-text-3" id="text-orgfd453cc">
+<div id="outline-container-org5635c72" class="outline-3">
+<h3 id="org5635c72">1. ¿Qué es un entorno virtual?</h3>
+<div class="outline-text-3" id="text-org5635c72">
 <p>
 Un entorno virtual (venv) es un espacio aislado para instalar librerías
 sin afectar el Python del sistema ni otros proyectos.
@@ -1560,9 +1560,9 @@ Cada proyecto debe tener su propio venv para evitar conflictos.
 </div>
 </div>
 
-<div id="outline-container-orgac0e9f7" class="outline-3">
-<h3 id="orgac0e9f7">2. Requisitos previos</h3>
-<div class="outline-text-3" id="text-orgac0e9f7">
+<div id="outline-container-org92c7f9a" class="outline-3">
+<h3 id="org92c7f9a">2. Requisitos previos</h3>
+<div class="outline-text-3" id="text-org92c7f9a">
 <ul class="org-ul">
 <li>Tener Python instalado (&gt;= 3.6 recomendado).</li>
 <li><p>
@@ -1582,9 +1582,9 @@ Si no aparecen, asegúrate de que Python esté en el PATH de Windows.
 </div>
 </div>
 
-<div id="outline-container-org23b514b" class="outline-3">
-<h3 id="org23b514b">3. Crear un entorno virtual</h3>
-<div class="outline-text-3" id="text-org23b514b">
+<div id="outline-container-org425127f" class="outline-3">
+<h3 id="org425127f">3. Crear un entorno virtual</h3>
+<div class="outline-text-3" id="text-org425127f">
 <p>
 Dentro de la carpeta de tu proyecto, ejecuta:
 </p>
@@ -1601,9 +1601,9 @@ Dentro estarán los binarios y scripts de activación.
 </div>
 </div>
 
-<div id="outline-container-org9847f90" class="outline-3">
-<h3 id="org9847f90">4. Activar el entorno virtual</h3>
-<div class="outline-text-3" id="text-org9847f90">
+<div id="outline-container-org557ed87" class="outline-3">
+<h3 id="org557ed87">4. Activar el entorno virtual</h3>
+<div class="outline-text-3" id="text-org557ed87">
 <p>
 Según la terminal que uses en Windows:
 </p>
@@ -1641,9 +1641,9 @@ Cuando está activo verás algo como:
 </div>
 </div>
 
-<div id="outline-container-orgced03b7" class="outline-3">
-<h3 id="orgced03b7">5. Problema común: PowerShell bloquea Activate.ps1</h3>
-<div class="outline-text-3" id="text-orgced03b7">
+<div id="outline-container-orgf1c3baf" class="outline-3">
+<h3 id="orgf1c3baf">5. Problema común: PowerShell bloquea Activate.ps1</h3>
+<div class="outline-text-3" id="text-orgf1c3baf">
 <p>
 Por seguridad, PowerShell no permite ejecutar scripts .ps1.
 </p>
@@ -1651,7 +1651,7 @@ Por seguridad, PowerShell no permite ejecutar scripts .ps1.
 <p>
 Verás un error como:
 </p>
-<pre class="example" id="orgf118575">
+<pre class="example" id="org48375f5">
 Execution Policy restricts running scripts
 </pre>
 
@@ -1676,9 +1676,9 @@ Esto permite ejecutar scripts locales como Activate.ps1.
 </div>
 </div>
 
-<div id="outline-container-org80562b0" class="outline-3">
-<h3 id="org80562b0">6. Desactivar el entorno virtual</h3>
-<div class="outline-text-3" id="text-org80562b0">
+<div id="outline-container-org3da14a5" class="outline-3">
+<h3 id="org3da14a5">6. Desactivar el entorno virtual</h3>
+<div class="outline-text-3" id="text-org3da14a5">
 <p>
 Para salir del entorno:
 </p>
@@ -1689,9 +1689,9 @@ Para salir del entorno:
 </div>
 </div>
 
-<div id="outline-container-orgad891ac" class="outline-3">
-<h3 id="orgad891ac">7. Instalar paquetes dentro del entorno</h3>
-<div class="outline-text-3" id="text-orgad891ac">
+<div id="outline-container-orgb2fb40e" class="outline-3">
+<h3 id="orgb2fb40e">7. Instalar paquetes dentro del entorno</h3>
+<div class="outline-text-3" id="text-orgb2fb40e">
 <p>
 Ejemplo:
 </p>
@@ -1718,9 +1718,9 @@ Instalarlas en otro entorno:
 </div>
 </div>
 
-<div id="outline-container-org6879de1" class="outline-3">
-<h3 id="org6879de1">8. Integrar el entorno en VS Code</h3>
-<div class="outline-text-3" id="text-org6879de1">
+<div id="outline-container-org69c4ac0" class="outline-3">
+<h3 id="org69c4ac0">8. Integrar el entorno en VS Code</h3>
+<div class="outline-text-3" id="text-org69c4ac0">
 <ol class="org-ol">
 <li>Instalar la extensión <b><b>Python (Microsoft)</b></b>.</li>
 <li>Abrir la carpeta del proyecto en VS Code.</li>
@@ -1731,9 +1731,9 @@ Si no aparece, configurarlo manualmente (ver abajo).</li>
 </div>
 </div>
 
-<div id="outline-container-org2d96c4c" class="outline-3">
-<h3 id="org2d96c4c">9. Configuración manual en settings.json</h3>
-<div class="outline-text-3" id="text-org2d96c4c">
+<div id="outline-container-orgdcc8ff2" class="outline-3">
+<h3 id="orgdcc8ff2">9. Configuración manual en settings.json</h3>
+<div class="outline-text-3" id="text-orgdcc8ff2">
 <p>
 Si VS Code no detecta el intérprete, forzar la ruta en
 <code>/.vscode/settings.json</code>:
@@ -1749,9 +1749,9 @@ Si VS Code no detecta el intérprete, forzar la ruta en
 </div>
 </div>
 
-<div id="outline-container-org3cf2961" class="outline-3">
-<h3 id="org3cf2961">10. Diferencias entre los scripts de activación</h3>
-<div class="outline-text-3" id="text-org3cf2961">
+<div id="outline-container-org43be814" class="outline-3">
+<h3 id="org43be814">10. Diferencias entre los scripts de activación</h3>
+<div class="outline-text-3" id="text-org43be814">
 <p>
 Dentro de <code>venv\Scripts</code> verás varios archivos:
 </p>
@@ -1769,9 +1769,9 @@ Debes usar el que corresponda a tu terminal actual.
 </div>
 </div>
 
-<div id="outline-container-org39af930" class="outline-3">
-<h3 id="org39af930">11. Buenas prácticas</h3>
-<div class="outline-text-3" id="text-org39af930">
+<div id="outline-container-orga58cb7a" class="outline-3">
+<h3 id="orga58cb7a">11. Buenas prácticas</h3>
+<div class="outline-text-3" id="text-orga58cb7a">
 <ul class="org-ul">
 <li>Un venv por proyecto.</li>
 <li>Incluir <code>venv/</code> en el .gitignore si usas Git.</li>
@@ -1781,9 +1781,9 @@ Debes usar el que corresponda a tu terminal actual.
 </div>
 </div>
 
-<div id="outline-container-org54adf49" class="outline-3">
-<h3 id="org54adf49">12. Ejemplo de flujo completo</h3>
-<div class="outline-text-3" id="text-org54adf49">
+<div id="outline-container-orgaeb469b" class="outline-3">
+<h3 id="orgaeb469b">12. Ejemplo de flujo completo</h3>
+<div class="outline-text-3" id="text-orgaeb469b">
 <ol class="org-ol">
 <li><p>
 Crear proyecto:
@@ -1842,13 +1842,13 @@ Probar en VS Code:
 
 
 
-<div id="outline-container-org5e347d3" class="outline-2">
-<h2 id="org5e347d3">Introducción a la Graficación por computadora</h2>
-<div class="outline-text-2" id="text-org5e347d3">
+<div id="outline-container-org451b823" class="outline-2">
+<h2 id="org451b823">Introducción a la Graficación por computadora</h2>
+<div class="outline-text-2" id="text-org451b823">
 </div>
-<div id="outline-container-org84fcf3d" class="outline-3">
-<h3 id="org84fcf3d">Graficación por Computadora</h3>
-<div class="outline-text-3" id="text-org84fcf3d">
+<div id="outline-container-orgf21baa6" class="outline-3">
+<h3 id="orgf21baa6">Graficación por Computadora</h3>
+<div class="outline-text-3" id="text-orgf21baa6">
 <p>
 La  Graficación por Computadora (o simplemente Graficación)
 se enfoca en el estudio y aplicación de técnicas, algoritmos y
@@ -1860,9 +1860,9 @@ los aspectos clave de esta disciplina:
 </p>
 </div>
 
-<div id="outline-container-org1830d9d" class="outline-4">
-<h4 id="org1830d9d">Objetivos de la Graficación por Computadora</h4>
-<div class="outline-text-4" id="text-org1830d9d">
+<div id="outline-container-org65c5d5f" class="outline-4">
+<h4 id="org65c5d5f">Objetivos de la Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-org65c5d5f">
 <ol class="org-ol">
 <li><b>Generación de imágenes</b>: Crear imágenes digitales a partir de descripciones matemáticas y geométricas de objetos, en 2D y 3D.</li>
 <li><b>Modelado de objetos</b>: Crear representaciones matemáticas de objetos y escenas usando técnicas como polígonos, mallas y curvas.</li>
@@ -1876,9 +1876,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-orgd95dfc9" class="outline-4">
-<h4 id="orgd95dfc9">Áreas de estudio en Graficación por Computadora</h4>
-<div class="outline-text-4" id="text-orgd95dfc9">
+<div id="outline-container-org5f7b2a6" class="outline-4">
+<h4 id="org5f7b2a6">Áreas de estudio en Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-org5f7b2a6">
 <ol class="org-ol">
 <li><b>Matemáticas</b>: Uso de geometría y álgebra lineal para realizar transformaciones geométricas y modelar objetos.</li>
 <li><b>Programación</b>: Conocimiento de lenguajes como C++, Python, GLSL y HLSL para implementar algoritmos gráficos.</li>
@@ -1889,9 +1889,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-org20ab2f6" class="outline-4">
-<h4 id="org20ab2f6">Aplicaciones de la Graficación por Computadora</h4>
-<div class="outline-text-4" id="text-org20ab2f6">
+<div id="outline-container-orgd648a9a" class="outline-4">
+<h4 id="orgd648a9a">Aplicaciones de la Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-orgd648a9a">
 <ul class="org-ul">
 <li><b>Videojuegos</b>: Creación de ambientes, personajes y efectos visuales.</li>
 <li><b>Cine y efectos visuales</b>: Creación de efectos especiales y animación por computadora.</li>
@@ -1902,9 +1902,9 @@ los aspectos clave de esta disciplina:
 </div>
 </div>
 
-<div id="outline-container-org930f302" class="outline-4">
-<h4 id="org930f302">Temas principales en Graficación por Computadora</h4>
-<div class="outline-text-4" id="text-org930f302">
+<div id="outline-container-org0b0030a" class="outline-4">
+<h4 id="org0b0030a">Temas principales en Graficación por Computadora</h4>
+<div class="outline-text-4" id="text-org0b0030a">
 <ul class="org-ul">
 <li><b>Modelado 2D y 3D</b></li>
 <li><b>Algoritmos de rasterización</b></li>
@@ -1922,9 +1922,9 @@ los aspectos clave de esta disciplina:
 
 
 
-<div id="outline-container-org2bebd2f" class="outline-3">
-<h3 id="org2bebd2f">¿Qué es una imagen? (definición formal)</h3>
-<div class="outline-text-3" id="text-org2bebd2f">
+<div id="outline-container-org11cc00d" class="outline-3">
+<h3 id="org11cc00d">¿Qué es una imagen? (definición formal)</h3>
+<div class="outline-text-3" id="text-org11cc00d">
 <p>
 Una <b>imagen digital</b> puede verse como una función discreta bidimensional:
 \[
@@ -1938,9 +1938,9 @@ donde \(D=\{0,\dots,M-1\}\times\{0,\dots,N-1\}\) es la malla de píxeles y \(k\)
 </ul>
 </div>
 
-<div id="outline-container-org2324af4" class="outline-4">
-<h4 id="org2324af4">Imagen continua, muestreo y cuantización</h4>
-<div class="outline-text-4" id="text-org2324af4">
+<div id="outline-container-orgf50e1e7" class="outline-4">
+<h4 id="orgf50e1e7">Imagen continua, muestreo y cuantización</h4>
+<div class="outline-text-4" id="text-orgf50e1e7">
 <ul class="org-ul">
 <li><b>Modelo continuo</b>: \(f:\mathbb{R}^2\to\mathbb{R}\).</li>
 <li><b>Muestreo espacial</b> (pasos \(T_x,T_y\)):</li>
@@ -1964,9 +1964,9 @@ Q(I)=\operatorname{round}\!\left(\frac{L-1}{I_{\max}-I_{\min}}(I-I_{\min})\right
 </div>
 </div>
 
-<div id="outline-container-org5cc9717" class="outline-4">
-<h4 id="org5cc9717">Representación matricial y tensores</h4>
-<div class="outline-text-4" id="text-org5cc9717">
+<div id="outline-container-org4a16398" class="outline-4">
+<h4 id="org4a16398">Representación matricial y tensores</h4>
+<div class="outline-text-4" id="text-org4a16398">
 <p>
 Una imagen gris \(M\times N\) es una matriz:
 \[
@@ -1977,9 +1977,9 @@ Una imagen RGB es un tensor \(M\times N\times 3\) o, equivalentemente, tres matr
 </div>
 </div>
 
-<div id="outline-container-org1b50240" class="outline-4">
-<h4 id="org1b50240">Transformaciones de intensidad (píxel a píxel)</h4>
-<div class="outline-text-4" id="text-org1b50240">
+<div id="outline-container-orgc68a5fe" class="outline-4">
+<h4 id="orgc68a5fe">Transformaciones de intensidad (píxel a píxel)</h4>
+<div class="outline-text-4" id="text-orgc68a5fe">
 <ul class="org-ul">
 <li><b>Brillo</b>:</li>
 </ul>
@@ -2007,13 +2007,13 @@ I''(x,y)=\min(\max(I'(x,y),0),L-1).
 </div>
 </div>
 
-<div id="outline-container-org4c13ec9" class="outline-4">
-<h4 id="org4c13ec9">Color: modelos y conversiones</h4>
-<div class="outline-text-4" id="text-org4c13ec9">
+<div id="outline-container-org626ee70" class="outline-4">
+<h4 id="org626ee70">Color: modelos y conversiones</h4>
+<div class="outline-text-4" id="text-org626ee70">
 </div>
 <ul class="org-ul">
-<li><a id="org52d34c5"></a>De RGB a escala de grises (luminancia aproximada)<br />
-<div class="outline-text-5" id="text-org52d34c5">
+<li><a id="org4f2c584"></a>De RGB a escala de grises (luminancia aproximada)<br />
+<div class="outline-text-5" id="text-org4f2c584">
 <p>
 \[
 Y \approx 0.2126\,R + 0.7152\,G + 0.0722\,B.
@@ -2021,8 +2021,8 @@ Y \approx 0.2126\,R + 0.7152\,G + 0.0722\,B.
 </p>
 </div>
 </li>
-<li><a id="org35d7e1f"></a>Transformación lineal genérica<br />
-<div class="outline-text-5" id="text-org35d7e1f">
+<li><a id="org8472f80"></a>Transformación lineal genérica<br />
+<div class="outline-text-5" id="text-org8472f80">
 <p>
 \[
 </p>
@@ -2043,8 +2043,8 @@ con \(\mathbf{M}\in\mathbb{R}^{3\times 3}\), \(\mathbf{b}\in\mathbb{R}^3\). (Ej.
 </div>
 </li>
 
-<li><a id="orgdbfcaed"></a>Geometría de imágenes (transformaciones espaciales)<br />
-<div class="outline-text-5" id="text-orgdbfcaed">
+<li><a id="orgdbdfb74"></a>Geometría de imágenes (transformaciones espaciales)<br />
+<div class="outline-text-5" id="text-orgdbdfb74">
 <p>
 Una transformación geométrica mueve coordenadas:
 \[
@@ -2053,8 +2053,8 @@ Una transformación geométrica mueve coordenadas:
 </p>
 </div>
 </li>
-<li><a id="org5342f06"></a>Afin (matriz \(2\times2\) + traslación)<br />
-<div class="outline-text-5" id="text-org5342f06">
+<li><a id="orgb33298d"></a>Afin (matriz \(2\times2\) + traslación)<br />
+<div class="outline-text-5" id="text-orgb33298d">
 <p>
 \[
 </p>
@@ -2073,8 +2073,8 @@ Una transformación geométrica mueve coordenadas:
 </p>
 </div>
 </li>
-<li><a id="orgbbbd780"></a>Homografía (proyectiva) con coordenadas homogéneas<br />
-<div class="outline-text-5" id="text-orgbbbd780">
+<li><a id="org33dfa78"></a>Homografía (proyectiva) con coordenadas homogéneas<br />
+<div class="outline-text-5" id="text-org33dfa78">
 <p>
 \[
 \lambda\begin{bmatrix}x'\\y'\\1\end{bmatrix}
@@ -2085,8 +2085,8 @@ Una transformación geométrica mueve coordenadas:
 </p>
 </div>
 </li>
-<li><a id="orgc73d427"></a>Interpolación (para muestrear \(I\) en coordenadas no enteras)<br />
-<div class="outline-text-5" id="text-orgc73d427">
+<li><a id="org4cf544f"></a>Interpolación (para muestrear \(I\) en coordenadas no enteras)<br />
+<div class="outline-text-5" id="text-org4cf544f">
 <ul class="org-ul">
 <li><b>Vecino más cercano</b>: \(I'(x',y')=I(\operatorname{round}(x),\operatorname{round}(y))\).</li>
 <li><b>Bilineal</b>:</li>
@@ -2106,13 +2106,13 @@ con pesos \(w_{ij}\) que dependen de las distancias fraccionales.
 </ul>
 </div>
 
-<div id="outline-container-org61f4a54" class="outline-4">
-<h4 id="org61f4a54">Filtrado espacial (convolución) y operadores diferenciales</h4>
-<div class="outline-text-4" id="text-org61f4a54">
+<div id="outline-container-org0501188" class="outline-4">
+<h4 id="org0501188">Filtrado espacial (convolución) y operadores diferenciales</h4>
+<div class="outline-text-4" id="text-org0501188">
 </div>
 <ul class="org-ul">
-<li><a id="org328d441"></a>Convolución discreta 2D<br />
-<div class="outline-text-5" id="text-org328d441">
+<li><a id="orgd45cb8f"></a>Convolución discreta 2D<br />
+<div class="outline-text-5" id="text-orgd45cb8f">
 <p>
 \[
 (I * h)(x,y) = \sum_{u}\sum_{v} I(x-u,y-v)\,h(u,v).
@@ -2120,8 +2120,8 @@ con pesos \(w_{ij}\) que dependen de las distancias fraccionales.
 </p>
 </div>
 </li>
-<li><a id="orga5aa1c8"></a>Nucleos frecuentes (ejemplos)<br />
-<div class="outline-text-5" id="text-orga5aa1c8">
+<li><a id="orgfd02c87"></a>Nucleos frecuentes (ejemplos)<br />
+<div class="outline-text-5" id="text-orgfd02c87">
 <ul class="org-ul">
 <li><b>Media (blur) \(3\times3\)</b>:</li>
 </ul>
@@ -2149,8 +2149,8 @@ S_y=\begin{bmatrix}-1&-2&-1\\0&0&0\\1&2&1\end{bmatrix}.
 </p>
 </div>
 </li>
-<li><a id="org26dd8af"></a>Magnitud y dirección del gradiente<br />
-<div class="outline-text-5" id="text-org26dd8af">
+<li><a id="orge3540b8"></a>Magnitud y dirección del gradiente<br />
+<div class="outline-text-5" id="text-orge3540b8">
 <p>
 \[
 \nabla I = (I_x,I_y),\quad
@@ -2160,8 +2160,8 @@ S_y=\begin{bmatrix}-1&-2&-1\\0&0&0\\1&2&1\end{bmatrix}.
 </p>
 </div>
 </li>
-<li><a id="orge0a1567"></a>Laplaciano (detector de bordes)<br />
-<div class="outline-text-5" id="text-orge0a1567">
+<li><a id="org1280aac"></a>Laplaciano (detector de bordes)<br />
+<div class="outline-text-5" id="text-org1280aac">
 <p>
 \[
 \nabla^2 I \approx
@@ -2172,8 +2172,8 @@ S_y=\begin{bmatrix}-1&-2&-1\\0&0&0\\1&2&1\end{bmatrix}.
 </p>
 </div>
 </li>
-<li><a id="orga21eb0d"></a>LoG (Laplaciano de Gauss) — <b>suaviza y deriva</b><br />
-<div class="outline-text-5" id="text-orga21eb0d">
+<li><a id="org0733432"></a>LoG (Laplaciano de Gauss) — <b>suaviza y deriva</b><br />
+<div class="outline-text-5" id="text-org0733432">
 <p>
 \[
 \text{LoG}_\sigma = \nabla^2(G_\sigma * I) = (\nabla^2 G_\sigma) * I.
@@ -2184,12 +2184,12 @@ S_y=\begin{bmatrix}-1&-2&-1\\0&0&0\\1&2&1\end{bmatrix}.
 </ul>
 </div>
 
-<div id="outline-container-orgc99b800" class="outline-4">
-<h4 id="orgc99b800">Dominio de la frecuencia (DFT 2D)</h4>
+<div id="outline-container-org4cec193" class="outline-4">
+<h4 id="org4cec193">Dominio de la frecuencia (DFT 2D)</h4>
 </div>
-<div id="outline-container-org8b6baab" class="outline-4">
-<h4 id="org8b6baab">Transformada discreta de Fourier 2D</h4>
-<div class="outline-text-4" id="text-org8b6baab">
+<div id="outline-container-org24ad85f" class="outline-4">
+<h4 id="org24ad85f">Transformada discreta de Fourier 2D</h4>
+<div class="outline-text-4" id="text-org24ad85f">
 <p>
 \[
 F(u,v)=\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}
@@ -2198,8 +2198,8 @@ I(x,y)\,e^{-j2\pi\left(\frac{ux}{M}+\frac{vy}{N}\right)}.
 </p>
 </div>
 <ul class="org-ul">
-<li><a id="org5b548b8"></a>Inversa<br />
-<div class="outline-text-5" id="text-org5b548b8">
+<li><a id="org5a418b6"></a>Inversa<br />
+<div class="outline-text-5" id="text-org5a418b6">
 <p>
 \[
 I(x,y)=\frac{1}{MN}\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}
@@ -2208,8 +2208,8 @@ F(u,v)\,e^{+j2\pi\left(\frac{ux}{M}+\frac{vy}{N}\right)}.
 </p>
 </div>
 </li>
-<li><a id="org6df6db2"></a>Relación con convolución<br />
-<div class="outline-text-5" id="text-org6df6db2">
+<li><a id="org3f77d6b"></a>Relación con convolución<br />
+<div class="outline-text-5" id="text-org3f77d6b">
 <p>
 \[
 \mathcal{F}\{I*h\} = \mathcal{F}\{I\}\cdot \mathcal{F}\{h\}.
@@ -2221,13 +2221,13 @@ Filtros paso-bajo/alto pueden definirse multiplicando en frecuencia.
 </ul>
 </div>
 
-<div id="outline-container-orge9e87f2" class="outline-4">
-<h4 id="orge9e87f2">Formación de imagen (modelo pinhole simplificado)</h4>
-<div class="outline-text-4" id="text-orge9e87f2">
+<div id="outline-container-org5b47483" class="outline-4">
+<h4 id="org5b47483">Formación de imagen (modelo pinhole simplificado)</h4>
+<div class="outline-text-4" id="text-org5b47483">
 </div>
 <ul class="org-ul">
-<li><a id="org7dc1bb4"></a>Proyección perspectiva<br />
-<div class="outline-text-5" id="text-org7dc1bb4">
+<li><a id="orgc01e78e"></a>Proyección perspectiva<br />
+<div class="outline-text-5" id="text-orgc01e78e">
 <p>
 \[
 &lambda;
@@ -2248,9 +2248,9 @@ Filtros paso-bajo/alto pueden definirse multiplicando en frecuencia.
 </li>
 </ul>
 </div>
-<div id="outline-container-org64872da" class="outline-4">
-<h4 id="org64872da">Iluminación lambertiana (intensidad difusa)</h4>
-<div class="outline-text-4" id="text-org64872da">
+<div id="outline-container-org4939149" class="outline-4">
+<h4 id="org4939149">Iluminación lambertiana (intensidad difusa)</h4>
+<div class="outline-text-4" id="text-org4939149">
 <p>
 \[
 I \propto \rho\,(\mathbf{n}\cdot\mathbf{l}),
@@ -2260,9 +2260,9 @@ albedo \(\rho\), normal \(\mathbf{n}\), dirección de luz \(\mathbf{l}\).
 </div>
 </div>
 
-<div id="outline-container-orgd5b5ec1" class="outline-4">
-<h4 id="orgd5b5ec1">Estadística básica de intensidades (útil para normalización)</h4>
-<div class="outline-text-4" id="text-orgd5b5ec1">
+<div id="outline-container-org7861a74" class="outline-4">
+<h4 id="org7861a74">Estadística básica de intensidades (útil para normalización)</h4>
+<div class="outline-text-4" id="text-org7861a74">
 <ul class="org-ul">
 <li><b>Media</b>:</li>
 </ul>
@@ -2292,13 +2292,13 @@ I'(x,y)=\frac{I(x,y)-\mu}{\sigma}.
 </div>
 
 
-<div id="outline-container-org0b78e9c" class="outline-3">
-<h3 id="org0b78e9c">Modelos de Color: RGB, CMY, HSV y HSL</h3>
+<div id="outline-container-org99cde51" class="outline-3">
+<h3 id="org99cde51">Modelos de Color: RGB, CMY, HSV y HSL</h3>
 </div>
 
-<div id="outline-container-org27aa3ec" class="outline-3">
-<h3 id="org27aa3ec">Introducción</h3>
-<div class="outline-text-3" id="text-org27aa3ec">
+<div id="outline-container-org713a224" class="outline-3">
+<h3 id="org713a224">Introducción</h3>
+<div class="outline-text-3" id="text-org713a224">
 <p>
 Los <b>modelos de color</b> son representaciones matemáticas que describen
 cómo los colores pueden representarse en diversas formas utilizando
@@ -2310,13 +2310,13 @@ HSL.
 </div>
 </div>
 
-<div id="outline-container-org4ea2c66" class="outline-3">
-<h3 id="org4ea2c66">Modelo de Color RGB (Red, Green, Blue)</h3>
+<div id="outline-container-orgf1b159e" class="outline-3">
+<h3 id="orgf1b159e">Modelo de Color RGB (Red, Green, Blue)</h3>
 </div>
 
-<div id="outline-container-orge37bae2" class="outline-3">
-<h3 id="orge37bae2">Definición</h3>
-<div class="outline-text-3" id="text-orge37bae2">
+<div id="outline-container-org98a808f" class="outline-3">
+<h3 id="org98a808f">Definición</h3>
+<div class="outline-text-3" id="text-org98a808f">
 <p>
 El modelo de color <b>RGB</b> (Rojo, Verde, Azul) es un modelo de mezcla
 aditiva, que se utiliza principalmente en dispositivos que emiten luz,
@@ -2327,9 +2327,9 @@ crear una amplia gama de colores.
 </div>
 </div>
 
-<div id="outline-container-org805709f" class="outline-3">
-<h3 id="org805709f">Funcionamiento de la Mezcla Aditiva</h3>
-<div class="outline-text-3" id="text-org805709f">
+<div id="outline-container-org449439b" class="outline-3">
+<h3 id="org449439b">Funcionamiento de la Mezcla Aditiva</h3>
+<div class="outline-text-3" id="text-org449439b">
 <p>
 En el modelo RGB, los colores se generan mediante la combinación de
 luz. Cuanto más intensa es la luz en cada canal (rojo, verde o azul),
@@ -2359,9 +2359,9 @@ donde:
 </div>
 </div>
 
-<div id="outline-container-org38cea65" class="outline-3">
-<h3 id="org38cea65">Espacio de Color RGB</h3>
-<div class="outline-text-3" id="text-org38cea65">
+<div id="outline-container-orgb9e96b0" class="outline-3">
+<h3 id="orgb9e96b0">Espacio de Color RGB</h3>
+<div class="outline-text-3" id="text-orgb9e96b0">
 <p>
 El espacio de color <b>RGB</b> puede representarse como un cubo tridimensional, donde:
 </p>
@@ -2389,9 +2389,9 @@ Este espacio de color es útil para representar los colores generados en disposi
 </div>
 </div>
 
-<div id="outline-container-org49032dd" class="outline-3">
-<h3 id="org49032dd">Conversión a otros modelos de color</h3>
-<div class="outline-text-3" id="text-org49032dd">
+<div id="outline-container-orgb77d5ff" class="outline-3">
+<h3 id="orgb77d5ff">Conversión a otros modelos de color</h3>
+<div class="outline-text-3" id="text-orgb77d5ff">
 <p>
 El modelo RGB puede convertirse a otros espacios de color como <b>CMY</b>, <b>HSV</b> o <b>HSL</b>. A continuación se muestra la conversión básica de RGB a CMY:
 </p>
@@ -2406,9 +2406,9 @@ donde \(R\), \(G\), y \(B\) son las intensidades de los canales en el rango de [
 </div>
 </div>
 
-<div id="outline-container-orga1ac37a" class="outline-3">
-<h3 id="orga1ac37a">Aplicaciones del Modelo RGB</h3>
-<div class="outline-text-3" id="text-orga1ac37a">
+<div id="outline-container-org467f8fd" class="outline-3">
+<h3 id="org467f8fd">Aplicaciones del Modelo RGB</h3>
+<div class="outline-text-3" id="text-org467f8fd">
 <p>
 El modelo de color RGB se usa ampliamente en:
 </p>
@@ -2420,9 +2420,9 @@ El modelo de color RGB se usa ampliamente en:
 </div>
 </div>
 
-<div id="outline-container-org1046491" class="outline-3">
-<h3 id="org1046491">Limitaciones del Modelo RGB</h3>
-<div class="outline-text-3" id="text-org1046491">
+<div id="outline-container-org5b6487b" class="outline-3">
+<h3 id="org5b6487b">Limitaciones del Modelo RGB</h3>
+<div class="outline-text-3" id="text-org5b6487b">
 <p>
 Aunque el modelo RGB es excelente para dispositivos que emiten luz, tiene algunas limitaciones:
 </p>
@@ -2437,9 +2437,9 @@ Aunque el modelo RGB es excelente para dispositivos que emiten luz, tiene alguna
 
 
 
-<div id="outline-container-orgd51849f" class="outline-3">
-<h3 id="orgd51849f">Modelo CMY (Cyan, Magenta, Yellow)</h3>
-<div class="outline-text-3" id="text-orgd51849f">
+<div id="outline-container-org896ef80" class="outline-3">
+<h3 id="org896ef80">Modelo CMY (Cyan, Magenta, Yellow)</h3>
+<div class="outline-text-3" id="text-org896ef80">
 <p>
 El modelo <b>CMY</b> es un modelo de mezcla sustractiva que utiliza los colores cian, magenta y amarillo. Es el modelo base para la impresión en color.
 </p>
@@ -2485,9 +2485,9 @@ Si los valores RGB están normalizados entre 0 y 1:
 </div>
 </div>
 
-<div id="outline-container-orga248369" class="outline-3">
-<h3 id="orga248369">Modelo HSV (Hue, Saturation, Value)</h3>
-<div class="outline-text-3" id="text-orga248369">
+<div id="outline-container-org42afd67" class="outline-3">
+<h3 id="org42afd67">Modelo HSV (Hue, Saturation, Value)</h3>
+<div class="outline-text-3" id="text-org42afd67">
 <p>
 El modelo <b>HSV</b> es una representación más intuitiva del color basada en la percepción humana, donde el matiz, la saturación y el valor describen un color.
 </p>
@@ -2575,22 +2575,22 @@ donde \( L \) es el valor máximo de intensidad (por ejemplo, 255).
 </ul>
 </div>
 
-<div id="outline-container-org9034bfc" class="outline-4">
-<h4 id="org9034bfc">HSV opencv</h4>
+<div id="outline-container-orgcad5635" class="outline-4">
+<h4 id="orgcad5635">HSV opencv</h4>
 </div>
 
-<div id="outline-container-org1daf341" class="outline-4">
-<h4 id="org1daf341">Tutorial: Umbrales en el Modelo de Color HSV</h4>
-<div class="outline-text-4" id="text-org1daf341">
+<div id="outline-container-orgd67efc6" class="outline-4">
+<h4 id="orgd67efc6">Tutorial: Umbrales en el Modelo de Color HSV</h4>
+<div class="outline-text-4" id="text-orgd67efc6">
 <p>
 El espacio de color <b>HSV</b> (Hue, Saturation, Value) se utiliza para la segmentación de colores en OpenCV. A continuación, explicaremos los tres parámetros principales y cómo definir umbrales para detectar colores.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org4b1b5db" class="outline-4">
-<h4 id="org4b1b5db">Definición de los Parámetros del Modelo HSV</h4>
-<div class="outline-text-4" id="text-org4b1b5db">
+<div id="outline-container-orgf189b56" class="outline-4">
+<h4 id="orgf189b56">Definición de los Parámetros del Modelo HSV</h4>
+<div class="outline-text-4" id="text-orgf189b56">
 <ul class="org-ul">
 <li><b>Hue (H)</b>: Tono o color básico (rojo, verde, azul, etc.). En OpenCV va de 0 a 179.</li>
 <li><b>Saturation (S)</b>: Intensidad del color. Va de 0 a 255.</li>
@@ -2599,17 +2599,17 @@ El espacio de color <b>HSV</b> (Hue, Saturation, Value) se utiliza para la segme
 </div>
 </div>
 
-<div id="outline-container-orgf8d1a68" class="outline-4">
-<h4 id="orgf8d1a68">Detectar un color en el espacio HSV</h4>
-<div class="outline-text-4" id="text-orgf8d1a68">
+<div id="outline-container-orgb785d47" class="outline-4">
+<h4 id="orgb785d47">Detectar un color en el espacio HSV</h4>
+<div class="outline-text-4" id="text-orgb785d47">
 <p>
 Puedes definir un rango de color utilizando los valores de Hue, Saturation y Value para segmentar colores específicos en una imagen.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="orga86c2c0"></a>Código en Python para detectar un color (Verde)<br />
-<div class="outline-text-5" id="text-orga86c2c0">
+<li><a id="orgbc837d1"></a>Código en Python para detectar un color (Verde)<br />
+<div class="outline-text-5" id="text-orgbc837d1">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
@@ -2642,9 +2642,9 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </ul>
 </div>
 
-<div id="outline-container-org99d1271" class="outline-4">
-<h4 id="org99d1271">Explicación de los Parámetros:</h4>
-<div class="outline-text-4" id="text-org99d1271">
+<div id="outline-container-org85008ef" class="outline-4">
+<h4 id="org85008ef">Explicación de los Parámetros:</h4>
+<div class="outline-text-4" id="text-org85008ef">
 <ul class="org-ul">
 <li><b>lower<sub>green</sub> = np.array([35, 100, 100])</b>:
 <ul class="org-ul">
@@ -2663,9 +2663,9 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgcb1376c" class="outline-4">
-<h4 id="orgcb1376c">Ajustes de los Umbrales</h4>
-<div class="outline-text-4" id="text-orgcb1376c">
+<div id="outline-container-orgbeb865b" class="outline-4">
+<h4 id="orgbeb865b">Ajustes de los Umbrales</h4>
+<div class="outline-text-4" id="text-orgbeb865b">
 <p>
 Dependiendo de las condiciones de luz y el color exacto que deseas detectar, puedes ajustar los valores de Hue, Saturación y Brillo:
 </p>
@@ -2678,9 +2678,9 @@ Dependiendo de las condiciones de luz y el color exacto que deseas detectar, pue
 </div>
 </div>
 
-<div id="outline-container-org4d9c96c" class="outline-4">
-<h4 id="org4d9c96c">Ejemplo visual: Rango de tonos para detectar verde</h4>
-<div class="outline-text-4" id="text-org4d9c96c">
+<div id="outline-container-org7966ade" class="outline-4">
+<h4 id="org7966ade">Ejemplo visual: Rango de tonos para detectar verde</h4>
+<div class="outline-text-4" id="text-org7966ade">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -2720,9 +2720,9 @@ Dependiendo de las condiciones de luz y el color exacto que deseas detectar, pue
 </div>
 </div>
 
-<div id="outline-container-org46789ec" class="outline-4">
-<h4 id="org46789ec">Uso de <code>cv2.inRange</code></h4>
-<div class="outline-text-4" id="text-org46789ec">
+<div id="outline-container-orgb6b2df2" class="outline-4">
+<h4 id="orgb6b2df2">Uso de <code>cv2.inRange</code></h4>
+<div class="outline-text-4" id="text-orgb6b2df2">
 <p>
 La función <code>cv2.inRange()</code> crea una máscara binaria donde los píxeles dentro del rango son blancos (255) y los fuera del rango son negros (0).
 </p>
@@ -2733,9 +2733,9 @@ La función <code>cv2.inRange()</code> crea una máscara binaria donde los píxe
 
 
 
-<div id="outline-container-orga08ea71" class="outline-3">
-<h3 id="orga08ea71">Modelo HSL (Hue, Saturation, Lightness)</h3>
-<div class="outline-text-3" id="text-orga08ea71">
+<div id="outline-container-org9caec36" class="outline-3">
+<h3 id="org9caec36">Modelo HSL (Hue, Saturation, Lightness)</h3>
+<div class="outline-text-3" id="text-org9caec36">
 <p>
 El modelo <b>HSL</b> es similar al modelo HSV, pero en lugar de "valor" utiliza el término <b>luminosidad (Lightness)</b>, que representa la cantidad de luz que refleja un color.
 </p>
@@ -2810,13 +2810,13 @@ El modelo <b>HSL</b> es similar al modelo HSV, pero en lugar de "valor" utiliza 
 
 
 
-<div id="outline-container-org7d58874" class="outline-3">
-<h3 id="org7d58874">Función Bitwise opencv</h3>
-<div class="outline-text-3" id="text-org7d58874">
+<div id="outline-container-orgfbcc8ec" class="outline-3">
+<h3 id="orgfbcc8ec">Función Bitwise opencv</h3>
+<div class="outline-text-3" id="text-orgfbcc8ec">
 </div>
-<div id="outline-container-org1c4e1cf" class="outline-4">
-<h4 id="org1c4e1cf">Tutorial: Operaciones Bitwise en OpenCV</h4>
-<div class="outline-text-4" id="text-org1c4e1cf">
+<div id="outline-container-org819b0b7" class="outline-4">
+<h4 id="org819b0b7">Tutorial: Operaciones Bitwise en OpenCV</h4>
+<div class="outline-text-4" id="text-org819b0b7">
 <p>
 Las operaciones bitwise en OpenCV son útiles para realizar
 manipulaciones de imágenes como la creación de máscaras, la
@@ -2826,8 +2826,8 @@ combinación de imágenes, o efectos visuales.
 
 
 <ul class="org-ul">
-<li><a id="org69e1beb"></a>1. Operación <code>cv2.bitwise_and</code><br />
-<div class="outline-text-5" id="text-org69e1beb">
+<li><a id="orga5a5b58"></a>1. Operación <code>cv2.bitwise_and</code><br />
+<div class="outline-text-5" id="text-orga5a5b58">
 <p>
 Esta operación realiza una operación AND bit a bit sobre los píxeles
 correspondientes de dos imágenes. Devuelve una imagen donde un píxel
@@ -2862,8 +2862,8 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </li>
 
-<li><a id="orgabccd5a"></a>2. Operación <code>cv2.bitwise_or</code><br />
-<div class="outline-text-5" id="text-orgabccd5a">
+<li><a id="org6868003"></a>2. Operación <code>cv2.bitwise_or</code><br />
+<div class="outline-text-5" id="text-org6868003">
 <p>
 Realiza una operación OR bit a bit entre los píxeles de dos imágenes. El resultado será 1 si al menos uno de los píxeles correspondientes es 1.
 </p>
@@ -2896,8 +2896,8 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </li>
 
-<li><a id="orga891c20"></a>3. Operación <code>cv2.bitwise_xor</code><br />
-<div class="outline-text-5" id="text-orga891c20">
+<li><a id="orge3f6ef0"></a>3. Operación <code>cv2.bitwise_xor</code><br />
+<div class="outline-text-5" id="text-orge3f6ef0">
 <p>
 La operación XOR devuelve una imagen donde un píxel será 1 si exactamente uno de los píxeles correspondientes en las imágenes de entrada es 1.
 </p>
@@ -2930,8 +2930,8 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </li>
 
-<li><a id="org9edea16"></a>4. Operación <code>cv2.bitwise_not</code><br />
-<div class="outline-text-5" id="text-org9edea16">
+<li><a id="orgbb7b6d9"></a>4. Operación <code>cv2.bitwise_not</code><br />
+<div class="outline-text-5" id="text-orgbb7b6d9">
 <p>
 La operación NOT invierte los colores de la imagen. Los píxeles blancos se convierten en negros y viceversa.
 </p>
@@ -2959,8 +2959,8 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </li>
 
-<li><a id="org18e7781"></a>Ejemplo práctico: Enmascarar una región de interés (ROI)<br />
-<div class="outline-text-5" id="text-org18e7781">
+<li><a id="org12d2223"></a>Ejemplo práctico: Enmascarar una región de interés (ROI)<br />
+<div class="outline-text-5" id="text-org12d2223">
 <p>
 Aquí aplicamos operaciones bitwise para enmascarar y combinar una imagen.
 </p>
@@ -3015,26 +3015,26 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-orge56835d" class="outline-3">
-<h3 id="orge56835d">Definición: Operación Bit a Bit</h3>
-<div class="outline-text-3" id="text-orge56835d">
+<div id="outline-container-org3fc1358" class="outline-3">
+<h3 id="org3fc1358">Definición: Operación Bit a Bit</h3>
+<div class="outline-text-3" id="text-org3fc1358">
 <p>
 Una <b><b>operación bit a bit</b></b> (en inglés, <b>bitwise operation</b>) es una operación que se realiza directamente sobre los bits de los operandos. Las operaciones se ejecutan sobre los bits correspondientes de los números en formato binario.
 </p>
 </div>
 
-<div id="outline-container-org4a2fb1e" class="outline-4">
-<h4 id="org4a2fb1e">Principales operaciones bit a bit</h4>
-<div class="outline-text-4" id="text-org4a2fb1e">
+<div id="outline-container-org4d7f2ce" class="outline-4">
+<h4 id="org4d7f2ce">Principales operaciones bit a bit</h4>
+<div class="outline-text-4" id="text-org4d7f2ce">
 </div>
 <ul class="org-ul">
-<li><a id="orgbc48776"></a>1. AND bit a bit (<code>&amp;</code>)<br />
-<div class="outline-text-5" id="text-orgbc48776">
+<li><a id="org3676fba"></a>1. AND bit a bit (<code>&amp;</code>)<br />
+<div class="outline-text-5" id="text-org3676fba">
 <p>
 Devuelve `1` si ambos bits en la misma posición son `1`, de lo contrario devuelve `0`.
 </p>
 
-<pre class="example" id="org995bfe0">
+<pre class="example" id="org54d0b8e">
 A = 1010 (10 en decimal)
 B = 1100 (12 en decimal)
 Resultado: 1000 (8 en decimal)
@@ -3042,13 +3042,13 @@ Resultado: 1000 (8 en decimal)
 </div>
 </li>
 
-<li><a id="orga0f6afd"></a>2. OR bit a bit (<code>|</code>)<br />
-<div class="outline-text-5" id="text-orga0f6afd">
+<li><a id="org75640d2"></a>2. OR bit a bit (<code>|</code>)<br />
+<div class="outline-text-5" id="text-org75640d2">
 <p>
 Devuelve `1` si al menos uno de los bits en la misma posición es `1`, de lo contrario devuelve `0`.
 </p>
 
-<pre class="example" id="orgc035a98">
+<pre class="example" id="orga17237c">
 A = 1010 (10 en decimal)
 B = 1100 (12 en decimal)
 Resultado: 1110 (14 en decimal)
@@ -3056,13 +3056,13 @@ Resultado: 1110 (14 en decimal)
 </div>
 </li>
 
-<li><a id="orga0faad9"></a>3. XOR bit a bit (<code>^</code>)<br />
-<div class="outline-text-5" id="text-orga0faad9">
+<li><a id="orgfdd9585"></a>3. XOR bit a bit (<code>^</code>)<br />
+<div class="outline-text-5" id="text-orgfdd9585">
 <p>
 Devuelve `1` si los bits en la misma posición son diferentes, y `0` si son iguales.
 </p>
 
-<pre class="example" id="org1a39299">
+<pre class="example" id="org8aadd8d">
 A = 1010 (10 en decimal)
 B = 1100 (12 en decimal)
 Resultado: 0110 (6 en decimal)
@@ -3070,47 +3070,47 @@ Resultado: 0110 (6 en decimal)
 </div>
 </li>
 
-<li><a id="orgaa3bbdf"></a>4. NOT bit a bit (~~)<br />
-<div class="outline-text-5" id="text-orgaa3bbdf">
+<li><a id="org62d6ff7"></a>4. NOT bit a bit (~~)<br />
+<div class="outline-text-5" id="text-org62d6ff7">
 <p>
 Invierte los bits de un número: convierte los `0` en `1` y los `1` en `0`. En sistemas de complemento a dos, esto también implica cambiar el signo de un número entero.
 </p>
 
-<pre class="example" id="org6933f79">
+<pre class="example" id="orgc3aa701">
 A = 1010 (10 en decimal)
 Resultado: 0101 (-11 en decimal, si estamos usando complemento a dos)
 </pre>
 </div>
 </li>
 
-<li><a id="org13402ea"></a>5. Desplazamiento a la izquierda (<code>&lt;&lt;</code>)<br />
-<div class="outline-text-5" id="text-org13402ea">
+<li><a id="org59b881d"></a>5. Desplazamiento a la izquierda (<code>&lt;&lt;</code>)<br />
+<div class="outline-text-5" id="text-org59b881d">
 <p>
 Desplaza todos los bits del número hacia la izquierda por un número específico de posiciones. Los bits desplazados fuera del límite se descartan y se rellenan con ceros en el extremo derecho.
 </p>
 
-<pre class="example" id="orgf9734b8">
+<pre class="example" id="orga697103">
 A = 0001 (1 en decimal)
 A &lt;&lt; 2 = 0100 (4 en decimal)
 </pre>
 </div>
 </li>
 
-<li><a id="orgba58300"></a>6. Desplazamiento a la derecha (<code>&gt;&gt;</code>)<br />
-<div class="outline-text-5" id="text-orgba58300">
+<li><a id="orgd104eb0"></a>6. Desplazamiento a la derecha (<code>&gt;&gt;</code>)<br />
+<div class="outline-text-5" id="text-orgd104eb0">
 <p>
 Desplaza todos los bits del número hacia la derecha por un número específico de posiciones. Los bits desplazados fuera del límite se descartan y el bit más significativo depende del signo del número.
 </p>
 
-<pre class="example" id="orgc36b1a3">
+<pre class="example" id="org6176e17">
 A = 1000 (8 en decimal)
 A &gt;&gt; 2 = 0010 (2 en decimal)
 </pre>
 </div>
 </li>
 
-<li><a id="org656dcdf"></a>Aplicaciones de las operaciones bit a bit<br />
-<div class="outline-text-5" id="text-org656dcdf">
+<li><a id="org3a12012"></a>Aplicaciones de las operaciones bit a bit<br />
+<div class="outline-text-5" id="text-org3a12012">
 <ul class="org-ul">
 <li><b><b>Máscaras de bits</b></b>: Las operaciones bit a bit se usan para aplicar máscaras que seleccionan o modifican partes específicas de un número o secuencia binaria.</li>
 <li><b><b>Manipulación de imágenes</b></b>: En procesamiento de imágenes, las operaciones bit a bit son útiles para combinar y modificar píxeles en OpenCV.</li>
@@ -3124,13 +3124,13 @@ A &gt;&gt; 2 = 0010 (2 en decimal)
 
 
 
-<div id="outline-container-orgf9961f8" class="outline-3">
-<h3 id="orgf9961f8">Operadores Puntuales</h3>
-<div class="outline-text-3" id="text-orgf9961f8">
+<div id="outline-container-org24a107e" class="outline-3">
+<h3 id="org24a107e">Operadores Puntuales</h3>
+<div class="outline-text-3" id="text-org24a107e">
 </div>
-<div id="outline-container-org673331a" class="outline-4">
-<h4 id="org673331a">Definición</h4>
-<div class="outline-text-4" id="text-org673331a">
+<div id="outline-container-orgeafa4af" class="outline-4">
+<h4 id="orgeafa4af">Definición</h4>
+<div class="outline-text-4" id="text-orgeafa4af">
 <p>
 Los <b>operadores puntuales</b> son una clase de transformaciones aplicadas
 en el procesamiento digital de imágenes que operan sobre cada píxel de
@@ -3141,9 +3141,9 @@ entrada, sin considerar los valores de los píxeles vecinos.
 </div>
 </div>
 
-<div id="outline-container-org46acb3c" class="outline-4">
-<h4 id="org46acb3c">Características</h4>
-<div class="outline-text-4" id="text-org46acb3c">
+<div id="outline-container-org7f0ae7b" class="outline-4">
+<h4 id="org7f0ae7b">Características</h4>
+<div class="outline-text-4" id="text-org7f0ae7b">
 <ol class="org-ol">
 <li><b>Independencia espacial</b>: Los operadores puntuales solo modifican
 cada píxel basado en su valor original, sin tener en cuenta su
@@ -3158,13 +3158,13 @@ real.</li>
 </div>
 </div>
 
-<div id="outline-container-org1e6975e" class="outline-4">
-<h4 id="org1e6975e">Tipos de Operadores Puntuales</h4>
-<div class="outline-text-4" id="text-org1e6975e">
+<div id="outline-container-org4f41c43" class="outline-4">
+<h4 id="org4f41c43">Tipos de Operadores Puntuales</h4>
+<div class="outline-text-4" id="text-org4f41c43">
 </div>
 <ul class="org-ul">
-<li><a id="orgb92827d"></a>Operador de Identidad<br />
-<div class="outline-text-5" id="text-orgb92827d">
+<li><a id="org7a399e4"></a>Operador de Identidad<br />
+<div class="outline-text-5" id="text-org7a399e4">
 <ul class="org-ul">
 <li>No altera la imagen. Cada píxel de la imagen de salida tiene el
 mismo valor que el píxel correspondiente en la imagen de entrada.</li>
@@ -3173,8 +3173,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="orge2493b0"></a>Negativo de la Imagen<br />
-<div class="outline-text-5" id="text-orge2493b0">
+<li><a id="org7560ec7"></a>Negativo de la Imagen<br />
+<div class="outline-text-5" id="text-org7560ec7">
 <ul class="org-ul">
 <li>Este operador invierte los valores de los píxeles de una imagen, produciendo su negativo.</li>
 <li>Fórmula: \( g(x, y) = L - 1 - f(x, y) \), donde \( L \) es el valor máximo posible en la imagen (por ejemplo, 255 en imágenes de 8 bits).</li>
@@ -3183,8 +3183,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="orgdec7952"></a>Umbralización (Thresholding)<br />
-<div class="outline-text-5" id="text-orgdec7952">
+<li><a id="org6f7ee17"></a>Umbralización (Thresholding)<br />
+<div class="outline-text-5" id="text-org6f7ee17">
 <ul class="org-ul">
 <li>Convierte la imagen a una versión binaria, donde los píxeles con valores por encima de un umbral se establecen en un valor (generalmente blanco), y los que están por debajo se establecen en otro (generalmente negro).</li>
 <li>Fórmula: 
@@ -3198,8 +3198,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="org1e06957"></a>Corrección Gamma<br />
-<div class="outline-text-5" id="text-org1e06957">
+<li><a id="orgb6cbb2e"></a>Corrección Gamma<br />
+<div class="outline-text-5" id="text-orgb6cbb2e">
 <ul class="org-ul">
 <li>Ajusta los valores de intensidad de los píxeles para modificar el brillo o contraste de la imagen.</li>
 <li>Fórmula: \( g(x, y) = c \cdot f(x, y)^\gamma \), donde \( c \) es una constante de escala, y \( \gamma \) es el factor de corrección.</li>
@@ -3208,8 +3208,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="org49a4deb"></a>Transformaciones Logarítmicas<br />
-<div class="outline-text-5" id="text-org49a4deb">
+<li><a id="org690a192"></a>Transformaciones Logarítmicas<br />
+<div class="outline-text-5" id="text-org690a192">
 <ul class="org-ul">
 <li>Aumentan los detalles en regiones oscuras de la imagen al expandir los valores de intensidad bajos.</li>
 <li>Fórmula: \( g(x, y) = c \cdot \log(1 + f(x, y)) \), donde \( c \) es una constante.</li>
@@ -3218,8 +3218,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="org84b8052"></a>Corrección Lineal o Estiramiento de Contraste<br />
-<div class="outline-text-5" id="text-org84b8052">
+<li><a id="org9930cbb"></a>Corrección Lineal o Estiramiento de Contraste<br />
+<div class="outline-text-5" id="text-org9930cbb">
 <ul class="org-ul">
 <li>Expande los valores de intensidad en una imagen para cubrir un rango más amplio, aumentando el contraste.</li>
 <li>Fórmula:
@@ -3231,8 +3231,8 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </div>
 </li>
 
-<li><a id="org7ccba73"></a>Transformaciones de Potencia (Raise to Power Transform)<br />
-<div class="outline-text-5" id="text-org7ccba73">
+<li><a id="orgf3da0f9"></a>Transformaciones de Potencia (Raise to Power Transform)<br />
+<div class="outline-text-5" id="text-orgf3da0f9">
 <ul class="org-ul">
 <li>Eleva cada valor de píxel a una potencia \( n \), lo que permite ajustar el brillo y contraste de una imagen.</li>
 <li>Fórmula: \( g(x, y) = c \cdot f(x, y)^n \).</li>
@@ -3242,9 +3242,9 @@ mismo valor que el píxel correspondiente en la imagen de entrada.</li>
 </ul>
 </div>
 
-<div id="outline-container-orgcf5eccd" class="outline-4">
-<h4 id="orgcf5eccd">Aplicaciones de Operadores Puntuales</h4>
-<div class="outline-text-4" id="text-orgcf5eccd">
+<div id="outline-container-org947330b" class="outline-4">
+<h4 id="org947330b">Aplicaciones de Operadores Puntuales</h4>
+<div class="outline-text-4" id="text-org947330b">
 <ul class="org-ul">
 <li><b>Corrección de imágenes</b>: Mejoran el brillo, contraste, y otros aspectos visuales de una imagen.</li>
 <li><b>Segmentación</b>: La umbralización es comúnmente usada para separar objetos de fondo en una imagen.</li>
@@ -3261,9 +3261,9 @@ En resumen, los <b>operadores puntuales</b> son una herramienta fundamental en e
 
 
 
-<div id="outline-container-orgca664c4" class="outline-3">
-<h3 id="orgca664c4">Explicación detallada de los Momentos</h3>
-<div class="outline-text-3" id="text-orgca664c4">
+<div id="outline-container-orgbddcde7" class="outline-3">
+<h3 id="orgbddcde7">Explicación detallada de los Momentos</h3>
+<div class="outline-text-3" id="text-orgbddcde7">
 <p>
 Los <b><b>momentos</b></b> son valores estadísticos calculados a partir de los píxeles de un objeto.
 Se utilizan para describir:
@@ -3280,9 +3280,9 @@ OpenCV devuelve un diccionario con varios tipos de momentos:
 </p>
 </div>
 
-<div id="outline-container-orgf1c2b3d" class="outline-4">
-<h4 id="orgf1c2b3d">Momentos espaciales</h4>
-<div class="outline-text-4" id="text-orgf1c2b3d">
+<div id="outline-container-org04bcb88" class="outline-4">
+<h4 id="org04bcb88">Momentos espaciales</h4>
+<div class="outline-text-4" id="text-org04bcb88">
 <p>
 Son los básicos, dependen de la posición en la imagen.
 </p>
@@ -3303,9 +3303,9 @@ Describen cómo está distribuida la masa del objeto respecto a los ejes.</li>
 </div>
 </div>
 
-<div id="outline-container-org4aa137b" class="outline-4">
-<h4 id="org4aa137b">Momentos centrales (mu)</h4>
-<div class="outline-text-4" id="text-org4aa137b">
+<div id="outline-container-org971ceb2" class="outline-4">
+<h4 id="org971ceb2">Momentos centrales (mu)</h4>
+<div class="outline-text-4" id="text-org971ceb2">
 <p>
 Los momentos centrales se calculan respecto al centroide, y por lo tanto son <b><b>invariantes a la traslación</b></b> (no importa dónde esté el objeto en la imagen).
 </p>
@@ -3320,9 +3320,9 @@ Si es cero, indica que la figura está alineada con los ejes.</li>
 </div>
 </div>
 
-<div id="outline-container-org41b7c6b" class="outline-4">
-<h4 id="org41b7c6b">Momentos normalizados (nu)</h4>
-<div class="outline-text-4" id="text-org41b7c6b">
+<div id="outline-container-org296762c" class="outline-4">
+<h4 id="org296762c">Momentos normalizados (nu)</h4>
+<div class="outline-text-4" id="text-org296762c">
 <p>
 Se obtienen dividiendo los momentos centrales por una potencia de m00.  
 Esto hace que sean <b><b>invariantes a la escala</b></b> (el tamaño del objeto no afecta).
@@ -3330,9 +3330,9 @@ Esto hace que sean <b><b>invariantes a la escala</b></b> (el tamaño del objeto 
 </div>
 </div>
 
-<div id="outline-container-org43f021e" class="outline-4">
-<h4 id="org43f021e">Hu Moments</h4>
-<div class="outline-text-4" id="text-org43f021e">
+<div id="outline-container-orgab83e2c" class="outline-4">
+<h4 id="orgab83e2c">Hu Moments</h4>
+<div class="outline-text-4" id="text-orgab83e2c">
 <p>
 Los <b><b>Hu Moments</b></b> (siete en total) son combinaciones matemáticas de los momentos normalizados.  
 Sus propiedades:
@@ -3351,9 +3351,9 @@ Ejemplo: distinguir entre un círculo y un triángulo, aunque estén en posicion
 </div>
 </div>
 
-<div id="outline-container-orgbd462a4" class="outline-4">
-<h4 id="orgbd462a4">Resumen gráfico</h4>
-<div class="outline-text-4" id="text-orgbd462a4">
+<div id="outline-container-org31f8ccf" class="outline-4">
+<h4 id="org31f8ccf">Resumen gráfico</h4>
+<div class="outline-text-4" id="text-org31f8ccf">
 <ol class="org-ol">
 <li>m00 → área.</li>
 <li>(m10, m01) → centroide.</li>
@@ -3366,9 +3366,9 @@ Ejemplo: distinguir entre un círculo y un triángulo, aunque estén en posicion
 
 
 
-<div id="outline-container-org6eacc90" class="outline-3">
-<h3 id="org6eacc90">Cálculo de los momentos espaciales (m00)</h3>
-<div class="outline-text-3" id="text-org6eacc90">
+<div id="outline-container-org611a7ff" class="outline-3">
+<h3 id="org611a7ff">Cálculo de los momentos espaciales (m00)</h3>
+<div class="outline-text-3" id="text-org611a7ff">
 <p>
 Los <b><b>momentos espaciales</b></b> se definen como:
 </p>
@@ -3389,9 +3389,9 @@ donde:
 </ul>
 </div>
 
-<div id="outline-container-orgd11ec23" class="outline-4">
-<h4 id="orgd11ec23">Ejemplo específico de m00</h4>
-<div class="outline-text-4" id="text-orgd11ec23">
+<div id="outline-container-orga882579" class="outline-4">
+<h4 id="orga882579">Ejemplo específico de m00</h4>
+<div class="outline-text-4" id="text-orga882579">
 <p>
 Si \(i = 0\) y \(j = 0\):
 </p>
@@ -3415,9 +3415,9 @@ Por lo tanto:
 </div>
 </div>
 
-<div id="outline-container-orgf367d69" class="outline-4">
-<h4 id="orgf367d69">Ejemplo en código</h4>
-<div class="outline-text-4" id="text-orgf367d69">
+<div id="outline-container-orgab66080" class="outline-4">
+<h4 id="orgab66080">Ejemplo en código</h4>
+<div class="outline-text-4" id="text-orgab66080">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
@@ -3448,9 +3448,9 @@ La salida mostrará que `m00` y el área calculada con `cv2.contourArea()` son p
 
 
 
-<div id="outline-container-orga8e8d18" class="outline-3">
-<h3 id="orga8e8d18">Cálculo exacto del centroide con momentos</h3>
-<div class="outline-text-3" id="text-orga8e8d18">
+<div id="outline-container-orga5fd8d1" class="outline-3">
+<h3 id="orga5fd8d1">Cálculo exacto del centroide con momentos</h3>
+<div class="outline-text-3" id="text-orga5fd8d1">
 <p>
 La fórmula general para los momentos espaciales es:
 </p>
@@ -3470,9 +3470,9 @@ donde:
 </ul>
 </div>
 
-<div id="outline-container-org9612969" class="outline-4">
-<h4 id="org9612969">Fórmulas del centroide</h4>
-<div class="outline-text-4" id="text-org9612969">
+<div id="outline-container-orgf8ee923" class="outline-4">
+<h4 id="orgf8ee923">Fórmulas del centroide</h4>
+<div class="outline-text-4" id="text-orgf8ee923">
 <p>
 El centroide \((c_x, c_y)\) se obtiene como:
 </p>
@@ -3506,9 +3506,9 @@ Cuando divides por \(m_{00}\) (área), lo que obtienes es el <b><b>promedio de l
 </div>
 </div>
 
-<div id="outline-container-orgd053433" class="outline-4">
-<h4 id="orgd053433">Ejemplo manual</h4>
-<div class="outline-text-4" id="text-orgd053433">
+<div id="outline-container-org0ce570b" class="outline-4">
+<h4 id="org0ce570b">Ejemplo manual</h4>
+<div class="outline-text-4" id="text-org0ce570b">
 <p>
 Supongamos un objeto con 4 píxeles en coordenadas:
 </p>
@@ -3534,9 +3534,9 @@ c_x = \frac{6}{4} = 1.5, \quad c_y = \frac{6}{4} = 1.5
 </div>
 </div>
 
-<div id="outline-container-org4cc1128" class="outline-4">
-<h4 id="org4cc1128">Ejemplo en OpenCV</h4>
-<div class="outline-text-4" id="text-org4cc1128">
+<div id="outline-container-orgba42614" class="outline-4">
+<h4 id="orgba42614">Ejemplo en OpenCV</h4>
+<div class="outline-text-4" id="text-orgba42614">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
@@ -3570,9 +3570,9 @@ Si corres este código, el centroide saldrá en <b><b>(100,100)</b></b>, que es 
 
 
 
-<div id="outline-container-org46f3673" class="outline-3">
-<h3 id="org46f3673">Comparación entre Centroide (momentos) y Bounding Box (extremos)</h3>
-<div class="outline-text-3" id="text-org46f3673">
+<div id="outline-container-orga43b62f" class="outline-3">
+<h3 id="orga43b62f">Comparación entre Centroide (momentos) y Bounding Box (extremos)</h3>
+<div class="outline-text-3" id="text-orga43b62f">
 <p>
 Existen dos técnicas principales para calcular el "centro" de un objeto en visión
 por computadora:
@@ -3596,9 +3596,9 @@ Fórmula:
 </ol>
 </div>
 
-<div id="outline-container-orgddafc98" class="outline-4">
-<h4 id="orgddafc98">Código de ejemplo en Python</h4>
-<div class="outline-text-4" id="text-orgddafc98">
+<div id="outline-container-org5b0ce12" class="outline-4">
+<h4 id="org5b0ce12">Código de ejemplo en Python</h4>
+<div class="outline-text-4" id="text-org5b0ce12">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
@@ -3643,9 +3643,9 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgf76cc22" class="outline-4">
-<h4 id="orgf76cc22">Interpretación</h4>
-<div class="outline-text-4" id="text-orgf76cc22">
+<div id="outline-container-org492cbe1" class="outline-4">
+<h4 id="org492cbe1">Interpretación</h4>
+<div class="outline-text-4" id="text-org492cbe1">
 <ul class="org-ul">
 <li>El <b><b>centroide (rojo)</b></b> se desplazará hacia la mancha más grande porque
 representa el promedio ponderado de todos los píxeles.</li>
@@ -3655,9 +3655,9 @@ del objeto, sin importar qué mancha sea más grande.</li>
 </div>
 </div>
 
-<div id="outline-container-orgcd0a64f" class="outline-4">
-<h4 id="orgcd0a64f">Conclusión</h4>
-<div class="outline-text-4" id="text-orgcd0a64f">
+<div id="outline-container-org0ad55b0" class="outline-4">
+<h4 id="org0ad55b0">Conclusión</h4>
+<div class="outline-text-4" id="text-org0ad55b0">
 <ul class="org-ul">
 <li>El <b><b>centroide</b></b> es más preciso para análisis de formas y seguimiento.</li>
 <li>El <b><b>bounding box</b></b> es más rápido y se usa en detección de objetos.</li>
@@ -3671,17 +3671,17 @@ del objeto, sin importar qué mancha sea más grande.</li>
 
 
 
-<div id="outline-container-org5fe5df4" class="outline-3">
-<h3 id="org5fe5df4">Proceso de Multiplicación de una Matriz de Transformación por una Coordenada de Píxel</h3>
-<div class="outline-text-3" id="text-org5fe5df4">
+<div id="outline-container-orgb6b4998" class="outline-3">
+<h3 id="orgb6b4998">Proceso de Multiplicación de una Matriz de Transformación por una Coordenada de Píxel</h3>
+<div class="outline-text-3" id="text-orgb6b4998">
 <p>
 Cuando aplicamos una transformación geométrica a una imagen, multiplicamos las coordenadas de cada píxel por una <b>matriz de transformación</b>. Este proceso se desglosa paso a paso de la siguiente manera.
 </p>
 </div>
 
-<div id="outline-container-org31f1c92" class="outline-4">
-<h4 id="org31f1c92">1. Representación de las coordenadas en forma homogénea</h4>
-<div class="outline-text-4" id="text-org31f1c92">
+<div id="outline-container-orge8caa40" class="outline-4">
+<h4 id="orge8caa40">1. Representación de las coordenadas en forma homogénea</h4>
+<div class="outline-text-4" id="text-orge8caa40">
 <p>
 Las coordenadas \((x, y)\) de un píxel se convierten a <b>coordenadas
 homogéneas</b> para que las traslaciones puedan representarse mediante
@@ -3699,9 +3699,9 @@ y \\
 </div>
 </div>
 
-<div id="outline-container-org9aadad2" class="outline-4">
-<h4 id="org9aadad2">2. Definición de la matriz de transformación</h4>
-<div class="outline-text-4" id="text-org9aadad2">
+<div id="outline-container-org08c3653" class="outline-4">
+<h4 id="org08c3653">2. Definición de la matriz de transformación</h4>
+<div class="outline-text-4" id="text-org08c3653">
 <p>
 La matriz de transformación afín general tiene la forma:
 \[
@@ -3720,9 +3720,9 @@ a_{21} & a_{22} & t_y \\
 </div>
 </div>
 
-<div id="outline-container-org5463a8b" class="outline-4">
-<h4 id="org5463a8b">3. Multiplicación de la matriz por las coordenadas</h4>
-<div class="outline-text-4" id="text-org5463a8b">
+<div id="outline-container-org398982d" class="outline-4">
+<h4 id="org398982d">3. Multiplicación de la matriz por las coordenadas</h4>
+<div class="outline-text-4" id="text-org398982d">
 <p>
 Multiplicamos la matriz de transformación \(T\) por las coordenadas homogéneas \((x, y, 1)\) para obtener las nuevas coordenadas \((x', y', 1)\).
 </p>
@@ -3757,8 +3757,8 @@ La multiplicación de matrices se desglosa a continuación.
 </div>
 
 <ul class="org-ul">
-<li><a id="orge57fd6f"></a>3.1 Cálculo del nuevo valor de \(x'\)<br />
-<div class="outline-text-5" id="text-orge57fd6f">
+<li><a id="orgd26e5d7"></a>3.1 Cálculo del nuevo valor de \(x'\)<br />
+<div class="outline-text-5" id="text-orgd26e5d7">
 <p>
 \[
 x' = a_{11} \cdot x + a_{12} \cdot y + t_x
@@ -3767,8 +3767,8 @@ x' = a_{11} \cdot x + a_{12} \cdot y + t_x
 </div>
 </li>
 
-<li><a id="orgafd2273"></a>3.2 Cálculo del nuevo valor de \(y'\)<br />
-<div class="outline-text-5" id="text-orgafd2273">
+<li><a id="orgccfc74b"></a>3.2 Cálculo del nuevo valor de \(y'\)<br />
+<div class="outline-text-5" id="text-orgccfc74b">
 <p>
 \[
 y' = a_{21} \cdot x + a_{22} \cdot y + t_y
@@ -3777,8 +3777,8 @@ y' = a_{21} \cdot x + a_{22} \cdot y + t_y
 </div>
 </li>
 
-<li><a id="orgf5f5acc"></a>3.3 El valor constante de la tercera coordenada<br />
-<div class="outline-text-5" id="text-orgf5f5acc">
+<li><a id="org2d85861"></a>3.3 El valor constante de la tercera coordenada<br />
+<div class="outline-text-5" id="text-org2d85861">
 <p>
 La tercera coordenada se mantiene como \(1\), ya que no cambia en las transformaciones afines.
 </p>
@@ -3791,9 +3791,9 @@ La tercera coordenada se mantiene como \(1\), ya que no cambia en las transforma
 </ul>
 </div>
 
-<div id="outline-container-org81c5c38" class="outline-4">
-<h4 id="org81c5c38">4. Resultado final</h4>
-<div class="outline-text-4" id="text-org81c5c38">
+<div id="outline-container-org804a852" class="outline-4">
+<h4 id="org804a852">4. Resultado final</h4>
+<div class="outline-text-4" id="text-org804a852">
 <p>
 El resultado de la multiplicación es un nuevo vector con las coordenadas transformadas:
 </p>
@@ -3806,9 +3806,9 @@ y' \\
 </div>
 </div>
 
-<div id="outline-container-org2fae5f2" class="outline-4">
-<h4 id="org2fae5f2">Ejemplo concreto: Rotación</h4>
-<div class="outline-text-4" id="text-org2fae5f2">
+<div id="outline-container-org0df2658" class="outline-4">
+<h4 id="org0df2658">Ejemplo concreto: Rotación</h4>
+<div class="outline-text-4" id="text-org0df2658">
 <p>
 Si queremos rotar un píxel \((x, y)\) en un ángulo \(\theta\), usamos la matriz de rotación:
 </p>
@@ -3864,9 +3864,9 @@ y' = x \cdot \sin(\theta) + y \cdot \cos(\theta)
 </p>
 </div>
 </div>
-<div id="outline-container-org6bc2b33" class="outline-4">
-<h4 id="org6bc2b33">Resumen del proceso</h4>
-<div class="outline-text-4" id="text-org6bc2b33">
+<div id="outline-container-orgf6872f4" class="outline-4">
+<h4 id="orgf6872f4">Resumen del proceso</h4>
+<div class="outline-text-4" id="text-orgf6872f4">
 <ol class="org-ol">
 <li>Convertir las coordenadas \((x, y)\) a coordenadas homogéneas \((x, y, 1)\).</li>
 <li>Definir la matriz de transformación \(T\).</li>
@@ -3877,17 +3877,17 @@ y' = x \cdot \sin(\theta) + y \cdot \cos(\theta)
 </div>
 </div>
 
-<div id="outline-container-org8266117" class="outline-3">
-<h3 id="org8266117">Transformaciones Geométricas en Imágenes</h3>
-<div class="outline-text-3" id="text-org8266117">
+<div id="outline-container-org6bcc0fb" class="outline-3">
+<h3 id="org6bcc0fb">Transformaciones Geométricas en Imágenes</h3>
+<div class="outline-text-3" id="text-org6bcc0fb">
 <p>
 Las <b>transformaciones geométricas</b> en imágenes permiten cambiar la posición, orientación y escala de las imágenes sin alterar su contenido. Estas transformaciones son esenciales en tareas como alineación de imágenes, registro de imágenes, realidad aumentada, y sistemas de visión por computadora.
 </p>
 </div>
 
-<div id="outline-container-org00cf4bf" class="outline-4">
-<h4 id="org00cf4bf">1. Traslación (Translation)</h4>
-<div class="outline-text-4" id="text-org00cf4bf">
+<div id="outline-container-org76e47e4" class="outline-4">
+<h4 id="org76e47e4">1. Traslación (Translation)</h4>
+<div class="outline-text-4" id="text-org76e47e4">
 <p>
 La traslación desplaza la imagen en el espacio sin modificar su forma o tamaño. La fórmula matemática es:
 </p>
@@ -3914,9 +3914,9 @@ Donde \(t_x\) y \(t_y\) son las cantidades de desplazamiento. La matriz de trasl
 </div>
 </div>
 
-<div id="outline-container-org41cece2" class="outline-4">
-<h4 id="org41cece2">2. Rotación (Rotation)</h4>
-<div class="outline-text-4" id="text-org41cece2">
+<div id="outline-container-orga5900d1" class="outline-4">
+<h4 id="orga5900d1">2. Rotación (Rotation)</h4>
+<div class="outline-text-4" id="text-orga5900d1">
 <p>
 La rotación gira la imagen un ángulo \(\theta\). La ecuación de rotación es:
 </p>
@@ -3943,9 +3943,9 @@ La matriz de rotación es:
 </div>
 </div>
 
-<div id="outline-container-org9f4ab5d" class="outline-4">
-<h4 id="org9f4ab5d">3. Escalado (Scalin</h4>
-<div class="outline-text-4" id="text-org9f4ab5d">
+<div id="outline-container-org1f0a456" class="outline-4">
+<h4 id="org1f0a456">3. Escalado (Scalin</h4>
+<div class="outline-text-4" id="text-org1f0a456">
 <p>
 g)
 </p>
@@ -3976,9 +3976,9 @@ La matriz correspondiente es:
 </div>
 </div>
 
-<div id="outline-container-org6094016" class="outline-4">
-<h4 id="org6094016">4. Cizallamiento (Shearing)</h4>
-<div class="outline-text-4" id="text-org6094016">
+<div id="outline-container-org1f3d1d8" class="outline-4">
+<h4 id="org1f3d1d8">4. Cizallamiento (Shearing)</h4>
+<div class="outline-text-4" id="text-org1f3d1d8">
 <p>
 El cizallamiento inclina la imagen en una dirección específica. Las ecuaciones para un cizallamiento horizontal y vertical son:
 </p>
@@ -4026,9 +4026,9 @@ Vertical:
 </div>
 </div>
 
-<div id="outline-container-orgcca7c33" class="outline-4">
-<h4 id="orgcca7c33">5. Reflexión (Reflection)</h4>
-<div class="outline-text-4" id="text-orgcca7c33">
+<div id="outline-container-org6421907" class="outline-4">
+<h4 id="org6421907">5. Reflexión (Reflection)</h4>
+<div class="outline-text-4" id="text-org6421907">
 <p>
 La reflexión voltea la imagen sobre un eje. Las matrices para reflexiones sobre el eje \(x\) o \(y\) son:
 </p>
@@ -4055,9 +4055,9 @@ La reflexión voltea la imagen sobre un eje. Las matrices para reflexiones sobre
 </div>
 </div>
 
-<div id="outline-container-orga663c6d" class="outline-4">
-<h4 id="orga663c6d">6. Transformación Afín (Affine Transformation)</h4>
-<div class="outline-text-4" id="text-orga663c6d">
+<div id="outline-container-org9d1f636" class="outline-4">
+<h4 id="org9d1f636">6. Transformación Afín (Affine Transformation)</h4>
+<div class="outline-text-4" id="text-org9d1f636">
 <p>
 Una transformación afín combina varias de las anteriores. Su matriz es:
 </p>
@@ -4074,9 +4074,9 @@ Una transformación afín combina varias de las anteriores. Su matriz es:
 </div>
 </div>
 
-<div id="outline-container-orgcb89e7b" class="outline-4">
-<h4 id="orgcb89e7b">7. Transformación Proyectiva (Homografía)</h4>
-<div class="outline-text-4" id="text-orgcb89e7b">
+<div id="outline-container-orga30e839" class="outline-4">
+<h4 id="orga30e839">7. Transformación Proyectiva (Homografía)</h4>
+<div class="outline-text-4" id="text-orga30e839">
 <p>
 La homografía proyecta una imagen en un nuevo plano, alterando su perspectiva. La matriz homográfica es:
 </p>
@@ -4093,9 +4093,9 @@ La homografía proyecta una imagen en un nuevo plano, alterando su perspectiva. 
 </div>
 </div>
 
-<div id="outline-container-org93be4ed" class="outline-4">
-<h4 id="org93be4ed">Aplicaciones</h4>
-<div class="outline-text-4" id="text-org93be4ed">
+<div id="outline-container-org9b5a4ad" class="outline-4">
+<h4 id="org9b5a4ad">Aplicaciones</h4>
+<div class="outline-text-4" id="text-org9b5a4ad">
 <p>
 Las transformaciones geométricas se utilizan en:
 </p>
@@ -4116,9 +4116,9 @@ Las transformaciones geométricas se utilizan en:
 
 
 
-<div id="outline-container-org412bf88" class="outline-3">
-<h3 id="org412bf88">Landmarks</h3>
-<div class="outline-text-3" id="text-org412bf88">
+<div id="outline-container-orge062e80" class="outline-3">
+<h3 id="orge062e80">Landmarks</h3>
+<div class="outline-text-3" id="text-orge062e80">
 <p>
 En visión artificial, el término landmark se refiere a puntos clave
 dentro de una imagen que ayudan a describir características
@@ -4129,9 +4129,9 @@ biomédicas.
 </p>
 </div>
 
-<div id="outline-container-org0163b21" class="outline-4">
-<h4 id="org0163b21">Fundamentos de los Landmarks</h4>
-<div class="outline-text-4" id="text-org0163b21">
+<div id="outline-container-org144d79c" class="outline-4">
+<h4 id="org144d79c">Fundamentos de los Landmarks</h4>
+<div class="outline-text-4" id="text-org144d79c">
 <p>
 Los landmarks se caracterizan por ser:
 </p>
@@ -4153,13 +4153,13 @@ especializados.
 </div>
 </div>
 
-<div id="outline-container-orgf5fec27" class="outline-4">
-<h4 id="orgf5fec27">Aplicaciones de los Landmarks</h4>
-<div class="outline-text-4" id="text-orgf5fec27">
+<div id="outline-container-orgc0f3420" class="outline-4">
+<h4 id="orgc0f3420">Aplicaciones de los Landmarks</h4>
+<div class="outline-text-4" id="text-orgc0f3420">
 </div>
 <ul class="org-ul">
-<li><a id="org6e45b31"></a>Reconocimiento Facial<br />
-<div class="outline-text-5" id="text-org6e45b31">
+<li><a id="org71b645f"></a>Reconocimiento Facial<br />
+<div class="outline-text-5" id="text-org71b645f">
 <p>
 En el reconocimiento facial, se utilizan landmarks para identificar
 estructuras anatómicas del rostro, como los ojos, la nariz y la
@@ -4170,8 +4170,8 @@ clave del rostro.
 </div>
 </li>
 
-<li><a id="orgb8999c8"></a>Registro y Segmentación de Imágenes Médicas<br />
-<div class="outline-text-5" id="text-orgb8999c8">
+<li><a id="orgb5bd1a6"></a>Registro y Segmentación de Imágenes Médicas<br />
+<div class="outline-text-5" id="text-orgb5bd1a6">
 <p>
 Los landmarks juegan un papel clave en el registro de imágenes
 médicas, facilitando la comparación de imágenes de distintos pacientes
@@ -4181,8 +4181,8 @@ estructuras anatómicas en radiografías, tomografías y microscopía.
 </div>
 </li>
 
-<li><a id="org9a1fae1"></a>Seguimiento de Movimiento y Estimación de Postura<br />
-<div class="outline-text-5" id="text-org9a1fae1">
+<li><a id="org81020e2"></a>Seguimiento de Movimiento y Estimación de Postura<br />
+<div class="outline-text-5" id="text-org81020e2">
 <p>
 Los sistemas de visión artificial pueden detectar landmarks en el
 cuerpo humano para el análisis de la postura y el seguimiento de
@@ -4192,8 +4192,8 @@ rehabilitación médica.
 </div>
 </li>
 
-<li><a id="orgb4dd7d0"></a>Detección de Características en Citología Cervical<br />
-<div class="outline-text-5" id="text-orgb4dd7d0">
+<li><a id="orgb542395"></a>Detección de Características en Citología Cervical<br />
+<div class="outline-text-5" id="text-orgb542395">
 <p>
 En el análisis de imágenes de citología cervical, los landmarks pueden
 utilizarse para localizar estructuras celulares relevantes,
@@ -4205,17 +4205,17 @@ Papanicolaou.
 </ul>
 </div>
 
-<div id="outline-container-orgca9366f" class="outline-4">
-<h4 id="orgca9366f">Métodos de Detección de Landmarks</h4>
-<div class="outline-text-4" id="text-orgca9366f">
+<div id="outline-container-orgcbc6c33" class="outline-4">
+<h4 id="orgcbc6c33">Métodos de Detección de Landmarks</h4>
+<div class="outline-text-4" id="text-orgcbc6c33">
 <p>
 Existen varios métodos para la detección de landmarks, que se pueden clasificar en dos grandes categorías:
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="orgcbb8272"></a>Métodos Clásicos<br />
-<div class="outline-text-5" id="text-orgcbb8272">
+<li><a id="orgf987c3b"></a>Métodos Clásicos<br />
+<div class="outline-text-5" id="text-orgf987c3b">
 <p>
 SIFT (Scale-Invariant Feature Transform): Detecta puntos clave
 invariables a cambios de escala y rotación.
@@ -4232,8 +4232,8 @@ rápida en tiempo real.
 </div>
 </li>
 
-<li><a id="org386e044"></a>Métodos Basados en Aprendizaje Profundo<br />
-<div class="outline-text-5" id="text-org386e044">
+<li><a id="orgab49737"></a>Métodos Basados en Aprendizaje Profundo<br />
+<div class="outline-text-5" id="text-orgab49737">
 <p>
 Redes neuronales convolucionales (CNNs): Utilizadas en el
 reconocimiento facial y análisis biomédico.
@@ -4257,13 +4257,13 @@ de formas anatómicas.
 
 
 
-<div id="outline-container-orgc89df4f" class="outline-3">
-<h3 id="orgc89df4f">Detección de Manos con MediaPipe en Python</h3>
-<div class="outline-text-3" id="text-orgc89df4f">
+<div id="outline-container-org4d19476" class="outline-3">
+<h3 id="org4d19476">Detección de Manos con MediaPipe en Python</h3>
+<div class="outline-text-3" id="text-org4d19476">
 </div>
-<div id="outline-container-org6928302" class="outline-4">
-<h4 id="org6928302">Introducción</h4>
-<div class="outline-text-4" id="text-org6928302">
+<div id="outline-container-orgc912656" class="outline-4">
+<h4 id="orgc912656">Introducción</h4>
+<div class="outline-text-4" id="text-orgc912656">
 <p>
   MediaPipe es una
 librería desarrollada por Google Research, diseñada para el
@@ -4283,9 +4283,9 @@ permitiendo análisis de gestos y seguimiento preciso.
 
 
 
-<div id="outline-container-org56c807b" class="outline-4">
-<h4 id="org56c807b">Instalación de Dependencias</h4>
-<div class="outline-text-4" id="text-org56c807b">
+<div id="outline-container-orgbdb1185" class="outline-4">
+<h4 id="orgbdb1185">Instalación de Dependencias</h4>
+<div class="outline-text-4" id="text-orgbdb1185">
 <p>
 Para ejecutar el código, se necesita instalar los siguientes paquetes en Python:
 </p>
@@ -4297,9 +4297,9 @@ Para ejecutar el código, se necesita instalar los siguientes paquetes en Python
 </div>
 </div>
 
-<div id="outline-container-orgb209c8d" class="outline-4">
-<h4 id="orgb209c8d">Código para Detección de Manos en Tiempo Real</h4>
-<div class="outline-text-4" id="text-orgb209c8d">
+<div id="outline-container-orgfedb217" class="outline-4">
+<h4 id="orgfedb217">Código para Detección de Manos en Tiempo Real</h4>
+<div class="outline-text-4" id="text-orgfedb217">
 <p>
 Este es un un código en Python que detecta manos usando MediaPipe y
 OpenCV.
@@ -4395,9 +4395,9 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 
 
 
-<div id="outline-container-orgf3cc6d0" class="outline-4">
-<h4 id="orgf3cc6d0">Explicación del Código</h4>
-<div class="outline-text-4" id="text-orgf3cc6d0">
+<div id="outline-container-orgfd5dd5d" class="outline-4">
+<h4 id="orgfd5dd5d">Explicación del Código</h4>
+<div class="outline-text-4" id="text-orgfd5dd5d">
 <ol class="org-ol">
 <li>Se inicializa MediaPipe Hands con una confianza mínima de detección y seguimiento del 50%.</li>
 <li>Se usa OpenCV para capturar video en tiempo real.</li>
@@ -4409,9 +4409,9 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgbedd9ab" class="outline-4">
-<h4 id="orgbedd9ab">Mejoras Posibles</h4>
-<div class="outline-text-4" id="text-orgbedd9ab">
+<div id="outline-container-orgdebf91b" class="outline-4">
+<h4 id="orgdebf91b">Mejoras Posibles</h4>
+<div class="outline-text-4" id="text-orgdebf91b">
 <ul class="org-ul">
 <li>Contar cuántas manos hay con <code>len(results.multi_hand_landmarks)</code>.</li>
 <li>Detectar gestos analizando las posiciones de los dedos.</li>
@@ -4420,9 +4420,9 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org8a6bc7e" class="outline-4">
-<h4 id="org8a6bc7e">Indice de dedos en mediapipe</h4>
-<div class="outline-text-4" id="text-org8a6bc7e">
+<div id="outline-container-orgeea0fb8" class="outline-4">
+<h4 id="orgeea0fb8">Indice de dedos en mediapipe</h4>
+<div class="outline-text-4" id="text-orgeea0fb8">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -4572,9 +4572,9 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-org0d27752" class="outline-4">
-<h4 id="org0d27752">Medipipe Reconocimiento de letras</h4>
-<div class="outline-text-4" id="text-org0d27752">
+<div id="outline-container-orgae04e39" class="outline-4">
+<h4 id="orgae04e39">Medipipe Reconocimiento de letras</h4>
+<div class="outline-text-4" id="text-orgae04e39">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2
 <span style="color: #a020f0;">import</span> mediapipe <span style="color: #a020f0;">as</span> mp
@@ -4918,64 +4918,43 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<p>
-SRC python
-import cv2
-import mediapipe as mp
-</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a020f0;">import</span> cv2
+<span style="color: #a020f0;">import</span> mediapipe <span style="color: #a020f0;">as</span> mp
 
-<p>
-mp<sub>face</sub><sub>mesh</sub> = mp.solutions.face<sub>mesh</sub>
-face<sub>mesh</sub> = mp<sub>face</sub><sub>mesh.FaceMesh</sub>(static<sub>image</sub><sub>mode</sub>=False, max<sub>num</sub><sub>faces</sub>=2, min<sub>detection</sub><sub>confidence</sub>=0.5, min<sub>tracking</sub><sub>confidence</sub>=0.5)
-</p>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">Inicializar MediaPipe Face Mesh</span>
+<span style="color: #a0522d;">mp_face_mesh</span> = mp.solutions.face_mesh
+<span style="color: #a0522d;">face_mesh</span> = mp_face_mesh.FaceMesh<span style="color: #707183;">(</span>static_image_mode=<span style="color: #008b8b;">False</span>, max_num_faces=2, min_detection_confidence=0.5, min_tracking_confidence=0.5<span style="color: #707183;">)</span>
 
-<p>
-mp<sub>drawing</sub> = mp.solutions.drawing<sub>utils</sub>
-drawing<sub>spec</sub> = mp<sub>drawing.DrawingSpec</sub>(thickness=1, circle<sub>radius</sub>=1, color=(234, 255, 233))  # Puntos verdes
-</p>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">Inicializar dibujador de MediaPipe</span>
+mp_drawing = mp.solutions.drawing_utils
+drawing_spec = mp_drawing.DrawingSpec<span style="color: #707183;">(</span>thickness=1, circle_radius=1, color=<span style="color: #7388d6;">(</span>234, 255, 233<span style="color: #7388d6;">)</span><span style="color: #707183;">)</span>  <span style="color: #b22222;"># </span><span style="color: #b22222;">Puntos verdes</span>
 
-<p>
-cap = cv2.VideoCapture(0)
-</p>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">Captura de video</span>
+cap = cv2.VideoCapture<span style="color: #707183;">(</span>0<span style="color: #707183;">)</span>
 
-<p>
-while cap.isOpened():
-    ret, frame = cap.read()
-    if not ret:
-        break
-</p>
+<span style="color: #a020f0;">while</span> cap.isOpened<span style="color: #707183;">()</span>:
+<span style="background-color: #f2f2f2;"> </span>   ret, frame = cap.read<span style="color: #707183;">()</span>
+<span style="background-color: #f2f2f2;"> </span>   <span style="color: #a020f0;">if</span> <span style="color: #a020f0;">not</span> ret:
+<span style="background-color: #f2f2f2;"> </span>   <span style="background-color: #f2f2f2;"> </span>   <span style="color: #a020f0;">break</span>
 
-<p>
-frame = cv2.flip(frame, 1)  # Espejo para mayor naturalidad
-rgb<sub>frame</sub> = cv2.cvtColor(frame, cv2.COLOR<sub>BGR2RGB</sub>)
-results = face<sub>mesh.process</sub>(rgb<sub>frame</sub>)
-</p>
+<span style="background-color: #f2f2f2;"> </span>   frame = cv2.flip<span style="color: #707183;">(</span>frame, 1<span style="color: #707183;">)</span>  <span style="color: #b22222;"># </span><span style="color: #b22222;">Espejo para mayor naturalidad</span>
+<span style="background-color: #f2f2f2;"> </span>   rgb_frame = cv2.cvtColor<span style="color: #707183;">(</span>frame, cv2.COLOR_BGR2RGB<span style="color: #707183;">)</span>
+<span style="background-color: #f2f2f2;"> </span>   results = face_mesh.process<span style="color: #707183;">(</span>rgb_frame<span style="color: #707183;">)</span>
 
-<p>
-if results.multi<sub>face</sub><sub>landmarks</sub>:
-	for face<sub>landmarks</sub> in results.multi<sub>face</sub><sub>landmarks</sub>:
-		mp<sub>drawing.draw</sub><sub>landmarks</sub>(frame, face<sub>landmarks</sub>, mp<sub>face</sub><sub>mesh.FACEMESH</sub><sub>TESSELATION</sub>, drawing<sub>spec</sub>, drawing<sub>spec</sub>)
-</p>
+<span style="background-color: #f2f2f2;"> </span>   <span style="color: #a020f0;">if</span> results.multi_face_landmarks:
+<span style="background-color: #f2f2f2;"> </span>   <span style="background-color: #f2f2f2;"> </span>   <span style="color: #a020f0;">for</span> face_landmarks <span style="color: #a020f0;">in</span> results.multi_face_landmarks:
+<span style="background-color: #f2f2f2;"> </span>   <span style="background-color: #f2f2f2;"> </span>   <span style="background-color: #f2f2f2;"> </span>   mp_drawing.draw_landmarks<span style="color: #707183;">(</span>frame, face_landmarks, mp_face_mesh.FACEMESH_TESSELATION, drawing_spec, drawing_spec<span style="color: #707183;">)</span>
 
-<p>
-cv2.imshow('PuntosFacialesMediaPipe', frame)
-if cv2.waitKey(1) &amp; 0xFF == ord('q'):
-	break
-</p>
+<span style="background-color: #f2f2f2;"> </span>   cv2.imshow<span style="color: #707183;">(</span><span style="color: #8b2252;">'PuntosFacialesMediaPipe'</span>, frame<span style="color: #707183;">)</span>
+<span style="background-color: #f2f2f2;"> </span>   <span style="color: #a020f0;">if</span> cv2.waitKey<span style="color: #707183;">(</span>1<span style="color: #707183;">)</span> &amp; 0xFF == <span style="color: #483d8b;">ord</span><span style="color: #707183;">(</span><span style="color: #8b2252;">'q'</span><span style="color: #707183;">)</span>:
+<span style="background-color: #f2f2f2;"> </span>   <span style="background-color: #f2f2f2;"> </span>   <span style="color: #a020f0;">break</span>
 
-<p>
-cap.release()
-cv2.destroyAllWindows()
-</p>
+cap.release<span style="color: #707183;">()</span>
+cv2.destroyAllWindows<span style="color: #707183;">()</span>
 
-<p>
-#+END<sub>SRC</sub>
-</p>
-
-<pre class="example">
-None
 </pre>
-
+</div>
 
 
 <div class="org-src-container">
@@ -5086,9 +5065,9 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 
 
 
-<div id="outline-container-org6d9f462" class="outline-2">
-<h2 id="org6d9f462">Actividades</h2>
-<div class="outline-text-2" id="text-org6d9f462">
+<div id="outline-container-orgc07d178" class="outline-2">
+<h2 id="orgc07d178">Actividades</h2>
+<div class="outline-text-2" id="text-orgc07d178">
 <ul class="org-ul">
 <li>Generar una imagen tipo pixel art utilizando una matriz de enteros en el rango de 0 a 255.</li>
 <li>Generar al menos cinco operadores puntuales utilizando la imagen generada o una imagen previamente cargada.</li>
@@ -5105,13 +5084,13 @@ Todas las actividades anteriores deben estar documentadas en formato Markdown en
 </div>
 
 
-<div id="outline-container-org78fefe8" class="outline-2">
-<h2 id="org78fefe8">Programación</h2>
-<div class="outline-text-2" id="text-org78fefe8">
+<div id="outline-container-org23b316d" class="outline-2">
+<h2 id="org23b316d">Programación</h2>
+<div class="outline-text-2" id="text-org23b316d">
 </div>
-<div id="outline-container-org8dfd794" class="outline-3">
-<h3 id="org8dfd794">Programas Unidad 1</h3>
-<div class="outline-text-3" id="text-org8dfd794">
+<div id="outline-container-org33f431e" class="outline-3">
+<h3 id="org33f431e">Programas Unidad 1</h3>
+<div class="outline-text-3" id="text-org33f431e">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2 <span style="color: #a020f0;">as</span> cv
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np 
@@ -5145,9 +5124,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 
 
 
-<div id="outline-container-org6cc544c" class="outline-4">
-<h4 id="org6cc544c">Creación de una Imagen</h4>
-<div class="outline-text-4" id="text-org6cc544c">
+<div id="outline-container-org7c56859" class="outline-4">
+<h4 id="org7c56859">Creación de una Imagen</h4>
+<div class="outline-text-4" id="text-org7c56859">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np   <span style="color: #b22222;"># </span><span style="color: #b22222;">Importa la librer&#237;a NumPy, &#250;til para trabajar con arreglos y operaciones num&#233;ricas.</span>
 <span style="color: #a020f0;">import</span> cv2 <span style="color: #a020f0;">as</span> cv     <span style="color: #b22222;"># </span><span style="color: #b22222;">Importa la librer&#237;a OpenCV, que se utiliza para procesamiento de im&#225;genes.</span>
@@ -5176,9 +5155,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org137a011" class="outline-4">
-<h4 id="org137a011">Cargar Imagen</h4>
-<div class="outline-text-4" id="text-org137a011">
+<div id="outline-container-orgd87b4cb" class="outline-4">
+<h4 id="orgd87b4cb">Cargar Imagen</h4>
+<div class="outline-text-4" id="text-orgd87b4cb">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2 <span style="color: #a020f0;">as</span> cv  <span style="color: #b22222;"># </span><span style="color: #b22222;">Importa la librer&#237;a OpenCV, que se usa para el procesamiento de im&#225;genes y videos.</span>
 
@@ -5200,9 +5179,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgc635705" class="outline-4">
-<h4 id="orgc635705">Split y Merge Imagen</h4>
-<div class="outline-text-4" id="text-orgc635705">
+<div id="outline-container-org206c302" class="outline-4">
+<h4 id="org206c302">Split y Merge Imagen</h4>
+<div class="outline-text-4" id="text-org206c302">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2 <span style="color: #a020f0;">as</span> cv  <span style="color: #b22222;"># </span><span style="color: #b22222;">Importa OpenCV, que es &#250;til para procesamiento de im&#225;genes.</span>
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np  <span style="color: #b22222;"># </span><span style="color: #b22222;">Importa NumPy, que es &#250;til para trabajar con matrices y operaciones num&#233;ricas.</span>
@@ -5255,9 +5234,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org94b72f8" class="outline-4">
-<h4 id="org94b72f8">Ejemplo de Operador Puntual en Imágenes</h4>
-<div class="outline-text-4" id="text-org94b72f8">
+<div id="outline-container-org79b5db9" class="outline-4">
+<h4 id="org79b5db9">Ejemplo de Operador Puntual en Imágenes</h4>
+<div class="outline-text-4" id="text-org79b5db9">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2 <span style="color: #a020f0;">as</span> cv
 
@@ -5277,9 +5256,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org7ae5bba" class="outline-4">
-<h4 id="org7ae5bba">Cargar vídeo Opencv</h4>
-<div class="outline-text-4" id="text-org7ae5bba">
+<div id="outline-container-org6336c5f" class="outline-4">
+<h4 id="org6336c5f">Cargar vídeo Opencv</h4>
+<div class="outline-text-4" id="text-org6336c5f">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2 <span style="color: #a020f0;">as</span> cv
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
@@ -5337,9 +5316,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-org88bc8af" class="outline-4">
-<h4 id="org88bc8af">Conteo</h4>
-<div class="outline-text-4" id="text-org88bc8af">
+<div id="outline-container-orgdb9e71a" class="outline-4">
+<h4 id="orgdb9e71a">Conteo</h4>
+<div class="outline-text-4" id="text-orgdb9e71a">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
@@ -5434,13 +5413,13 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-org822f11c" class="outline-3">
-<h3 id="org822f11c">Ejemplos de Transformaciones Geométricas en Modo Raw en Python</h3>
-<div class="outline-text-3" id="text-org822f11c">
+<div id="outline-container-org43c044e" class="outline-3">
+<h3 id="org43c044e">Ejemplos de Transformaciones Geométricas en Modo Raw en Python</h3>
+<div class="outline-text-3" id="text-org43c044e">
 </div>
-<div id="outline-container-orga6f2177" class="outline-4">
-<h4 id="orga6f2177">1. Traslación</h4>
-<div class="outline-text-4" id="text-orga6f2177">
+<div id="outline-container-org9217d04" class="outline-4">
+<h4 id="org9217d04">1. Traslación</h4>
+<div class="outline-text-4" id="text-org9217d04">
 <p>
 En esta transformación, desplazamos la imagen en el espacio sumando un valor fijo a las coordenadas de los píxeles.
 </p>
@@ -5479,9 +5458,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org0d0fa51" class="outline-4">
-<h4 id="org0d0fa51">2. Rotación (alrededor del centro de la imagen)</h4>
-<div class="outline-text-4" id="text-org0d0fa51">
+<div id="outline-container-org175d851" class="outline-4">
+<h4 id="org175d851">2. Rotación (alrededor del centro de la imagen)</h4>
+<div class="outline-text-4" id="text-org175d851">
 <p>
 La rotación se realiza alrededor del centro de la imagen, utilizando las fórmulas matemáticas correspondientes.
 </p>
@@ -5604,9 +5583,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 
 
 
-<div id="outline-container-org6bdcdff" class="outline-4">
-<h4 id="org6bdcdff">3. Escalado</h4>
-<div class="outline-text-4" id="text-org6bdcdff">
+<div id="outline-container-org4005d23" class="outline-4">
+<h4 id="org4005d23">3. Escalado</h4>
+<div class="outline-text-4" id="text-org4005d23">
 <p>
 El escalado cambia el tamaño de la imagen multiplicando las coordenadas por un factor de escala.
 </p>
@@ -5640,9 +5619,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orga095689" class="outline-4">
-<h4 id="orga095689">4. Cizallamiento (Shearing)</h4>
-<div class="outline-text-4" id="text-orga095689">
+<div id="outline-container-org8cd8e26" class="outline-4">
+<h4 id="org8cd8e26">4. Cizallamiento (Shearing)</h4>
+<div class="outline-text-4" id="text-org8cd8e26">
 <p>
 En el cizallamiento, los píxeles se desplazan en una dirección proporcional a otra, lo que inclina la imagen.
 </p>
@@ -5681,17 +5660,17 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org15c8e46" class="outline-4">
-<h4 id="org15c8e46">5. Reflexión (Reflection)</h4>
-<div class="outline-text-4" id="text-org15c8e46">
+<div id="outline-container-orge5fb885" class="outline-4">
+<h4 id="orge5fb885">5. Reflexión (Reflection)</h4>
+<div class="outline-text-4" id="text-orge5fb885">
 <p>
 La reflexión voltea la imagen sobre un eje, como el eje vertical o horizontal.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="org5d70981"></a>Reflexión horizontal<br />
-<div class="outline-text-5" id="text-org5d70981">
+<li><a id="org8dc6a91"></a>Reflexión horizontal<br />
+<div class="outline-text-5" id="text-org8dc6a91">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2 <span style="color: #a020f0;">as</span> cv
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
@@ -5720,8 +5699,8 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </li>
 
-<li><a id="orgad74118"></a>Reflexión vertical<br />
-<div class="outline-text-5" id="text-orgad74118">
+<li><a id="org6602fe4"></a>Reflexión vertical<br />
+<div class="outline-text-5" id="text-org6602fe4">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2 <span style="color: #a020f0;">as</span> cv
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
@@ -5754,13 +5733,13 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-org2fde9f1" class="outline-3">
-<h3 id="org2fde9f1">Ejemplos de Transformaciones Geométricas en Python usando OpenCV</h3>
-<div class="outline-text-3" id="text-org2fde9f1">
+<div id="outline-container-orgde24532" class="outline-3">
+<h3 id="orgde24532">Ejemplos de Transformaciones Geométricas en Python usando OpenCV</h3>
+<div class="outline-text-3" id="text-orgde24532">
 </div>
-<div id="outline-container-org2ede79a" class="outline-4">
-<h4 id="org2ede79a">1. Traslación</h4>
-<div class="outline-text-4" id="text-org2ede79a">
+<div id="outline-container-org40ed702" class="outline-4">
+<h4 id="org40ed702">1. Traslación</h4>
+<div class="outline-text-4" id="text-org40ed702">
 <p>
 En OpenCV, la traslación se realiza usando matrices de transformación
 afín y la función `cv.warpAffine()`.
@@ -5795,9 +5774,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org98e1d93" class="outline-4">
-<h4 id="org98e1d93">2. Rotación (alrededor del centro de la imagen)</h4>
-<div class="outline-text-4" id="text-org98e1d93">
+<div id="outline-container-orgf19b4f6" class="outline-4">
+<h4 id="orgf19b4f6">2. Rotación (alrededor del centro de la imagen)</h4>
+<div class="outline-text-4" id="text-orgf19b4f6">
 <p>
 La rotación alrededor del centro de la imagen se puede realizar con la función `cv.getRotationMatrix2D()`.
 </p>
@@ -5834,9 +5813,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-orgea5779d" class="outline-4">
-<h4 id="orgea5779d">3. Escalado</h4>
-<div class="outline-text-4" id="text-orgea5779d">
+<div id="outline-container-org38bf908" class="outline-4">
+<h4 id="org38bf908">3. Escalado</h4>
+<div class="outline-text-4" id="text-org38bf908">
 <p>
 El escalado se puede realizar usando la función `cv.resize()`.
 </p>
@@ -5864,9 +5843,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org87cf458" class="outline-4">
-<h4 id="org87cf458">4. Cizallamiento (Shearing)</h4>
-<div class="outline-text-4" id="text-org87cf458">
+<div id="outline-container-orgf32e9a1" class="outline-4">
+<h4 id="orgf32e9a1">4. Cizallamiento (Shearing)</h4>
+<div class="outline-text-4" id="text-orgf32e9a1">
 <p>
 El cizallamiento se puede realizar creando una matriz de transformación afín personalizada.
 </p>
@@ -5900,17 +5879,17 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org4f057e6" class="outline-4">
-<h4 id="org4f057e6">5. Reflexión (Reflection)</h4>
-<div class="outline-text-4" id="text-org4f057e6">
+<div id="outline-container-org2d4fa87" class="outline-4">
+<h4 id="org2d4fa87">5. Reflexión (Reflection)</h4>
+<div class="outline-text-4" id="text-org2d4fa87">
 <p>
 En OpenCV, la reflexión de una imagen se realiza con la función `cv.flip()`.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="org0fda762"></a>Reflexión horizontal<br />
-<div class="outline-text-5" id="text-org0fda762">
+<li><a id="org94df5b6"></a>Reflexión horizontal<br />
+<div class="outline-text-5" id="text-org94df5b6">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2 <span style="color: #a020f0;">as</span> cv
 
@@ -5930,8 +5909,8 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </li>
 
-<li><a id="orgb34d23b"></a>Reflexión vertical<br />
-<div class="outline-text-5" id="text-orgb34d23b">
+<li><a id="org9811220"></a>Reflexión vertical<br />
+<div class="outline-text-5" id="text-org9811220">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2 <span style="color: #a020f0;">as</span> cv
 
@@ -5955,9 +5934,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-org6bd30f6" class="outline-3">
-<h3 id="org6bd30f6">Primitivas de Dibujo</h3>
-<div class="outline-text-3" id="text-org6bd30f6">
+<div id="outline-container-org99f0fc3" class="outline-3">
+<h3 id="org99f0fc3">Primitivas de Dibujo</h3>
+<div class="outline-text-3" id="text-org99f0fc3">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2 <span style="color: #a020f0;">as</span> cv
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np 
@@ -6096,9 +6075,9 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-org22d609e" class="outline-3">
-<h3 id="org22d609e">Parametricas</h3>
-<div class="outline-text-3" id="text-org22d609e">
+<div id="outline-container-orgf3b5f80" class="outline-3">
+<h3 id="orgf3b5f80">Parametricas</h3>
+<div class="outline-text-3" id="text-orgf3b5f80">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
 <span style="color: #a020f0;">import</span> cv2
@@ -6256,9 +6235,9 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-org4523aa2" class="outline-3">
-<h3 id="org4523aa2">Segmentación de color mediante el modelo de color HSV</h3>
-<div class="outline-text-3" id="text-org4523aa2">
+<div id="outline-container-org9ec3d26" class="outline-3">
+<h3 id="org9ec3d26">Segmentación de color mediante el modelo de color HSV</h3>
+<div class="outline-text-3" id="text-org9ec3d26">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2 <span style="color: #a020f0;">as</span> cv
 
@@ -6311,9 +6290,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </div>
 
-<div id="outline-container-org539cd0b" class="outline-4">
-<h4 id="org539cd0b">Dibujo utilizando seguimiento por color</h4>
-<div class="outline-text-4" id="text-org539cd0b">
+<div id="outline-container-org6ca4c8e" class="outline-4">
+<h4 id="org6ca4c8e">Dibujo utilizando seguimiento por color</h4>
+<div class="outline-text-4" id="text-org6ca4c8e">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
@@ -6461,9 +6440,9 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 
 
 
-<div id="outline-container-org8f455ac" class="outline-3">
-<h3 id="org8f455ac">Capa de Harry Potter</h3>
-<div class="outline-text-3" id="text-org8f455ac">
+<div id="outline-container-orga61f912" class="outline-3">
+<h3 id="orga61f912">Capa de Harry Potter</h3>
+<div class="outline-text-3" id="text-orga61f912">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
@@ -6520,9 +6499,9 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-orgb3a921b" class="outline-3">
-<h3 id="orgb3a921b">Efecto Gris np.where</h3>
-<div class="outline-text-3" id="text-orgb3a921b">
+<div id="outline-container-orga838f02" class="outline-3">
+<h3 id="orga838f02">Efecto Gris np.where</h3>
+<div class="outline-text-3" id="text-orga838f02">
 <p>
 La función <b>np.where</b> de NumPy es muy útil cuando se quiere
 seleccionar elementos de un arreglo o imagen basado en una
@@ -6531,9 +6510,9 @@ contexto de imágenes.
 </p>
 </div>
 
-<div id="outline-container-orgc186bf0" class="outline-4">
-<h4 id="orgc186bf0">Sintaxis básica de np.where:</h4>
-<div class="outline-text-4" id="text-orgc186bf0">
+<div id="outline-container-org43c40d2" class="outline-4">
+<h4 id="org43c40d2">Sintaxis básica de np.where:</h4>
+<div class="outline-text-4" id="text-org43c40d2">
 <div class="org-src-container">
 <pre class="src src-python">np.where<span style="color: #707183;">(</span>condici&#243;n, valor_si_verdadero, valor_si_falso<span style="color: #707183;">)</span>
 </pre>
@@ -6547,8 +6526,8 @@ contexto de imágenes.
 </div>
 
 <ul class="org-ul">
-<li><a id="org9472ef9"></a>Ejemplo sencillo:<br />
-<div class="outline-text-5" id="text-org9472ef9">
+<li><a id="org0866b8c"></a>Ejemplo sencillo:<br />
+<div class="outline-text-5" id="text-org0866b8c">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
 
@@ -6570,9 +6549,9 @@ En este ejemplo, la condición `array &gt; 3` se cumple para los elementos 4 y 5
 </ul>
 </div>
 
-<div id="outline-container-org3ee25b1" class="outline-4">
-<h4 id="org3ee25b1">Aplicación en procesamiento de imágenes:</h4>
-<div class="outline-text-4" id="text-org3ee25b1">
+<div id="outline-container-org4269547" class="outline-4">
+<h4 id="org4269547">Aplicación en procesamiento de imágenes:</h4>
+<div class="outline-text-4" id="text-org4269547">
 <p>
 Cuando manipulamos imágenes, cada pixel tiene tres valores (R, G,
 B). La idea es usar `np.where` para verificar si un pixel cumple con
@@ -6584,8 +6563,8 @@ grises.
 </div>
 
 <ul class="org-ul">
-<li><a id="orgf097609"></a>Parte del código relevante:<br />
-<div class="outline-text-5" id="text-orgf097609">
+<li><a id="orge07835d"></a>Parte del código relevante:<br />
+<div class="outline-text-5" id="text-orge07835d">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a0522d;">imagen_colores_resaltados</span> = np.where<span style="color: #707183;">(</span>mascara_rojo<span style="color: #7388d6;">[</span>:, :, <span style="color: #008b8b;">None</span><span style="color: #7388d6;">]</span> == 255, imagen, imagen_gris_bgr<span style="color: #707183;">)</span>
 </pre>
@@ -6593,8 +6572,8 @@ grises.
 </div>
 </li>
 
-<li><a id="org0e1c3db"></a>Desglose:<br />
-<div class="outline-text-5" id="text-org0e1c3db">
+<li><a id="org61bb407"></a>Desglose:<br />
+<div class="outline-text-5" id="text-org61bb407">
 <ol class="org-ol">
 <li><b>`mascara<sub>rojo</sub>[:, :, None] == 255`</b>:
 <ul class="org-ul">
@@ -6623,8 +6602,8 @@ formato BGR. Se usa en las posiciones donde la condición es
 </div>
 </li>
 
-<li><a id="orgbb2e104"></a>Ejemplo visual:<br />
-<div class="outline-text-5" id="text-orgbb2e104">
+<li><a id="orgf18a4d7"></a>Ejemplo visual:<br />
+<div class="outline-text-5" id="text-orgf18a4d7">
 <p>
 Imagina que tienes un pixel con los siguientes valores RGB: `(255, 0,
 0)` (un rojo intenso). Si este pixel cae dentro del rango de color
@@ -6668,8 +6647,8 @@ En el resultado, los pixeles que coinciden con el color rojo permanecen iguales,
 </div>
 </li>
 
-<li><a id="orgd0ee2af"></a>¿Cómo funciona esto para toda la imagen?<br />
-<div class="outline-text-5" id="text-orgd0ee2af">
+<li><a id="orga289491"></a>¿Cómo funciona esto para toda la imagen?<br />
+<div class="outline-text-5" id="text-orga289491">
 <p>
 `np.where` revisa cada pixel de la imagen:
 </p>
@@ -6769,9 +6748,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-org3997a2c" class="outline-3">
-<h3 id="org3997a2c">Flujo optico</h3>
-<div class="outline-text-3" id="text-org3997a2c">
+<div id="outline-container-org8f590da" class="outline-3">
+<h3 id="org8f590da">Flujo optico</h3>
+<div class="outline-text-3" id="text-org8f590da">
 <div class="org-src-container">
 <pre class="src src-python">
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
@@ -6972,9 +6951,9 @@ cv.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-orgb6d1b94" class="outline-3">
-<h3 id="orgb6d1b94">Ejemplo de clasificación utilizando Haarcascades</h3>
-<div class="outline-text-3" id="text-orgb6d1b94">
+<div id="outline-container-org1db770c" class="outline-3">
+<h3 id="org1db770c">Ejemplo de clasificación utilizando Haarcascades</h3>
+<div class="outline-text-3" id="text-org1db770c">
 <ul class="org-ul">
 <li><a href="https://github.com/opencv/opencv/tree/master/data/haarcascades">Clasificadores Haarcascades de la librería Opencv</a></li>
 <li><a href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_objdetect/py_face_detection/py_face_detection.html">Tutorial Haarcascades</a></li>
@@ -7145,15 +7124,15 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-org3553db7" class="outline-3">
-<h3 id="org3553db7">OpenGL</h3>
+<div id="outline-container-org163439c" class="outline-3">
+<h3 id="org163439c">OpenGL</h3>
 </div>
 
 
 
-<div id="outline-container-org3886c4b" class="outline-3">
-<h3 id="org3886c4b">Descripción de la Proyección Isométrica</h3>
-<div class="outline-text-3" id="text-org3886c4b">
+<div id="outline-container-org9f552bc" class="outline-3">
+<h3 id="org9f552bc">Descripción de la Proyección Isométrica</h3>
+<div class="outline-text-3" id="text-org9f552bc">
 <p>
 La proyección isométrica es un tipo de proyección axonométrica que
 representa un objeto 3D en un espacio 2D sin perspectiva. Esto
@@ -7173,9 +7152,9 @@ simple sin distorsión de perspectiva.
 </div>
 
 
-<div id="outline-container-orgdb21245" class="outline-4">
-<h4 id="orgdb21245">Ejemplo de Proyección Isométrica en OpenCV</h4>
-<div class="outline-text-4" id="text-orgdb21245">
+<div id="outline-container-org36f096b" class="outline-4">
+<h4 id="org36f096b">Ejemplo de Proyección Isométrica en OpenCV</h4>
+<div class="outline-text-4" id="text-org36f096b">
 <p>
 Este ejemplo en OpenCV muestra cómo proyectar un cubo 3D en 2D
 utilizando una proyección isométrica. Cada vértice del cubo se
@@ -7185,8 +7164,8 @@ del cubo.
 </div>
 
 <ul class="org-ul">
-<li><a id="org9171054"></a>Código en Python<br />
-<div class="outline-text-5" id="text-org9171054">
+<li><a id="orgb9d9ccb"></a>Código en Python<br />
+<div class="outline-text-5" id="text-orgb9d9ccb">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> cv2
 <span style="color: #a020f0;">import</span> numpy <span style="color: #a020f0;">as</span> np
@@ -7247,8 +7226,8 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </li>
 
-<li><a id="org9452bc9"></a>Explicación del Código<br />
-<div class="outline-text-5" id="text-org9452bc9">
+<li><a id="org6120459"></a>Explicación del Código<br />
+<div class="outline-text-5" id="text-org6120459">
 <ol class="org-ol">
 <li><b><b>Definición de Vértices y Aristas</b></b>:
 <ul class="org-ul">
@@ -7270,8 +7249,8 @@ cv2.destroyAllWindows<span style="color: #707183;">()</span>
 </div>
 </li>
 
-<li><a id="org32e6a4a"></a>Salida Esperada<br />
-<div class="outline-text-5" id="text-org32e6a4a">
+<li><a id="org4f45080"></a>Salida Esperada<br />
+<div class="outline-text-5" id="text-org4f45080">
 <p>
 La ventana mostrará un cubo en perspectiva isométrica. Las aristas se
 dibujan en blanco y el cubo parece tener profundidad, aunque es solo
@@ -7289,9 +7268,9 @@ Este ejemplo simula un efecto 3D mediante una proyección isométrica,
 </div>
 
 
-<div id="outline-container-orgfecaf3e" class="outline-3">
-<h3 id="orgfecaf3e">Opengl Ejemplo</h3>
-<div class="outline-text-3" id="text-orgfecaf3e">
+<div id="outline-container-org429081b" class="outline-3">
+<h3 id="org429081b">Opengl Ejemplo</h3>
+<div class="outline-text-3" id="text-org429081b">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a020f0;">import</span> glfw
 <span style="color: #a020f0;">from</span> OpenGL.GL <span style="color: #a020f0;">import</span> glClear, glClearColor, glBegin, GL_QUADS, glEnd, glVertex2f, glColor3f, GL_COLOR_BUFFER_BIT, GL_TRIANGLES
@@ -7400,9 +7379,9 @@ Este ejemplo simula un efecto 3D mediante una proyección isométrica,
 </div>
 
 
-<div id="outline-container-org58324d1" class="outline-2">
-<h2 id="org58324d1">Introducción a OpenGL</h2>
-<div class="outline-text-2" id="text-org58324d1">
+<div id="outline-container-org8d270a4" class="outline-2">
+<h2 id="org8d270a4">Introducción a OpenGL</h2>
+<div class="outline-text-2" id="text-org8d270a4">
 <p>
 OpenGL (Open Graphics Library) es una API de gráficos que permite a
 los desarrolladores crear gráficos en 2D y 3D. Fue desarrollada por
@@ -7413,9 +7392,9 @@ entornos de realidad virtual y aumentada.
 </p>
 </div>
 
-<div id="outline-container-org3e4c08c" class="outline-3">
-<h3 id="org3e4c08c">Características de OpenGL</h3>
-<div class="outline-text-3" id="text-org3e4c08c">
+<div id="outline-container-orga63b73d" class="outline-3">
+<h3 id="orga63b73d">Características de OpenGL</h3>
+<div class="outline-text-3" id="text-orga63b73d">
 <ul class="org-ul">
 <li><b><b>Plataforma abierta</b></b>: OpenGL es multiplataforma y funciona en
 Windows, macOS, y Linux.</li>
@@ -7429,18 +7408,18 @@ gráficos simples en 2D hasta gráficos avanzados en 3D.</li>
 </div>
 </div>
 
-<div id="outline-container-org45c50c8" class="outline-3">
-<h3 id="org45c50c8">Primeros pasos en OpenGL</h3>
-<div class="outline-text-3" id="text-org45c50c8">
+<div id="outline-container-org4dc2386" class="outline-3">
+<h3 id="org4dc2386">Primeros pasos en OpenGL</h3>
+<div class="outline-text-3" id="text-org4dc2386">
 <p>
 Para empezar a trabajar con OpenGL, necesitas entender algunos de sus
 conceptos y configuraciones básicas.
 </p>
 </div>
 
-<div id="outline-container-org9a8aa0d" class="outline-4">
-<h4 id="org9a8aa0d">Configuración del Entorno</h4>
-<div class="outline-text-4" id="text-org9a8aa0d">
+<div id="outline-container-org7f80af1" class="outline-4">
+<h4 id="org7f80af1">Configuración del Entorno</h4>
+<div class="outline-text-4" id="text-org7f80af1">
 <p>
 Para utilizar OpenGL en Python, necesitas instalar las siguientes
 bibliotecas:
@@ -7453,9 +7432,9 @@ bibliotecas:
 </div>
 </div>
 
-<div id="outline-container-org9e44a32" class="outline-4">
-<h4 id="org9e44a32">Estructura básica de un programa OpenGL</h4>
-<div class="outline-text-4" id="text-org9e44a32">
+<div id="outline-container-orgfacd407" class="outline-4">
+<h4 id="orgfacd407">Estructura básica de un programa OpenGL</h4>
+<div class="outline-text-4" id="text-orgfacd407">
 <p>
 Un programa básico de OpenGL tiene una estructura general que incluye
 la configuración de la ventana, la inicialización del contexto de
@@ -7465,9 +7444,9 @@ OpenGL, el renderizado de objetos y el bucle principal.
 </div>
 </div>
 
-<div id="outline-container-org1293092" class="outline-3">
-<h3 id="org1293092">Sistema de Coordenadas en OpenGL</h3>
-<div class="outline-text-3" id="text-org1293092">
+<div id="outline-container-orgd293fce" class="outline-3">
+<h3 id="orgd293fce">Sistema de Coordenadas en OpenGL</h3>
+<div class="outline-text-3" id="text-orgd293fce">
 <p>
 En OpenGL, las coordenadas pasan por una serie de transformaciones
 para dibujar objetos en pantalla. Aquí están los principales sistemas
@@ -7475,9 +7454,9 @@ de coordenadas:
 </p>
 </div>
 
-<div id="outline-container-org550e6cf" class="outline-4">
-<h4 id="org550e6cf">Coordenadas del Objeto</h4>
-<div class="outline-text-4" id="text-org550e6cf">
+<div id="outline-container-org69637a2" class="outline-4">
+<h4 id="org69637a2">Coordenadas del Objeto</h4>
+<div class="outline-text-4" id="text-org69637a2">
 <p>
 Este es el espacio de coordenadas local de cada objeto. Aquí
 defines los vértices en relación con el centro del objeto.
@@ -7485,9 +7464,9 @@ defines los vértices en relación con el centro del objeto.
 </div>
 </div>
 
-<div id="outline-container-org8d01d38" class="outline-4">
-<h4 id="org8d01d38">Coordenadas del Mundo</h4>
-<div class="outline-text-4" id="text-org8d01d38">
+<div id="outline-container-org467d71d" class="outline-4">
+<h4 id="org467d71d">Coordenadas del Mundo</h4>
+<div class="outline-text-4" id="text-org467d71d">
 <p>
 Transforman las coordenadas del objeto para situarlo en el mundo
 virtual.
@@ -7495,9 +7474,9 @@ virtual.
 </div>
 </div>
 
-<div id="outline-container-orgafdd5a2" class="outline-4">
-<h4 id="orgafdd5a2">Coordenadas de Vista</h4>
-<div class="outline-text-4" id="text-orgafdd5a2">
+<div id="outline-container-org389a115" class="outline-4">
+<h4 id="org389a115">Coordenadas de Vista</h4>
+<div class="outline-text-4" id="text-org389a115">
 <p>
 Ajustan la posición del objeto en relación con la cámara u
 observador.
@@ -7505,9 +7484,9 @@ observador.
 </div>
 </div>
 
-<div id="outline-container-orgc636e5d" class="outline-4">
-<h4 id="orgc636e5d">Coordenadas de Recorte</h4>
-<div class="outline-text-4" id="text-orgc636e5d">
+<div id="outline-container-orgf54003f" class="outline-4">
+<h4 id="orgf54003f">Coordenadas de Recorte</h4>
+<div class="outline-text-4" id="text-orgf54003f">
 <p>
 Aplican la proyección para determinar qué partes del objeto son
 visibles y cuáles están fuera del campo de visión.
@@ -7515,9 +7494,9 @@ visibles y cuáles están fuera del campo de visión.
 </div>
 </div>
 
-<div id="outline-container-org797b3fe" class="outline-4">
-<h4 id="org797b3fe">Coordenadas Normalizadas del Dispositivo (NDC)</h4>
-<div class="outline-text-4" id="text-org797b3fe">
+<div id="outline-container-orgf799521" class="outline-4">
+<h4 id="orgf799521">Coordenadas Normalizadas del Dispositivo (NDC)</h4>
+<div class="outline-text-4" id="text-orgf799521">
 <p>
 Las coordenadas se normalizan al rango [-1, 1] en cada eje, para
 definir la porción visible de la escena.
@@ -7525,9 +7504,9 @@ definir la porción visible de la escena.
 </div>
 </div>
 
-<div id="outline-container-org7f9585c" class="outline-4">
-<h4 id="org7f9585c">Coordenadas de Pantalla</h4>
-<div class="outline-text-4" id="text-org7f9585c">
+<div id="outline-container-org4abbbcc" class="outline-4">
+<h4 id="org4abbbcc">Coordenadas de Pantalla</h4>
+<div class="outline-text-4" id="text-org4abbbcc">
 <p>
 Las coordenadas normalizadas se mapean a píxeles en la pantalla
 según la resolución de la ventana.
@@ -7536,9 +7515,9 @@ según la resolución de la ventana.
 </div>
 </div>
 
-<div id="outline-container-org782854c" class="outline-3">
-<h3 id="org782854c">Primitivas de Dibujo en OpenGL</h3>
-<div class="outline-text-3" id="text-org782854c">
+<div id="outline-container-orgef74647" class="outline-3">
+<h3 id="orgef74647">Primitivas de Dibujo en OpenGL</h3>
+<div class="outline-text-3" id="text-orgef74647">
 <p>
 OpenGL permite dibujar figuras básicas conocidas como primitivas,
 entre las que se incluyen:
@@ -7560,9 +7539,9 @@ Ejemplo de uso de <b><b>GL<sub>TRIANGLES</sub></b></b> para dibujar un triángul
 </div>
 
 
-<div id="outline-container-org92b104d" class="outline-4">
-<h4 id="org92b104d">Código en Python con OpenGL y GLUT</h4>
-<div class="outline-text-4" id="text-org92b104d">
+<div id="outline-container-org4714e0b" class="outline-4">
+<h4 id="org4714e0b">Código en Python con OpenGL y GLUT</h4>
+<div class="outline-text-4" id="text-org4714e0b">
 <p>
 Este código utiliza OpenGL y GLUT en Python para dibujar un
 triángulo. A continuación, se describen en detalle las funciones y
@@ -7571,8 +7550,8 @@ líneas de código, así como su propósito y parámetros utilizados.
 </div>
 
 <ul class="org-ul">
-<li><a id="org6089386"></a>Importación de módulos<br />
-<div class="outline-text-5" id="text-org6089386">
+<li><a id="orgcfae7fa"></a>Importación de módulos<br />
+<div class="outline-text-5" id="text-orgcfae7fa">
 <p>
 Se importan los módulos necesarios para trabajar con OpenGL y GLUT en Python.
 </p>
@@ -7610,8 +7589,8 @@ proyecciones en perspectiva, que se utilizan en este código.</li>
 </div>
 </li>
 
-<li><a id="org1a52e2f"></a>Función `init()`<br />
-<div class="outline-text-5" id="text-org1a52e2f">
+<li><a id="org10b2f63"></a>Función `init()`<br />
+<div class="outline-text-5" id="text-org10b2f63">
 <p>
 La función `init()` realiza las configuraciones iniciales para la
 visualización, como establecer el color de fondo, definir la
@@ -7659,8 +7638,8 @@ los objetos en el espacio 3D.</li>
 </div>
 </li>
 
-<li><a id="orgc69afbf"></a>Función `display()`<br />
-<div class="outline-text-5" id="text-orgc69afbf">
+<li><a id="org389c5f1"></a>Función `display()`<br />
+<div class="outline-text-5" id="text-org389c5f1">
 <p>
 La función `display()` se encarga de limpiar los buffers y dibujar los
 objetos en pantalla, en este caso, un triángulo. La función se llama
@@ -7736,8 +7715,8 @@ renderice en la ventana de manera eficiente, evitando parpadeos.</li>
 </div>
 </li>
 
-<li><a id="org8f011c9"></a>Función `main()`<br />
-<div class="outline-text-5" id="text-org8f011c9">
+<li><a id="orgff1a4a1"></a>Función `main()`<br />
+<div class="outline-text-5" id="text-orgff1a4a1">
 <p>
 La función `main()` inicializa GLUT, configura la ventana y asigna la función de visualización. También lanza el bucle principal de GLUT.
 </p>
@@ -7784,8 +7763,8 @@ pantalla.</li>
 </div>
 </li>
 
-<li><a id="orgcaadef3"></a>Ejecución del código<br />
-<div class="outline-text-5" id="text-orgcaadef3">
+<li><a id="org093334c"></a>Ejecución del código<br />
+<div class="outline-text-5" id="text-org093334c">
 <p>
 Este bloque final se asegura de que el código se ejecute correctamente cuando se llama al archivo directamente.
 </p>
@@ -8603,9 +8582,9 @@ glfw.terminate<span style="color: #707183;">()</span>
 </div>
 
 
-<div id="outline-container-org3c3ef62" class="outline-3">
-<h3 id="org3c3ef62">Tutorial de gluPerspective en OpenGL</h3>
-<div class="outline-text-3" id="text-org3c3ef62">
+<div id="outline-container-org4d5820e" class="outline-3">
+<h3 id="org4d5820e">Tutorial de gluPerspective en OpenGL</h3>
+<div class="outline-text-3" id="text-org4d5820e">
 <p>
 Este tutorial describe cómo utilizar la función <code>gluPerspective</code> en
 OpenGL para definir la proyección en perspectiva en una escena 3D. La
@@ -8615,9 +8594,9 @@ más pequeños.
 </p>
 </div>
 
-<div id="outline-container-orgb488390" class="outline-4">
-<h4 id="orgb488390">¿Qué es gluPerspective?</h4>
-<div class="outline-text-4" id="text-orgb488390">
+<div id="outline-container-org42055cb" class="outline-4">
+<h4 id="org42055cb">¿Qué es gluPerspective?</h4>
+<div class="outline-text-4" id="text-org42055cb">
 <p>
 La función <code>gluPerspective</code> establece una proyección en perspectiva para
 la cámara, creando una "pirámide de visión" o "frustum" en la que los
@@ -8629,9 +8608,9 @@ de profundidad en la escena.
 
 
 
-<div id="outline-container-orge42f5b6" class="outline-4">
-<h4 id="orge42f5b6">Sintaxis</h4>
-<div class="outline-text-4" id="text-orge42f5b6">
+<div id="outline-container-org59e4563" class="outline-4">
+<h4 id="org59e4563">Sintaxis</h4>
+<div class="outline-text-4" id="text-org59e4563">
 <div class="org-src-container">
 <pre class="src src-python">gluPerspective<span style="color: #707183;">(</span>fovY, aspect, zNear, zFar<span style="color: #707183;">)</span>
 </pre>
@@ -8650,9 +8629,9 @@ lejanos que <code>zFar</code> no se renderizan.</li>
 </div>
 </div>
 
-<div id="outline-container-orgbf3bb47" class="outline-4">
-<h4 id="orgbf3bb47">Ejemplo Básico de Uso de gluPerspective</h4>
-<div class="outline-text-4" id="text-orgbf3bb47">
+<div id="outline-container-orgc126563" class="outline-4">
+<h4 id="orgc126563">Ejemplo Básico de Uso de gluPerspective</h4>
+<div class="outline-text-4" id="text-orgc126563">
 <p>
 Este ejemplo muestra cómo configurar <code>gluPerspective</code> en una escena de
 OpenGL en Python, utilizando PyOpenGL y GLFW.
@@ -8717,9 +8696,9 @@ OpenGL en Python, utilizando PyOpenGL y GLFW.
 </div>
 
 
-<div id="outline-container-orgce6a7af" class="outline-3">
-<h3 id="orgce6a7af">Objetos de Glut</h3>
-<div class="outline-text-3" id="text-orgce6a7af">
+<div id="outline-container-org244947a" class="outline-3">
+<h3 id="org244947a">Objetos de Glut</h3>
+<div class="outline-text-3" id="text-org244947a">
 <ul class="org-ul">
 <li>casa</li>
 </ul>
@@ -10095,18 +10074,18 @@ persona
 
 
 
-<div id="outline-container-orgc0fd886" class="outline-3">
-<h3 id="orgc0fd886">Transformaciones en OpenGL</h3>
-<div class="outline-text-3" id="text-orgc0fd886">
+<div id="outline-container-org50f1ea5" class="outline-3">
+<h3 id="org50f1ea5">Transformaciones en OpenGL</h3>
+<div class="outline-text-3" id="text-org50f1ea5">
 <p>
 Las transformaciones de OpenGL son fundamentales para mover, rotar y
 escalar los objetos en la escena.
 </p>
 </div>
 
-<div id="outline-container-org8651638" class="outline-4">
-<h4 id="org8651638">Traslación</h4>
-<div class="outline-text-4" id="text-org8651638">
+<div id="outline-container-org2651597" class="outline-4">
+<h4 id="org2651597">Traslación</h4>
+<div class="outline-text-4" id="text-org2651597">
 <p>
 Mueve un objeto de una posición a otra.
 </p>
@@ -10158,9 +10137,9 @@ Mueve un objeto de una posición a otra.
 
 
 
-<div id="outline-container-org332c71d" class="outline-4">
-<h4 id="org332c71d">Rotación</h4>
-<div class="outline-text-4" id="text-org332c71d">
+<div id="outline-container-org384af8d" class="outline-4">
+<h4 id="org384af8d">Rotación</h4>
+<div class="outline-text-4" id="text-org384af8d">
 <p>
 Gira un objeto alrededor de un eje.
 </p>
@@ -10202,9 +10181,9 @@ Gira un objeto alrededor de un eje.
 
 
 
-<div id="outline-container-orgb04a19b" class="outline-4">
-<h4 id="orgb04a19b">Escalado</h4>
-<div class="outline-text-4" id="text-orgb04a19b">
+<div id="outline-container-orgc925354" class="outline-4">
+<h4 id="orgc925354">Escalado</h4>
+<div class="outline-text-4" id="text-orgc925354">
 <p>
 Cambia el tamaño del objeto.
 </p>
@@ -10267,18 +10246,18 @@ Ejemplo de cómo aplicar una transformación de escalado y rotación:
 
 
 
-<div id="outline-container-org5dccb33" class="outline-3">
-<h3 id="org5dccb33">Iluminación y Materiales</h3>
-<div class="outline-text-3" id="text-org5dccb33">
+<div id="outline-container-org31e03b5" class="outline-3">
+<h3 id="org31e03b5">Iluminación y Materiales</h3>
+<div class="outline-text-3" id="text-org31e03b5">
 <p>
 En OpenGL, puedes aplicar iluminación y definir materiales para que
 los objetos interactúen con la luz de manera realista.
 </p>
 </div>
 
-<div id="outline-container-orgd59b968" class="outline-4">
-<h4 id="orgd59b968">Tipos de luces</h4>
-<div class="outline-text-4" id="text-orgd59b968">
+<div id="outline-container-orgd87d2b7" class="outline-4">
+<h4 id="orgd87d2b7">Tipos de luces</h4>
+<div class="outline-text-4" id="text-orgd87d2b7">
 <ul class="org-ul">
 <li><b><b>Luz ambiental</b></b>: Luz sin una dirección específica que ilumina
 toda la escena.</li>
@@ -10292,9 +10271,9 @@ a un reflector.</li>
 </div>
 </div>
 
-<div id="outline-container-org8ad779c" class="outline-4">
-<h4 id="org8ad779c">Materiales</h4>
-<div class="outline-text-4" id="text-org8ad779c">
+<div id="outline-container-orgd05c201" class="outline-4">
+<h4 id="orgd05c201">Materiales</h4>
+<div class="outline-text-4" id="text-orgd05c201">
 <p>
 Puedes definir propiedades de los materiales, como el color y la
 reflectividad, para cada objeto.
@@ -10303,9 +10282,9 @@ reflectividad, para cada objeto.
 </div>
 </div>
 
-<div id="outline-container-org643fde1" class="outline-3">
-<h3 id="org643fde1">Sombras y Efectos Avanzados</h3>
-<div class="outline-text-3" id="text-org643fde1">
+<div id="outline-container-org21657a6" class="outline-3">
+<h3 id="org21657a6">Sombras y Efectos Avanzados</h3>
+<div class="outline-text-3" id="text-org21657a6">
 <p>
 OpenGL también permite generar sombras y efectos avanzados como
 transparencia, texturas y sombreado por vértices.
@@ -10313,35 +10292,35 @@ transparencia, texturas y sombreado por vértices.
 </div>
 </div>
 
-<div id="outline-container-org75c647d" class="outline-3">
-<h3 id="org75c647d">OpenGL Moderno: Shaders y el Pipeline Gráfico</h3>
-<div class="outline-text-3" id="text-org75c647d">
+<div id="outline-container-org23d66e8" class="outline-3">
+<h3 id="org23d66e8">OpenGL Moderno: Shaders y el Pipeline Gráfico</h3>
+<div class="outline-text-3" id="text-org23d66e8">
 <p>
 OpenGL moderno (a partir de OpenGL 3.0) ha evolucionado hacia un modelo basado en shaders. Los shaders son pequeños programas que se ejecutan en la GPU y permiten controlar de manera detallada el comportamiento del pipeline gráfico.
 </p>
 </div>
 
-<div id="outline-container-org04a8d0f" class="outline-4">
-<h4 id="org04a8d0f">Vertex Shader</h4>
-<div class="outline-text-4" id="text-org04a8d0f">
+<div id="outline-container-org64ab5f7" class="outline-4">
+<h4 id="org64ab5f7">Vertex Shader</h4>
+<div class="outline-text-4" id="text-org64ab5f7">
 <p>
 Procesa cada vértice y aplica transformaciones para determinar su posición en la pantalla.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org1d80423" class="outline-4">
-<h4 id="org1d80423">Fragment Shader</h4>
-<div class="outline-text-4" id="text-org1d80423">
+<div id="outline-container-org6947a55" class="outline-4">
+<h4 id="org6947a55">Fragment Shader</h4>
+<div class="outline-text-4" id="text-org6947a55">
 <p>
 Calcula el color final de cada píxel en la superficie de los objetos.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orga8d0c89" class="outline-4">
-<h4 id="orga8d0c89">Geometry Shader</h4>
-<div class="outline-text-4" id="text-orga8d0c89">
+<div id="outline-container-org7580adf" class="outline-4">
+<h4 id="org7580adf">Geometry Shader</h4>
+<div class="outline-text-4" id="text-org7580adf">
 <p>
 Opcional, permite manipular primitivas completas (como puntos, líneas o triángulos).
 </p>
@@ -10367,9 +10346,9 @@ Opcional, permite manipular primitivas completas (como puntos, líneas o triáng
 
 
 
-<div id="outline-container-org0b5d49b" class="outline-3">
-<h3 id="org0b5d49b">Conclusión</h3>
-<div class="outline-text-3" id="text-org0b5d49b">
+<div id="outline-container-org459f1c1" class="outline-3">
+<h3 id="org459f1c1">Conclusión</h3>
+<div class="outline-text-3" id="text-org459f1c1">
 <p>
 OpenGL es una herramienta poderosa y flexible para el renderizado de
 gráficos en 2D y 3D. Aunque es de bajo nivel y puede requerir trabajo
@@ -10392,9 +10371,9 @@ en tiempo real.
 
 
 
-<div id="outline-container-org908fb82" class="outline-2">
-<h2 id="org908fb82">Proyecto Final</h2>
-<div class="outline-text-2" id="text-org908fb82">
+<div id="outline-container-org4ca8020" class="outline-2">
+<h2 id="org4ca8020">Proyecto Final</h2>
+<div class="outline-text-2" id="text-org4ca8020">
 <p>
 El flujo óptico es el patrón del movimiento aparente de los objetos,
 superficies y bordes en una escena causado por el movimiento relativo
@@ -10436,7 +10415,7 @@ máximo de 5 personas.</li>
 </div>
 <div id="postamble" class="status">
 <p class="author">Autor: Eduardo Alcaraz</p>
-<p class="date">Created: 2025-10-23 jue 13:18</p>
+<p class="date">Created: 2025-10-23 jue 13:22</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
