@@ -2579,6 +2579,7 @@ cv2.destroyAllWindows()
 #+END_SRC
 
 #+RESULTS:
+: None
 
 
 
@@ -2721,6 +2722,7 @@ while cap.isOpened():
         break
 
 cap.release()
+momo
 cv2.destroyAllWindows()
 #+END_SRC
 
@@ -2728,7 +2730,7 @@ cv2.destroyAllWindows()
 : None
 
 
-#+BEGIN_SRC python
+#+BEGIN_SRC python :results output
 import cv2
 import mediapipe as mp
 import numpy as np
@@ -2737,12 +2739,11 @@ import numpy as np
 mp_face_mesh = mp.solutions.face_mesh
 face_mesh = mp_face_mesh.FaceMesh(static_image_mode=False, max_num_faces=2, 
                                   min_detection_confidence=0.5, min_tracking_confidence=0.5)
-
 # Captura de video
 cap = cv2.VideoCapture(0)
 
 # Lista de índices de landmarks específicos (ojos y boca)
-selected_points = [33, 133, 362, 263, 61, 291, 4, 36, 0]  # Ojos y boca
+selected_points = [33, 133, 362, 263, 61, 291, 4, 36, 0, 17]  # Ojos y boca
 
 def distancia(p1, p2):
     """Calcula la distancia euclidiana entre dos puntos."""
@@ -2756,24 +2757,32 @@ while cap.isOpened():
     frame = cv2.flip(frame, 1)  # Espejo para mayor naturalidad
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     results = face_mesh.process(rgb_frame)
-
+    
     if results.multi_face_landmarks:
         for face_landmarks in results.multi_face_landmarks:
             puntos = {}
-            
+
+            puntoa = (int(face_landmarks.landmark[0].x * frame.shape[1]),
+                      int(face_landmarks.landmark[0].y * frame.shape[0]))
+            puntob = (int(face_landmarks.landmark[17].x * frame.shape[1]),
+                      int(face_landmarks.landmark[17].y * frame.shape[0]))
+            cv2.line(frame, puntoa, puntob, (0,255,0), 3)
+            dboca=distancia(puntoa,puntob)
+            cv2.putText(frame, str(dboca), puntoa, cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+            #print(puntoa)
             for idx in selected_points:
                 x = int(face_landmarks.landmark[idx].x * frame.shape[1])
                 y = int(face_landmarks.landmark[idx].y * frame.shape[0])
                 puntos[idx] = (x, y)
                 cv2.circle(frame, (x, y), 2, (0, 255, 0), -1)  # Dibuja el punto en verde
-             
+                
             # Calcular y mostrar distancia entre puntos (ejemplo: entre ojos)
             if 33 in puntos and 133 in puntos:
                 d_ojos = distancia(puntos[33], puntos[133])
                 #print(puntos[33])
                 #cv2.line(frame, (puntos[33][0], puntos[33][1]), (puntos[133][0], puntos[133][1]), (23, 234,23), 2 )
-                cv2.putText(frame, f" {int(puntos[61][0]-20), int(puntos[61][1]-20) }", (puntos[61][0], puntos[61][1] - 10), 
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+                #cv2.putText(frame, f" {int(puntos[61][0]-20), int(puntos[61][1]-20) }", (puntos[61][0], puntos[61][1] - 10), 
+                 #           cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
 
                 #cv2.putText(frame, f"D: {int(d_ojos)}", (puntos[33][0], puntos[33][1] - 10), 
                 #            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
@@ -2788,7 +2797,6 @@ cv2.destroyAllWindows()
 #+END_SRC
 
 #+RESULTS:
-: None
 
 
 
@@ -5279,7 +5287,7 @@ def display():
 
     # Dibujar un triángulo
     glBegin(GL_TRIANGLES)  # Inicia la especificación de los vértices para un triángulo
-    glColor3f(1.0, 0.0, 0.0)  # Rojo
+    glColor3f(R1.0, 0.0, 0.0)  # Rojo
     glVertex3f(-1.0, -1.0, 0.0)  # Primer vértice
     glColor3f(0.0, 1.0, 0.0)  # Verde
     glVertex3f(1.0, -1.0, 0.0)  # Segundo vértice
@@ -5340,7 +5348,8 @@ def display():
 
 **** Función `main()`
 
-La función `main()` inicializa GLUT, configura la ventana y asigna la función de visualización. También lanza el bucle principal de GLUT.
+La función `main()` inicializa GLUT, configura la ventana y asigna la
+función de visualización. También lanza el bucle principal de GLUT.
 
 #+BEGIN_SRC python
 def main():
@@ -5411,7 +5420,7 @@ def init():
 def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)  # Limpiar buffers
     glLoadIdentity()
-    glTranslatef(0.0, 0.0, -3)  # Mover la cámara hacia atrás
+    glTranslatef(0, 0, -3)  # Mover la cámara hacia atrás
 
     # Dibujar un triángulo
     glBegin(GL_TRIANGLES)
@@ -5423,6 +5432,9 @@ def display():
     glVertex3f(0.0, 1.0, 0.0)
     glEnd()
 
+    
+
+    
     glutSwapBuffers()  # Intercambiar buffers
 
 def main():
@@ -5529,12 +5541,15 @@ if __name__ == "__main__":
 #+RESULTS:
 
 
+
+
+
+
+
 #+BEGIN_SRC python :results output :tangle code/cubo.py
 import glfw
-from OpenGL.GL import glClearColor, glEnable, glClear, glLoadIdentity, glTranslatef, glRotatef, glMatrixMode
-from OpenGL.GL import glBegin, glColor3f, glVertex3f, glEnd, glFlush, glViewport
-from OpenGL.GL import GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT, GL_DEPTH_TEST, GL_QUADS, GL_PROJECTION, GL_MODELVIEW
-from OpenGL.GLU import gluPerspective
+from OpenGL.GL import *
+from OpenGL.GLU import *
 import sys
 
 # Variables globales
@@ -5545,12 +5560,10 @@ def init():
     # Configuración inicial de OpenGL
     glClearColor(0.0, 0.0, 0.0, 1.0)  # Color de fondo
     glEnable(GL_DEPTH_TEST)  # Activar prueba de profundidad para 3D
-
     # Configuración de proyección
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    gluPerspective(45, 1.0, 0.1, 50.0)
-
+    gluPerspective(45, 1, 0.1, 50.0)
     # Cambiar a la matriz de modelo para los objetos
     glMatrixMode(GL_MODELVIEW)
 
@@ -5560,16 +5573,22 @@ def draw_cube():
 
     # Configuración de la vista del cubo
     glLoadIdentity()
-    glTranslatef(0.0, 0.0, -5)  # Alejar el cubo para que sea visible
-    glRotatef(angle, 0, 0,1)   # Rotar el cubo en todos los ejes
+    glTranslatef(0.0, 0.0, -1)  # Alejar el cubo para que sea visible
+    glRotatef(angle, 1, 1, 1)   # Rotar el cubo en todos los ejes
+    
+
+    #glRotatef(angle, 0, 1, 0)   # Rotar el cubo en todos los ejes
 
     glBegin(GL_QUADS)  # Iniciar el cubo como un conjunto de caras (quads)
 
     # Cada conjunto de cuatro vértices representa una cara del cubo
-    glColor3f(1.0, 0.0, 0.0)  # Rojo
+    glColor3f(1.0, 0.0, 1.0)  # Rojo
     glVertex3f( 1, 1,-1)
+    glColor3f(0.4, 1.0, 1.0)  # Verde
     glVertex3f(-1, 1,-1)
+    glColor3f(0.4, 1.0, 1.0)  # Verde
     glVertex3f(-1, 1, 1)
+    glColor3f(0.3, 0.8, 0.1)  # Verde
     glVertex3f( 1, 1, 1)
 
     glColor3f(0.0, 1.0, 0.0)  # Verde
@@ -5606,7 +5625,7 @@ def draw_cube():
     glFlush()
 
     glfw.swap_buffers(window)  # Intercambiar buffers para animación suave
-    angle += 1  # Incrementar el ángulo para rotación
+    angle += 0.1  # Incrementar el ángulo para rotación
 
 def main():
     global window
@@ -5626,7 +5645,7 @@ def main():
     glfw.make_context_current(window)
 
     # Configuración de viewport y OpenGL
-    glViewport(0, 0, width, height)
+    glViewport(0, 1, width, height)
     init()
 
     # Bucle principal
@@ -5640,6 +5659,108 @@ if __name__ == "__main__":
     main()
 
 #+END_SRC
+
+#+RESULTS:
+
+
+#+BEGIN_SRC python :results output :tangle code/cubo2.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+import sys
+
+# Variables globales
+window = None
+angle_x = 0
+angle_y = 0
+angle_z = 0
+
+def init():
+    glClearColor(0.0, 0.0, 0.0, 1.0)
+    glEnable(GL_DEPTH_TEST)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(60, 1, 0.1, 50.0)
+    glMatrixMode(GL_MODELVIEW)
+
+def draw_cube():
+    global angle_x, angle_y, angle_z
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+    glLoadIdentity()
+    glTranslatef(0.0, 0.0, -6)
+    
+    #  Rotar en los tres ejes
+    glRotatef(angle_x, 1, 0, 0)
+    glRotatef(angle_y, 0, 1, 0)
+    glRotatef(angle_z, 0, 0, 1)
+
+    glBegin(GL_QUADS)
+    # Cara superior
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex3f(1, 1, -1)
+    glVertex3f(-1, 1, -1)
+    glVertex3f(-1, 1, 1)
+    glVertex3f(1, 1, 1)
+    # Cara inferior
+    glColor3f(0.0, 1.0, 0.0)
+    glVertex3f(1, -1, 1)
+    glVertex3f(-1, -1, 1)
+    glVertex3f(-1, -1, -1)
+    glVertex3f(1, -1, -1)
+    # Cara frontal
+    glColor3f(0.0, 0.0, 1.0)
+    glVertex3f(1, 1, 1)
+    glVertex3f(-1, 1, 1)
+    glVertex3f(-1, -1, 1)
+    glVertex3f(1, -1, 1)
+    # Cara trasera
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex3f(1, -1, -1)
+    glVertex3f(-1, -1, -1)
+    glVertex3f(-1, 1, -1)
+    glVertex3f(1, 1, -1)
+    # Cara izquierda
+    glColor3f(1.0, 0.0, 1.0)
+    glVertex3f(-1, 1, 1)
+    glVertex3f(-1, 1, -1)
+    glVertex3f(-1, -1, -1)
+    glVertex3f(-1, -1, 1)
+    # Cara derecha
+    glColor3f(0.0, 1.0, 1.0)
+    glVertex3f(1, 1, -1)
+    glVertex3f(1, 1, 1)
+    glVertex3f(1, -1, 1)
+    glVertex3f(1, -1, -1)
+    glEnd()
+
+    glfw.swap_buffers(window)
+    
+    # Incrementar los tres ángulos
+    angle_x += 0.8
+    angle_y += 1.0
+    angle_z += 1.2
+
+def main():
+    global window
+    if not glfw.init():
+        sys.exit()
+    window = glfw.create_window(600, 600, "Cubo 3D Rotando (X, Y, Z)", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+    glfw.make_context_current(window)
+    glViewport(0, 0, 600, 600)
+    init()
+    while not glfw.window_should_close(window):
+        draw_cube()
+        glfw.poll_events()
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+#+END_SRC
+
 
 #+RESULTS:
 
@@ -6197,6 +6318,1028 @@ if __name__ == "__main__":
 #+END_SRC
 
 #+RESULTS:
+
+
+
+
+* Primitivas 2D de OpenGL
+
+** draw_points()
+Dibuja puntos individuales usando =GL_POINTS=.
+- Establece el tamaño de punto a 10 píxeles con =glPointSize(10.0)=
+- Cada vértice se dibuja como un punto individual
+- Los puntos no se conectan entre sí
+- Útil para: gráficos de dispersión, estrellas, partículas
+
+#+begin_src python
+glBegin(GL_POINTS)
+glVertex2f(-0.3, 0.3)  # Un punto rojo
+glEnd()
+#+end_src
+
+** draw_lines()
+Dibuja líneas separadas usando =GL_LINES=.
+- Cada par de vértices forma una línea independiente
+- Establece el grosor de línea con =glLineWidth(3.0)=
+- Vértices: 1-2 forman línea, 3-4 forman otra línea
+- Las líneas no se conectan entre sí
+- Útil para: ejes de coordenadas, rejillas, diagramas
+
+** draw_line_strip()
+Dibuja una línea continua conectada usando =GL_LINE_STRIP=.
+- Todos los vértices se conectan en secuencia
+- Forma una línea quebrada continua
+- N vértices crean N-1 segmentos de línea
+- No se cierra automáticamente
+- Útil para: gráficos de línea, trayectorias, curvas
+
+** draw_line_loop()
+Dibuja una línea cerrada usando =GL_LINE_LOOP=.
+- Similar a =GL_LINE_STRIP= pero cierra el camino
+- El último vértice se conecta automáticamente al primero
+- Forma un polígono de contorno
+- Útil para: bordes de formas, perímetros, contornos
+
+** draw_triangles()
+Dibuja triángulos separados usando =GL_TRIANGLES=.
+- Cada 3 vértices forman un triángulo independiente
+- Los triángulos no comparten vértices
+- Requiere múltiplos de 3 vértices
+- Triángulos rellenos con interpolación de color
+- Útil para: mallas 3D, terrenos, modelos
+
+** draw_triangle_strip()
+Dibuja una tira de triángulos conectados usando =GL_TRIANGLE_STRIP=.
+- Los triángulos comparten vértices adyacentes
+- Patrón: v1-v2-v3, v2-v3-v4, v3-v4-v5...
+- Más eficiente que =GL_TRIANGLES= (menos vértices duplicados)
+- Útil para: superficies, ribbons, bandas
+
+** draw_triangle_fan()
+Dibuja un abanico de triángulos usando =GL_TRIANGLE_FAN=.
+- Todos los triángulos comparten el primer vértice (centro)
+- Patrón: v1-v2-v3, v1-v3-v4, v1-v4-v5...
+- Perfecto para formas radiales
+- Útil para: círculos, sectores circulares, estrellas
+
+** draw_quads()
+Dibuja cuadriláteros separados usando =GL_QUADS=.
+- Cada 4 vértices forman un cuadrilátero independiente
+- Los cuadriláteros no comparten vértices
+- Requiere múltiplos de 4 vértices
+- Debe ser convexo y planar
+- Útil para: tiles, paneles, superficies rectangulares
+
+** draw_quad_strip()
+Dibuja una tira de cuadriláteros usando =GL_QUAD_STRIP=.
+- Los cuadriláteros comparten bordes
+- Patrón: v1-v2-v4-v3, v3-v4-v6-v5...
+- Requiere número par de vértices
+- Útil para: cintas, tubos aplanados, superficies extruidas
+
+** draw_polygon()
+Dibuja un polígono relleno usando =GL_POLYGON=.
+- Todos los vértices forman un solo polígono
+- Debe ser convexo
+- Relleno con interpolación de color
+- Solo funciona para polígonos simples (sin autointersección)
+- Útil para: formas personalizadas, escudos, badges
+
+** draw_all_primitives_grid()
+Función principal que organiza todas las primitivas en una cuadrícula 3×4.
+- Divide la ventana en celdas usando =glViewport()=
+- Calcula posición de cada celda: columna y fila
+- Configura proyección ortográfica independiente para cada celda
+- Llama a cada función de dibujo en su celda correspondiente
+
+#+begin_src python
+# Cálculo de posición de celda
+col = idx % cols  # Columna (0, 1, 2)
+row = idx // cols  # Fila (0, 1, 2, 3)
+#+end_src
+
+
+
+
+#+BEGIN_SRC python :results output :tanto code/figuras.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+
+def draw_points():
+    """GL_POINTS - Dibuja puntos individuales"""
+    glPointSize(10.0)
+    glBegin(GL_POINTS)
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(-0.3, 0.3)
+    glColor3f(0.0, 1.0, 0.0)
+    glVertex2f(-0.1, 0.3)
+    glColor3f(0.0, 0.0, 1.0)
+    glVertex2f(0.1, 0.3)
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex2f(0.3, 0.3)
+    glEnd()
+
+def draw_lines():
+    """GL_LINES - Dibuja líneas separadas (pares de vértices)"""
+    glLineWidth(3.0)
+    glBegin(GL_LINES)
+    # Primera línea
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(-0.4, 0.3)
+    glColor3f(0.0, 1.0, 0.0)
+    glVertex2f(-0.1, 0.0)
+    # Segunda línea
+    glColor3f(0.0, 0.0, 1.0)
+    glVertex2f(0.1, 0.3)
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex2f(0.4, 0.0)
+    glEnd()
+
+def draw_line_strip():
+    """GL_LINE_STRIP - Dibuja una línea continua conectada"""
+    glLineWidth(3.0)
+    glBegin(GL_LINE_STRIP)
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(-0.4, 0.3)
+    glColor3f(0.0, 1.0, 0.0)
+    glVertex2f(-0.2, 0.0)
+    glColor3f(0.0, 0.0, 1.0)
+    glVertex2f(0.0, 0.3)
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex2f(0.2, 0.0)
+    glColor3f(1.0, 0.0, 1.0)
+    glVertex2f(0.4, 0.3)
+    glEnd()
+
+def draw_line_loop():
+    """GL_LINE_LOOP - Dibuja una línea cerrada"""
+    glLineWidth(3.0)
+    glBegin(GL_LINE_LOOP)
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(-0.3, 0.3)
+    glColor3f(0.0, 1.0, 0.0)
+    glVertex2f(0.3, 0.3)
+    glColor3f(0.0, 0.0, 1.0)
+    glVertex2f(0.3, -0.3)
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex2f(-0.3, -0.3)
+    glEnd()
+
+def draw_triangles():
+    """GL_TRIANGLES - Dibuja triángulos separados"""
+    glBegin(GL_TRIANGLES)
+    # Primer triángulo
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(-0.4, 0.3)
+    glColor3f(0.0, 1.0, 0.0)
+    glVertex2f(-0.2, -0.2)
+    glColor3f(0.0, 0.0, 1.0)
+    glVertex2f(-0.0, 0.3)
+    # Segundo triángulo
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex2f(0.1, 0.3)
+    glColor3f(1.0, 0.0, 1.0)
+    glVertex2f(0.3, -0.2)
+    glColor3f(0.0, 1.0, 1.0)
+    glVertex2f(0.5, 0.3)
+    glEnd()
+
+def draw_triangle_strip():
+    """GL_TRIANGLE_STRIP - Dibuja una tira de triángulos conectados"""
+    glBegin(GL_TRIANGLE_STRIP)
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(-0.4, 0.3)
+    glColor3f(0.0, 1.0, 0.0)
+    glVertex2f(-0.3, -0.2)
+    glColor3f(0.0, 0.0, 1.0)
+    glVertex2f(-0.1, 0.3)
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex2f(0.0, -0.2)
+    glColor3f(1.0, 0.0, 1.0)
+    glVertex2f(0.2, 0.3)
+    glColor3f(0.0, 1.0, 1.0)
+    glVertex2f(0.3, -0.2)
+    glEnd()
+
+def draw_triangle_fan():
+    """GL_TRIANGLE_FAN - Dibuja un abanico de triángulos desde un punto central"""
+    glBegin(GL_TRIANGLE_FAN)
+    # Vértice central
+    glColor3f(1.0, 1.0, 1.0)
+    glVertex2f(0.0, 0.0)
+    # Vértices del perímetro
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(0.0, 0.4)
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex2f(0.3, 0.3)
+    glColor3f(0.0, 1.0, 0.0)
+    glVertex2f(0.4, 0.0)
+    glColor3f(0.0, 1.0, 1.0)
+    glVertex2f(0.3, -0.3)
+    glColor3f(0.0, 0.0, 1.0)
+    glVertex2f(0.0, -0.4)
+    glColor3f(1.0, 0.0, 1.0)
+    glVertex2f(-0.3, -0.3)
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(-0.4, 0.0)
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex2f(-0.3, 0.3)
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(0.0, 0.4)
+    glEnd()
+
+def draw_quads():
+    """GL_QUADS - Dibuja cuadriláteros separados"""
+    glBegin(GL_QUADS)
+    # Primer cuadrilátero
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(-0.5, 0.3)
+    glColor3f(0.0, 1.0, 0.0)
+    glVertex2f(-0.2, 0.3)
+    glColor3f(0.0, 0.0, 1.0)
+    glVertex2f(-0.2, -0.1)
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex2f(-0.5, -0.1)
+    # Segundo cuadrilátero
+    glColor3f(1.0, 0.0, 1.0)
+    glVertex2f(0.0, 0.3)
+    glColor3f(0.0, 1.0, 1.0)
+    glVertex2f(0.3, 0.3)
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex2f(0.3, -0.1)
+    glColor3f(1.0, 0.5, 0.0)
+    glVertex2f(0.0, -0.1)
+    glEnd()
+
+def draw_quad_strip():
+    """GL_QUAD_STRIP - Dibuja una tira de cuadriláteros conectados"""
+    glBegin(GL_QUAD_STRIP)
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(-0.5, 0.3)
+    glColor3f(0.0, 1.0, 0.0)
+    glVertex2f(-0.5, -0.2)
+    glColor3f(0.0, 0.0, 1.0)
+    glVertex2f(-0.2, 0.3)
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex2f(-0.2, -0.2)
+    glColor3f(1.0, 0.0, 1.0)
+    glVertex2f(0.1, 0.3)
+    glColor3f(0.0, 1.0, 1.0)
+    glVertex2f(0.1, -0.2)
+    glColor3f(1.0, 0.5, 0.0)
+    glVertex2f(0.4, 0.3)
+    glColor3f(0.5, 0.0, 1.0)
+    glVertex2f(0.4, -0.2)
+    glEnd()
+
+def draw_polygon():
+    """GL_POLYGON - Dibuja un polígono relleno"""
+    glBegin(GL_POLYGON)
+    glColor3f(1.0, 0.0, 0.0)
+    glVertex2f(0.0, 0.4)
+    glColor3f(1.0, 1.0, 0.0)
+    glVertex2f(0.3, 0.2)
+    glColor3f(0.0, 1.0, 0.0)
+    glVertex2f(0.4, -0.1)
+    glColor3f(0.0, 1.0, 1.0)
+    glVertex2f(0.2, -0.4)
+    glColor3f(0.0, 0.0, 1.0)
+    glVertex2f(-0.2, -0.4)
+    glColor3f(1.0, 0.0, 1.0)
+    glVertex2f(-0.4, -0.1)
+    glColor3f(1.0, 1.0, 1.0)
+    glVertex2f(-0.3, 0.2)
+    glEnd()
+
+def draw_text(x, y, text):
+    """Dibuja texto en la pantalla (simplificado)"""
+    glColor3f(1.0, 1.0, 1.0)
+    glRasterPos2f(x, y)
+    for char in text:
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, ord(char))
+
+def draw_all_primitives_grid():
+    """Dibuja todas las primitivas en una cuadrícula 3x4"""
+    
+    # Configurar viewport y proyección para cuadrícula
+    width, height = glfw.get_window_size(glfw.get_current_context())
+    
+    primitives = [
+        ("GL_POINTS", draw_points),
+        ("GL_LINES", draw_lines),
+        ("GL_LINE_STRIP", draw_line_strip),
+        ("GL_LINE_LOOP", draw_line_loop),
+        ("GL_TRIANGLES", draw_triangles),
+        ("GL_TRIANGLE_STRIP", draw_triangle_strip),
+        ("GL_TRIANGLE_FAN", draw_triangle_fan),
+        ("GL_QUADS", draw_quads),
+        ("GL_QUAD_STRIP", draw_quad_strip),
+        ("GL_POLYGON", draw_polygon),
+    ]
+    
+    cols = 3
+    rows = 4
+    
+    for idx, (name, draw_func) in enumerate(primitives):
+        col = idx % cols
+        row = idx // cols
+        
+        # Configurar viewport para esta celda
+        cell_width = width // cols
+        cell_height = height // rows
+        x = col * cell_width
+        y = height - (row + 1) * cell_height
+        
+        glViewport(x, y, cell_width, cell_height)
+        
+        # Configurar proyección
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0)
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+        
+        # Dibujar la primitiva
+        draw_func()
+        
+        # Dibujar el nombre (en la parte inferior)
+        glColor3f(1.0, 1.0, 1.0)
+        glRasterPos2f(-0.8, -0.9)
+        # Nota: glutBitmapCharacter no está disponible sin GLUT
+
+def main():
+    # Inicializa GLFW
+    if not glfw.init():
+        return
+
+    # Crear la ventana más grande para mostrar todas las primitivas
+    window = glfw.create_window(1200, 900, "Todas las Primitivas de OpenGL", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    # Hacer el contexto de OpenGL actual para la ventana
+    glfw.make_context_current(window)
+
+    # Configurar color de fondo
+    glClearColor(0.1, 0.1, 0.1, 1.0)
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        glClear(GL_COLOR_BUFFER_BIT)
+
+        draw_all_primitives_grid()
+
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    # Finalizar GLFW
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+
+
+
+
+
+
+* Figuras 3D de OpenGL
+
+** Funciones de Figuras GLU (OpenGL Utility Library)
+
+*** draw_sphere()
+Dibuja una esfera usando =gluSphere()=.
+
+#+begin_src python
+gluSphere(quadric, radio, slices, stacks)
+#+end_src
+
+*Parámetros:*
+- =quadric=: Objeto cuadrático (puntero a estructura de renderizado)
+- =radio=: Radio de la esfera (0.5)
+- =slices=: Subdivisiones alrededor del eje Z (32 = más suave)
+- =stacks=: Subdivisiones a lo largo del eje Z (32 = más suave)
+
+*Características:*
+- Esfera perfecta centrada en el origen
+- Más slices/stacks = más polígonos = más suave
+- Útil para: planetas, pelotas, burbujas
+
+*** draw_cone()
+Dibuja un cono usando =gluCylinder()= con radio superior = 0.
+
+#+begin_src python
+gluCylinder(quadric, base_radio, top_radio, altura, slices, stacks)
+#+end_src
+
+*Parámetros:*
+- =base_radio=: Radio de la base (0.5)
+- =top_radio=: Radio superior (0.0 para cono)
+- =altura=: Altura del cono (1.0)
+- =slices=: Subdivisiones radiales (32)
+- =stacks=: Subdivisiones verticales (32)
+
+*Transformaciones:*
+- =glRotatef(-90, 1, 0, 0)=: Rota -90° en eje X para orientar hacia arriba
+- Por defecto apunta en +Z
+
+*Útil para:* árboles de navidad, conos de tráfico, puntas de cohete
+
+*** draw_cylinder()
+Dibuja un cilindro usando =gluCylinder()=.
+
+#+begin_src python
+gluCylinder(quadric, radio_base, radio_top, altura, slices, stacks)
+#+end_src
+
+*Parámetros:*
+- Ambos radios iguales (0.4) = cilindro perfecto
+- Si radios diferentes = cono truncado
+
+*Características:*
+- Sin tapas (abierto arriba y abajo)
+- Para agregar tapas usar =gluDisk()= en extremos
+- Útil para: columnas, tuberías, latas
+
+*** draw_disk()
+Dibuja un disco (círculo con hueco opcional) usando =gluDisk()=.
+
+#+begin_src python
+gluDisk(quadric, radio_interior, radio_exterior, slices, loops)
+#+end_src
+
+*Parámetros:*
+- =radio_interior=: Radio del agujero central (0.2)
+- =radio_exterior=: Radio externo (0.6)
+- =slices=: Subdivisiones radiales (32)
+- =loops=: Subdivisiones concéntricas (32)
+
+*Características:*
+- Si radio_interior = 0 → disco sólido
+- Si radio_interior > 0 → anillo/rosquilla plana
+- Útil para: tapas de cilindros, CDs, arandelas
+
+*** draw_partial_disk()
+Dibuja un sector circular usando =gluPartialDisk()=.
+
+#+begin_src python
+gluPartialDisk(quadric, radio_int, radio_ext, slices, loops, start_angle, sweep_angle)
+#+end_src
+
+*Parámetros adicionales:*
+- =start_angle=: Ángulo inicial en grados (0)
+- =sweep_angle=: Ángulo de barrido (270 = 3/4 de círculo)
+
+*Características:*
+- Mismo que disk pero solo un sector angular
+- Útil para: gráficos de pastel, medidores, indicadores
+
+*** gluNewQuadric() y gluDeleteQuadric()
+Funciones auxiliares para objetos cuadráticos.
+
+#+begin_src python
+quadric = gluNewQuadric()  # Crea objeto
+# ... usar el objeto ...
+gluDeleteQuadric(quadric)  # Libera memoria
+#+end_src
+
+*Propósito:*
+- Almacena parámetros de renderizado
+- Reutilizable para múltiples primitivas
+- Importante liberar memoria al terminar
+
+** Funciones de Figuras GLUT (OpenGL Utility Toolkit)
+
+*** draw_cube()
+Dibuja un cubo sólido usando =glutSolidCube()=.
+
+#+begin_src python
+glutSolidCube(tamaño)
+#+end_src
+
+*Parámetros:*
+- =tamaño=: Longitud de cada arista (0.8)
+
+*Características:*
+- Centrado en el origen
+- 6 caras cuadradas
+- Con normales para iluminación
+- Útil para: dados, cajas, bloques de construcción
+
+*** draw_torus()
+Dibuja un toroide (dona) usando =glutSolidTorus()=.
+
+#+begin_src python
+glutSolidTorus(radio_interior, radio_exterior, nsides, rings)
+#+end_src
+
+*Parámetros:*
+- =radio_interior=: Radio del tubo (0.2)
+- =radio_exterior=: Radio desde el centro al tubo (0.5)
+- =nsides=: Subdivisiones del tubo (32)
+- =rings=: Subdivisiones alrededor del eje (32)
+
+*Características:*
+- Forma de dona/rosquilla
+- Topología de género 1 (un agujero)
+- Útil para: aros, llantas, rosquillas 🍩
+
+*** draw_teapot()
+Dibuja la famosa Tetera de Utah usando =glutSolidTeapot()=.
+
+#+begin_src python
+glutSolidTeapot(tamaño)
+#+end_src
+
+*Historia:*
+- Creada por Martin Newell en 1975
+- Modelo estándar en gráficos por computadora
+- Definida con parches de Bézier
+- Aparece en Toy Story, Los Simpsons, etc.
+
+*Características:*
+- Modelo complejo con pico, asa y tapa
+- Excelente para probar iluminación
+- Icono de la computación gráfica 🫖
+
+*** draw_dodecahedron()
+Dibuja un dodecaedro usando =glutSolidDodecahedron()=.
+
+#+begin_src python
+glutSolidDodecahedron()  # Sin parámetros
+#+end_src
+
+*Características geométricas:*
+- 12 caras pentagonales regulares
+- 20 vértices
+- 30 aristas
+- Uno de los 5 sólidos platónicos
+- Útil para: dados de rol (D12), decoración
+
+*** draw_octahedron()
+Dibuja un octaedro usando =glutSolidOctahedron()=.
+
+*Características geométricas:*
+- 8 caras triangulares equiláteras
+- 6 vértices
+- 12 aristas
+- Dual del cubo
+- Útil para: cristales, dados (D8)
+
+*** draw_tetrahedron()
+Dibuja un tetraedro usando =glutSolidTetrahedron()=.
+
+*Características geométricas:*
+- 4 caras triangulares equiláteras
+- 4 vértices
+- 6 aristas
+- Poliedro más simple
+- Útil para: estructura molecular, dados (D4)
+
+*** draw_icosahedron()
+Dibuja un icosaedro usando =glutSolidIcosahedron()=.
+
+*Características geométricas:*
+- 20 caras triangulares equiláteras
+- 12 vértices
+- 30 aristas
+- Dual del dodecaedro
+- Útil para: virus, dados (D20), geodésicas
+
+** Funciones Auxiliares
+
+*** setup_lighting()
+Configura el sistema de iluminación de OpenGL.
+
+#+begin_src python
+def setup_lighting():
+    glEnable(GL_LIGHTING)       # Activa sistema de iluminación
+    glEnable(GL_LIGHT0)         # Activa luz 0
+    glEnable(GL_DEPTH_TEST)     # Activa test de profundidad
+    glEnable(GL_COLOR_MATERIAL) # Permite colores con iluminación
+#+end_src
+
+*Componentes de luz:*
+- =GL_POSITION=: Posición [x, y, z, w] (w=1 → luz posicional, w=0 → direccional)
+- =GL_AMBIENT=: Luz ambiente (ilumina todo uniformemente)
+- =GL_DIFFUSE=: Luz difusa (depende del ángulo de incidencia)
+- =GL_SPECULAR=: Luz especular (brillos/reflejos)
+
+*Test de profundidad:*
+- Determina qué píxeles están delante/detrás
+- Usa Z-buffer
+- Esencial para 3D correcto
+
+*** draw_all_3d_shapes()
+Función principal que organiza todas las figuras 3D en cuadrícula 4×3.
+
+*Proceso:*
+1. Calcula posición de celda (columna, fila)
+2. Configura viewport para esa celda
+3. Configura proyección perspectiva con =gluPerspective()=
+4. Configura cámara con =gluLookAt()=
+5. Aplica rotación animada
+6. Dibuja la figura
+
+#+begin_src python
+gluPerspective(fov, aspect, near, far)
+# fov: Campo de visión (45°)
+# aspect: Relación ancho/alto
+# near: Plano cercano de recorte (0.1)
+# far: Plano lejano de recorte (50.0)
+#+end_src
+
+#+begin_src python
+gluLookAt(eye_x, eye_y, eye_z, center_x, center_y, center_z, up_x, up_y, up_z)
+# eye: Posición de la cámara (0, 0, 3)
+# center: Punto donde mira (0, 0, 0)
+# up: Vector "arriba" (0, 1, 0)
+#+end_src
+
+** Funciones Comunes de OpenGL
+
+*** Transformaciones
+
+**** glRotatef(angle, x, y, z)
+Rota el sistema de coordenadas.
+- =angle=: Ángulo en grados
+- =(x, y, z)=: Vector eje de rotación
+
+**** glPushMatrix() / glPopMatrix()
+Guardar y restaurar matriz de transformación.
+- =Push=: Guarda estado actual en pila
+- =Pop=: Restaura último estado guardado
+- Útil para transformaciones locales
+
+*** Viewport y Proyección
+
+**** glViewport(x, y, width, height)
+Define región de renderizado en ventana.
+- =(x, y)=: Esquina inferior izquierda
+- =(width, height)=: Dimensiones en píxeles
+
+**** glMatrixMode(mode)
+Selecciona matriz activa para modificar.
+- =GL_PROJECTION=: Matriz de proyección (cómo se ve)
+- =GL_MODELVIEW=: Matriz de modelo/vista (dónde están objetos)
+
+**** glLoadIdentity()
+Resetea matriz actual a matriz identidad.
+- Limpia todas las transformaciones previas
+
+*** Renderizado
+
+**** glBegin(mode) / glEnd()
+Delimita definición de primitiva.
+- Todo entre Begin/End define una primitiva
+- =mode=: Tipo de primitiva (GL_POINTS, GL_TRIANGLES, etc.)
+
+**** glVertex2f(x, y) / glVertex3f(x, y, z)
+Define un vértice.
+- =2f=: 2D con floats
+- =3f=: 3D con floats
+
+**** glColor3f(r, g, b)
+Establece color actual.
+- Valores de 0.0 a 1.0
+- RGB: (1,0,0)=rojo, (0,1,0)=verde, (0,0,1)=azul
+
+**** glClear(buffers)
+Limpia buffers especificados.
+- =GL_COLOR_BUFFER_BIT=: Buffer de color (pantalla)
+- =GL_DEPTH_BUFFER_BIT=: Buffer de profundidad (Z-buffer)
+- Se pueden combinar con OR: =GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT=
+
+**** glClearColor(r, g, b, a)
+Establece color de limpieza (fondo).
+- RGBA de 0.0 a 1.0
+- =a=: Canal alfa (transparencia)
+
+*** Configuración
+
+**** glPointSize(size)
+Establece tamaño de puntos en píxeles.
+
+**** glLineWidth(width)
+Establece grosor de líneas en píxeles.
+
+**** glShadeModel(mode)
+Define modelo de sombreado.
+- =GL_SMOOTH=: Interpolación suave de colores (Gouraud)
+- =GL_FLAT=: Color constante por cara
+
+** Funciones de GLFW
+
+*** glfw.init()
+Inicializa la biblioteca GLFW.
+- Retorna True si éxito, False si falla
+- Debe llamarse antes de cualquier otra función GLFW
+
+*** glfw.create_window(width, height, title, monitor, share)
+Crea una ventana con contexto OpenGL.
+- =monitor=: None para ventana, handle para fullscreen
+- =share=: None o ventana con la que compartir contexto
+
+*** glfw.make_context_current(window)
+Hace activo el contexto OpenGL de la ventana.
+- Solo un contexto puede estar activo por thread
+
+*** glfw.window_should_close(window)
+Verifica si la ventana debe cerrarse.
+- Retorna True si usuario cerró ventana
+
+*** glfw.swap_buffers(window)
+Intercambia buffers front/back (double buffering).
+- Muestra lo dibujado en pantalla
+
+*** glfw.poll_events()
+Procesa eventos pendientes (teclado, mouse, etc.).
+
+*** glfw.terminate()
+Limpia recursos de GLFW.
+- Llamar al finalizar programa
+
+*** glfw.get_window_size(window)
+Retorna tupla (width, height) con tamaño de ventana.
+
+** Funciones de GLU
+
+*** gluPerspective(fovy, aspect, zNear, zFar)
+Configura proyección perspectiva.
+- =fovy=: Campo de visión vertical en grados
+- =aspect=: Relación ancho/alto
+- =zNear/zFar=: Planos de recorte
+
+*** gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ)
+Configura matriz de vista (cámara).
+- =eye=: Posición de cámara
+- =center=: Punto observado
+- =up=: Vector "arriba"
+
+*** glOrtho(left, right, bottom, top, nearVal, farVal)
+Configura proyección ortográfica (paralela).
+- Define volumen de visualización rectangular
+- Sin perspectiva (objetos lejanos no se ven más pequeños)
+
+** Sólidos Platónicos en OpenGL
+
+Los 5 sólidos platónicos son los únicos poliedros regulares convexos:
+
+| Nombre       | Caras | Forma de cara | Vértices | Aristas | Función GLUT          |
+|--------------+-------+---------------+----------+---------+-----------------------|
+| Tetraedro    |     4 | Triángulo     |        4 |       6 | glutSolidTetrahedron  |
+| Cubo         |     6 | Cuadrado      |        8 |      12 | glutSolidCube         |
+| Octaedro     |     8 | Triángulo     |        6 |      12 | glutSolidOctahedron   |
+| Dodecaedro   |    12 | Pentágono     |       20 |      30 | glutSolidDodecahedron |
+| Icosaedro    |    20 | Triángulo     |       12 |      30 | glutSolidIcosahedron  |
+
+*Relación de Euler:* V - A + C = 2 (para todos los poliedros convexos)
+
+** Pipeline de Renderizado OpenGL
+
+#+begin_src 
+Vértices → Transformación Modelo
+         ↓
+    Transformación Vista
+         ↓
+    Transformación Proyección
+         ↓
+       Clipping
+         ↓
+    Viewport Transform
+         ↓
+    Rasterización
+         ↓
+    Fragment Shader
+         ↓
+       Píxeles
+#+end_src
+
+#+BEGIN_SRC python :results output :tangle code/primitivasnivel.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+import math
+
+# Variable global para rotación
+rotation_angle = 0.0
+
+def draw_sphere():
+    """Esfera usando GLU"""
+    glColor3f(1.0, 0.2, 0.2)
+    quadric = gluNewQuadric()
+    gluSphere(quadric, 0.5, 32, 32)
+    gluDeleteQuadric(quadric)
+
+def draw_cube():
+    """Cubo usando GLUT"""
+    glColor3f(0.2, 1.0, 0.2)
+    glutSolidCube(0.8)
+
+def draw_cone():
+    """Cono usando GLU"""
+    glColor3f(0.2, 0.2, 1.0)
+    quadric = gluNewQuadric()
+    glRotatef(-90, 1, 0, 0)  # Orientar hacia arriba
+    gluCylinder(quadric, 0.5, 0.0, 1.0, 32, 32)
+    gluDeleteQuadric(quadric)
+
+def draw_torus():
+    """Toroide/Toro usando GLUT"""
+    glColor3f(1.0, 1.0, 0.2)
+    glutSolidTorus(0.2, 0.5, 32, 32)
+
+def draw_teapot():
+    """La famosa Tetera de Utah"""
+    glColor3f(1.0, 0.2, 1.0)
+    glutSolidTeapot(0.5)
+
+def draw_cylinder():
+    """Cilindro usando GLU"""
+    glColor3f(0.2, 1.0, 1.0)
+    quadric = gluNewQuadric()
+    glRotatef(-90, 1, 0, 0)
+    gluCylinder(quadric, 0.4, 0.4, 1.0, 32, 32)
+    gluDeleteQuadric(quadric)
+
+def draw_disk():
+    """Disco usando GLU"""
+    glColor3f(1.0, 0.5, 0.2)
+    quadric = gluNewQuadric()
+    gluDisk(quadric, 0.2, 0.6, 32, 32)
+    gluDeleteQuadric(quadric)
+
+def draw_dodecahedron():
+    """Dodecaedro (12 caras pentagonales)"""
+    glColor3f(0.5, 1.0, 0.5)
+    glutSolidDodecahedron()
+
+def draw_octahedron():
+    """Octaedro (8 caras triangulares)"""
+    glColor3f(1.0, 0.5, 0.5)
+    glutSolidOctahedron()
+
+def draw_tetrahedron():
+    """Tetraedro (4 caras triangulares)"""
+    glColor3f(0.5, 0.5, 1.0)
+    glutSolidTetrahedron()
+
+def draw_icosahedron():
+    """Icosaedro (20 caras triangulares)"""
+    glColor3f(1.0, 1.0, 0.5)
+    glutSolidIcosahedron()
+
+def draw_partial_disk():
+    """Disco parcial (sector circular)"""
+    glColor3f(0.8, 0.3, 0.8)
+    quadric = gluNewQuadric()
+    gluPartialDisk(quadric, 0.2, 0.6, 32, 16, 0, 270)
+    gluDeleteQuadric(quadric)
+
+def draw_grid():
+    """Dibuja una rejilla de referencia"""
+    glColor3f(0.3, 0.3, 0.3)
+    glBegin(GL_LINES)
+    for i in range(-5, 6):
+        glVertex3f(i, -5, 0)
+        glVertex3f(i, 5, 0)
+        glVertex3f(-5, i, 0)
+        glVertex3f(5, i, 0)
+    glEnd()
+
+def setup_lighting():
+    """Configura iluminación para ver mejor las figuras 3D"""
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
+    
+    # Luz posicional
+    light_position = [2.0, 2.0, 2.0, 1.0]
+    light_ambient = [0.3, 0.3, 0.3, 1.0]
+    light_diffuse = [1.0, 1.0, 1.0, 1.0]
+    light_specular = [1.0, 1.0, 1.0, 1.0]
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse)
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular)
+
+def draw_all_3d_shapes():
+    """Dibuja todas las figuras 3D en una cuadrícula 4x3"""
+    global rotation_angle
+    
+    shapes = [
+        ("Esfera", draw_sphere),
+        ("Cubo", draw_cube),
+        ("Cono", draw_cone),
+        ("Toroide", draw_torus),
+        ("Tetera", draw_teapot),
+        ("Cilindro", draw_cylinder),
+        ("Disco", draw_disk),
+        ("Dodecaedro", draw_dodecahedron),
+        ("Octaedro", draw_octahedron),
+        ("Tetraedro", draw_tetrahedron),
+        ("Icosaedro", draw_icosahedron),
+        ("Disco Parcial", draw_partial_disk),
+    ]
+    
+    cols = 4
+    rows = 3
+    
+    width, height = glfw.get_window_size(glfw.get_current_context())
+    
+    for idx, (name, draw_func) in enumerate(shapes):
+        col = idx % cols
+        row = idx // cols
+        
+        # Configurar viewport
+        cell_width = width // cols
+        cell_height = height // rows
+        x = col * cell_width
+        y = height - (row + 1) * cell_height
+        
+        glViewport(x, y, cell_width, cell_height)
+        
+        # Configurar proyección perspectiva
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluPerspective(45, cell_width / cell_height, 0.1, 50.0)
+        
+        # Configurar vista
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+        gluLookAt(0, 0, 3, 0, 0, 0, 0, 1, 0)
+        
+        # Aplicar rotación
+        glRotatef(rotation_angle, 0, 1, 0)
+        glRotatef(rotation_angle * 0.5, 1, 0, 0)
+        
+        # Dibujar la figura
+        glPushMatrix()
+        draw_func()
+        glPopMatrix()
+        
+        # Dibujar el nombre (simplificado, sin texto real)
+        # Para ver los nombres, necesitarías usar glutBitmapCharacter
+
+def main():
+    global rotation_angle
+    
+    # Inicializar GLUT (necesario para las figuras sólidas)
+    glutInit()
+    
+    # Inicializar GLFW
+    if not glfw.init():
+        return
+
+    # Crear ventana
+    window = glfw.create_window(1600, 900, "Todas las Figuras 3D de OpenGL", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    glfw.make_context_current(window)
+
+    # Configurar OpenGL
+    glClearColor(0.1, 0.1, 0.15, 1.0)
+    setup_lighting()
+    
+    # Habilitar suavizado
+    glEnable(GL_MULTISAMPLE)
+    glShadeModel(GL_SMOOTH)
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        
+        # Actualizar rotación
+        rotation_angle += 0.5
+        if rotation_angle > 360:
+            rotation_angle -= 360
+        
+        draw_all_3d_shapes()
+        
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+#+END_SRC
+
+#+RESULTS:
+
+
 
 
 ** Tutorial de gluPerspective en OpenGL
