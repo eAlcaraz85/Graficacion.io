@@ -6428,7 +6428,7 @@ from OpenGL.GLU import *
 
 def draw_points():
     """GL_POINTS - Dibuja puntos individuales"""
-    glPointSize(10.0)
+    glPointSize(20.0)
     glBegin(GL_POINTS)
     glColor3f(1.0, 0.0, 0.0)
     glVertex2f(-0.3, 0.3)
@@ -6442,7 +6442,7 @@ def draw_points():
 
 def draw_lines():
     """GL_LINES - Dibuja líneas separadas (pares de vértices)"""
-    glLineWidth(3.0)
+    glLineWidth(7.0)
     glBegin(GL_LINES)
     # Primera línea
     glColor3f(1.0, 0.0, 0.0)
@@ -6458,17 +6458,13 @@ def draw_lines():
 
 def draw_line_strip():
     """GL_LINE_STRIP - Dibuja una línea continua conectada"""
-    glLineWidth(3.0)
+    glLineWidth(10.0)
     glBegin(GL_LINE_STRIP)
-    glColor3f(1.0, 0.0, 0.0)
+    glColor3f(1.0, 1.0, 1.0)
     glVertex2f(-0.4, 0.3)
-    glColor3f(0.0, 1.0, 0.0)
     glVertex2f(-0.2, 0.0)
-    glColor3f(0.0, 0.0, 1.0)
     glVertex2f(0.0, 0.3)
-    glColor3f(1.0, 1.0, 0.0)
     glVertex2f(0.2, 0.0)
-    glColor3f(1.0, 0.0, 1.0)
     glVertex2f(0.4, 0.3)
     glEnd()
 
@@ -6683,7 +6679,7 @@ def main():
     glfw.make_context_current(window)
 
     # Configurar color de fondo
-    glClearColor(0.1, 0.1, 0.1, 1.0)
+    glClearColor(1, 1, 1, 1)
 
     # Bucle principal
     while not glfw.window_should_close(window):
@@ -7086,6 +7082,7 @@ Configura matriz de vista (cámara).
 Configura proyección ortográfica (paralela).
 - Define volumen de visualización rectangular
 - Sin perspectiva (objetos lejanos no se ven más pequeños)
+
 
 ** Sólidos Platónicos en OpenGL
 
@@ -8807,6 +8804,10 @@ if __name__ == "__main__":
 
 
 
+
+
+
+
 ** Transformaciones en OpenGL
 Las transformaciones de OpenGL son fundamentales para mover, rotar y
 escalar los objetos en la escena.
@@ -8866,24 +8867,1680 @@ Ejemplo de cómo aplicar una transformación de escalado y rotación:
 
 
 
-** Iluminación y Materiales
-En OpenGL, puedes aplicar iluminación y definir materiales para que
-los objetos interactúen con la luz de manera realista.
 
-*** Tipos de luces
-   - **Luz ambiental**: Luz sin una dirección específica que ilumina
-     toda la escena.
-   - **Luz direccional**: Luz que proviene de una dirección específica,
-     como la luz solar.
-   - **Luz de punto**: Luz que emana de un punto específico, como una
-     lámpara.
-   - **Luz de foco**: Luz que se emite en un ángulo específico, similar
-     a un reflector.
 
-*** Materiales
-   Puedes definir propiedades de los materiales, como el color y la
-   reflectividad, para cada objeto.
+* Introducción a la Iluminación en OpenGL
+
+OpenGL utiliza un modelo de iluminación basado en física simplificada
+que simula cómo la luz interactúa con las superficies. Este modelo
+considera tres componentes principales de luz: **ambiente**, **difusa** y
+**especular**.
+
+* Conceptos Fundamentales
+
+** Componentes de la Luz
+
+*** Luz Ambiente (Ambient)
+- Iluminación uniforme que llega a todas las superficies por igual
+- Simula la luz que rebota múltiples veces en el entorno
+- No tiene dirección
+- Evita que las zonas sin luz directa queden completamente negras
+
+#+begin_src python
+light_ambient = [0.3, 0.3, 0.3, 1.0]  # Gris claro
+glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+#+end_src
+
+*** Luz Difusa (Diffuse)
+- Luz principal que depende del ángulo entre la superficie y la fuente de luz
+- Crea el efecto de volumen y forma
+- Sigue la Ley de Lambert: Intensidad = cos(ángulo)
+- Es la componente más importante para dar forma a los objetos
+
+#+begin_src python
+light_diffuse = [1.0, 1.0, 1.0, 1.0]  # Blanco brillante
+glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse)
+#+end_src
+
+*** Luz Especular (Specular)
+- Crea brillos y reflejos en superficies brillantes
+- Depende del ángulo entre el observador y el reflejo
+- Simula materiales brillantes como metal o plástico
+- Requiere configurar también el material del objeto
+
+#+begin_src python
+light_specular = [1.0, 1.0, 1.0, 1.0]  # Blanco puro
+glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular)
+
+# También configurar material
+glMaterialfv(GL_FRONT, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
+glMaterialf(GL_FRONT, GL_SHININESS, 100.0)  # 0-128
+#+end_src
+
+** Fórmula de Iluminación
+
+La intensidad final en un píxel se calcula como:
+
+#+begin_example
+I_total = I_ambiente + I_difusa + I_especular
+
+Donde:
+I_ambiente = luz_ambiente × material_ambiente
+I_difusa   = luz_difusa × material_difuso × cos(θ)
+I_especular = luz_especular × material_especular × cos(α)^shininess
+
+θ = ángulo entre normal y dirección de luz
+α = ángulo entre dirección de reflejo y dirección al observador
+#+end_example
+
+* Tipos de Luces
+
+** Luz Posicional (Point Light)
+
+*** Descripción
+Una luz que emite desde un punto específico en todas direcciones, como una bombilla.
+
+*** Características
+- Tiene una posición en el espacio 3D
+- La intensidad puede disminuir con la distancia (atenuación)
+- W = 1.0 en el vector de posición
+- Crea sombras radiales (si se implementan sombras)
+
+*** Código
+
+#+begin_src python
+def setup_point_light():
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    
+    # Posición: [X, Y, Z, W]
+    # W = 1.0 indica luz posicional
+    light_position = [3.0, 2.0, 3.0, 1.0]
+    
+    # Colores
+    light_ambient = [0.3, 0.3, 0.3, 1.0]
+    light_diffuse = [1.0, 1.0, 1.0, 1.0]
+    light_specular = [1.0, 1.0, 1.0, 1.0]
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse)
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular)
+#+end_src
+
+*** Visualización
+
+#+begin_example
+         Y
+         |
+         |   ✨ Luz (3, 2, 3)
+         |  /|\
+         | / | \  Rayos en todas direcciones
+         |/  |  \
+        /|   |   \
+       / |   |    \
+      /__|___|_____\_____ X
+     /   |   ●     \
+    Z    |  Objeto  \
+#+end_example
+
+*** Casos de uso
+- Lámparas
+- Velas
+- Focos de luz
+- Iluminación interior
+
+** Luz Direccional (Directional Light)
+
+*** Descripción
+Una luz infinitamente lejana que emite rayos paralelos, como el sol.
+
+*** Características
+- No tiene posición, solo dirección
+- Todos los rayos son paralelos
+- W = 0.0 en el vector de posición
+- No hay atenuación por distancia
+- Más eficiente computacionalmente
+
+*** Código
+
+#+begin_src python
+def setup_directional_light():
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    
+    # Dirección: [X, Y, Z, W]
+    # W = 0.0 indica luz direccional
+    light_direction = [1.0, -1.0, 0.5, 0.0]
+    
+    # El vector indica la dirección de donde VIENE la luz
+    # (1, -1, 0.5) = viene de arriba-derecha-adelante
+    
+    light_diffuse = [1.0, 0.95, 0.8, 1.0]  # Amarillo cálido (sol)
+    light_ambient = [0.4, 0.4, 0.4, 1.0]
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, light_direction)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+#+end_src
+
+*** Visualización
+
+#+begin_example
+    Sol ☀️ (infinitamente lejos)
+     |  |  |  |  |
+     |  |  |  |  |   Rayos paralelos
+     ↓  ↓  ↓  ↓  ↓
+    _______________
+    | | | | | | | |
+    | ● | ● | ● | |   Objetos iluminados uniformemente
+    |_|_|_|_|_|_|_|
+#+end_example
+
+*** Casos de uso
+- Luz solar
+- Escenas exteriores
+- Iluminación general
+- Escenas muy grandes
+
+** Spotlight (Luz Cónica)
+
+*** Descripción
+Una luz que emite en forma de cono, como un reflector o linterna.
+
+*** Características
+- Tiene posición Y dirección
+- Ángulo de apertura configurable (cutoff)
+- Concentración del haz configurable (exponent)
+- Atenuación por distancia
+- Muy útil para efectos dramáticos
+
+*** Parámetros
+
+| Parámetro         | Descripción        | Rango               |
+|-------------------+--------------------+---------------------|
+| =GL_SPOT_DIRECTION= | Dirección del cono | Vector [x,y,z]      |
+| =GL_SPOT_CUTOFF=    | Ángulo de apertura | 0-90° o 180° (omni) |
+| =GL_SPOT_EXPONENT=  | Concentración      | 0-128               |
+
+*** Código
+
+#+begin_src python
+def setup_spotlight():
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    
+    # Posición del foco
+    light_position = [0.0, 4.0, 2.0, 1.0]
+    
+    # Dirección hacia donde apunta (vector normalizado)
+    spot_direction = [0.0, -1.0, -0.5]
+    
+    # Ángulo del cono (grados)
+    spot_cutoff = 30.0  # 0-90 o 180 (180=desactiva spotlight)
+    
+    # Concentración del haz
+    # 0   = borde suave, disperso
+    # 128 = borde duro, concentrado
+    spot_exponent = 20.0
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position)
+    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction)
+    glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff)
+    glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, spot_exponent)
+    
+    # Colores
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, [1.0, 1.0, 1.0, 1.0])
+    glLightfv(GL_LIGHT0, GL_AMBIENT, [0.1, 0.1, 0.1, 1.0])
+#+end_src
+
+*** Visualización
+
+#+begin_example
+        ✨ Foco
+        |╲
+        | ╲
+        |  ╲  30°
+        |   ╲
+        |____╲
+        |  ●  |  Objeto iluminado
+        |_____|
+          ╲ /
+           V
+      Zona oscura
+#+end_example
+
+*** Efecto del Exponent
+
+#+begin_example
+Exponent = 0 (suave)        Exponent = 50 (concentrado)
+    ████████                    ░░░░░░░░
+   ██████████                  ░░████░░
+  ████████████                 ░██████░
+  ████████████                  ██████
+   ██████████                   ░████░
+    ████████                    ░░░░░░
+#+end_example
+
+*** Casos de uso
+- Linternas
+- Reflectores de teatro
+- Faros de coches
+- Efectos dramáticos
+
+** Atenuación de Luz
+
+*** Descripción
+La atenuación controla cómo disminuye la intensidad de la luz con la distancia.
+
+*** Fórmula
+
+#+begin_example
+Factor_atenuación = 1 / (Kc + Kl×d + Kq×d²)
+
+Donde:
+Kc = Atenuación constante (GL_CONSTANT_ATTENUATION)
+Kl = Atenuación lineal (GL_LINEAR_ATTENUATION)
+Kq = Atenuación cuadrática (GL_QUADRATIC_ATTENUATION)
+d  = Distancia a la luz
+#+end_example
+
+*** Código
+
+#+begin_src python
+# Sin atenuación (por defecto)
+glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0)
+glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0)
+glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0)
+
+# Atenuación realista (físicamente correcta)
+glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0)
+glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0)
+glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01)  # 1/d²
+
+# Atenuación suave para escenas pequeñas
+glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0)
+glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05)
+glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01)
+#+end_src
+
+*** Comparación
+
+| Tipo           |  Kc |   Kl |   Kq | Uso                 |
+|----------------+-----+------+------+---------------------|
+| Sin atenuación | 1.0 |  0.0 |  0.0 | Luces direccionales |
+| Lineal         | 1.0 |  0.1 |  0.0 | Efectos simples     |
+| Cuadrática     | 1.0 |  0.0 | 0.01 | Física realista     |
+| Combinada      | 1.0 | 0.05 | 0.01 | Escenas interiores  |
+
+* Configuraciones Avanzadas
+
+** Sistema de 3 Puntos (Three-Point Lighting)
+
+Sistema profesional usado en fotografía y cine.
+
+*** Key Light (Luz Principal)
+#+begin_src python
+# Luz principal: fuerte, desde arriba-adelante-lateral
+glEnable(GL_LIGHT0)
+light0_position = [3.0, 4.0, 3.0, 1.0]
+light0_diffuse = [1.0, 1.0, 1.0, 1.0]  # Blanco brillante
+light0_ambient = [0.2, 0.2, 0.2, 1.0]
+glLightfv(GL_LIGHT0, GL_POSITION, light0_position)
+glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse)
+glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient)
+#+end_src
+
+*** Fill Light (Luz de Relleno)
+#+begin_src python
+# Luz de relleno: suave, opuesta a la principal
+glEnable(GL_LIGHT1)
+light1_position = [-2.0, 1.0, -3.0, 1.0]
+light1_diffuse = [0.4, 0.5, 0.6, 1.0]  # Azul suave (50% intensidad)
+glLightfv(GL_LIGHT1, GL_POSITION, light1_position)
+glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse)
+#+end_src
+
+*** Rim Light (Luz de Contorno)
+#+begin_src python
+# Luz de contorno: desde atrás-lateral, separa objeto del fondo
+glEnable(GL_LIGHT2)
+light2_position = [4.0, 1.0, -2.0, 1.0]
+light2_diffuse = [0.9, 0.7, 0.4, 1.0]  # Naranja cálido
+glLightfv(GL_LIGHT2, GL_POSITION, light2_position)
+glLightfv(GL_LIGHT2, GL_DIFFUSE, light2_diffuse)
+#+end_src
+
+*** Diagrama
+
+#+begin_example
+          Key ✨
+           ↓  45°
+            ╲
+             ╲
+    Fill      ●  ← Objeto    ✨ Rim
+    ✨     ╱  ╲               (atrás)
+         ╱    ╲
+       ╱       ╲
+#+end_example
+
+** Luces de Colores
+
+*** Teoría del Color
+Las luces de colores se pueden combinar según la síntesis aditiva RGB:
+
+| Luz 1 | Luz 2 | Resultado |
+|-------+-------+-----------|
+| Rojo | Verde | Amarillo |
+| Rojo | Azul | Magenta |
+| Verde | Azul | Cian |
+| R+G+B | - | Blanco |
+
+*** Ejemplo Artístico
+
+#+begin_src python
+def setup_colored_lights():
+    # Luz ROJA (izquierda)
+    glEnable(GL_LIGHT0)
+    light0_position = [-3.0, 1.0, 2.0, 1.0]
+    light0_diffuse = [1.0, 0.2, 0.2, 1.0]
+    glLightfv(GL_LIGHT0, GL_POSITION, light0_position)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse)
+    
+    # Luz VERDE (derecha)
+    glEnable(GL_LIGHT1)
+    light1_position = [3.0, 1.0, 2.0, 1.0]
+    light1_diffuse = [0.2, 1.0, 0.3, 1.0]
+    glLightfv(GL_LIGHT1, GL_POSITION, light1_position)
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse)
+    
+    # Luz AZUL (arriba)
+    glEnable(GL_LIGHT2)
+    light2_position = [0.0, 3.0, 0.0, 1.0]
+    light2_diffuse = [0.3, 0.3, 1.0, 1.0]
+    glLightfv(GL_LIGHT2, GL_POSITION, light2_position)
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, light2_diffuse)
+    
+    # Ambiente muy bajo para resaltar colores
+    light_ambient = [0.05, 0.05, 0.05, 1.0]
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+#+end_src
+
+* Configuración de Materiales
+
+** Propiedades del Material
+
+Los materiales definen cómo las superficies reaccionan a la luz.
+
+*** Material Ambiente
+#+begin_src python
+material_ambient = [0.2, 0.2, 0.2, 1.0]
+glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient)
+#+end_src
+
+*** Material Difuso
+#+begin_src python
+material_diffuse = [0.8, 0.0, 0.0, 1.0]  # Rojo mate
+glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse)
+#+end_src
+
+*** Material Especular
+#+begin_src python
+material_specular = [1.0, 1.0, 1.0, 1.0]  # Brillos blancos
+glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular)
+#+end_src
+
+*** Shininess (Brillo)
+#+begin_src python
+# 0   = superficie mate, difusa
+# 128 = superficie muy brillante, pulida
+shininess = 100.0
+glMaterialf(GL_FRONT, GL_SHININESS, shininess)
+#+end_src
+
+** Ejemplos de Materiales
+
+*** Plástico
+#+begin_src python
+glMaterialfv(GL_FRONT, GL_AMBIENT, [0.2, 0.2, 0.2, 1.0])
+glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.8, 0.1, 0.1, 1.0])
+glMaterialfv(GL_FRONT, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
+glMaterialf(GL_FRONT, GL_SHININESS, 32.0)
+#+end_src
+
+*** Metal
+#+begin_src python
+glMaterialfv(GL_FRONT, GL_AMBIENT, [0.3, 0.3, 0.3, 1.0])
+glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.7, 0.7, 0.7, 1.0])
+glMaterialfv(GL_FRONT, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
+glMaterialf(GL_FRONT, GL_SHININESS, 128.0)
+#+end_src
+
+*** Goma
+#+begin_src python
+glMaterialfv(GL_FRONT, GL_AMBIENT, [0.1, 0.1, 0.1, 1.0])
+glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.5, 0.5, 0.5, 1.0])
+glMaterialfv(GL_FRONT, GL_SPECULAR, [0.1, 0.1, 0.1, 1.0])
+glMaterialf(GL_FRONT, GL_SHININESS, 5.0)
+#+end_src
+
+** GL_COLOR_MATERIAL
+
+Permite usar =glColor3f()= con iluminación:
+
+#+begin_src python
+glEnable(GL_COLOR_MATERIAL)
+glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
+
+# Ahora glColor3f afecta ambient y diffuse del material
+glColor3f(1.0, 0.0, 0.0)  # Objeto rojo con iluminación
+#+end_src
+
+* Funciones Principales de OpenGL
+
+** Activación del Sistema
+
+#+begin_src python
+# Activar iluminación global
+glEnable(GL_LIGHTING)
+
+# Activar luces individuales (GL_LIGHT0 a GL_LIGHT7)
+glEnable(GL_LIGHT0)
+glEnable(GL_LIGHT1)
+
+# Desactivar
+glDisable(GL_LIGHTING)
+glDisable(GL_LIGHT0)
+#+end_src
+
+** Configuración de Luces
+
+#+begin_src python
+# Parámetros vectoriales (4 valores)
+glLightfv(luz, parámetro, valor)
+
+# Parámetros escalares (1 valor)
+glLightf(luz, parámetro, valor)
+#+end_src
+
+*** Parámetros Disponibles
+
+| Parámetro                | Tipo      | Descripción                  |
+|--------------------------+-----------+------------------------------|
+| =GL_POSITION=              | [x,y,z,w] | Posición o dirección         |
+| =GL_AMBIENT=               | [r,g,b,a] | Color ambiente               |
+| =GL_DIFFUSE=               | [r,g,b,a] | Color difuso                 |
+| =GL_SPECULAR=              | [r,g,b,a] | Color especular              |
+| =GL_SPOT_DIRECTION=        | [x,y,z]   | Dirección del spotlight      |
+| =GL_SPOT_CUTOFF=           | float     | Ángulo del cono (0-90 o 180) |
+| =GL_SPOT_EXPONENT=         | float     | Concentración (0-128)        |
+| =GL_CONSTANT_ATTENUATION=  | float     | Kc                           |
+| =GL_LINEAR_ATTENUATION=    | float     | Kl                           |
+| =GL_QUADRATIC_ATTENUATION= | float     | Kq                           |
+
+** Configuración de Materiales
+
+#+begin_src python
+# Parámetros vectoriales
+glMaterialfv(cara, parámetro, valor)
+
+# Parámetros escalares
+glMaterialf(cara, parámetro, valor)
+#+end_src
+
+*** Caras
+
+- =GL_FRONT= : Solo cara frontal
+- =GL_BACK= : Solo cara trasera
+- =GL_FRONT_AND_BACK= : Ambas caras
+
+** Modelo de Sombreado
+
+#+begin_src python
+# Suavizado de Gouraud (interpolación de colores)
+glShadeModel(GL_SMOOTH)  # Por defecto
+
+# Sombreado plano (color constante por polígono)
+glShadeModel(GL_FLAT)
+#+end_src
+
+* Diferencia entre Mover Objeto vs Mover Cámara
+
+** Moviendo el OBJETO (tu código actual)
+
+#+begin_src python
+# Cámara FIJA en (0, 0, -5) mirando al origen
+glLoadIdentity()
+glTranslatef(0, 0, -5)      # ← Cámara fija
+
+# OBJETO rota
+glRotatef(rotation, 0, 1, 0)  # ← Objeto gira
+draw_object()
+#+end_src
+
+*** Diagrama
+
+#+begin_example
+    👁️ Cámara (fija)
+     |
+     | mira hacia
+     ↓
+     ● ↻  Objeto ROTA
+     
+La cámara está quieta, el objeto gira
+#+end_example
+
+** Moviendo la CÁMARA (objeto fijo)
+
+#+begin_src python
+# CÁMARA rota alrededor del objeto
+glLoadIdentity()
+
+# Alejar cámara
+glTranslatef(0, 0, -5)
+
+# CÁMARA rota (invirtiendo la rotación)
+glRotatef(rotation, 0, 1, 0)  # ← Cámara orbita
+
+# Objeto FIJO
+draw_object()
+#+end_src
+
+*** Diagrama
+
+#+begin_example
+       ● Objeto (fijo)
+      /
+     /
+    👁️ ↻  Cámara ORBITA
+    
+El objeto está quieto, la cámara gira alrededor
+#+end_example
+
+** Código Completo de Ejemplo
+
+#+begin_src python
+# MODO 1: Rotar OBJETO (cámara fija)
+def render_rotating_object():
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    
+    # 1. Posicionar cámara (fija)
+    glTranslatef(0, 0, -5)
+    
+    # 2. Rotar OBJETO
+    glRotatef(angle, 0, 1, 0)
+    
+    # 3. Dibujar
+    draw_sphere()
+
+# MODO 2: Rotar CÁMARA (objeto fijo)
+def render_orbiting_camera():
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    
+    # 1. Rotar CÁMARA (invertir rotación)
+    glRotatef(-angle, 0, 1, 0)
+    
+    # 2. Alejar cámara
+    glTranslatef(0, 0, -5)
+    
+    # 3. Dibujar objeto (fijo en origen)
+    draw_sphere()
+
+# MODO 3: Usar gluLookAt (más intuitivo para cámara)
+def render_with_lookat():
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    
+    # Calcular posición de cámara en órbita
+    cam_x = 5 * math.sin(math.radians(angle))
+    cam_z = 5 * math.cos(math.radians(angle))
+    
+    # gluLookAt(ojo_x, ojo_y, ojo_z, 
+    #           mira_x, mira_y, mira_z,
+    #           arriba_x, arriba_y, arriba_z)
+    gluLookAt(cam_x, 0, cam_z,  # Posición de cámara
+              0, 0, 0,          # Mira al origen
+              0, 1, 0)          # Vector "arriba"
+    
+    # Objeto fijo en origen
+    draw_sphere()
+#+end_src
+
+** Resumen
+
+| Aspecto            | Rotar Objeto            | Rotar Cámara            |
+|--------------------+-------------------------+-------------------------|
+| **Objeto**           | Se mueve/rota           | Estático en origen      |
+| **Cámara**           | Fija                    | Orbita alrededor        |
+| **Transformaciones** | Después de cámara       | Antes de alejar cámara  |
+| **Uso común**        | Inspeccionar modelo     | Explorar escena         |
+| **Luces**            | Fijas respecto al mundo | Fijas respecto a cámara |
+
+* Consejos y Buenas Prácticas
+
+** Orden de Operaciones
+
+El orden IMPORTA en OpenGL:
+
+#+begin_src python
+# CORRECTO
+glLoadIdentity()
+glTranslatef(x, y, z)    # 1. Primero trasladar
+glRotatef(angle, ...)    # 2. Luego rotar
+glScalef(sx, sy, sz)     # 3. Finalmente escalar
+draw_object()
+
+# Las transformaciones se aplican en ORDEN INVERSO al código
+# El objeto se escala → rota → traslada
+#+end_src
+
+** Optimización
+
+#+begin_src python
+# MAL: Cambiar estado muchas veces
+for obj in objects:
+    glEnable(GL_LIGHTING)
+    draw(obj)
+    glDisable(GL_LIGHTING)
+
+# BIEN: Agrupar por estado
+glEnable(GL_LIGHTING)
+for obj in lit_objects:
+    draw(obj)
+glDisable(GL_LIGHTING)
+for obj in unlit_objects:
+    draw(obj)
+#+end_src
+
+** Depuración
+
+*** Ver posiciones de luces
+
+#+begin_src python
+def debug_draw_lights():
+    glDisable(GL_LIGHTING)
+    
+    # Dibujar esferas en posición de luces
+    light_pos = [0] * 4
+    glGetLightfv(GL_LIGHT0, GL_POSITION, light_pos)
+    
+    glColor3f(1, 1, 0)
+    glPushMatrix()
+    glTranslatef(light_pos[0], light_pos[1], light_pos[2])
+    glutWireSphere(0.1, 8, 8)
+    glPopMatrix()
+    
+    glEnable(GL_LIGHTING)
+#+end_src
+
+*** Verificar normales
+
+#+begin_src python
+# Asegurar que las normales estén normalizadas
+glEnable(GL_NORMALIZE)  # Costoso pero seguro
+
+# O usar manualmente
+glEnable(GL_RESCALE_NORMAL)  # Más rápido si solo escalas uniforme
+#+end_src
+
+** Problemas Comunes
+
+*** Objeto completamente negro
+
+*Causas:*
+- Normales invertidas o incorrectas
+- Material sin componente difuso
+- Luz mal posicionada
+
+*Solución:*
+#+begin_src python
+# Verificar que GL_COLOR_MATERIAL esté activo
+glEnable(GL_COLOR_MATERIAL)
+
+# O configurar material manualmente
+glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.8, 0.8, 0.8, 1.0])
+#+end_src
+
+*** Objeto muy oscuro
+
+*Causas:*
+- Luz ambiente muy baja
+- Objeto lejos de la luz posicional
+
+*Solución:*
+#+begin_src python
+# Aumentar luz ambiente
+light_ambient = [0.5, 0.5, 0.5, 1.0]  # Más alto
+glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+#+end_src
+
+*** Sin brillos especulares
+
+*Causas:*
+- No se configuró material especular
+- Shininess = 0
+
+*Solución:*
+#+begin_src python
+glMaterialfv(GL_FRONT, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
+glMaterialf(GL_FRONT, GL_SHININESS, 100.0)
+#+end_src
+
+* Ejemplos Completos
+
+** Escena Simple con Una Luz
+
+#+begin_src python
+def setup_simple_scene():
+    # Activar sistema
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    
+    # Configurar luz
+    glLightfv(GL_LIGHT0, GL_POSITION, [2, 3, 2, 1])
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, [1, 1, 1, 1])
+    glLightfv(GL_LIGHT0, GL_AMBIENT, [0.3, 0.3, 0.3, 1])
+    
+    # Material brillante
+    glMaterialfv(GL_FRONT, GL_SPECULAR, [1, 1, 1, 1])
+    glMaterialf(GL_FRONT, GL_SHININESS, 50)
+
+def draw_scene():
+    glColor3f(0.8, 0.2, 0.2)  # Rojo
+    glutSolidSphere(1.0, 40, 40)
+#+end_src
+
+** Escena con Iluminación Profesional
+
+#+begin_src python
+def setup_professional_lighting():
+    glEnable(GL_LIGHTING)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    glShadeModel(GL_SMOOTH)
+    glEnable(GL_NORMALIZE)
+    
+    # Key Light (principal)
+    glEnable(GL_LIGHT0)
+    glLightfv(GL_LIGHT0, GL_POSITION, [5, 5, 5, 1])
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, [1.0, 1.0, 1.0, 1])
+    glLightfv(GL_LIGHT0, GL_SPECULAR, [1.0, 1.0, 1.0, 1])
+    glLightfv(GL_LIGHT0, GL_AMBIENT, [0.2, 0.2, 0.2, 1])
+    
+    # Fill Light (relleno)
+    glEnable(GL_LIGHT1)
+    glLightfv(GL_LIGHT1, GL_POSITION, [-3, 2, -2, 1])
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, [0.4, 0.5, 0.6, 1])
+    
+    # Rim Light (contorno)
+    glEnable(GL_LIGHT2)
+    glLightfv(GL_LIGHT2, GL_POSITION, [0, 2, -5, 1])
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, [0.8, 0.6, 0.4, 1])
+    
+    # Material
+    glMaterialfv(GL_FRONT, GL_SPECULAR, [1, 1, 1, 1])
+    glMaterialf(GL_FRONT, GL_SHININESS, 80)
+#+end_src
+
+* Referencias
+
+** Documentación Oficial
+- [[https://www.khronos.org/opengl/][OpenGL Official Website]]
+- [[https://www.opengl.org/sdk/docs/man2/][OpenGL 2.1 Reference]]
+
+** Libros 
+- "OpenGL Programming Guide" (Red Book)
+- "OpenGL SuperBible"
+- "Real-Time Rendering"
+
+** Tutoriales Online
+- [[https://learnopengl.com/][Learn OpenGL]]
+- [[http://www.lighthouse3d.com/][Lighthouse3D]]
+
+* Apéndice: Tabla de Referencia Rápida
+
+** Funciones Esenciales
+
+| Función                        | Propósito                |
+|--------------------------------+--------------------------|
+| =glEnable(GL_LIGHTING)=          | Activa iluminación       |
+| =glEnable(GL_LIGHT0)=            | Activa luz 0             |
+| =glLightfv(luz, param, val)=     | Configura luz            |
+| =glMaterialfv(cara, param, val)= | Configura material       |
+| =glColorMaterial(cara, modo)=    | Vincula color a material |
+| =glShadeModel(modo)=             | Suavizado o plano        |
+
+** Valores Típicos
+
+*** Luz Básica
+#+begin_example
+Posición: [2, 3, 2, 1]
+Ambient:  [0.3, 0.3, 0.3, 1]
+Diffuse:  [1, 1, 1, 1]
+Specular: [1, 1, 1, 1]
+#+end_example
+
+*** Material Básico
+#+begin_example
+Specular:  [1, 1, 1, 1]
+Shininess: 50-100
+#+end_example
+
+#+END_SRC
+
+* Figuras
+
+#+BEGIN_SRC python :results output :tanto code/cuerpo.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+
+rotation = 0.0
+
+def draw_eye():
+    """Dibuja dos esferas simples"""
+    glPushMatrix()
    
+    # Primera esfera (roja) a la izquierda
+    glColor3f(0.85, 0.67, 0.65)  # Rojo
+    glPushMatrix()
+    glTranslatef(0.7, 0, 0)
+    glutSolidSphere(0.54, 30, 30)
+    glPopMatrix()
+
+    glColor3f(1, 1, 1)  # Rojo
+    glPushMatrix()
+    glTranslatef(0.56, 0, 0)
+    glutSolidSphere(0.6, 30, 30)
+    glPopMatrix()
+    
+    
+    # Segunda esfera (azul) a la derecha
+    glColor3f(0.84, 0.85, 0.92)  # Azul
+    glPushMatrix()
+    glTranslatef(0.49, 0, 0)
+    glutSolidSphere(0.55, 30, 30)
+    glPopMatrix()
+
+    glColor3f(0, 0, 0)  # Azul
+    glPushMatrix()
+    glTranslatef(0.3, 0, 0)
+    glutSolidSphere(0.4, 30, 30)
+    glPopMatrix()
+
+    
+    glPopMatrix()
+
+
+    
+def setup_lighting():
+    """Configura iluminación básica"""
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    
+    light_position = [1.0, 1.0, 1.0, 1.0]
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position)
+
+def main():
+    global rotation
+    glutInit()
+    
+    if not glfw.init():
+        return
+
+    window = glfw.create_window(800, 600, "Dos Esferas Simples", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    glfw.make_context_current(window)
+
+    glClearColor(0.54, 0.72, 0.84, 1.0)
+    setup_lighting()
+
+    while not glfw.window_should_close(window):
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluPerspective(45, 800/600, 0.1, 100.0)
+        
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+        glTranslatef(0, 0, -5)
+        
+        # Rotar la escena
+        rotation += 0.5
+        glRotatef(rotation, 0, 1, 0)
+        
+        draw_eye()
+        
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC python :results output :tanto code/ojo.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+import math
+
+rotation = 0.0
+eye_mode = 0  # 0=uno, 1=dos, 2=cuadrícula, 3=círculo
+
+def draw_eye():
+    """Dibuja un ojo completo"""
+    glPushMatrix()
+   
+    glColor3f(0.85, 0.67, 0.65)
+    glPushMatrix()
+    glTranslatef(0.7, 0, 0)
+    glutSolidSphere(0.54, 30, 30)
+    glPopMatrix()
+
+    glColor3f(1, 1, 1)
+    glPushMatrix()
+    glTranslatef(0.56, 0, 0)
+    glutSolidSphere(0.6, 30, 30)
+    glPopMatrix()
+    
+    glColor3f(0 , 0, 1)
+    glPushMatrix()
+    glTranslatef(0.49, 0, 0)
+    glutSolidSphere(0.55, 30, 30)
+    glPopMatrix()
+
+    glColor3f(0, 0, 0)
+    glPushMatrix()
+    glTranslatef(0.3, 0, 0)
+    glutSolidSphere(0.4, 30, 30)
+    glPopMatrix()
+    
+    glPopMatrix()
+
+def draw_one_eye():
+    """Un solo ojo"""
+    draw_eye()
+
+def draw_two_eyes():
+    """Dos ojos como cara"""
+    glPushMatrix()
+    glTranslatef(-1.2, 0, 0)
+    draw_eye()
+    draw_eye()
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(0, -1.5, 0)
+    draw_eye()
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(0, 1.5, 0)
+    draw_eye()
+    glPopMatrix()
+
+    
+    glPushMatrix()
+    glTranslatef(1.2, 0, 0)
+    draw_eye()
+    glPopMatrix()
+
+def draw_grid_eyes():
+    """Cuadrícula de ojos"""
+    for row in range(3):
+        for col in range(3):
+            x = (col - 1) * 1.8
+            y = (row - 1) * 1.8
+            glPushMatrix()
+            glTranslatef(x, y, 0)
+            glScalef(0.5, 0.5, 0.5)
+            draw_eye()
+            glPopMatrix()
+
+def draw_circle_eyes():
+    """Círculo de ojos (araña)"""
+    num_eyes = 8
+    radius = 2.5
+    
+    for i in range(num_eyes):
+        angle = i * (360.0 / num_eyes)
+        rad = math.radians(angle)
+        
+        x = radius * math.cos(rad)
+        y = radius * math.sin(rad)
+        
+        glPushMatrix()
+        glTranslatef(x, y, 0)
+        glRotatef(angle + 90, 0, 0, 1)
+        glScalef(0.4, 0.4, 0.4)
+        draw_eye()
+        glPopMatrix()
+
+def draw_eyes():
+    """Dibuja según el modo actual"""
+    if eye_mode == 0:
+        draw_one_eye()
+    elif eye_mode == 1:
+        draw_two_eyes()
+    elif eye_mode == 2:
+        draw_grid_eyes()
+    elif eye_mode == 3:
+        draw_circle_eyes()
+
+def setup_lighting():
+    """Configura iluminación básica"""
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    
+    light_position = [2.0, 3.0, 2.0, 1.0]
+    light_ambient = [0.4, 0.4, 0.4, 1.0]
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+
+def key_callback(window, key, scancode, action, mods):
+    """Cambiar entre modos con teclas"""
+    global eye_mode
+    
+    if action == glfw.PRESS:
+        if key == glfw.KEY_1:
+            eye_mode = 0
+            print("Modo: UN OJO")
+        elif key == glfw.KEY_2:
+            eye_mode = 1
+            print("Modo: DOS OJOS (cara)")
+        elif key == glfw.KEY_3:
+            eye_mode = 2
+            print("Modo: CUADRÍCULA 3x3")
+        elif key == glfw.KEY_4:
+            eye_mode = 3
+            print("Modo: CÍRCULO (araña)")
+
+def main():
+    global rotation
+    
+    glutInit()
+    
+    if not glfw.init():
+        return
+
+    window = glfw.create_window(800, 600, "Múltiples Ojos", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    glfw.make_context_current(window)
+    glfw.set_key_callback(window, key_callback)
+
+    glClearColor(0.54, 0.72, 0.84, 1.0)
+    setup_lighting()
+
+    print("=" * 50)
+    print("CONTROLES:")
+    print("  1 - Un ojo")
+    print("  2 - Dos ojos (cara)")
+    print("  3 - Cuadrícula 3x3")
+    print("  4 - Círculo (araña)")
+    print("=" * 50)
+
+    while not glfw.window_should_close(window):
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluPerspective(30, 800/600, 0.1, 100.0)
+        
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+        glTranslatef(0, 0, -8)  # Más lejos para ver todos
+        
+        rotation += 0.3
+        glRotatef(rotation, 0, 1, 0)
+        glRotatef(20, 1, 0, 0)
+        
+        draw_eyes()
+        
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+#+END_SRC
+
+#+RESULTS:
+: ==================================================
+: CONTROLES:
+:   1 - Un ojo
+:   2 - Dos ojos (cara)
+:   3 - Cuadrícula 3x3
+:   4 - Círculo (araña)
+: ==================================================
+
+
+
+#+BEGIN_SRC python :results output :tanto code/ojo.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+
+rotation = 0.0
+light_mode = 0  # 0=Básica, 1=Múltiple, 2=Direccional, 3=Spotlight, 4=Colores
+
+def draw_two_spheres():
+    """Dibuja dos esferas simples formando un ojo"""
+    glPushMatrix()
+   
+    # Esclerótica (blanco)
+    glColor3f(1.0, 1.0, 1.0)
+    glPushMatrix()
+    glTranslatef(0.56, 0, 0)
+    glutSolidSphere(0.6, 40, 40)
+    glPopMatrix()
+    
+    # Iris (azul grisáceo)
+    glColor3f(0.84, 0.85, 0.92)
+    glPushMatrix()
+    glTranslatef(0.49, 0, 0)
+    glutSolidSphere(0.55, 35, 35)
+    glPopMatrix()
+    
+    # Parte rosada del iris
+    glColor3f(0.85, 0.67, 0.65)
+    glPushMatrix()
+    glTranslatef(0.7, 0, 0)
+    glutSolidSphere(0.54, 35, 35)
+    glPopMatrix()
+
+    # Pupila (negro)
+    glColor3f(0.0, 0.0, 0.0)
+    glPushMatrix()
+    glTranslatef(0.3, 0, 0)
+    glutSolidSphere(0.4, 30, 30)
+    glPopMatrix()
+    
+    glPopMatrix()
+
+def setup_lighting_basic():
+    """
+    MODO 0: LUZ BÁSICA
+    - Una sola luz posicional blanca
+    - Iluminación simple y uniforme
+    """
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glDisable(GL_LIGHT1)
+    glDisable(GL_LIGHT2)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    
+    # Luz blanca básica arriba a la derecha
+    light_position = [3.0, 2.0, 3.0, 1.0]  # W=1.0 → Luz posicional
+    light_diffuse = [1.0, 1.0, 1.0, 1.0]   # Blanco
+    light_ambient = [0.3, 0.3, 0.3, 1.0]   # Ambiente gris claro
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+
+def setup_lighting_multiple():
+    """
+    MODO 1: LUCES MÚLTIPLES
+    - Luz principal (blanca) desde arriba
+    - Luz de relleno (azul suave) desde atrás
+    - Luz de acento (naranja) lateral
+    Simula un estudio fotográfico profesional
+    """
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_LIGHT1)
+    glEnable(GL_LIGHT2)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    
+    # LIGHT0: Luz principal (Key Light)
+    # Arriba adelante, blanca brillante
+    light0_position = [3.0, 4.0, 3.0, 1.0]
+    light0_diffuse = [1.0, 1.0, 1.0, 1.0]    # Blanco brillante
+    light0_ambient = [0.2, 0.2, 0.2, 1.0]    # Ambiente suave
+    light0_specular = [1.0, 1.0, 1.0, 1.0]   # Brillos blancos
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, light0_position)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient)
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular)
+    
+    # LIGHT1: Luz de relleno (Fill Light)
+    # Atrás izquierda, azul suave
+    light1_position = [-2.0, 1.0, -3.0, 1.0]
+    light1_diffuse = [0.3, 0.4, 0.6, 1.0]    # Azul suave
+    light1_ambient = [0.1, 0.1, 0.2, 1.0]    # Ambiente azulado
+    
+    glLightfv(GL_LIGHT1, GL_POSITION, light1_position)
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse)
+    glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient)
+    
+    # LIGHT2: Luz de acento (Rim Light)
+    # Lateral derecha, naranja cálida
+    light2_position = [4.0, 0.0, 1.0, 1.0]
+    light2_diffuse = [0.9, 0.6, 0.3, 1.0]    # Naranja cálido
+    
+    glLightfv(GL_LIGHT2, GL_POSITION, light2_position)
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, light2_diffuse)
+
+def setup_lighting_directional():
+    """
+    MODO 2: LUZ DIRECCIONAL
+    - Como la luz del sol (infinita)
+    - Todos los rayos son paralelos
+    - W = 0.0 indica que es direccional
+    Útil para simular luz solar o luz muy lejana
+    """
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glDisable(GL_LIGHT1)
+    glDisable(GL_LIGHT2)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    
+    # Dirección de la luz (no posición)
+    # W = 0.0 → Luz direccional (como el sol)
+    light_direction = [1.0, -1.0, 1.0, 0.0]  # ¡W=0.0!
+    light_diffuse = [1.0, 0.95, 0.8, 1.0]    # Amarillo cálido (sol)
+    light_ambient = [0.4, 0.4, 0.4, 1.0]     # Ambiente más fuerte
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, light_direction)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+
+def setup_lighting_spotlight():
+    """
+    MODO 3: SPOTLIGHT (Foco)
+    - Luz cónica concentrada
+    - Como un reflector de teatro
+    - Tiene dirección, ángulo y atenuación
+    """
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glDisable(GL_LIGHT1)
+    glDisable(GL_LIGHT2)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    
+    # Posición del foco (arriba)
+    light_position = [0.0, 4.0, 2.0, 1.0]
+    light_diffuse = [1.0, 1.0, 1.0, 1.0]
+    light_ambient = [0.1, 0.1, 0.1, 1.0]
+    light_specular = [1.0, 1.0, 1.0, 1.0]
+    
+    # Dirección hacia donde apunta el foco (hacia el objeto)
+    spot_direction = [0.0, -1.0, -0.5]  # Apunta hacia abajo y adelante
+    
+    # Ángulo del cono (30 grados)
+    spot_cutoff = 30.0
+    
+    # Concentración del haz (0=difuso, 128=muy concentrado)
+    spot_exponent = 20.0
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular)
+    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction)
+    glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, spot_cutoff)
+    glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, spot_exponent)
+    
+    # Atenuación (cómo disminuye con la distancia)
+    glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0)
+    glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05)
+    glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01)
+
+def setup_lighting_colored():
+    """
+    MODO 4: LUCES DE COLORES
+    - Múltiples luces con colores diferentes
+    - Crea efectos artísticos/dramáticos
+    Útil para escenas nocturnas, discotecas, efectos especiales
+    """
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_LIGHT1)
+    glEnable(GL_LIGHT2)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    
+    # LIGHT0: Luz roja (izquierda)
+    light0_position = [-3.0, 1.0, 2.0, 1.0]
+    light0_diffuse = [1.0, 0.2, 0.2, 1.0]    # Rojo intenso
+    glLightfv(GL_LIGHT0, GL_POSITION, light0_position)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse)
+    
+    # LIGHT1: Luz verde (derecha)
+    light1_position = [3.0, 1.0, 2.0, 1.0]
+    light1_diffuse = [0.2, 1.0, 0.3, 1.0]    # Verde brillante
+    glLightfv(GL_LIGHT1, GL_POSITION, light1_position)
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse)
+    
+    # LIGHT2: Luz azul (arriba)
+    light2_position = [0.0, 3.0, 0.0, 1.0]
+    light2_diffuse = [0.3, 0.3, 1.0, 1.0]    # Azul intenso
+    glLightfv(GL_LIGHT2, GL_POSITION, light2_position)
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, light2_diffuse)
+    
+    # Ambiente muy oscuro para resaltar colores
+    light_ambient = [0.05, 0.05, 0.05, 1.0]
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+
+def setup_lighting():
+    """Selecciona el modo de iluminación según light_mode"""
+    if light_mode == 0:
+        setup_lighting_basic()
+    elif light_mode == 1:
+        setup_lighting_multiple()
+    elif light_mode == 2:
+        setup_lighting_directional()
+    elif light_mode == 3:
+        setup_lighting_spotlight()
+    elif light_mode == 4:
+        setup_lighting_colored()
+
+def draw_light_indicators():
+    """Dibuja pequeñas esferas mostrando la posición de las luces"""
+    glDisable(GL_LIGHTING)
+    
+    if light_mode == 0:
+        # Luz básica
+        glColor3f(1.0, 1.0, 0.0)
+        glPushMatrix()
+        glTranslatef(3.0, 2.0, 3.0)
+        glutWireSphere(0.1, 8, 8)
+        glPopMatrix()
+    
+    elif light_mode == 1:
+        # Múltiples luces
+        glColor3f(1.0, 1.0, 1.0)  # Blanca
+        glPushMatrix()
+        glTranslatef(3.0, 4.0, 3.0)
+        glutWireSphere(0.1, 8, 8)
+        glPopMatrix()
+        
+        glColor3f(0.3, 0.4, 0.6)  # Azul
+        glPushMatrix()
+        glTranslatef(-2.0, 1.0, -3.0)
+        glutWireSphere(0.1, 8, 8)
+        glPopMatrix()
+        
+        glColor3f(0.9, 0.6, 0.3)  # Naranja
+        glPushMatrix()
+        glTranslatef(4.0, 0.0, 1.0)
+        glutWireSphere(0.1, 8, 8)
+        glPopMatrix()
+    
+    elif light_mode == 3:
+        # Spotlight
+        glColor3f(1.0, 1.0, 0.0)
+        glPushMatrix()
+        glTranslatef(0.0, 4.0, 2.0)
+        glutWireSphere(0.15, 8, 8)
+        glPopMatrix()
+    
+    elif light_mode == 4:
+        # Luces de colores
+        glColor3f(1.0, 0.0, 0.0)  # Roja
+        glPushMatrix()
+        glTranslatef(-3.0, 1.0, 2.0)
+        glutWireSphere(0.1, 8, 8)
+        glPopMatrix()
+        
+        glColor3f(0.0, 1.0, 0.0)  # Verde
+        glPushMatrix()
+        glTranslatef(3.0, 1.0, 2.0)
+        glutWireSphere(0.1, 8, 8)
+        glPopMatrix()
+        
+        glColor3f(0.0, 0.5, 1.0)  # Azul
+        glPushMatrix()
+        glTranslatef(0.0, 3.0, 0.0)
+        glutWireSphere(0.1, 8, 8)
+        glPopMatrix()
+    
+    glEnable(GL_LIGHTING)
+
+def draw_text_info():
+    """Muestra información del modo de iluminación"""
+    modes = [
+        "0: LUZ BÁSICA - Una luz blanca simple",
+        "1: LUCES MÚLTIPLES - Key + Fill + Rim",
+        "2: LUZ DIRECCIONAL - Como el sol (infinita)",
+        "3: SPOTLIGHT - Foco concentrado",
+        "4: LUCES DE COLORES - RGB artístico"
+    ]
+    
+    glDisable(GL_LIGHTING)
+    glColor3f(1.0, 1.0, 1.0)
+    # Nota: Para texto necesitarías glutBitmapCharacter o una librería de texto
+    glEnable(GL_LIGHTING)
+
+def key_callback(window, key, scancode, action, mods):
+    """Manejo de teclado para cambiar modos"""
+    global light_mode
+    
+    if action == glfw.PRESS:
+        if key == glfw.KEY_0:
+            light_mode = 0
+            print("\n>>> MODO 0: LUZ BÁSICA")
+            print("Una luz posicional blanca simple")
+        elif key == glfw.KEY_1:
+            light_mode = 1
+            print("\n>>> MODO 1: LUCES MÚLTIPLES")
+            print("Key Light (blanca) + Fill (azul) + Rim (naranja)")
+        elif key == glfw.KEY_2:
+            light_mode = 2
+            print("\n>>> MODO 2: LUZ DIRECCIONAL")
+            print("Luz infinita como el sol (W=0)")
+        elif key == glfw.KEY_3:
+            light_mode = 3
+            print("\n>>> MODO 3: SPOTLIGHT")
+            print("Foco concentrado con ángulo de 30°")
+        elif key == glfw.KEY_4:
+            light_mode = 4
+            print("\n>>> MODO 4: LUCES DE COLORES")
+            print("Roja (izq) + Verde (der) + Azul (arriba)")
+        
+        setup_lighting()
+
+def main():
+    global rotation
+    
+    glutInit()
+    
+    if not glfw.init():
+        return
+
+    window = glfw.create_window(800, 600, "Tipos de Iluminación OpenGL", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    glfw.make_context_current(window)
+    glfw.set_key_callback(window, key_callback)
+
+    glClearColor(0.54, 0.72, 0.84, 1.0)
+    setup_lighting()
+    
+    # Configurar material para brillos
+    glMaterialfv(GL_FRONT, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
+    glMaterialf(GL_FRONT, GL_SHININESS, 100.0)
+
+    print("=" * 60)
+    print("MODOS DE ILUMINACIÓN EN OPENGL")
+    print("=" * 60)
+    print("Presiona las teclas numéricas para cambiar:")
+    print("  0 - Luz Básica")
+    print("  1 - Luces Múltiples (3 luces)")
+    print("  2 - Luz Direccional (sol)")
+    print("  3 - Spotlight (foco)")
+    print("  4 - Luces de Colores (RGB)")
+    print("=" * 60)
+
+    while not glfw.window_should_close(window):
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluPerspective(45, 800/600, 0.1, 100.0)
+        
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+        glTranslatef(0, 0, -5)
+        
+        # Rotar la escena
+        rotation += 0.5
+        glRotatef(rotation, 0, 1, 0)
+        glRotatef(20, 1, 0, 0)
+        
+        draw_two_spheres()
+        draw_light_indicators()
+        
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+============================================================
+MODOS DE ILUMINACIÓN EN OPENGL
+============================================================
+Presiona las teclas numéricas para cambiar:
+  0 - Luz Básica
+  1 - Luces Múltiples (3 luces)
+  2 - Luz Direccional (sol)
+  3 - Spotlight (foco)
+  4 - Luces de Colores (RGB)
+============================================================
+
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+#+end_example
+
+
 ** Sombras y Efectos Avanzados
    OpenGL también permite generar sombras y efectos avanzados como
    transparencia, texturas y sombreado por vértices.
@@ -8914,20 +10571,6 @@ OpenGL moderno (a partir de OpenGL 3.0) ha evolucionado hacia un modelo basado e
   """
 #+end_src
 
-
-
-
-** Conclusión
-OpenGL es una herramienta poderosa y flexible para el renderizado de
-gráficos en 2D y 3D. Aunque es de bajo nivel y puede requerir trabajo
-adicional para construir escenas complejas, su compatibilidad
-multiplataforma y la aceleración por hardware lo convierten en una
-opción popular en una variedad de aplicaciones.
-
-Con el tiempo, OpenGL ha evolucionado hacia un modelo basado en
-shaders, lo que permite un control mucho mayor sobre el pipeline
-gráfico, haciendo posible gráficos de alta calidad y efectos avanzados
-en tiempo real.
 
 
 
