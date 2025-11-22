@@ -10872,7 +10872,7 @@ OpenGL moderno (a partir de OpenGL 3.0) ha evolucionado hacia un modelo basado e
 
 
 
-* Proyecto Final 
+* Proyecto Enero Junio Final 2025 
 
 El flujo óptico es el patrón del movimiento aparente de los objetos,
 superficies y bordes en una escena causado por el movimiento relativo
@@ -10902,3 +10902,184 @@ Actividades
    transformaciones geométricas vistas en clase, (Traslación,
    Escalamiento, Rotación), para esta actividad pueden hacer equipos
    máximo de 5 personas.
+
+
+* Proyectos Finales Agosto Diciembre 2025
+
+
+** Pizarra Virtual: Seguimiento por Color y Primitivas
+
+Introducción Técnica La actividad se basa en el Seguimiento por Color
+(Color Tracking) en el espacio HSV para la segmentación de objetos en
+tiempo real. El centroide del objeto detectado se establece como el
+Landmark de control. La aplicación combina la visión artificial con
+las funciones de dibujo de primitivas de la librería OpenCV.
+
+*Actividades*
+
+1. Desarrollo del Modo Trazado Libre (Pintura por Color)
+
+   - Objetivo: Implementar la captura de video y la lógica de
+     seguimiento para generar un trazo de pintura continuo sobre un
+     lienzo virtual (matriz NumPy).
+
+   - Paso Clave: Aislar un color predefinido mediante umbralización
+     HSV (cv2.inRange) para localizar el Landmark.
+
+   - Función: Utilizar las coordenadas del Landmark para dibujar
+     líneas consecutivas (cv2.line) entre el punto actual y el
+     anterior en el lienzo virtual, simulando un pincel.
+
+2. Implementación de Figuras Primitivas Controladas por Landmark
+
+   - Objetivo: Integrar una funcionalidad en la misma pizarra para
+     dibujar figuras geométricas estáticas, controlando su posición,
+     escalamiento y rotación con el movimiento del Landmark.
+
+   - Paso Clave: Implementar una lógica de estado (controlada por
+     teclado o por la detección de un segundo color) para alternar el
+     modo de dibujo.
+
+   - Función: En el modo de figuras, utilizar las coordenadas del
+     Landmark para:
+
+   - Dibujar Figuras Primitivas (cv2.circle, cv2.rectangle) en la
+     posición del Landmark.
+
+   - Controlar la Traslación: Mover la figura en el lienzo siguiendo
+     el movimiento directo del Landmark.
+
+   - Controlar Escalamiento y Rotación (Opcional Avanzado): Utilizar
+     la magnitud y/o dirección del vector de movimiento del Landmark
+     para modular el tamaño y el ángulo de la figura, respectivamente.
+
+
+
+* Respuestas
+
+* Respuestas Examen. 
+
+** 1) ¿Qué función del código se encarga de construir geometría 3D mediante tiras de cuadriláteros?
+A) process_input  B) draw_scene  C) draw_sphere  D) draw_eye  
+
+*Respuesta:* C Explicación:* La función draw_sphere genera la geometría
+de una esfera manualmente usando GL_QUAD_STRIP, calculando vértices y normales.
+
+** 2) ¿Qué instrucción activa la evaluación de profundidad en OpenGL?
+A) glEnable(GL_LIGHTING)  B) glEnable(GL_DEPTH_TEST)  
+C) glBegin(GL_QUAD_STRIP)  D) glLoadIdentity  
+*Respuesta:* B  
+*Explicación:* GL_DEPTH_TEST habilita el buffer de profundidad, permitiendo que OpenGL determine qué objetos están delante o detrás.
+
+** 3) ¿Qué función define la posición y orientación de la cámara?
+A) gluPerspective  B) gluLookAt  C) glTranslatef  D) glPushMatrix  
+*Respuesta:* B  
+*Explicación:* gluLookAt posiciona la cámara en un punto, le indica hacia dónde mirar y define cuál es el vector "arriba".
+
+** 4) ¿Qué variable controla la velocidad del movimiento de la cámara?
+A) rotation  B) keys  C) camera_speed  D) camera_up  
+*Respuesta:* C  
+*Explicación:* camera_speed establece cuánto se mueve la cámara por cada actualización de process_input.
+
+** 5) ¿Qué callback actualiza el estado de las teclas presionadas?
+A) draw_scene  B) key_callback  C) draw_eye  D) glfw.poll_events  
+*Respuesta:* B  
+*Explicación:* key_callback registra si una tecla fue presionada o liberada y actualiza el diccionario keys.
+
+** 6) ¿Qué hace glPushMatrix y glPopMatrix en el código?
+A) Limpian el buffer de color  
+B) Apilan y desapilan matrices para aislar transformaciones  
+C) Aplican iluminación  
+D) Duplican objetos 3D  
+*Respuesta:* B  
+*Explicación:* Estas funciones permiten aplicar transformaciones locales sin afectar otros objetos de la escena.
+
+** 7) ¿Qué eje se modifica cuando usas W y S?
+A) X  B) Y  C) Z  D) Ninguno  
+*Respuesta:* C  
+*Explicación:* W y S modifican camera_pos[2], moviendo la cámara hacia adelante o hacia atrás en el eje Z.
+
+** 8) ¿Qué color corresponde al iris (parte negra) en draw_eye?
+A) glColor3f(1,0,0)  B) glColor3f(0,0,0)  
+C) glColor3f(0.84, 0.85, 0.92)  D) glColor3f(1,1,1)  
+*Respuesta:* B  
+*Explicación:* El iris está dibujado con glColor3f(0, 0, 0), que corresponde al color negro.
+
+** 9) ¿Qué parámetro de gluPerspective controla cuánto "zoom" tiene la cámara?
+A) El near  B) El far  C) El campo de visión (primer parámetro)  D) El aspect ratio  
+*Respuesta:* C  
+*Explicación:* El primer parámetro, el FOV, define la amplitud de visión. Menor FOV = mayor zoom.
+
+** 10) ¿Cuál es el propósito de glfw.swap_buffers(window)?
+A) Leer el estado del teclado  
+B) Crear la ventana  
+C) Mostrar el frame renderizado  
+D) Reiniciar la cámara  
+*Respuesta:* C  
+*Explicación:* swap_buffers intercambia el buffer trasero con el delantero, mostrando el frame ya renderizado.
+
+** 11) Explica en tus palabras cómo funciona process_input para mover la cámara.
+*Respuesta:* process_input revisa el diccionario keys para saber qué
+teclas están presionadas. Si una tecla como W, S, A, D, UP o DOWN está
+marcada como True, se modifica la posición de la cámara moviendo el
+vector camera_pos en el eje correspondiente. Esto ocurre en cada
+iteración del ciclo principal, lo que genera movimiento continuo
+mientras la tecla esté presionada.
+
+** 12) ¿Por qué es necesario llamar glLoadIdentity antes de gluLookAt?
+*Respuesta:* glLoadIdentity reinicia la matriz modelo-vista a una matriz
+identidad. Esto garantiza que gluLookAt no aplique la vista sobre
+transformaciones previas, evitando acumulación de rotaciones o
+traslaciones no deseadas.
+
+** 13) En draw_sphere, ¿para qué sirve glNormal3f?
+*Respuesta:* glNormal3f define la normal de un vértice, necesaria para
+el cálculo correcto de iluminación. Las normales permiten que OpenGL
+determine cómo reacciona la luz sobre la superficie de la esfera.
+
+** 14) Explica brevemente qué hace el ciclo principal (game loop) en main.
+*Respuesta:*  
+El ciclo principal mantiene la aplicación funcionando. Cada vuelta:  
+1) procesa eventos de ventana (poll_events),  
+2) llama process_input para mover la cámara,  
+3) renderiza la escena con draw_scene,  
+4) muestra el resultado con swap_buffers.  
+Esto se repite hasta que la ventana se cierra.
+
+** 15) ¿Qué diferencia hay entre glTranslatef y gluLookAt para mover la escena?
+*Respuesta:*  
+glTranslatef mueve objetos dentro de la escena.  
+gluLookAt posiciona la cámara (la vista del usuario), no los objetos.  
+Mover la cámara y mover el mundo no son equivalentes matemáticamente.
+
+** 16) ¿Qué pasaría si eliminaras glEnable(GL_COLOR_MATERIAL)?
+
+*Respuesta:* Los colores establecidos con glColor3f no afectarían la
+iluminación. Los objetos se verían oscuros o con iluminación
+incorrecta porque OpenGL usaría únicamente materiales por defecto.
+
+** 17) ¿Por qué draw_eye tiene varias esferas con diferentes glTranslatef?
+
+*Respuesta:* Cada glTranslatef desplaza una esfera distinta para
+colocarla en la posición adecuada dentro del “ojo”. Esto permite crear
+una composición compleja (párpado, iris, pupila) a partir de varias
+esferas independientes.
+
+** 18) ¿Por qué se usa GL_QUAD_STRIP en lugar de GL_TRIANGLES en la esfera?
+
+*Respuesta:* GL_QUAD_STRIP genera bandas continuas de cuadriláteros, lo
+que reduce el número de vértices y hace más eficiente el renderizado
+de superficies curvas como una esfera. Triangles funcionaría, pero
+sería menos eficiente y produciría más vértices.
+
+** 19) ¿Qué ocurre si no llamas glfw.poll_events() dentro del loop?
+*Respuesta:* La ventana dejaría de responder, el teclado no funcionaría,
+y el sistema operativo podría marcar la aplicación como
+bloqueada. poll_events permite que GLFW procese entradas y eventos de
+ventana.
+
+** 20) ¿Cuál es el propósito de glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)?
+*Respuesta:* glClear limpia la pantalla del frame anterior y reinicia el
+buffer de profundidad. Esto evita que se mezclen imágenes viejas o que
+queden restos de objetos anteriores en el dibujo actual.
+
