@@ -11,8 +11,6 @@
 #+OPTIONS: tex:t
 #+HTML_MATHJAX: t 
  
-
-
 * Manual de Instalación de Git
 ** Instalación en Windows
    - Descarga el instalador desde [https://git-scm.com/].
@@ -360,7 +358,6 @@ brew install git
 
    - Añádela a tu cuenta de GitHub en *Settings > SSH and GPG keys*.
 
-   
 * Manual de Instalación de Python en Windows
 
 ** Paso 1: Descarga de Python
@@ -405,7 +402,6 @@ brew install git
 
 ** Paso 6: Actualización de Python (opcional)
    - Para actualizar Python a una nueva versión en el futuro, descarga la última versión desde [[https://www.python.org/downloads/][python.org]] y sigue los pasos de instalación.
-
 
 
 * Entornos Virtuales en Python
@@ -505,7 +501,6 @@ rm -rf nombre_entorno
     "python.defaultInterpreterPath": "${workspaceFolder}/nombre_entorno/bin/python"
   }
   #+END_SRC
-
 
 
 
@@ -669,7 +664,6 @@ Debes usar el que corresponda a tu terminal actual.
    import requests
    print("Hola desde el venv!")
    #+end_src
-
 
 
 
@@ -2727,7 +2721,6 @@ cv2.destroyAllWindows()
 #+END_SRC
 
 #+RESULTS:
-: None
 
 
 #+BEGIN_SRC python :results output
@@ -2800,7 +2793,6 @@ cv2.destroyAllWindows()
 
 
 
-
 * Actividades
 
 - Generar una imagen tipo pixel art utilizando una matriz de enteros en el rango de 0 a 255.
@@ -2812,7 +2804,6 @@ cv2.destroyAllWindows()
 
 Todas las actividades anteriores deben estar documentadas en formato Markdown en el repositorio.  
   
-
 * Programación
 
 ** Programas Unidad 1 
@@ -4943,7 +4934,6 @@ if __name__ == "__main__":
 #+RESULTS:
 : None
 
-
 * Introducción a OpenGL
 
 OpenGL (Open Graphics Library) es una API de gráficos que permite a
@@ -5858,7 +5848,7 @@ if __name__ == "__main__":
 
 #+RESULTS:
 
-
+- esfera verde
 #+BEGIN_SRC python :results output
 import glfw
 from OpenGL.GL import *
@@ -6052,7 +6042,6 @@ rotation_angle = 0.0    # Ángulo de rotación del muñeco de nieve
 def init():
     glClearColor(0.5, 0.7, 1.0, 1.0)  # Fondo de cielo
     glEnable(GL_DEPTH_TEST)
-
     # Configuración de la perspectiva
     glMatrixMode(GL_PROJECTION)
     gluPerspective(45, 1.0, 0.1, 50.0)
@@ -6082,16 +6071,19 @@ def draw_snowman():
 
     # Configurar posición de la cámara
     glTranslatef(0.0 + jump_offset, -1.5 , -8)  # Posición del muñeco de nieve y altura
-    glRotatef(rotation_angle, 0, 0, 1)  # Rotación en el eje Y
+    #glRotatef(rotation_angle, 0, 0, 1)  # Rotación en el eje Y
 
+    
     # Cuerpo
-    glColor3f(1, 0, 0)
-    draw_sphere(1.0, 0, 0, 0)     # Base
-    glColor3f(0, 1, 0)
-    draw_sphere(0.75, 0, 1.2, 0)  # Cuerpo medio
-    glColor3f(0, 0, 1)
+    #glColor3f(1, 1, 1)
+    #draw_sphere(1.0, 0, 0, 0)     # Base
+    #glColor3f(1, 1, 1)
+    #draw_sphere(0.75, 0, 1.2, 0)  # Cuerpo medio
+    glColor3f(1, 1, 1)
     draw_sphere(0.5, 0, 2.2, 0)   # Cabeza
 
+    
+    
     # Ojos
     glColor3f(0, 0, 0)
     draw_sphere(0.05, -0.15, 2.3, 0.4)  # Ojo izquierdo
@@ -6150,7 +6142,6 @@ if __name__ == "__main__":
 #+END_SRC
 
 #+RESULTS:
-
 
 
 
@@ -6531,7 +6522,6 @@ if __name__ == "__main__":
 #+END_SRC
 
 #+RESULTS:
-
 
 
 
@@ -8902,7 +8892,6 @@ Ejemplo de cómo aplicar una transformación de escalado y rotación:
 #+end_src
 
 #+RESULTS:
-
 
 
 
