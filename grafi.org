@@ -5849,6 +5849,7 @@ if __name__ == "__main__":
 #+RESULTS:
 
 - esfera verde
+  
 #+BEGIN_SRC python :results output
 import glfw
 from OpenGL.GL import *
@@ -11370,58 +11371,6 @@ Actividades
    máximo de 5 personas.
 
 
-* Proyectos Finales Agosto Diciembre 2025
-
-
-** Pizarra Virtual: Seguimiento por Color y Primitivas
-
-Introducción Técnica La actividad se basa en el Seguimiento por Color
-(Color Tracking) en el espacio HSV para la segmentación de objetos en
-tiempo real. El centroide del objeto detectado se establece como el
-Landmark de control. La aplicación combina la visión artificial con
-las funciones de dibujo de primitivas de la librería OpenCV.
-
-*Actividades*
-
-1. Desarrollo del Modo Trazado Libre (Pintura por Color)
-
-   - Objetivo: Implementar la captura de video y la lógica de
-     seguimiento para generar un trazo de pintura continuo sobre un
-     lienzo virtual (matriz NumPy).
-
-   - Paso Clave: Aislar un color predefinido mediante umbralización
-     HSV (cv2.inRange) para localizar el Landmark.
-
-   - Función: Utilizar las coordenadas del Landmark para dibujar
-     líneas consecutivas (cv2.line) entre el punto actual y el
-     anterior en el lienzo virtual, simulando un pincel.
-
-2. Implementación de Figuras Primitivas Controladas por Landmark
-
-   - Objetivo: Integrar una funcionalidad en la misma pizarra para
-     dibujar figuras geométricas estáticas, controlando su posición,
-     escalamiento y rotación con el movimiento del Landmark.
-
-   - Paso Clave: Implementar una lógica de estado (controlada por
-     teclado o por la detección de un segundo color) para alternar el
-     modo de dibujo.
-
-   - Función: En el modo de figuras, utilizar las coordenadas del
-     Landmark para:
-
-   - Dibujar Figuras Primitivas (cv2.circle, cv2.rectangle) en la
-     posición del Landmark.
-
-   - Controlar la Traslación: Mover la figura en el lienzo siguiendo
-     el movimiento directo del Landmark.
-
-   - Controlar Escalamiento y Rotación (Opcional Avanzado): Utilizar
-     la magnitud y/o dirección del vector de movimiento del Landmark
-     para modular el tamaño y el ángulo de la figura, respectivamente.
-
-
-
-
 * Respuestas Examen. 
 
 ** 1) ¿Qué función del código se encarga de construir geometría 3D mediante tiras de cuadriláteros?
@@ -12607,3 +12556,97 @@ if __name__ == "__main__":
 : Cerrando aplicación...
 
 
+* Proyectos Finales Agosto Diciembre 2025
+
+
+** Proyecto 1: Pizarra Virtual: Seguimiento por Color y Primitivas
+
+Introducción Técnica La actividad se basa en el Seguimiento por Color
+(Color Tracking) en el espacio HSV para la segmentación de objetos en
+tiempo real. El centroide del objeto detectado se establece como el
+Landmark de control. La aplicación combina la visión artificial con
+las funciones de dibujo de primitivas de la librería OpenCV.
+
+*Actividades*
+
+1. Desarrollo del Modo Trazado Libre (Pintura por Color)
+
+   - Objetivo: Implementar la captura de video y la lógica de
+     seguimiento para generar un trazo de pintura continuo sobre un
+     lienzo virtual (matriz NumPy).
+
+   - Paso Clave: Aislar un color predefinido mediante umbralización
+     HSV (cv2.inRange) para localizar el Landmark.
+
+   - Función: Utilizar las coordenadas del Landmark para dibujar
+     líneas consecutivas (cv2.line) entre el punto actual y el
+     anterior en el lienzo virtual, simulando un pincel.
+
+2. Implementación de Figuras Primitivas Controladas por Landmark
+
+   - Objetivo: Integrar una funcionalidad en la misma pizarra para
+     dibujar figuras geométricas estáticas, controlando su posición,
+     escalamiento y rotación con el movimiento del Landmark.
+
+   - Paso Clave: Implementar una lógica de estado (controlada por
+     teclado o por la detección de un segundo color) para alternar el
+     modo de dibujo.
+
+   - Función: En el modo de figuras, utilizar las coordenadas del
+     Landmark para:
+
+   - Dibujar Figuras Primitivas (cv2.circle, cv2.rectangle) en la
+     posición del Landmark.
+
+   - Controlar la Traslación: Mover la figura en el lienzo siguiendo
+     el movimiento directo del Landmark.
+
+   - Controlar Escalamiento y Rotación (Opcional Avanzado): Utilizar
+     la magnitud y/o dirección del vector de movimiento del Landmark
+     para modular el tamaño y el ángulo de la figura, respectivamente.
+
+
+** Proyecto 2: Filtro de realidad aumentada Snaptchat 
+
+Una máscara de Snapchat se refiere a los filtros de realidad aumentada
+(llamados "Lentes") que transforman tu rostro en tiempo real,
+aplicando efectos como orejas de animales, maquillaje, distorsiones o
+intercambios de cara (Face Swap), usando la cámara frontal y
+tecnología de reconocimiento facial para ajustarlos a tus expresiones,
+¡y se encuentran tocando la cara en la app y explorando las opciones
+que aparecen abajo!.
+
+
+Con la información anterior y utilizando  el apartado MediaPipe + OpenGL + GLFW
+conformados en estos apuntes realizar los siguientes puntos
+
+- Generar un filtro tipo snapchat que mantenga el tamaño del rostro
+  detectado mediante mediapipe
+- El filtro debe de ser lo suficientemente creativo y novedoso,
+  utilizando las primitivas de opengl
+- El filtro debe de tener alguna animación dentro de los componentes de las caras
+- El filtro se debe de animar juntos con los movimientos faciales
+  detectados de los landmarks faciales
+
+
+** Proyecto 3: Ciudad Entorno 3D
+
+Un entorno 3D es una representación digital tridimensional (con
+altura, anchura y profundidad) de objetos y espacios, creada por
+computadora para simular mundos virtuales interactivos, utilizada en
+diseño (AutoCAD), videojuegos (Fortnite), formación (Realidad
+Virtual), o efectos visuales, permitiendo explorar escenarios
+complejos o recrear la realidad con gran detalle mediante texturas,
+iluminación y modelado, ofreciendo inmersión y funcionalidad.
+
+
+Con la información anterior y utilizando  el apartado MediaPipe, casas, snowman 
+conformados en estos apuntes realizar los siguientes puntos.
+
+
+- implementar una ciudad, entorno, mundo 3, donde por lo menos tengas 20 objetos móviles
+- implementar el movimiento mediante los landmark de las manos
+  afectando el desplazamiento de la cámara gluLookAt para poder divisar todo el entorno
+- los objetos deben de tener alguna animación de transformación geométrica  
+
+para este proyecto se requiere un equipo máximo de 5 integrantes.
