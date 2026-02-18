@@ -1,0 +1,99 @@
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+import math
+
+# Variables globales para el ángulo de rotación
+angle = 0.0
+
+def init():
+    """Inicializa los parámetros de OpenGL"""
+    glClearColor(0.5, 0.8, 1.0, 1.0)  # Fondo azul cielo
+    glEnable(GL_DEPTH_TEST)           # Habilita la prueba de profundidad
+
+def draw_cylinder(base_radius, top_radius, height, slices):
+    """Dibuja un cilindro (tronco del árbol)"""
+    quad = gluNewQuadric()
+    gluCylinder(quad, base_radius, top_radius, height, slices, 1)
+
+def draw_sphere(radius, slices, stacks):
+    """Dibuja una esfera (hojas del árbol)"""
+    quad = gluNewQuadric()
+    gluSphere(quad, radius, slices, stacks)
+
+def draw_tree(x, z):
+    """Dibuja un árbol con un tronco de cilindro y hojas de esferas"""
+    # Dibujar el tronco
+    glPushMatrix()
+    glColor3f(0.6, 0.3, 0.1)  # Marrón
+    glTranslatef(x, 0, z)
+    glRotatef(-90, 1, 0, 0)  # Orientar el cilindro verticalmente
+    draw_cylinder(0.2, 0.15, 2, 20)  # Base más ancha, tope más delgado
+    glPopMatrix()
+
+    # Dibujar las hojas (esferas)
+    glPushMatrix()
+    glColor3f(0.1, 0.8, 0.1)  # Verde
+    glTranslatef(x, 2, z)     # Posición de las hojas
+    draw_sphere(0.8, 20, 20)  # Radio de la esfera y subdivisiones
+    glPopMatrix()
+
+def display():
+    """Renderiza la escena"""
+    global angle
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+
+    # Configuración de la cámara
+    gluLookAt(10, 5, 20, 0, 1, 0, 0, 1, 0)  # Mira desde lejos
+
+    # Rotar la escena
+    glRotatef(angle, 0, 1, 0)
+
+    # Dibujar múltiples árboles
+    tree_positions = [(-5, -5), (0, 0), (5, 5), (-5, 5), (5, -5)]
+    for pos in tree_positions:
+        draw_tree(pos[0], pos[1])
+
+def main():
+    """Función principal"""
+    global angle
+
+    # Inicializa GLFW
+    if not glfw.init():
+        print("No se pudo inicializar GLFW")
+        return
+
+    # Crea la ventana
+    window = glfw.create_window(800, 600, "Bosque 3D con árboles", None, None)
+    if not window:
+        glfw.terminate()
+        print("No se pudo crear la ventana")
+        return
+
+    glfw.make_context_current(window)
+
+    # Configura OpenGL
+    init()
+
+    # Bucle principal
+    while not glfw.window_should_close(window):
+        # Rotación automática
+        angle += 0.5
+        if angle > 360:
+            angle -= 360
+
+        # Renderizar
+        display()
+
+        # Intercambiar buffers
+        glfw.swap_buffers(window)
+
+        # Poll events
+        glfw.poll_events()
+
+    # Finaliza GLFW
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()

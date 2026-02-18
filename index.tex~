@@ -1,0 +1,64 @@
+% Created 2024-12-10 mar 08:04
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage[spanish]{inputenc}
+\author{likcos}
+\date{\today}
+\title{Proyecto Final}
+\hypersetup{
+ pdfauthor={likcos},
+ pdftitle={Proyecto Final},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.5.5)}, 
+ pdflang={Spanish}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+El flujo óptico es el patrón del movimiento aparente de los objetos,
+superficies y bordes en una escena causado por el movimiento relativo
+entre un observador (un ojo o una cámara) y la escena.2​3​ El concepto
+de flujo óptico se estudió por primera vez en la década de 1940 y,
+finalmente, fue publicado por el psicólogo estadounidense James
+J. Gibson4​ como parte de su teoría de la affordance (una acción que un
+individuo puede potencialmente realizar en su ambiente). Las
+aplicaciones del flujo óptico tales como la detección de movimiento,
+la segmentación de objetos, el tiempo hasta la colisión y el enfoque
+de cálculo de expansiones, la codificación del movimiento compensado y
+la medición de la disparidad estereoscópica utilizan este movimiento
+de las superficies y bordes de los objetos.
+
+Actividades
+
+\begin{enumerate}
+\item Desarrollar un programa que utilice el flujo óptico, para aplicar a
+una imagen o una primitiva de dibujo, las transformaciones
+geométricas vistas en clase, (Traslación, Escalamiento, Rotación)
+\end{enumerate}
+
+
+\begin{enumerate}
+\item Desarrollar un programa que utilice opengl, para modelar un entorno
+completo tipo mundo minecraft de alguna ciudad, paisaje, bosque,
+etc. Donde se deben de incluir por lo menos 15 modelos diferentes,
+diseñados con primitivas de opengl de igual manera se debe de mover
+todo el entorno modelado mediante el flujo óptico aplicando las
+transformaciones geométricas vistas en clase, (Traslación,
+Escalamiento, Rotación), para esta actividad pueden hacer equipos
+máximo de 5 personas.
+\end{enumerate}
+\end{document}

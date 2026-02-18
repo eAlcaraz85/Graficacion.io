@@ -1,0 +1,60 @@
+#+TITLE: Ejemplo de Transformación de Rotación
+#+AUTHOR: Asistente Gemini
+#+LANGUAGE: es
+
+;; -------------------------------------------------------------
+;; 1. CONFIGURACIÓN ROBUSTA PARA HTML Y MATHJAX
+;; -------------------------------------------------------------
+#+OPTIONS: tex:t
+#+HTML_MATHJAX: nil  ;; Desactivamos la carga automática de Org-mode (para evitar conflictos)
+
+;; Cargamos MathJax 3 directamente y configuramos los delimitadores
+#+HTML_HEAD: <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+#+HTML_HEAD: <script type="text/javascript">
+#+HTML_HEAD:   MathJax = {
+#+HTML_HEAD:     tex: { displayMath: [['$$', '$$'], ['\\[', '\\]']] }
+#+HTML_HEAD:   };
+#+HTML_HEAD: </script>
+;; -------------------------------------------------------------
+
+* Rotación 2D en Coordenadas Homogéneas
+
+La transformación de rotación de un punto \((x, y)\) por un ángulo \(\theta\) se expresa mediante la multiplicación de matrices en coordenadas homogéneas.
+
+El punto resultante \((x', y')\) se calcula como:
+
+$$
+\begin{pmatrix}
+x' \\
+y' \\
+1
+\end{pmatrix}
+=
+\begin{pmatrix}
+\cos(\theta) & -\sin(\theta) & 0 \\
+\sin(\theta) & \cos(\theta) & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+x \\
+y \\
+1
+\end{pmatrix}
+$$
+
+* Detalles de la Matriz
+
+La matriz central es conocida como la matriz de rotación, \(\mathbf{R}(\theta)\), la cual se define por las funciones trigonométricas del ángulo \(\theta\).
+
+* Otras Transformaciones
+
+Una reflexión sobre el eje \(x\) también usa un formato similar:
+
+$$
+R_x = \begin{pmatrix}
+1 & 0 & 0 \\
+0 & -1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}
+$$
