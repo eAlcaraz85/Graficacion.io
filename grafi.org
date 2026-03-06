@@ -1692,6 +1692,8 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 #+END_SRC
 
+#+RESULTS:
+
 
 ** Definición: Operación Bit a Bit
 
@@ -2367,6 +2369,7 @@ g)
 
 
 ** Landmarks 
+
 En visión artificial, el término landmark se refiere a puntos clave
 dentro de una imagen que ayudan a describir características
 importantes de un objeto. Estos puntos de referencia se utilizan en
@@ -2468,6 +2471,90 @@ pip install mediapipe opencv-python
 *** Código para Detección de Manos en Tiempo Real
 Este es un un código en Python que detecta manos usando MediaPipe y
 OpenCV.
+
+
+#+BEGIN_SRC python :results output
+import cv2
+import mediapipe as mp
+
+# Configuración de la nueva Tasks API
+BaseOptions = mp.tasks.BaseOptions
+HandLandmarker = mp.tasks.vision.HandLandmarker
+HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
+VisionRunningMode = mp.tasks.vision.RunningMode
+
+# 1. Crear las opciones del detector (Reemplaza a mp_hands.Hands)
+options = HandLandmarkerOptions(
+    base_options=BaseOptions(model_asset_path='hand_landmarker.task'),
+    running_mode=VisionRunningMode.IMAGE, # IMAGE mode funciona igual que el process() anterior
+    num_hands=2,
+    min_hand_detection_confidence=0.5,
+    min_hand_presence_confidence=0.5,
+    min_tracking_confidence=0.5
+)
+
+# Conexiones de la mano para dibujar (Reemplaza a mp_hands.HAND_CONNECTIONS)
+HAND_CONNECTIONS = [
+    (0, 1), (1, 2), (2, 3), (3, 4),       # Pulgar
+    (0, 5), (5, 6), (6, 7), (7, 8),       # Índice
+    (5, 9), (9, 10), (10, 11), (11, 12),  # Medio
+    (9, 13), (13, 14), (14, 15), (15, 16),# Anular
+    (13, 17), (0, 17), (17, 18), (18, 19), (19, 20) # Meñique
+]
+
+# Captura de video
+cap = cv2.VideoCapture(0)
+
+# 2. Inicializar el detector usando un bloque 'with'
+with HandLandmarker.create_from_options(options) as landmarker:
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        # Convertir imagen a RGB
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        
+        # 3. La nueva API requiere que envolvamos la imagen en un objeto mp.Image
+        mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame_rgb)
+        
+        # Detectar manos
+        results = landmarker.detect(mp_image)
+        
+        # Dibujar los puntos clave y conexiones
+        # En la nueva API, los resultados están en 'hand_landmarks'
+        if results.hand_landmarks:
+            for hand_landmarks in results.hand_landmarks:
+                h, w, c = frame.shape
+                
+                # Extraer coordenadas a píxeles
+                keypoints = []
+                for landmark in hand_landmarks:
+                    cx, cy = int(landmark.x * w), int(landmark.y * h)
+                    keypoints.append((cx, cy))
+                    # Dibujar el punto
+                    cv2.circle(frame, (cx, cy), 5, (255, 0, 0), cv2.FILLED)
+                    
+                # Dibujar las conexiones (líneas)
+                for connection in HAND_CONNECTIONS:
+                    start_idx = connection[0]
+                    end_idx = connection[1]
+                    cv2.line(frame, keypoints[start_idx], keypoints[end_idx], (0, 255, 0), 2)
+
+        # Mostrar la imagen
+        cv2.imshow("Salida", frame)
+
+        # Salir con 'q'
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+cap.release()
+cv2.destroyAllWindows()
+#+END_SRC
+
+#+RESULTS:
+
+
 
 #+begin_src python :results output 
 import cv2
@@ -3120,6 +3207,7 @@ cv2.destroyAllWindows()
 
 Todas las actividades anteriores deben estar documentadas en formato Markdown en el repositorio.  
 
+
 * Programación
 
 ** Programas Unidad 1 
@@ -3196,7 +3284,7 @@ import cv2 as cv  # Importa la librería OpenCV, que se usa para el procesamient
 
 # Lee una imagen desde el archivo 'tr.png'. 
 # El segundo argumento '1' indica que se leerá la imagen en color (1 para color, 0 para escala de grises, -1 para incluir el canal alfa si existe).
-img = cv.imread('tr.png', 0)
+img = cv.imread('/home/likcos/Imágenes/Capturas de pantalla/test.png', 0)
 
 # Muestra la imagen leída en una ventana llamada 'ejemplo'.
 cv.imshow('ejemplo', img)
@@ -4165,7 +4253,7 @@ def main():
 
     while True:
         # Imagen negra (3 canales BGR)
-        img = np.zeros((alto, ancho, 3), dtype=np.uint8)
+        img = np.ones((alto, ancho, 3), dtype=np.uint8)*255
 
         # Parámetro t que avanza con el tiempo
         t = frame * 0.03  # cambia esta constante para hacer la animacion mas rapida o lenta
@@ -4187,13 +4275,13 @@ def main():
                 img,
                 trayectoria[i - 1],
                 trayectoria[i],
-                (0, 255, 255),  # amarillo
+                (255, 0, 0),  # amarillo
                 1,
                 cv2.LINE_AA,
             )
 
         # Dibujar el punto actual
-        cv2.circle(img, (px, py), 6, (0, 0, 255), -1)
+        cv2.circle(img, (px, py), 9, (0, 0, 255), -1)
 
         
 
@@ -4329,7 +4417,7 @@ img = np.ones((height, width, 3), dtype=np.uint8)*255
 
 # Parámetros de la curva de Limacon
 a, b = 150, 100  # Reducir los valores de a y b para que la curva se ajuste mejor
-k = 0.7# Constante de multiplicación del ángulo
+k = 1.9# Constante de multiplicación del ángulo
 theta_increment = 0.05  # Incremento del ángulo
 max_theta = 2 * np.pi  # Un ciclo completo
 
@@ -4351,7 +4439,7 @@ while True:  # Bucle infinito
         
         # Dibujar un círculo en la posición calculada
         #cv2.circle(img, (x, y), 3, (0, 234, 0), -1)  # Color rojo
-        cv2.circle(img, (x-2, y-2), 3, (0, 0, 0), -1)  # Color rojo
+        cv2.circle(img, (x-2, y-2), 1, (0, 0, 0), -1)  # Color rojo
     
     # Mostrar la constante k en la imagen
     #cv2.putText(img, f"k = {k:.2f}", (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
@@ -4383,21 +4471,41 @@ cv2.destroyAllWindows()
 ** Segmentación de color mediante el modelo de color HSV
 
 #+BEGIN_SRC python :results output
+
+import cv2 as cv
+
+img = cv.imread('man1.jpg', 1)
+
+hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+cv.imshow('hsv', hsv )
+
+cv.imshow('img', img )
+cv.waitKey()
+cv.destroyAllWindows()
+
+
+#+end_src 
+
+#+RESULTS:
+
+
+
+#+BEGIN_SRC python :results output
 import cv2 as cv
 
 img = cv.imread('man1.jpg', 1)
 hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
-uba=(10, 255, 255)
-ubb=(0, 60 ,60)
-uba1=(180, 255, 255)
-ubb1=(170, 60 ,60)
+uba=(85, 255, 255)
+ubb=(35, 100 ,100)
+#uba1=(180, 255, 255)
+#ubb1=(170, 60 ,60)
 mask1 = cv.inRange(hsv, ubb, uba)
-mask2 = cv.inRange(hsv, ubb1, uba1)
-mask = mask1 + mask2
-res = cv.bitwise_and(img, img, mask=mask)
+#mask2 = cv.inRange(hsv, ubb1, uba1)
+#mask = mask1 + mask2
+res = cv.bitwise_and(img, img, mask=mask1)
 cv.imshow('mask1', mask1)
-cv.imshow('mask2', mask2)
-cv.imshow('mask', mask)
+#cv.imshow('mask2', mask2)
+#cv.imshow('mask', mask)
 
 cv.imshow('res', res)
 cv.imshow('img', img)
@@ -5065,14 +5173,14 @@ while True:
         m1 = int(h/2)
         n1 = int(w/2)
         frame = cv.rectangle(frame, (x,y), (x+w, y+h), (0, 255, 0), 2)
-        frame = cv.circle(frame, (x+n1,y+m1), int(w/2) , (255, 0 ,0), 2 )
-        img = frame[y:y+h,x:x+w]
+        #frame = cv.circle(frame, (x+n1,y+m1), int(w/2) , (255, 0 ,0), 2 )
+        #img = frame[y:y+h,x:x+w]
         #count = count + 1   
     
     #name = '/home/likcos/imgs/cara'+str(count)+'.jpg'
     #cv.imwrite(name, frame)
     cv.imshow('rostros', frame)
-    cv.imshow('cara', img)
+    #cv.imshow('cara', img)
     
     k = cv.waitKey(1)
     if k == 27:
@@ -5082,6 +5190,7 @@ cv.destroyAllWindows()
 #+END_SRC
 
 #+RESULTS:
+: None
 
 
 #+BEGIN_SRC python
@@ -5105,8 +5214,8 @@ while True:
         img = cv.circle(img, (x + int(w*0.3), y + int(h*0.4)) , 5, (0, 0, 255), -1 )
         img = cv.circle(img, (x + int(w*0.7), y + int(h*0.4)) , 5, (0, 0, 255), -1 )
         img = cv.rectangle(img, (x+10,y+10), (x+w, y+h), (234,0 ,234), 5)
-        img2=  img[y:y+h,x:x+w]
-        cv.imshow('img2', img2)
+        #img2=  img[y:y+h,x:x+w]
+        #cv.imshow('img2', img2)
     cv.imshow('img', img)
     if cv.waitKey(1)== ord('q'):
         break
