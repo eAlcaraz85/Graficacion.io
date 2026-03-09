@@ -2476,12 +2476,15 @@ OpenCV.
 #+BEGIN_SRC python :results output
 import cv2
 import mediapipe as mp
+import math
 
 # Configuración de la nueva Tasks API
 BaseOptions = mp.tasks.BaseOptions
 HandLandmarker = mp.tasks.vision.HandLandmarker
 HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
 VisionRunningMode = mp.tasks.vision.RunningMode
+
+
 
 # 1. Crear las opciones del detector (Reemplaza a mp_hands.Hands)
 options = HandLandmarkerOptions(
@@ -2504,7 +2507,7 @@ HAND_CONNECTIONS = [
 
 # Captura de video
 cap = cv2.VideoCapture(0)
-
+distancia=0
 # 2. Inicializar el detector usando un bloque 'with'
 with HandLandmarker.create_from_options(options) as landmarker:
     while cap.isOpened():
@@ -2541,6 +2544,27 @@ with HandLandmarker.create_from_options(options) as landmarker:
                     end_idx = connection[1]
                     cv2.line(frame, keypoints[start_idx], keypoints[end_idx], (0, 255, 0), 2)
 
+                    
+                if len(keypoints) >= 9: 
+                    x1, y1 = keypoints[4]
+                    x2, y2 = keypoints[8]
+                    
+                    # 1. Dibujar la línea y los puntos
+                    cv2.line(frame, (x1, y1), (x2, y2), (0, 0, 255), 3)
+                    cv2.circle(frame, (x1, y1), 8, (0, 0, 255), cv2.FILLED)
+                    cv2.circle(frame, (x2, y2), 8, (0, 0, 255), cv2.FILLED)
+                    
+                    # 2. Calcular la longitud de la línea (distancia)
+                    distancia = math.hypot(x2 - x1, y2 - y1)
+                    
+                    # 3. Encontrar el punto medio para colocar el texto
+                    cx_medio, cy_medio = (x1 + x2) // 2, (y1 + y2) // 2
+                    
+                    # 4. Mostrar el valor en la pantalla (convertido a entero)
+                    cv2.putText(frame, f"{int(distancia)} px", (cx_medio, cy_medio), 
+                                cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2)
+
+        cv2.circle(frame, (200,200), int(distancia), (21,34,234), -1)            
         # Mostrar la imagen
         cv2.imshow("Salida", frame)
 
