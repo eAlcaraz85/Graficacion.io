@@ -3402,17 +3402,20 @@ cv.destroyAllWindows()
 *** Cargar vídeo Opencv 
 
 #+BEGIN_SRC python
+#OpenCV
 import cv2 as cv
 import numpy as np
-cap = cv.VideoCapture(0)
 
+cap = cv.VideoCapture(0)
+i=0
 while(True):
     ret, img = cap.read()
     if ret:
         cv.imshow('video', img)
-        img2 = cv.cvtColor(img, cv.COLOR_BGR2HSV)
-        cv.imshow('video1', img2)
-        
+        #img2 = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+        #cv.imshow('video1', img2)
+        cv.imwrite('/home/likcos/caras/cara'+str(i)+'.jpg', img)
+        i+=1
         k =cv.waitKey(1) & 0xFF
         if k == 27 :
 	    break
@@ -13287,6 +13290,8 @@ para este proyecto se requiere un equipo máximo de 5 integrantes.
 
 
 
+
+
 * Practicas
 
 ** Enero Junio 2026
@@ -13390,7 +13395,181 @@ Responder de manera argumentada:
 - Respuestas argumentadas.
 - Conclusión final (mínimo media cuartilla).
 
-*** Formato de Entrega (Obligatorio)
+
+** Misión 1: El Artefacto Desplazado (Traslación)
+*** La Historia
+Nuestros satélites han captado la ubicación de un vehículo sospechoso
+en una imagen de 800x600 píxeles. Sin embargo, un error en los
+sensores del satélite desplazó la imagen. El vehículo, que debería
+estar en el centro exacto, está pegado a la esquina superior
+izquierda.
+
+[[file:vehiculo.jpg]]
+
+
+*** Las Pistas
+- La imagen original mide 800 píxeles de ancho por 600 de alto.
+- Para corregir el error, debes desplazar toda la imagen *300 píxeles hacia la derecha* y *200 píxeles hacia abajo*.
+- La fórmula matemática pura para trasladar un punto es: 
+  $x' = x + t_x$
+  $y' = y + t_y$
+- La matriz de traslación para OpenCV tiene la siguiente forma:
+  $$M = \begin{bmatrix} 1 & 0 & t_x \\ 0 & 1 & t_y \end{bmatrix}$$
+
+*** Tu Tarea
+1. *Modo Raw (Manual):* Crea un lienzo negro nuevo de 600x800. Traslada
+   los píxeles de la imagen original al lienzo nuevo utilizando la
+   matemática pura de coordenadas (ya sea con ciclos =for= o "slicing"
+   de NumPy). ¡Prohibido usar =cv2.warpAffine=!
+2. *Modo OpenCV:* Construye la matriz de traslación $M$ y utiliza la función optimizada =cv2.warpAffine= para lograr el mismo resultado.
+
+#+BEGIN_SRC python :results output :session
+import cv2
+import numpy as np
+
+# Cargar la imagen
+# img = cv2.imread('vehiculo.jpg')
+
+# ==========================================
+# MÉTODO 1: MODO RAW (Manipulación de Píxeles)
+# ==========================================
+# 1. Crea un lienzo negro vacío (np.zeros) de 600x800
+# 2. Mueve los píxeles al nuevo lienzo sumando 300 en X y 200 en Y
+
+
+# ==========================================
+# MÉTODO 2: MODO OPENCV (Matriz de Transformación)
+# ==========================================
+# 1. Crea la matriz de traslación 'M' en NumPy
+# 2. Aplica cv2.warpAffine a la imagen original
+
+#+END_SRC
+
+
+- ¿Notaste alguna diferencia de tiempo al procesar la imagen píxel por
+  píxel con ciclos for (Modo Raw) en comparación con la función
+  cv2.warpAffine de OpenCV? ¿Por qué crees que tu código manual tarda
+  mucho más en ejecutarse?
+
+** Misión 2: El Código Mareado (Rotación)
+*** La Historia
+Hemos interceptado un código QR que nos dará acceso al servidor de los
+sospechosos. Para evitar que lo escaneemos, lo han girado de forma
+extraña. Si intentamos leerlo así, nuestros escáneres
+fallan. ¡Necesitamos enderezarlo!
+
+[[file:qr_rotado.jpg]]
+
+
+
+*** Las Pistas
+- El código QR está exactamente en el centro de una imagen cuadrada de 500x500 píxeles.
+- El análisis indica que fue rotado *45 grados* en sentido antihorario. Debes girarlo en sentido horario (-45 grados o 315 grados).
+- Para el modo raw, la trigonometría para rotar un punto $(x, y)$ alrededor del centro $(c_x, c_y)$ es:
+  $x' = (x - c_x) \cos(\theta) - (y - c_y) \sin(\theta) + c_x$
+  $y' = (x - c_x) \sin(\theta) + (y - c_y) \cos(\theta) + c_y$
+  /(Nota: recuerda convertir los grados a radianes con math.radians)/
+
+
+
+*** Tu Tarea
+1. *Modo Raw (Manual):* Usa ciclos anidados para recorrer la imagen vacía de destino. Para cada píxel, calcula de qué coordenada de la imagen original proviene aplicando las fórmulas trigonométricas inversas.
+2. *Modo OpenCV:* Usa =cv2.getRotationMatrix2D= para generar tu matriz de rotación tomando como eje el centro de la imagen (250, 250), y aplícala con =cv2.warpAffine=.
+
+#+BEGIN_SRC python :results output :session
+import math
+
+# Cargar la imagen
+# img_qr = cv2.imread('qr_rotado.jpg')
+
+# ==========================================
+# MÉTODO 1: MODO RAW (Trigonometría)
+# ==========================================
+# 1. Crea un lienzo vacío de 500x500
+# 2. Usa las fórmulas de senos y cosenos para mapear los píxeles (¡Cuidado con los huecos negros si mapeas hacia adelante!)
+
+
+# ==========================================
+# MÉTODO 2: MODO OPENCV
+# ==========================================
+# 1. Obtén la matriz con cv2.getRotationMatrix2D
+# 2. Aplica cv2.warpAffine
+
+#+END_SRC
+
+- Al calcular la rotación píxel por píxel con tus fórmulas matemáticas
+  (Modo Raw), ¿te quedaron 'puntos negros' o píxeles sin color
+  esparcidos en la imagen resultante? ¿Cómo te imaginas que algoritmos
+  profesionales como los de OpenCV logran rotar la imagen sin dejar
+  esos huecos vacíos?
+
+** Misión 3: El Microfilm Oculto (Escalamiento)
+*** La Historia
+Encontramos un archivo de imagen gigantesco de 2000x2000 píxeles. Al
+inspeccionarlo de cerca, notamos que en el centro hay un texto
+diminuto. Los criminales encogieron la evidencia.
+
+[[file:microfilm.jpg]]
+
+*** Las Pistas
+- El texto es ilegible a simple vista.
+- Debes extraer un recorte (crop) de la zona central y aplicar un factor de escala de *5* tanto en el eje X ($S_x = 5$) como en el eje Y ($S_y = 5$).
+- La matemática para escalar coordenadas es simple:
+  $x_{nuevo} = x \times S_x$
+  $y_{nuevo} = y \times S_y$
+
+
+
+*** Tu Tarea
+1. *Modo Raw (Manual):* Recorta una región central de la imagen (por ejemplo, de 200x200 píxeles donde está el texto). Crea un nuevo lienzo de 1000x1000 y usa la matemática para "estirar" los píxeles del recorte. /(Pista: te quedará un efecto pixelado tipo "Vecino Más Cercano")/.
+2. *Modo OpenCV:* Utiliza =cv2.resize= sobre ese mismo recorte usando los parámetros =fx=5= y =fy=5=. Prueba el parámetro de interpolación =cv2.INTER_CUBIC= para ver cómo OpenCV suaviza los bordes mágicamente.
+
+#+BEGIN_SRC python :results output :session
+# Cargar la imagen
+# img_microfilm = cv2.imread('microfilm.jpg')
+
+# Recorte sugerido (Ajusta las coordenadas según necesites)
+# recorte = img_microfilm[900:1100, 900:1100]
+
+# ==========================================
+# MÉTODO 1: MODO RAW (Vecino más cercano manual)
+# ==========================================
+# 1. Crea un lienzo 5 veces más grande que el recorte
+# 2. Multiplica las coordenadas para mapear los colores
+
+
+# ==========================================
+# MÉTODO 2: MODO OPENCV (Interpolación)
+# ==========================================
+# 1. Usa cv2.resize con fx=5, fy=5 e interpolation=cv2.INTER_CUBIC
+
+#+END_SRC
+
+
+- Al comparar visualmente el texto ampliado, ¿qué diferencia notas en
+  los bordes de las letras entre tu resultado del Modo Raw y el de
+  OpenCV usando la interpolación cv2.INTER_CUBIC? ¿De dónde crees que
+  OpenCV saca los colores para rellenar y suavizar esos píxeles nuevos
+  que en la imagen original no existían
+
+** Instrucciones para los Agentes (Estudiantes)
+Su misión finaliza entregando un *Reporte Oficial en formato Markdown*
+(=reporte_mision.md=). Este documento debe demostrar que dominan tanto
+la matemática pura detrás de las transformaciones como la optimización
+de OpenCV.
+
+Su archivo Markdown debe contener estrictamente tres elementos por cada misión:
+1. *El Código Operativo:* Sus scripts de Python insertados en bloques de código.
+2. *Evidencia Visual:* Las imágenes resultantes (guardadas en su computadora e incrustadas en el Markdown).
+3. *Análisis del Analista:* La respuesta a las preguntas de reflexión técnica.
+
+
+
+
+
+
+
+* Formato de Entrega (Obligatorio)
 
 Todos los resultados deberán entregarse en formato Markdown (.md).
 
