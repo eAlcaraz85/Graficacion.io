@@ -1,0 +1,157 @@
+                           ━━━━━━━━━━━━━━━━━━
+                            ENERO JUNIO 2026
+
+                            Eduardo Alcaraz
+                           ━━━━━━━━━━━━━━━━━━
+
+
+Índice
+──────
+
+Segmentación de Frutas usando Máscara HSV
+.. Objetivo
+.. Material
+.. Contexto
+Actividad 1: Exploración del Espacio HSV
+Actividad 2: Limpieza de Ruido
+Actividad 3: Conteo de Regiones
+Actividad 4: Comparación entre Colores
+Actividad 5: Análisis Crítico
+Entregables
+Formato de Entrega (Obligatorio)
+
+
+Segmentación de Frutas usando Máscara HSV
+═════════════════════════════════════════
+
+Objetivo
+────────
+
+  • Aplicar el modelo de color HSV para segmentar objetos.
+  • Analizar resultados directamente sobre una máscara binaria.
+  • Identificar y contar regiones conectadas.
+  • Evaluar el impacto del rango de color en la segmentación.
+
+
+Material
+────────
+
+  • Imagen proporcionada (frutas.png)
+  <file:img/frutas.png>
+
+
+  • Código base de conversión a HSV y generación de máscara
+
+
+Contexto
+────────
+
+  Se trabajará únicamente sobre la máscara binaria generada a partir de
+  un rango HSV.
+
+  NO se permite:
+  • Dibujar contornos
+  • Dibujar rectángulos
+  • Marcar objetos en la imagen original
+
+  El análisis debe realizarse directamente sobre la máscara.
+
+
+Actividad 1: Exploración del Espacio HSV
+════════════════════════════════════════
+
+  1. Seleccionar un color (rojo, verde o amarillo).
+  2. Ajustar el rango HSV hasta que la máscara detecte únicamente las
+     frutas de ese color.
+  3. Guardar capturas de:
+     • Imagen original
+     • Imagen en HSV
+     • Máscara obtenida
+
+  Reflexión:
+  • ¿Qué ocurre cuando el rango es muy estrecho?
+  • ¿Qué ocurre cuando el rango es muy amplio?
+
+
+Actividad 2: Limpieza de Ruido
+══════════════════════════════
+
+  1. Analizar la máscara sin aplicar operaciones morfológicas.
+  2. Aplicar un método de limpieza (apertura o cierre).
+  3. Comparar ambas máscaras.
+
+  Responder:
+  • ¿Qué tipo de ruido aparece?
+  • ¿Por qué es necesario eliminarlo antes del conteo?
+
+
+Actividad 3: Conteo de Regiones
+═══════════════════════════════
+
+  1. Identificar cuántas regiones conectadas existen en la máscara.
+  2. Filtrar regiones pequeñas (ruido).
+  3. Reportar:
+     • Número total de frutas detectadas.
+     • Área aproximada de cada región válida.
+
+  No se permite usar la imagen original para validar visualmente.  El
+  análisis debe hacerse únicamente observando la máscara.
+
+
+Actividad 4: Comparación entre Colores
+══════════════════════════════════════
+
+  Repetir el proceso para:
+
+  • Frutas rojas
+  • Frutas verdes
+  • Frutas amarillas
+
+  Construir una tabla comparativa:
+
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Color  Número Detectado  Observaciones 
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Preguntas:
+  • ¿Qué color fue más fácil segmentar?
+  • ¿Cuál presentó más ruido?
+  • ¿Por qué?
+
+
+Actividad 5: Análisis Crítico
+═════════════════════════════
+
+  Responder de manera argumentada:
+
+  1. ¿Por qué HSV es más adecuado que RGB para esta tarea?
+  2. ¿Cómo afecta la iluminación al canal V?
+  3. ¿Qué sucede si dos frutas tienen tonos similares?
+  4. ¿Qué limitaciones tiene la segmentación por color?
+
+
+Entregables
+═══════════
+
+  • Capturas de cada máscara generada.
+  • Tabla comparativa.
+  • Respuestas argumentadas.
+  • Conclusión final (mínimo media cuartilla).
+
+
+Formato de Entrega (Obligatorio)
+════════════════════════════════
+
+  Todos los resultados deberán entregarse en formato Markdown (.md).
+
+  El archivo deberá incluir:
+
+  • Portada con nombre completo y grupo.
+  • Objetivo de la práctica.
+  • Capturas de pantalla de las máscaras generadas.
+  • Tabla comparativa de resultados.
+  • Respuestas a las preguntas de análisis.
+  • Conclusión final.
+
+  No se aceptarán archivos en PDF, Word o imágenes sueltas.  La entrega
+  debe consistir en un único archivo .md.
