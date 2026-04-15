@@ -3220,6 +3220,402 @@ cv2.destroyAllWindows()
 
 
 
+
+
+#+TITLE: Tema 1.5, 1.6 y 2.5: Imagen (formatos), mapas de bits y fuentes
+#+AUTHOR: likcos
+#+LANGUAGE: es
+#+DATE: [2026-03-19]
+
+* 1.5. Formatos de imagen
+
+** Concepto base
+
+Un *formato de imagen* define cómo se representan los datos visuales: por ejemplo
+si se almacenan los píxeles en bruto (mapas de bits) o si se usa compresión (con
+o sin pérdida), y cómo se codifican aspectos como canales (RGB/Alpha), metadatos
+EXIF, paleta de colores, etc.
+
+En la práctica, “qué formato usar” depende de:
+
+- si necesitas *calidad exacta* (texto, gráficos, diagramas),
+- si necesitas *tamaño pequeño* (web),
+- si necesitas *transparencia* (canal alfa),
+- y si vas a *editar/recomprimir* (evitar pérdidas acumuladas).
+
+** Formatos comunes (cuándo conviene)
+
+*** PNG
+
+- *Tipo:* raster (mapa de bits).
+- *Compresión:* sin pérdida (lossless).
+- *Transparencia:* sí (alfa por píxel).
+- *Ideal para:* iconos, capturas con texto, gráficos con bordes nítidos.
+- *Nota:* suele ocupar más que JPEG para fotos.
+
+*** JPEG / JPG
+
+- *Tipo:* raster.
+- *Compresión:* con pérdida (lossy).
+- *Transparencia:* no.
+- *Ideal para:* fotografías, imágenes naturales.
+- *Nota:* recomprimir muchas veces degrada la calidad (artefactos).
+
+*** WEBP
+
+- *Tipo:* raster.
+- *Compresión:* puede ser con o sin pérdida (según configuración).
+- *Transparencia:* sí (canal alfa).
+- *Ideal para:* web (tamaños menores que PNG/JPEG en muchos casos).
+
+*** GIF
+
+- *Tipo:* raster.
+- *Colores:* hasta 256 colores (paleta).
+- *Animación:* sí.
+- *Ideal para:* animaciones cortas, miniaturas; no para fotos detalladas.
+
+*** SVG (y otros vectoriales)
+
+- *Tipo:* vectorial (descripción geométrica).
+- *Ventaja:* escalado sin pérdida, útil para tipografía, iconos y UI.
+- *Limitación:* no siempre reproduce fielmente fotos complejas.
+
+** Estructura y metadatos
+
+Muchos formatos incluyen metadatos:
+
+- *EXIF:* cámara, tiempo, orientación.
+- *ICC profile:* información de color (gestión de color).
+- *Autoría/licencia:* en algunos formatos.
+
+Cuando “conviertes” un archivo, es común perder metadatos o cambiar el perfil
+de color si no se conserva explícitamente.
+
+** Profundidad de color y canal alfa
+
+Para entender la compatibilidad y el tamaño:
+
+- *8 bits/canal* suele ser estándar (0..255).
+- *RGBA* implica canal alfa (transparencia).
+- Existe *grayscale* (escala de grises) y *paleta indexada* (GIF/PNG-8).
+
+** Recomendaciones rápidas
+
+- Texto/diagramas: `PNG` o `SVG`.
+- Fotos: `JPEG` o `WEBP`.
+- Iconos con transparencia: `PNG` o `WEBP` (si estás en web).
+
+** Ejemplos de conversión (Python + Pillow)
+
+#+BEGIN_SRC python
+from PIL import Image
+
+# Convertir a PNG (por ejemplo, desde JPG)
+img = Image.open("foto.jpg")
+img.save("foto.png")
+
+# Convertir a JPEG (el alfa se descarta si no se gestiona)
+img = Image.open("icono.png").convert("RGB")
+img.save("icono.jpg", quality=95)
+#+END_SRC
+
+** Ejemplo de conversión (linea de comandos con ImageMagick)
+
+#+BEGIN_SRC bash
+# Convertir PNG -> JPEG
+magick input.png -quality 95 output.jpg
+
+# Convertir JPEG -> PNG (sin recuperar calidad perdida)
+magick input.jpg output.png
+#+END_SRC
+
+** Ejemplo de decisión (mini-checklist)
+
+Antes de convertir:
+
+- ¿Necesitas transparencia?
+- ¿La imagen es foto o es “gráfica con bordes” (texto, líneas)?
+- ¿Vas a editar muchas veces (mejor preservar sin pérdidas: PNG)?
+
+* 1.6. Procesamiento de mapas de bits. Fractales
+
+** Qué es un “mapa de bits”
+
+Un *mapa de bits* representa una imagen como una *rejilla de píxeles*.
+Cada píxel almacena valores numéricos (por ejemplo, intensidad en escala de grises
+o componentes RGB) y opcionalmente un *canal alfa* (RGBA).
+
+La conversión “de mundo matemático a píxeles” requiere:
+
+- elegir un rango de coordenadas,
+- muestrear (un píxel por posición),
+- y (si aplica) discretizar valores.
+
+** Profundidad de bits y rango
+
+- Si una imagen es `8-bit`, cada canal suele tener 256 valores.
+- Más bits (16-bit) permiten más precisión en mediciones o procesamiento.
+
+Para visualizar/guardar, normalmente se normaliza o se mapea al rango soportado.
+
+** Paleta vs RGB directo
+
+En *paleta indexada* (p.ej. GIF):
+
+- cada píxel guarda un índice,
+- y la paleta define los colores reales.
+
+En RGB directo (p.ej. PNG truecolor):
+
+- cada píxel guarda directamente sus componentes (y alfa si existe).
+
+** Operaciones típicas (pixel a pixel)
+
+#+BEGIN_SRC python
+import cv2
+
+# OpenCV carga en BGR (ojo con el orden de canales)
+img = cv2.imread("entrada.png", cv2.IMREAD_COLOR)
+if img is None:
+    raise FileNotFoundError("No se pudo leer 'entrada.png'")
+
+# Ejemplo 1: invertir colores (por canal)
+invertida = 255 - img
+
+# Ejemplo 2: “brillo” multiplicando (con saturación/clamp)
+factor = 1.2
+mas_brilante = cv2.convertScaleAbs(img, alpha=factor, beta=0)
+
+cv2.imwrite("invertida.png", invertida)
+cv2.imwrite("mas_brilante.png", mas_brilante)
+#+END_SRC
+
+** Umbralizado (binarización)
+
+Convierte una imagen (normalmente en escala de grises) a blanco/negro:
+
+- suele usarse para OCR, segmentación, documentos escaneados,
+- o para generar máscaras.
+
+Idea:
+
+- elegir un umbral `T`,
+- si `pixel >= T` -> blanco, si no -> negro.
+
+** Redimensionado (resampling)
+
+Al cambiar tamaño, se requiere interpolación:
+
+- *Nearest neighbor:* rápido pero con “escalones”.
+- *Bilinear/Bicubic:* suaviza pero puede difuminar bordes.
+- Para diagramas con líneas, suele gustar `Nearest` o `Bicubic` con cuidado.
+
+** Convoluciones (filtrado)
+
+Las *convoluciones* aplican un “kernel” (matriz) local:
+
+- suavizado (blur),
+- detección de bordes (Sobel, Prewitt),
+- realce (sharpen),
+- detección de ruido.
+
+En fractales y en mapas de bits, el filtrado no “crea” estructura por sí solo,
+pero puede ayudar a resaltar patrones o reducir artefactos.
+
+** Fractales (idea general)
+
+Un *fractal* es una estructura que exhibe auto-similitud a diferentes escalas.
+Muchas imágenes fractales se generan por *iteración* de una regla matemática.
+
+La idea computacional típica:
+
+- defines un punto en un plano (por ejemplo, el plano complejo),
+- iteras una función `z_{n+1} = f(z_n, c)`,
+- decides color según “cuántas iteraciones tardó” en divergir o según la magnitud.
+
+** Fractal de Mandelbrot
+
+Definición (común):
+
+- para cada punto complejo `c` en una región del plano,
+- iteras `z_{0} = 0`,
+- y `z_{n+1} = z_n^2 + c`.
+
+Si |`z_n`| se hace grande, se considera que “diverge”. El número de iteraciones
+hasta divergir se usa para colorear.
+
+** Generación de Mandelbrot (Python + NumPy)
+
+#+BEGIN_SRC python
+import numpy as np
+from PIL import Image
+
+def mandelbrot(width=1000, height=700, max_iter=200,
+               re_min=-2.5, re_max=1.0, im_min=-1.2, im_max=1.2):
+    # Coordenadas complejas para cada píxel
+    re = np.linspace(re_min, re_max, width)
+    im = np.linspace(im_min, im_max, height)
+    C = re[np.newaxis, :] + 1j * im[:, np.newaxis]
+
+    Z = np.zeros_like(C)
+    div_time = np.full(C.shape, max_iter, dtype=np.int32)
+
+    # Iteración
+    for i in range(max_iter):
+        # Z = Z^2 + C
+        Z = Z * Z + C
+        # puntos que todavía no divergen
+        mask = (np.abs(Z) <= 2)
+        div_time[mask] = i
+
+    # Normalizar para visualización
+    # (Si div_time==max_iter, el punto probablemente pertenece al set)
+    img = (255 * (div_time / max_iter)).astype(np.uint8)
+    return img
+
+arr = mandelbrot()
+Image.fromarray(arr, mode="L").save("mandelbrot.png")
+#+END_SRC
+
+** Coloreado (mejorar resultados)
+
+En fractales, un “coloreado lineal” a menudo se ve pobre. Algunas mejoras:
+
+- usar mapeos tipo `log` para suavizar transiciones,
+- usar paletas (colormaps) en vez de escala de grises,
+- mapear “escape time” con normalización o “continuous coloring”.
+
+** Complejidad y optimización
+
+- El coste crece con `width * height * max_iter`.
+- Optimizar:
+  - reducir resolución,
+  - elegir un `max_iter` razonable,
+  - usar vectorización (NumPy) o aceleración (Numba/GPU),
+  - y evitar bucles Python internos cuando sea posible.
+
+* 2.5. Uso y creación de fuentes de texto
+
+** Qué es una fuente (concepto)
+
+Una *fuente* describe cómo se dibujan caracteres (glifos):
+
+- en formatos vectoriales (contornos/Bezier) o
+- en mapas de bits (texturas para tamaños concretos).
+
+Hoy en día, el estándar común para tipografía escalable son formatos como `OTF/TTF`
+basados en glifos vectoriales, con hinting (a veces) para mejorar legibilidad en tamaños pequeños.
+
+** Diferencia: “vectorial” vs “mapa de bits”
+
+Vectorial:
+
+- se escala mejor sin pérdida,
+- requiere rasterizar a una resolución destino.
+
+Mapa de bits:
+
+- se prepara para tamaños específicos,
+- puede perder nitidez al escalar.
+
+** Formatos de fuentes comunes
+
+- `TTF` (TrueType): ampliamente soportado.
+- `OTF` (OpenType): extensión con más features.
+- `WOFF/WOFF2`: empaquetado para web (optimiza descarga).
+- `EOT` (histórico para IE).
+- `Type 1` (más antiguo, aún aparece en algunos flujos).
+
+** Uso de fuentes en aplicaciones
+
+*** En Python (Pillow)
+
+#+BEGIN_SRC python
+from PIL import Image, ImageDraw, ImageFont
+
+img = Image.new("RGB", (800, 200), "white")
+draw = ImageDraw.Draw(img)
+
+font = ImageFont.truetype("DejaVuSans.ttf", size=48)
+draw.text((20, 40), "Hola, fuente!", font=font, fill="black")
+
+img.save("texto.png")
+#+END_SRC
+
+*** En la web (CSS)
+
+#+BEGIN_SRC css
+@font-face {
+  font-family: "MiFuente";
+  src: url("/fonts/MiFuente.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.titulo {
+  font-family: "MiFuente", sans-serif;
+  font-size: 48px;
+}
+#+END_SRC
+
+** Consideraciones prácticas
+
+- *Kerning y métricas:* afectan espaciado visual entre letras.
+- *Consistencia de estilo:* regular/bold/italic deben estar correctamente definidos.
+- *Compatibilidad:* evita depender de una fuente no instalada (usa `@font-face` en web).
+
+** Creación de fuentes (flujo de trabajo típico)
+
+Crear una fuente es más que “dibujar caracteres”: implica *métricas*, *espaciado* y
+ajustar la armonía visual.
+
+Un flujo típico:
+
+1. Definir objetivos (idioma, estilo, pesos `Regular/Bold`).
+2. Dibujar glifos (letras, números, signos) en una herramienta especializada.
+3. Ajustar *métricas*:
+   - altura x,
+   - ascendentes/descendentes,
+   - ancho de avance (`advance width`),
+   - kernings.
+4. Probar en distintos tamaños y frases reales.
+5. Exportar en formatos target (`.ttf/.otf`, y en web `.woff2`).
+
+** Herramientas para crear
+
+- *FontForge:* gratuita (muy usada para ediciones y exportaciones).
+- *Glyphs (macOS):* centrada en diseño tipográfico.
+- *RoboFont:* alternativa profesional para flujos de trabajo de diseño.
+- *Inkscape + import/export:* útil si creas contornos en vector y luego los llevas a la herramienta de fuente.
+
+** Exportación y validación
+
+Antes de distribuir:
+
+- verificar `cmap` (mapeo unicode),
+- comprobar kerning,
+- generar al menos:
+  - `.ttf` o `.otf`,
+  - y si es web, `.woff2`.
+
+** Buenas prácticas (para que la fuente se vea bien)
+
+- Diseñar con un sistema de guías (baseline, x-height, cap height).
+- Revisar caracteres frecuentes:
+  - `A`, `V`, `W`, `T`, `Y`, `f`, `j`,
+  - números `0-9`,
+  - signos `.,;:!?`, paréntesis y comillas.
+- Probar en:
+  - tamaños pequeños (legibilidad),
+  - tamaños grandes (armonía de contornos),
+  - y combinaciones de letras (kerning).
+
+
+
+
+
+
 * Actividades
 
 - Generar una imagen tipo pixel art utilizando una matriz de enteros en el rango de 0 a 255.
@@ -3406,12 +3802,22 @@ cv.destroyAllWindows()
 import cv2 as cv
 import numpy as np
 
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture('/home/likcos/Vídeos/rana.mp4')
 i=0
 while(True):
     ret, img = cap.read()
     if ret:
+        #cv.imshow('video', img)
+        #img2 = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+        #cv.imshow('video2', img2)
+        #img3 = cv.resize(img, (100, 100), interpolation=cv.INTER_CUBIC)
+        #cv.imshow('video3', img3)
+        cv.rectangle(img, (100, 100), (600, 600), (0,255,0), 5)
+        img2 = img[100:600, 100:600]
         cv.imshow('video', img)
+        cv.imshow('video2', img2)
+       
+        
         #img2 = cv.cvtColor(img, cv.COLOR_BGR2HSV)
         #cv.imshow('video1', img2)
         cv.imwrite('/home/likcos/caras/cara'+str(i)+'.jpg', img)
@@ -3742,7 +4148,7 @@ for i in range(x):
     for j in range(y):
                    #orig_x = int(i * scale_y)
                    #orig_y = int(j * scale_x)
-                   scaled_img[int(i*0.5)+10, int(j*0.5)+10] = img[i, j]
+                   scaled_img[int(i*2), int(j*2)] = img[i, j]
 
 # Mostrar la imagen original y la escalada
 cv.imshow('Imagen Original', img)
@@ -5746,7 +6152,7 @@ def display():
 
     # Dibujar un triángulo
     glBegin(GL_TRIANGLES)  # Inicia la especificación de los vértices para un triángulo
-    glColor3f(R1.0, 0.0, 0.0)  # Rojo
+    glColor3f(1.0, 0.0, 0.0)  # Rojo
     glVertex3f(-1.0, -1.0, 0.0)  # Primer vértice
     glColor3f(0.0, 1.0, 0.0)  # Verde
     glVertex3f(1.0, -1.0, 0.0)  # Segundo vértice
@@ -13755,4 +14161,269 @@ Copia y pega esta estructura en tu archivo =.md= y responde a las preguntas bas�
 > *[Escribe tu respuesta aquí]*
 #+END_EXAMPLE
 
+
+
+#+title: Operación Espejismo II (Examen Graficación)
+#+author: [Tu Nombre / Matrícula]
+#+options: toc:2 num:t
+
+* Operación Espejismo II (Graficación Táctica Examen)
+
+** Introducción a la Misión
+Agentes, hemos interceptado un paquete de evidencias visuales. El enemigo está usando *graficación 2D* para fragmentar claves, camuflar mensajes y alterar geometría.
+
+
+*Reglas:*
+- Si trabajas en escala de grises, mantén el rango en 0..255.
+- Siempre que multipliques o sumes intensidades, usa saturación: =np.clip(..., 0, 255)=.
+- Entrega imágenes (PNG) y tu reporte final en Markdown.
+
+*Archivos base (en esta misma carpeta):*
+- =m1_oscura.png=
+- =m2_mitad1.png=
+- =m2_mitad2.png=
+- =m4_ruido.png=
+
+** Misión 1: El Mensaje Subexpuesto II (Operadores Puntuales en 2 fases)
+*** La Historia
+Interceptamos una imagen (=m1_oscura.png=) casi negra. Pero ahora el enemigo aplicó dos etapas:
+
+1) División (para “apagar” el texto).
+2) Resta de un sesgo pequeño (para que, al recuperar, se “queme” si no saturas).
+
+*** Las Pistas
+- Recuperación sugerida:
+  - Paso A: multiplicar por 50
+  - Paso B: sumar una constante (ej. 15 o 25)
+  - Saturar a 0..255
+
+*** Tu Tarea
+1. *Modo Raw:* usa ciclos anidados para recuperar: multiplicar por 50 y luego sumar +20 (con saturación).
+2. *Modo NumPy/OpenCV:* haz lo mismo pero vectorizado (=img*50 + 20= o =cv2.multiply= + =cv2.add=).
+3. Guarda dos evidencias:
+   - =m1_recuperado_x50.png=
+   - =m1_recuperado_x50_mas20.png=
+
+#+begin_src python :results output
+import cv2
+import numpy as np
+
+img = cv2.imread("m1_oscura.png", cv2.IMREAD_GRAYSCALE)
+
+# TODO MODO RAW:
+# - Crear una matriz int32 para evitar overflow
+# - Recorrer con ciclos anidados (y,x)
+# - Multiplicar cada píxel por 50
+# - Aplicar np.clip a 0..255 y guardar como uint8 -> m1_recuperado_x50.png
+#
+# TODO SEGUNDA FASE (RAW):
+# - Sumar +20 a cada píxel recuperado
+# - Aplicar np.clip 0..255 y guardar -> m1_recuperado_x50_mas20.png
+#
+# TODO MODO VECTORIZADO (opcional):
+# - Hacer lo mismo sin for (con operaciones NumPy o cv2.multiply/cv2.add)
+#+end_src
+
+** Misión 2: El QR Fragmentado II (Traslación + Rotación + Ensamble)
+*** La Historia
+El QR sigue partido:
+- La mitad superior (=m2_mitad1.png=) fue desplazada.
+- La mitad inferior (=m2_mitad2.png=) fue rotada 180°.
+
+Pero ahora debes *ensamblarlo con precisión*, dejando el código centrado en el lienzo final.
+
+*** Las Pistas
+- Crea un lienzo blanco de 400x400.
+- Corrige:
+  - Mitad 1: traslación inversa hacia el origen.
+  - Mitad 2: rotación inversa 180° sobre su centro y colocación en la parte inferior.
+    
+*** Tu Tarea
+1. Crea lienzo blanco 400x400 (3 canales).
+2. Endereza ambas piezas con =cv2.warpAffine=.
+3. Pega las piezas (sin solaparlas) para reconstruir el QR.
+4. Guarda: =m2_qr_reconstruido.png=
+
+#+begin_src python :results output
+import cv2
+import numpy as np
+
+mitad1 = cv2.imread("m2_mitad1.png")
+mitad2 = cv2.imread("m2_mitad2.png")
+
+lienzo = np.full((400, 400, 3), 255, dtype=np.uint8)
+
+# TODO:
+# - Crear la matriz de traslación INVERSA para la mitad 1
+#   (elige dx, dy correctos según dónde quedó la pieza)
+# - Aplicar cv2.warpAffine a mitad1 para enderezarla
+# - Pegar mitad1 enderezada en la parte superior del lienzo
+#
+# - Crear la matriz de rotación para des-rotar mitad 2 (180°) sobre su centro
+# - Aplicar cv2.warpAffine a mitad2 para enderezarla
+# - Pegar mitad2 enderezada en la parte inferior del lienzo
+#
+# - Guardar resultado final como m2_qr_reconstruido.png
+#+end_src
+
+** Misión 3: El Sello Biométrico II (Primitivas + Simetría)
+*** La Historia
+El servidor principal requiere un sello geométrico, pero ahora incluye *patrones simétricos* y una marca de autenticidad.
+
+*** Instrucciones del Sello
+- Lienzo: 600x600 color base =BGR(40, 20, 20)=.
+- Círculo central amarillo en (300, 300) radio 170 grosor 3.
+- Círculo interior amarillo en (300, 300) radio 110 grosor 2.
+- Rectángulo rojo sólido (relleno) de (250, 260) a (350, 340).
+- Dos líneas blancas diagonales de esquina a esquina (una =X=) grosor 2.
+- *Marca simétrica*: coloca 8 círculos verdes pequeños (radio 8, rellenos) alrededor del centro, a 140 px de distancia (tipo brújula).
+- Texto blanco: =SECTOR-9= centrado abajo (aprox y=560).
+
+*** Tu Tarea
+1. Dibuja el sello EXACTAMENTE en ese orden.
+2. Guarda: =m3_sello_forjado_v2.png=
+
+#+begin_src python :results output
+import cv2
+import numpy as np
+import math
+
+img = np.zeros((600, 600, 3), dtype=np.uint8)
+img[:] = (40, 20, 20)
+
+# TODO (en el orden exacto):
+# - Dibujar círculo exterior amarillo
+# - Dibujar círculo interior amarillo
+# - Dibujar rectángulo rojo relleno
+# - Dibujar las 2 diagonales blancas (X)
+# - Colocar 8 círculos verdes alrededor del centro a distancia 140 (usa sin/cos o simetrías)
+# - Escribir el texto "SECTOR-9" en la parte baja
+# - Guardar como m3_sello_forjado_v2.png
+#+end_src
+
+** Misión 4: La Frecuencia Térmica II (HSV + máscara + “limpieza” por convolución)
+*** La Historia
+El enemigo ocultó la contraseña en (=m4_ruido.png=), pero ahora hay *ruido extra* que genera falsos positivos en la máscara.
+
+*** Las Pistas
+- Segmentar Cyan en HSV (Hue ~ 90).
+- Antes de segmentar, puedes suavizar con un kernel de promedio para reducir ruido:
+  - Kernel promedio 3x3:
+    [[1,1,1],
+     [1,1,1],
+     [1,1,1]] / 9
+
+*** Tu Tarea
+1. Aplica un filtro por convolución (promedio 3x3) a la imagen BGR.
+2. Convierte a HSV.
+3. Segmenta con =cv2.inRange= usando un rango Cyan.
+4. Guarda:
+   - =m4_mask_cyan.png=
+   - (opcional) =m4_suavizada.png=
+
+#+begin_src python :results output
+import cv2
+import numpy as np
+
+img = cv2.imread("m4_ruido.png")
+
+# TODO:
+# - Definir kernel promedio 3x3 (float32) y aplicar cv2.filter2D
+# - (Opcional) guardar la imagen suavizada como m4_suavizada.png
+# - Convertir a HSV con cv2.cvtColor
+# - Definir límites low/high para Cyan
+# - Crear máscara con cv2.inRange
+# - Guardar máscara como m4_mask_cyan.png
+#+end_src
+
+** Misión 5: La Huella de Canales (Separación BGR + combinación)
+*** La Historia
+Interceptamos (=m5_tricolor.png=) (debes generarla tú) donde la clave no está en HSV, sino en una *diferencia entre canales*.
+
+*** Las Pistas
+- Si un mensaje está “escondido” en un canal, al separarlo con =cv2.split= puede verse.
+- También puede revelarse con combinaciones tipo:
+  - =abs(G - B)=
+  - =R - G= (con saturación)
+
+*** Tu Tarea
+1. Genera una imagen de 300x700 con fondo aleatorio (ruido) en BGR.
+2. Escribe un texto con tinta “tramposa” que dependa de un solo canal (por ejemplo, pon texto en el canal G muy alto y en B bajo).
+3. Guarda la evidencia: =m5_tricolor.png=
+4. Recupera el mensaje probando:
+   - Canal B
+   - Canal G
+   - Canal R
+   - =abs(G - B)=
+5. Guarda la mejor recuperación como: =m5_mensaje.png=
+
+#+begin_src python :results output
+import cv2
+import numpy as np
+
+# TODO GENERACIÓN (m5_tricolor.png):
+# - Crear imagen 300x700 con ruido aleatorio en BGR
+# - Escribir el mensaje con una “tinta tramposa” (elige un color que dependa fuerte de 1 canal)
+# - Guardar como m5_tricolor.png
+#
+# TODO RECUPERACIÓN:
+# - Separar canales: b, g, r = cv2.split(img)
+# - Probar: canal b, canal g, canal r
+# - Probar combinaciones: cv2.absdiff(g, b) y/o (r - g) con saturación
+# - (Opcional) normalizar con cv2.normalize
+# - Umbralizar (fijo u Otsu) para que el texto sea legible
+# - Guardar la mejor como m5_mensaje.png
+#+end_src
+
+** Entregable: Reporte de Misión (Formato Markdown Examen)
+*** Instrucciones
+Entrega un archivo =reporte_mision_v2.md= que incluya:
+- Capturas/imagenes resultantes de cada misión
+- Bloques de código que usaste (puede ser el final “limpio”)
+- Conclusiones
+
+*** Plantilla Base (Markdown)
+#+begin_example markdown
+# Reporte de Misión: Graficación Táctica II
+**Agente Especial:** [Tu Nombre/Matrícula]
+
+---
+## Evidencias
+### Misión 1
+- Imagen recuperada x50: (inserta)
+- Imagen recuperada x50 + 20: (inserta)
+- Código:
+
+### Misión 2
+- QR reconstruido: (inserta)
+- Código:
+
+### Misión 3
+- Sello forjado: (inserta)
+- Código:
+
+### Misión 4
+- Máscara Cyan: (inserta)
+- Código:
+
+### Misión 5
+- Evidencia tricolor: (inserta)
+- Mensaje recuperado: (inserta)
+- Código:
+
+---
+## Análisis del Analista (Reflexiones Finales)
+
+1. **Operadores puntuales (M1):** ¿Qué diferencia visual hay entre recuperar con multiplicación (x50) y recuperar con suma (+50)? ¿Cuál preserva mejor el contraste del texto?
+> [Respuesta]
+
+2. **Transformaciones geométricas (M2):** ¿Por qué es importante escoger el centro correcto al rotar una imagen con `getRotationMatrix2D`?
+> [Respuesta]
+
+3. **Convolución (M4):** ¿Por qué un filtro promedio puede ayudar a reducir falsos positivos antes de segmentar por HSV, y qué desventaja tiene sobre los bordes del texto?
+> [Respuesta]
+
+4. **Canales (M5):** ¿Por qué separar canales puede revelar información que en la imagen a color “no se ve” a simple vista?
+> [Respuesta]
+#+end_example
 
