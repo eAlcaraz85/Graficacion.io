@@ -6428,7 +6428,7 @@ def init():
     # Configuración de proyección
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    gluPerspective(45, 1, 0.1, 50.0)
+    gluPerspective(45, 0.0, 0.1, 0.0)
     # Cambiar a la matriz de modelo para los objetos
     glMatrixMode(GL_MODELVIEW)
 
@@ -6438,8 +6438,8 @@ def draw_cube():
 
     # Configuración de la vista del cubo
     glLoadIdentity()
-    glTranslatef(0.0, 0.0, -1)  # Alejar el cubo para que sea visible
-    glRotatef(angle, 1, 1, 1)   # Rotar el cubo en todos los ejes
+    glTranslatef(1, 1, -5)  # Alejar el cubo para que sea visible
+    glRotatef(angle, 0, 0, 1)   # Rotar el cubo en todos los ejes
     
 
     #glRotatef(angle, 0, 1, 0)   # Rotar el cubo en todos los ejes
@@ -6490,7 +6490,7 @@ def draw_cube():
     glFlush()
 
     glfw.swap_buffers(window)  # Intercambiar buffers para animación suave
-    angle += 0.1  # Incrementar el ángulo para rotación
+    angle += 0.01  # Incrementar el ángulo para rotación
 
 def main():
     global window
@@ -6553,12 +6553,12 @@ def draw_cube():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
     glLoadIdentity()
-    glTranslatef(0.0, 0.0, -6)
+    glTranslatef(0.0, 0.0, -8)
     
     #  Rotar en los tres ejes
-    glRotatef(angle_x, 1, 0, 0)
-    glRotatef(angle_y, 0, 1, 0)
-    glRotatef(angle_z, 0, 0, 1)
+    #glRotatef(angle_x, 1, 0, 0)
+    #glRotatef(angle_y, 0, 1, 0)
+    glRotatef(angle_z, 1, 0, 0)
 
     glBegin(GL_QUADS)
     # Cara superior
@@ -6923,9 +6923,9 @@ def init():
     light_color = [1.0, 1.0, 1.0, 1.0]  # Color de la luz blanca
     ambient_light = [0.2, 0.2, 0.2, 1.0]  # Luz ambiental
 
-    glLightfv(GL_LIGHT0, GL_POSITION, light_pos)
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_color)
-    glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light)
+    #glLightfv(GL_LIGHT0, GL_POSITION, light_pos)
+    #glLightfv(GL_LIGHT0, GL_DIFFUSE, light_color)
+    #glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light)
 
     # Configuración de las propiedades de material
     material_diffuse = [0.0, 0.9, 0.2, 0.0]  # Color difuso (azul claro)
@@ -7574,7 +7574,6 @@ if __name__ == "__main__":
 * Figuras 3D de OpenGL
 
 ** Funciones de Figuras GLU (OpenGL Utility Library)
-
 *** draw_sphere()
 Dibuja una esfera usando =gluSphere()=.
 
@@ -7675,6 +7674,8 @@ gluDeleteQuadric(quadric)  # Libera memoria
 - Almacena parámetros de renderizado
 - Reutilizable para múltiples primitivas
 - Importante liberar memoria al terminar
+
+
 
 ** Funciones de Figuras GLUT (OpenGL Utility Toolkit)
 
@@ -7984,6 +7985,196 @@ Vértices → Transformación Modelo
        Píxeles
 #+end_src
 
+Ejemplo de primitivas para windows linux bajo diferente motor gráfico 
+
+
+#+BEGIN_SRC python :results output :tangle code/primitivasnivel2.py
+import sys
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+
+# Variables globales
+rotation_angle = 0.0
+window_width = 1600
+window_height = 900
+
+def draw_sphere():
+    glColor3f(1.0, 0.2, 0.2)
+    quadric = gluNewQuadric()
+    gluSphere(quadric, 0.5, 32, 32) # Aumenté los segmentos para que se vea redonda
+    gluDeleteQuadric(quadric)
+
+def draw_cube():
+    glColor3f(0.2, 1.0, 0.2)
+    glutSolidCube(0.8)
+
+def draw_cone():
+    glColor3f(0.2, 0.2, 1.0)
+    quadric = gluNewQuadric()
+    glRotatef(-90, 1, 0, 0)
+    gluCylinder(quadric, 0.5, 0.0, 1.0, 32, 32)
+    gluDeleteQuadric(quadric)
+
+def draw_torus():
+    glColor3f(1.0, 1.0, 0.2)
+    glutSolidTorus(0.2, 0.5, 32, 32)
+
+def draw_teapot():
+    glColor3f(1.0, 0.2, 1.0)
+    glutSolidTeapot(0.5)
+
+def draw_cylinder():
+    glColor3f(0.2, 1.0, 1.0)
+    quadric = gluNewQuadric()
+    glRotatef(-90, 1, 0, 0)
+    gluCylinder(quadric, 0.4, 0.4, 1.0, 32, 32)
+    gluDeleteQuadric(quadric)
+
+def draw_disk():
+    glColor3f(1.0, 0.5, 0.2)
+    quadric = gluNewQuadric()
+    gluDisk(quadric, 0.2, 0.6, 32, 32)
+    gluDeleteQuadric(quadric)
+
+def draw_dodecahedron():
+    glColor3f(0.5, 1.0, 0.5)
+    glScalef(0.4, 0.4, 0.4) # Escalado porque es muy grande por defecto
+    glutSolidDodecahedron()
+
+def draw_octahedron():
+    glColor3f(1.0, 0.5, 0.5)
+    glutSolidOctahedron()
+
+def draw_tetrahedron():
+    glColor3f(0.5, 0.5, 1.0)
+    glutSolidTetrahedron()
+
+def draw_icosahedron():
+    glColor3f(1.0, 1.0, 0.5)
+    glutSolidIcosahedron()
+
+def draw_partial_disk():
+    glColor3f(0.8, 0.3, 0.8)
+    quadric = gluNewQuadric()
+    gluPartialDisk(quadric, 0.2, 0.6, 32, 16, 0, 270)
+    gluDeleteQuadric(quadric)
+
+def setup_lighting():
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
+    
+    light_position = [2.0, 2.0, 2.0, 1.0]
+    light_ambient = [0.3, 0.3, 0.3, 1.0]
+    light_diffuse = [1.0, 1.0, 1.0, 1.0]
+    light_specular = [1.0, 1.0, 1.0, 1.0]
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse)
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular)
+
+def draw_all_3d_shapes():
+    global rotation_angle, window_width, window_height
+    
+    shapes = [
+        draw_sphere, draw_cube, draw_cone, draw_torus,
+        draw_teapot, draw_cylinder, draw_disk, draw_dodecahedron,
+        draw_octahedron, draw_tetrahedron, draw_icosahedron, draw_partial_disk
+    ]
+    
+    cols = 4
+    rows = 3
+    
+    for idx, draw_func in enumerate(shapes):
+        col = idx % cols
+        row = idx // cols
+        
+        # Configurar viewport para cada celda
+        cell_width = window_width // cols
+        cell_height = window_height // rows
+        x = col * cell_width
+        y = window_height - (row + 1) * cell_height
+        
+        glViewport(x, y, cell_width, cell_height)
+        
+        # Proyección
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        # Evitar división por cero
+        aspect = cell_width / cell_height if cell_height > 0 else 1.0
+        gluPerspective(45, aspect, 0.1, 50.0)
+        
+        # Vista
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+        gluLookAt(0, 0, 3, 0, 0, 0, 0, 1, 0)
+        
+        # Rotación animada
+        glRotatef(rotation_angle, 0, 1, 0)
+        glRotatef(rotation_angle * 0.5, 1, 0, 0)
+        
+        glPushMatrix()
+        draw_func()
+        glPopMatrix()
+
+def display():
+    """Callback de dibujado de GLUT"""
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    draw_all_3d_shapes()
+    glutSwapBuffers()
+
+def idle():
+    """Callback de actualización (animación)"""
+    global rotation_angle
+    rotation_angle += 0.5
+    if rotation_angle > 360:
+        rotation_angle -= 360
+    glutPostRedisplay() # Obliga a redibujar el frame
+
+def reshape(w, h):
+    """Callback para manejar el cambio de tamaño de la ventana"""
+    global window_width, window_height
+    window_width = w
+    window_height = h
+
+def main():
+    # 1. Inicializar GLUT correctamente con los argumentos del sistema
+    glutInit(sys.argv)
+    
+    # 2. Configurar modo de visualización (doble buffer, RGB, Profundidad y Multimuestreo para anti-aliasing)
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
+    
+    # 3. Crear ventana
+    glutInitWindowSize(window_width, window_height)
+    glutCreateWindow(b"Todas las Figuras 3D de OpenGL (Pure GLUT)")
+    
+    # 4. Configurar OpenGL
+    glClearColor(0.1, 0.1, 0.15, 1.0)
+    setup_lighting()
+    #glEnable(GL_MULTISAMPLE)
+    glShadeModel(GL_SMOOTH)
+    
+    # 5. Registrar Callbacks
+    glutDisplayFunc(display)
+    glutIdleFunc(idle)
+    glutReshapeFunc(reshape)
+    
+    # 6. Iniciar el loop de GLUT
+    glutMainLoop()
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+
+
+
 #+BEGIN_SRC python :results output :tangle code/primitivasnivel.py
 import glfw
 from OpenGL.GL import *
@@ -7998,7 +8189,7 @@ def draw_sphere():
     """Esfera usando GLU"""
     glColor3f(1.0, 0.2, 0.2)
     quadric = gluNewQuadric()
-    gluSphere(quadric, 0.5, 32, 32)
+    gluSphere(quadric, 0.5, 2, 2)
     gluDeleteQuadric(quadric)
 
 def draw_cube():
@@ -8068,7 +8259,7 @@ def draw_partial_disk():
 
 def draw_grid():
     """Dibuja una rejilla de referencia"""
-    glColor3f(0.3, 0.3, 0.3)
+    glColor3f(1, 1, 1)
     glBegin(GL_LINES)
     for i in range(-5, 6):
         glVertex3f(i, -5, 0)
@@ -8402,8 +8593,8 @@ def draw_house():
     glLoadIdentity()
 
     # Configuración de la cámara
-    gluLookAt(4, 4, 8,  # Posición de la cámara
-              0, 1, 0,  # Punto al que mira
+    gluLookAt(4, 3, 8,  # Posición de la cámara
+              2, 1, 0,  # Punto al que mira
               0, 1, 0)  # Vector hacia arriba
 
     draw_ground()  # Dibuja el suelo
@@ -9947,11 +10138,11 @@ que simula cómo la luz interactúa con las superficies. Este modelo
 considera tres componentes principales de luz: **ambiente**, **difusa** y
 **especular**.
 
-* Conceptos Fundamentales
+** Conceptos Fundamentales
 
-** Componentes de la Luz
+*** Componentes de la Luz
 
-*** Luz Ambiente (Ambient)
+**** Luz Ambiente (Ambient)
 - Iluminación uniforme que llega a todas las superficies por igual
 - Simula la luz que rebota múltiples veces en el entorno
 - No tiene dirección
@@ -9962,7 +10153,7 @@ light_ambient = [0.3, 0.3, 0.3, 1.0]  # Gris claro
 glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
 #+end_src
 
-*** Luz Difusa (Diffuse)
+**** Luz Difusa (Diffuse)
 - Luz principal que depende del ángulo entre la superficie y la fuente de luz
 - Crea el efecto de volumen y forma
 - Sigue la Ley de Lambert: Intensidad = cos(ángulo)
@@ -9973,7 +10164,7 @@ light_diffuse = [1.0, 1.0, 1.0, 1.0]  # Blanco brillante
 glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse)
 #+end_src
 
-*** Luz Especular (Specular)
+**** Luz Especular (Specular)
 - Crea brillos y reflejos en superficies brillantes
 - Depende del ángulo entre el observador y el reflejo
 - Simula materiales brillantes como metal o plástico
@@ -9988,7 +10179,7 @@ glMaterialfv(GL_FRONT, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
 glMaterialf(GL_FRONT, GL_SHININESS, 100.0)  # 0-128
 #+end_src
 
-** Fórmula de Iluminación
+*** Fórmula de Iluminación
 
 La intensidad final en un píxel se calcula como:
 
@@ -10004,20 +10195,20 @@ I_especular = luz_especular × material_especular × cos(α)^shininess
 α = ángulo entre dirección de reflejo y dirección al observador
 #+end_example
 
-* Tipos de Luces
+** Tipos de Luces
 
-** Luz Posicional (Point Light)
+*** Luz Posicional (Point Light)
 
-*** Descripción
+**** Descripción
 Una luz que emite desde un punto específico en todas direcciones, como una bombilla.
 
-*** Características
+**** Características
 - Tiene una posición en el espacio 3D
 - La intensidad puede disminuir con la distancia (atenuación)
 - W = 1.0 en el vector de posición
 - Crea sombras radiales (si se implementan sombras)
 
-*** Código
+**** Código
 
 #+begin_src python
 def setup_point_light():
@@ -10039,7 +10230,7 @@ def setup_point_light():
     glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular)
 #+end_src
 
-*** Visualización
+**** Visualización
 
 #+begin_example
          Y
@@ -10055,25 +10246,25 @@ def setup_point_light():
     Z    |  Objeto  \
 #+end_example
 
-*** Casos de uso
+**** Casos de uso
 - Lámparas
 - Velas
 - Focos de luz
 - Iluminación interior
 
-** Luz Direccional (Directional Light)
+*** Luz Direccional (Directional Light)
 
-*** Descripción
+**** Descripción
 Una luz infinitamente lejana que emite rayos paralelos, como el sol.
 
-*** Características
+**** Características
 - No tiene posición, solo dirección
 - Todos los rayos son paralelos
 - W = 0.0 en el vector de posición
 - No hay atenuación por distancia
 - Más eficiente computacionalmente
 
-*** Código
+**** Código
 
 #+begin_src python
 def setup_directional_light():
@@ -10095,7 +10286,7 @@ def setup_directional_light():
     glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
 #+end_src
 
-*** Visualización
+**** Visualización
 
 #+begin_example
     Sol ☀️ (infinitamente lejos)
@@ -10108,25 +10299,25 @@ def setup_directional_light():
     |_|_|_|_|_|_|_|
 #+end_example
 
-*** Casos de uso
+**** Casos de uso
 - Luz solar
 - Escenas exteriores
 - Iluminación general
 - Escenas muy grandes
 
-** Spotlight (Luz Cónica)
+*** Spotlight (Luz Cónica)
 
-*** Descripción
+**** Descripción
 Una luz que emite en forma de cono, como un reflector o linterna.
 
-*** Características
+**** Características
 - Tiene posición Y dirección
 - Ángulo de apertura configurable (cutoff)
 - Concentración del haz configurable (exponent)
 - Atenuación por distancia
 - Muy útil para efectos dramáticos
 
-*** Parámetros
+**** Parámetros
 
 | Parámetro         | Descripción        | Rango               |
 |-------------------+--------------------+---------------------|
@@ -10134,7 +10325,7 @@ Una luz que emite en forma de cono, como un reflector o linterna.
 | =GL_SPOT_CUTOFF=    | Ángulo de apertura | 0-90° o 180° (omni) |
 | =GL_SPOT_EXPONENT=  | Concentración      | 0-128               |
 
-*** Código
+**** Código
 
 #+begin_src python
 def setup_spotlight():
@@ -10165,7 +10356,7 @@ def setup_spotlight():
     glLightfv(GL_LIGHT0, GL_AMBIENT, [0.1, 0.1, 0.1, 1.0])
 #+end_src
 
-*** Visualización
+**** Visualización
 
 #+begin_example
         ✨ Foco
@@ -10181,7 +10372,7 @@ def setup_spotlight():
       Zona oscura
 #+end_example
 
-*** Efecto del Exponent
+**** Efecto del Exponent
 
 #+begin_example
 Exponent = 0 (suave)        Exponent = 50 (concentrado)
@@ -10193,18 +10384,18 @@ Exponent = 0 (suave)        Exponent = 50 (concentrado)
     ████████                    ░░░░░░
 #+end_example
 
-*** Casos de uso
+**** Casos de uso
 - Linternas
 - Reflectores de teatro
 - Faros de coches
 - Efectos dramáticos
 
-** Atenuación de Luz
+*** Atenuación de Luz
 
-*** Descripción
+**** Descripción
 La atenuación controla cómo disminuye la intensidad de la luz con la distancia.
 
-*** Fórmula
+**** Fórmula
 
 #+begin_example
 Factor_atenuación = 1 / (Kc + Kl×d + Kq×d²)
@@ -10216,7 +10407,7 @@ Kq = Atenuación cuadrática (GL_QUADRATIC_ATTENUATION)
 d  = Distancia a la luz
 #+end_example
 
-*** Código
+**** Código
 
 #+begin_src python
 # Sin atenuación (por defecto)
@@ -10235,7 +10426,7 @@ glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05)
 glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01)
 #+end_src
 
-*** Comparación
+**** Comparación
 
 | Tipo           |  Kc |   Kl |   Kq | Uso                 |
 |----------------+-----+------+------+---------------------|
@@ -10244,13 +10435,13 @@ glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01)
 | Cuadrática     | 1.0 |  0.0 | 0.01 | Física realista     |
 | Combinada      | 1.0 | 0.05 | 0.01 | Escenas interiores  |
 
-* Configuraciones Avanzadas
+** Configuraciones Avanzadas
 
-** Sistema de 3 Puntos (Three-Point Lighting)
+*** Sistema de 3 Puntos (Three-Point Lighting)
 
 Sistema profesional usado en fotografía y cine.
 
-*** Key Light (Luz Principal)
+**** Key Light (Luz Principal)
 #+begin_src python
 # Luz principal: fuerte, desde arriba-adelante-lateral
 glEnable(GL_LIGHT0)
@@ -10262,7 +10453,7 @@ glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse)
 glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient)
 #+end_src
 
-*** Fill Light (Luz de Relleno)
+**** Fill Light (Luz de Relleno)
 #+begin_src python
 # Luz de relleno: suave, opuesta a la principal
 glEnable(GL_LIGHT1)
@@ -10272,7 +10463,7 @@ glLightfv(GL_LIGHT1, GL_POSITION, light1_position)
 glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse)
 #+end_src
 
-*** Rim Light (Luz de Contorno)
+**** Rim Light (Luz de Contorno)
 #+begin_src python
 # Luz de contorno: desde atrás-lateral, separa objeto del fondo
 glEnable(GL_LIGHT2)
@@ -10282,7 +10473,7 @@ glLightfv(GL_LIGHT2, GL_POSITION, light2_position)
 glLightfv(GL_LIGHT2, GL_DIFFUSE, light2_diffuse)
 #+end_src
 
-*** Diagrama
+**** Diagrama
 
 #+begin_example
           Key ✨
@@ -10295,9 +10486,9 @@ glLightfv(GL_LIGHT2, GL_DIFFUSE, light2_diffuse)
        ╱       ╲
 #+end_example
 
-** Luces de Colores
+*** Luces de Colores
 
-*** Teoría del Color
+**** Teoría del Color
 Las luces de colores se pueden combinar según la síntesis aditiva RGB:
 
 | Luz 1 | Luz 2 | Resultado |
@@ -10307,7 +10498,7 @@ Las luces de colores se pueden combinar según la síntesis aditiva RGB:
 | Verde | Azul | Cian |
 | R+G+B | - | Blanco |
 
-*** Ejemplo Artístico
+**** Ejemplo Artístico
 
 #+begin_src python
 def setup_colored_lights():
@@ -11514,50 +11705,20 @@ Presiona las teclas numéricas para cambiar:
   4 - Luces de Colores (RGB)
 ============================================================
 
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+
 >>> MODO 2: LUZ DIRECCIONAL
 Luz infinita como el sol (W=0)
 
 >>> MODO 3: SPOTLIGHT
 Foco concentrado con ángulo de 30°
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
 
 >>> MODO 4: LUCES DE COLORES
 Roja (izq) + Verde (der) + Azul (arriba)
@@ -11571,8 +11732,41 @@ Foco concentrado con ángulo de 30°
 >>> MODO 2: LUZ DIRECCIONAL
 Luz infinita como el sol (W=0)
 
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
 >>> MODO 4: LUCES DE COLORES
 Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
 
 >>> MODO 2: LUZ DIRECCIONAL
 Luz infinita como el sol (W=0)
@@ -11583,20 +11777,11 @@ Foco concentrado con ángulo de 30°
 >>> MODO 1: LUCES MÚLTIPLES
 Key Light (blanca) + Fill (azul) + Rim (naranja)
 
->>> MODO 1: LUCES MÚLTIPLES
-Key Light (blanca) + Fill (azul) + Rim (naranja)
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
 
->>> MODO 1: LUCES MÚLTIPLES
-Key Light (blanca) + Fill (azul) + Rim (naranja)
-
->>> MODO 1: LUCES MÚLTIPLES
-Key Light (blanca) + Fill (azul) + Rim (naranja)
-
->>> MODO 1: LUCES MÚLTIPLES
-Key Light (blanca) + Fill (azul) + Rim (naranja)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
 
 >>> MODO 4: LUCES DE COLORES
 Roja (izq) + Verde (der) + Azul (arriba)
@@ -11607,8 +11792,20 @@ Luz infinita como el sol (W=0)
 >>> MODO 3: SPOTLIGHT
 Foco concentrado con ángulo de 30°
 
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
 >>> MODO 1: LUCES MÚLTIPLES
 Key Light (blanca) + Fill (azul) + Rim (naranja)
+
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
 #+end_example
 
 Para windows test 
@@ -11685,7 +11882,15 @@ def key_callback(window, key, scancode, action, mods):
 def draw_eye():
     """Dibuja dos esferas simples"""
     glPushMatrix()
-   
+
+    glColor3f(0, 0, 0)  # Negro
+    glPushMatrix()
+    glTranslatef(0.3, 0, 0)
+    draw_sphere(0.4, 30, 30)
+    glPopMatrix()
+    glPopMatrix()
+
+    
     # Primera esfera (roja) a la izquierda
     glColor3f(0.85, 0.67, 0.65)  # Rojo
     glPushMatrix()
@@ -11707,14 +11912,7 @@ def draw_eye():
     draw_sphere(0.55, 30, 30)
     glPopMatrix()
 
-    glColor3f(0, 0, 0)  # Negro
-    glPushMatrix()
-    glTranslatef(0.3, 0, 0)
-    draw_sphere(0.4, 30, 30)
-    glPopMatrix()
-
-    glPopMatrix()
-
+    
 def setup_lighting():
     """Configura iluminación básica"""
     glEnable(GL_LIGHTING)
@@ -11772,7 +11970,7 @@ def main():
     glfw.set_key_callback(window, key_callback)
 
     while not glfw.window_should_close(window):
-        #glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         
         #glMatrixMode(GL_PROJECTION)
         #glLoadIdentity()
@@ -12356,7 +12554,7 @@ gluLookAt(9, 10, 15,
 
 ---
 
-** 5. 🚀 Desafío de Combinación: Vista del Automóvil
+** 5.  Desafío de Combinación: Vista del Automóvil
 
 **Instrucción:** Combina los tres vectores para simular la vista desde un **automóvil que se acerca a las casas por la calle central**, ligeramente inclinado hacia la derecha.
 
@@ -13594,9 +13792,6 @@ if __name__ == "__main__":
 #+END_SRC
 
 #+RESULTS:
-: Camara inicializada
-: 
-: Cerrando aplicación...
 
 
 * Proyectos Finales Agosto Diciembre 2025
