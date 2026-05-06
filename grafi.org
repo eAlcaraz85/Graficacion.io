@@ -11580,10 +11580,10 @@ def draw_eye():
 
 def setup_lighting():
     """Configura iluminación básica"""
-    glEnable(GL_LIGHTING)
-    glEnable(GL_LIGHT0)
-    glEnable(GL_DEPTH_TEST)
-    glEnable(GL_COLOR_MATERIAL)
+    #glEnable(GL_LIGHTING)
+    #glEnable(GL_LIGHT0)
+    #glEnable(GL_DEPTH_TEST)
+    #glEnable(GL_COLOR_MATERIAL)
     
     light_position = [1.0, 1.0, 1.0, 0.2]
     glLightfv(GL_LIGHT0, GL_POSITION, light_position)
