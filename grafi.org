@@ -8594,8 +8594,8 @@ def draw_house():
 
     # Configuración de la cámara
     gluLookAt(4, 3, 8,  # Posición de la cámara
-              2, 1, 0,  # Punto al que mira
-              0, 1, 0)  # Vector hacia arriba
+              2, 4, 2,  # Punto al que mira
+              0, 10, 0)  # Vector hacia arriba
 
     draw_ground()  # Dibuja el suelo
     draw_cube()    # Dibuja la base de la casa
@@ -8953,7 +8953,7 @@ def draw_scene():
     glLoadIdentity()
 
     # Configuración de la cámara
-    gluLookAt(9, 10, 15,  # Posición de la cámara
+    gluLookAt(2, 10, 2,  # Posición de la cámara
               0, 0, 0,    # Punto al que mira
               0, 1 ,0 )    # Vector hacia arriba
 
@@ -10131,6 +10131,664 @@ Ejemplo de cómo aplicar una transformación de escalado y rotación:
 
 
 
+* Introducción a las Texturas en OpenGL
+
+Las texturas en OpenGL son imágenes que se aplican sobre la superficie
+de objetos 3D para darles más realismo. En lugar de pintar un color
+sólido, OpenGL puede "envolver" una imagen sobre un plano, cubo,
+esfera, etc. Esto permite:
+
+-  Simular materiales como madera, pasto, ladrillo o metal.
+-  Dar detalle sin incrementar la cantidad de polígonos.
+
+** Agregar variaciones visuales: patrones, sombras, ruido.
+
+Para usar texturas, OpenGL sigue un proceso típico:
+
+1. **Cargar la imagen** desde disco (PNG, JPG, etc.).
+2. **Convertirla a un arreglo de bytes** (RGB o RGBA).
+3. **Subirla a la memoria de la GPU** con `glTexImage2D`.
+4. **Configurar filtrado y repetición** (cómo se ve al acercar/alejar).
+5. **Asignar coordenadas UV** a las superficies.
+6. **Renderizar** el objeto usando la textura.
+
+- casa textura 
+
+#+BEGIN_SRC python :results output :tangle code/casatextura.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import gluPerspective, gluLookAt
+from PIL import Image
+import sys
+
+texture_id = None
+
+
+# ------------------------------------------------------------
+# Cargar textura con correcciones
+# ------------------------------------------------------------
+def load_texture(path):
+   
+    img = Image.open(path).convert("RGB")
+    img = img.transpose(Image.FLIP_TOP_BOTTOM)
+    img_data = img.tobytes()
+
+    tex_id = glGenTextures(1)
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
+
+    texture_id = glGenTextures(1)
+    glBindTexture(GL_TEXTURE_2D, texture_id)
+
+    # Filtrado suave + mipmaps
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+
+    # Repetición
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+
+    # Cargar textura normal
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
+                 img.width, img.height, 0,
+                 GL_RGB, GL_UNSIGNED_BYTE, img_data)
+
+    # Generar mipmaps moderno (reemplaza a gluBuild2DMipmaps)
+    glGenerateMipmap(GL_TEXTURE_2D)
+
+    glBindTexture(GL_TEXTURE_2D, 0)
+
+    return tex_id
+# ------------------------------------------------------------
+# OpenGL Init
+# ------------------------------------------------------------
+def init():
+    global tex_pasto
+    glClearColor(0.5, 0.8, 1.0, 1.0)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_TEXTURE_2D)
+
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(60, 1.0, 0.1, 100.0)
+    glMatrixMode(GL_MODELVIEW)
+
+    tex_pasto = load_texture("pasto.png")  # <<-- TU IMAGEN AQUÍ
+
+
+# ------------------------------------------------------------
+# Dibujar la casa
+# ------------------------------------------------------------
+def draw_cube():
+    glBegin(GL_QUADS)
+    glColor3f(0.8, 0.5, 0.2)
+
+    # Frente
+    glVertex3f(-1, 0, 1)
+    glVertex3f(1, 0, 1)
+    glVertex3f(1, 1, 1)
+    glVertex3f(-1, 1, 1)
+
+    # Atrás
+    glVertex3f(-1, 0, -1)
+    glVertex3f(1, 0, -1)
+    glVertex3f(1, 1, -1)
+    glVertex3f(-1, 1, -1)
+
+    # Izquierda
+    glVertex3f(-1, 0, -1)
+    glVertex3f(-1, 0, 1)
+    glVertex3f(-1, 1, 1)
+    glVertex3f(-1, 1, -1)
+
+    # Derecha
+    glVertex3f(1, 0, -1)
+    glVertex3f(1, 0, 1)
+    glVertex3f(1, 1, 1)
+    glVertex3f(1, 1, -1)
+
+    # Arriba
+    glColor3f(0.9, 0.6, 0.3)
+    glVertex3f(-1, 1, -1)
+    glVertex3f(1, 1, -1)
+    glVertex3f(1, 1, 1)
+    glVertex3f(-1, 1, 1)
+
+    # Abajo
+    glColor3f(0.6, 0.4, 0.2)
+    glVertex3f(-1, 0, -1)
+    glVertex3f(1, 0, -1)
+    glVertex3f(1, 0, 1)
+    glVertex3f(-1, 0, 1)
+    glEnd()
+
+
+def draw_roof():
+    glBegin(GL_TRIANGLES)
+    glColor3f(0.9, 0.1, 0.1)
+
+    glVertex3f(-1, 1, 1)
+    glVertex3f(1, 1, 1)
+    glVertex3f(0, 2, 0)
+
+    glVertex3f(-1, 1, -1)
+    glVertex3f(1, 1, -1)
+    glVertex3f(0, 2, 0)
+
+    glVertex3f(-1, 1, -1)
+    glVertex3f(-1, 1, 1)
+    glVertex3f(0, 2, 0)
+
+    glVertex3f(1, 1, -1)
+    glVertex3f(1, 1, 1)
+    glVertex3f(0, 2, 0)
+    glEnd()
+
+
+# ------------------------------------------------------------
+# Piso con textura
+# ------------------------------------------------------------
+def draw_ground():
+    glBindTexture(GL_TEXTURE_2D, tex_pasto)
+
+    glBegin(GL_QUADS)
+    glColor3f(1, 1, 1)
+
+    scale = 3  # Cambia entre 1 y 5 según cómo quieras el mosaico
+
+    glTexCoord2f(0, 0)
+    glVertex3f(-10, 0, 10)
+
+    glTexCoord2f(scale, 0)
+    glVertex3f(10, 0, 10)
+
+    glTexCoord2f(scale, scale)
+    glVertex3f(10, 0, -10)
+
+    glTexCoord2f(0, scale)
+    glVertex3f(-10, 0, -10)
+
+    glEnd()
+
+    glBindTexture(GL_TEXTURE_2D, 0)
+
+
+# ------------------------------------------------------------
+# Dibujo principal
+# ------------------------------------------------------------
+def draw_scene():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+
+    gluLookAt(4, 4, 8, 0, 1, 0, 0, 1, 0)
+
+    draw_ground()
+    draw_cube()
+    draw_roof()
+
+    glfw.swap_buffers(window)
+
+
+# ------------------------------------------------------------
+# Main
+# ------------------------------------------------------------
+def main():
+    global window
+
+    if not glfw.init():
+        sys.exit()
+
+    window = glfw.create_window(800, 600, "Casa con Textura de Pasto", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+
+    glfw.make_context_current(window)
+    glViewport(0, 0, 800, 600)
+
+    init()
+
+    while not glfw.window_should_close(window):
+        draw_scene()
+        glfw.poll_events()
+
+    glfw.terminate()
+
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+: 
+: (python3:326039): Gtk-[1;33mWARNING[0m **: [34m13:12:58.637[0m: gtk_disable_setlocale() must be called before gtk_init()
+
+
+#+BEGIN_SRC python :results output :tangle code/casatextura.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import gluPerspective, gluLookAt
+from PIL import Image
+import sys
+
+tex_pasto = None
+tex_pared = None
+tex_techo = None
+
+
+def load_texture(path):
+
+    img = Image.open(path).convert("RGB")
+    img = img.transpose(Image.FLIP_TOP_BOTTOM)
+    img_data = img.tobytes()
+
+    tex_id = glGenTextures(1)
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
+
+    glBindTexture(GL_TEXTURE_2D, tex_id)
+
+    # Filtrado
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+
+    # Envoltura (tiling)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+
+    # Subir la textura
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
+                 img.width, img.height, 0,
+                 GL_RGB, GL_UNSIGNED_BYTE, img_data)
+
+    # Crear mipmaps
+    glGenerateMipmap(GL_TEXTURE_2D)
+
+    glBindTexture(GL_TEXTURE_2D, 0)
+    return tex_id
+
+
+def init():
+    global tex_pasto, tex_pared, tex_techo
+
+    glClearColor(0.5, 0.8, 1.0, 1.0)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_TEXTURE_2D)
+
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(60, 800 / 600, 0.1, 100.0)
+    glMatrixMode(GL_MODELVIEW)
+
+    # Cargar texturas
+    tex_pasto = load_texture("pasto.png")
+    tex_pared = load_texture("pared.png")
+    tex_techo = load_texture("trunk.png")
+
+
+def draw_ground():
+    glBindTexture(GL_TEXTURE_2D, tex_pared)
+
+    glBegin(GL_QUADS)
+    glColor3f(1, 1, 1)
+
+    scale = 5
+
+    glTexCoord2f(0, 0);         glVertex3f(-10, 0, 10)
+    glTexCoord2f(scale, 0);     glVertex3f( 10, 0, 10)
+    glTexCoord2f(scale, scale); glVertex3f( 10, 0,-10)
+    glTexCoord2f(0, scale);     glVertex3f(-10, 0,-10)
+
+    glEnd()
+
+    glBindTexture(GL_TEXTURE_2D, 0)
+
+
+# ------------------------------------------------------------
+# Casa con textura de pared
+# ------------------------------------------------------------
+def draw_cube():
+    glBindTexture(GL_TEXTURE_2D, tex_pared)
+
+    glBegin(GL_QUADS)
+    glColor3f(1, 1, 1)
+
+    # Frente
+    glTexCoord2f(0, 0); glVertex3f(-1, 0, 1)
+    glTexCoord2f(1, 0); glVertex3f( 1, 0, 1)
+    glTexCoord2f(1, 1); glVertex3f( 1, 1, 1)
+    glTexCoord2f(0, 1); glVertex3f(-1, 1, 1)
+
+    # Atrás
+    glTexCoord2f(0, 0); glVertex3f(-1, 0,-1)
+    glTexCoord2f(1, 0); glVertex3f( 1, 0,-1)
+    glTexCoord2f(1, 1); glVertex3f( 1, 1,-1)
+    glTexCoord2f(0, 1); glVertex3f(-1, 1,-1)
+
+    # Izquierda
+    glTexCoord2f(0, 0); glVertex3f(-1, 0,-1)
+    glTexCoord2f(1, 0); glVertex3f(-1, 0, 1)
+    glTexCoord2f(1, 1); glVertex3f(-1, 1, 1)
+    glTexCoord2f(0, 1); glVertex3f(-1, 1,-1)
+
+    # Derecha
+    glTexCoord2f(0, 0); glVertex3f( 1, 0,-1)
+    glTexCoord2f(1, 0); glVertex3f( 1, 0, 1)
+    glTexCoord2f(1, 1); glVertex3f( 1, 1, 1)
+    glTexCoord2f(0, 1); glVertex3f( 1, 1,-1)
+
+    glEnd()
+
+    glBindTexture(GL_TEXTURE_2D, 0)
+
+
+# ------------------------------------------------------------
+# Techo con textura propia
+# ------------------------------------------------------------
+def draw_roof():
+    glBindTexture(GL_TEXTURE_2D, tex_techo)
+
+    glBegin(GL_TRIANGLES)
+    glColor3f(1, 1, 1)
+
+    glTexCoord2f(0, 0);    glVertex3f(-1, 1, 1)
+    glTexCoord2f(1, 0);    glVertex3f( 1, 1, 1)
+    glTexCoord2f(0.5, 1);  glVertex3f( 0, 2, 0)
+
+    glTexCoord2f(0, 0);    glVertex3f(-1, 1,-1)
+    glTexCoord2f(1, 0);    glVertex3f( 1, 1,-1)
+    glTexCoord2f(0.5, 1);  glVertex3f( 0, 2, 0)
+
+    glEnd()
+
+    glBindTexture(GL_TEXTURE_2D, 0)
+
+
+# ------------------------------------------------------------
+# Escena principal
+# ------------------------------------------------------------
+def draw_scene():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+
+    gluLookAt(4, 4, 8, 0, 1, 0, 0, 1, 0)
+
+    draw_ground()
+    draw_cube()
+    draw_roof()
+
+    glfw.swap_buffers(window)
+
+
+# ------------------------------------------------------------
+# Main
+# ------------------------------------------------------------
+def main():
+    global window
+
+    if not glfw.init():
+        sys.exit()
+
+    window = glfw.create_window(800, 600, "Casa con Varias Texturas", None, None)
+    if not window:
+        glfw.terminate()
+        sys.exit()
+
+    glfw.make_context_current(window)
+    glViewport(0, 0, 800, 600)
+
+    init()
+
+    while not glfw.window_should_close(window):
+        draw_scene()
+        glfw.poll_events()
+
+    glfw.terminate()
+
+
+if __name__ == "__main__":
+    main()
+
+
+#+END_SRC
+
+#+RESULTS:
+
+
+
+
+#+begin_src python
+def load_texture(path):
+global texture_id
+
+```
+img = Image.open(path).convert("RGB")
+img = img.transpose(Image.FLIP_TOP_BOTTOM)
+img_data = img.tobytes()
+
+glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
+
+texture_id = glGenTextures(1)
+glBindTexture(GL_TEXTURE_2D, texture_id)
+
+# Filtrado suave + mipmaps
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR)
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+
+# Repetición
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+
+# Cargar textura normal
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
+             img.width, img.height, 0,
+             GL_RGB, GL_UNSIGNED_BYTE, img_data)
+
+glGenerateMipmap(GL_TEXTURE_2D)
+
+glBindTexture(GL_TEXTURE_2D, 0)
+```
+
+#+end_src
+
+- Carga la imagen desde disco.
+- Abrir la imagen: =Image.open(path).convert("RGB")=
+- Fuerza el formato a RGB (3 canales).
+
+#+begin_example
+Archivo en disco
+┌───────────────┐
+│ pasto.jpg      │
+└───────┬───────┘
+│ (PIL)
+▼
+┌──────────────────┐
+│ PIL Image (RGB) │
+└──────────────────┘
+#+end_example
+
+*** 2. Voltear la imagen verticalmente
+
+#+begin_src python
+img = img.transpose(Image.FLIP_TOP_BOTTOM)
+#+end_src
+
+PIL considera el origen (0,0) arriba. OpenGL lo considera abajo.
+
+#+begin_example
+Antes (PIL):
+y ↑
+┌───────────────┐
+│ Línea 0        │  ← arriba
+│ Línea 1        │
+│ ...            │
+│ Línea n        │  ← abajo
+└───────────────┘
+
+Después (OpenGL):
+y ↑
+┌───────────────┐
+│ Línea n        │  ← arriba
+│ ...            │
+│ Línea 1        │
+│ Línea 0        │  ← abajo
+└───────────────┘
+#+end_example
+
+*** 3. Convertir la imagen en bytes
+
+#+begin_src python
+img_data = img.tobytes()
+#+end_src
+
+Formato final: =RGBRGBRGBRGB...=
+
+#+begin_example
+Memoria enviada a OpenGL:
+[R G B][R G B][R G B]...[R G B]
+#+end_example
+
+*** 4. Ajustar alineación de lectura: =glPixelStorei(GL_UNPACK_ALIGNMENT, 1)=
+
+OpenGL por defecto espera que cada fila tenga padding hasta múltiplos de 4 bytes.
+La opción =1= elimina ese requisito.
+
+#+begin_example
+Sin alineación → filas mal alineadas → texturas corruptas.
+
+Con GL_UNPACK_ALIGNMENT = 1:
+Fila: [RGB RGB RGB RGB] sin relleno extra.
+#+end_example
+
+*** 5. Crear la textura en GPU
+
+#+begin_src python
+texture_id = glGenTextures(1)
+glBindTexture(GL_TEXTURE_2D, texture_id)
+#+end_src
+
+#+begin_example
+CPU                           GPU
+┌─────────────┐             ┌──────────────────┐
+│ texture_id=5│────────────▶│ Texture #5 creada│
+└─────────────┘             └──────────────────┘
+#+end_example
+
+*** 6. Configurar parámetros de la textura
+
+**** Filtrado
+#+begin_example
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR)
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+#+end_example
+
+#+begin_example
+Objeto lejos → usa MIPMAP
+Objeto cerca → usa textura original
+
+```
+   distancia
+    ↑
+```
+
+lejos  │   [textura reducida]
+│
+│   [textura 1/2]
+│
+cerca  │   [textura original]
+└──────────────────▶ tamaño en pantalla
+#+end_example
+
+**** Repetición
+#+begin_example
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+#+end_example
+
+#+begin_example
+Coordenadas UV:
+0   1   2   3   → se repite la textura
+│───│───│───│───│
+#+end_example
+
+*** 7. Enviar la textura a GPU
+
+#+begin_src python
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
+img.width, img.height, 0,
+GL_RGB, GL_UNSIGNED_BYTE, img_data)
+#+end_src
+
+Diagrama:
+#+begin_example
+CPU (bytes crudos)
+│
+│ glTexImage2D
+▼
+GPU almacena la textura en VRAM
+#+end_example
+
+*** 8. Generar Mipmaps
+
+#+begin_src python
+glGenerateMipmap(GL_TEXTURE_2D)
+#+end_src
+
+#+begin_example
+GPU genera automáticamente:
+Nivel 0 → textura completa
+Nivel 1 → 1/2 tamaño
+Nivel 2 → 1/4 tamaño
+Nivel 3 → 1/8 tamaño
+...
+#+end_example
+
+*** 9. Desbindeo
+
+#+begin_src python
+glBindTexture(GL_TEXTURE_2D, 0)
+#+end_src
+
+Esto evita modificar la textura accidentalmente.
+
+** Resumen visual completo
+
+#+begin_example
+┌───────────────────┐
+│ 1. Cargar imagen  │
+└───────────┬───────┘
+▼
+┌───────────────────┐
+│2. Voltear imagen  │
+└───────────┬───────┘
+▼
+┌───────────────────┐
+│3. Bytes RGB       │
+└───────────┬───────┘
+▼
+┌───────────────────┐
+│4. Alineación 1    │
+└───────────┬───────┘
+▼
+┌───────────────────┐
+│5. Crear textura   │
+└───────────┬───────┘
+▼
+┌───────────────────┐
+│6. Configurar FILT │
+│   y WRAP          │
+└───────────┬───────┘
+▼
+┌───────────────────┐
+│7. glTexImage2D    │
+└───────────┬───────┘
+▼
+┌───────────────────┐
+│8. Mipmaps         │
+└───────────┬───────┘
+▼
+┌───────────────────┐
+│9. Unbind          │
+└───────────────────┘
+#+end_example
+
 * Introducción a la Iluminación en OpenGL
 
 OpenGL utiliza un modelo de iluminación basado en física simplificada
@@ -10527,372 +11185,9 @@ def setup_colored_lights():
     light_ambient = [0.05, 0.05, 0.05, 1.0]
     glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
 #+end_src
+** Ejemplos Completos
 
-* Configuración de Materiales
-
-** Propiedades del Material
-
-Los materiales definen cómo las superficies reaccionan a la luz.
-
-*** Material Ambiente
-#+begin_src python
-material_ambient = [0.2, 0.2, 0.2, 1.0]
-glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient)
-#+end_src
-
-*** Material Difuso
-#+begin_src python
-material_diffuse = [0.8, 0.0, 0.0, 1.0]  # Rojo mate
-glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse)
-#+end_src
-
-*** Material Especular
-#+begin_src python
-material_specular = [1.0, 1.0, 1.0, 1.0]  # Brillos blancos
-glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular)
-#+end_src
-
-*** Shininess (Brillo)
-#+begin_src python
-# 0   = superficie mate, difusa
-# 128 = superficie muy brillante, pulida
-shininess = 100.0
-glMaterialf(GL_FRONT, GL_SHININESS, shininess)
-#+end_src
-
-** Ejemplos de Materiales
-
-*** Plástico
-#+begin_src python
-glMaterialfv(GL_FRONT, GL_AMBIENT, [0.2, 0.2, 0.2, 1.0])
-glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.8, 0.1, 0.1, 1.0])
-glMaterialfv(GL_FRONT, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
-glMaterialf(GL_FRONT, GL_SHININESS, 32.0)
-#+end_src
-
-*** Metal
-#+begin_src python
-glMaterialfv(GL_FRONT, GL_AMBIENT, [0.3, 0.3, 0.3, 1.0])
-glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.7, 0.7, 0.7, 1.0])
-glMaterialfv(GL_FRONT, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
-glMaterialf(GL_FRONT, GL_SHININESS, 128.0)
-#+end_src
-
-*** Goma
-#+begin_src python
-glMaterialfv(GL_FRONT, GL_AMBIENT, [0.1, 0.1, 0.1, 1.0])
-glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.5, 0.5, 0.5, 1.0])
-glMaterialfv(GL_FRONT, GL_SPECULAR, [0.1, 0.1, 0.1, 1.0])
-glMaterialf(GL_FRONT, GL_SHININESS, 5.0)
-#+end_src
-
-** GL_COLOR_MATERIAL
-
-Permite usar =glColor3f()= con iluminación:
-
-#+begin_src python
-glEnable(GL_COLOR_MATERIAL)
-glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
-
-# Ahora glColor3f afecta ambient y diffuse del material
-glColor3f(1.0, 0.0, 0.0)  # Objeto rojo con iluminación
-#+end_src
-
-* Funciones Principales de OpenGL
-
-** Activación del Sistema
-
-#+begin_src python
-# Activar iluminación global
-glEnable(GL_LIGHTING)
-
-# Activar luces individuales (GL_LIGHT0 a GL_LIGHT7)
-glEnable(GL_LIGHT0)
-glEnable(GL_LIGHT1)
-
-# Desactivar
-glDisable(GL_LIGHTING)
-glDisable(GL_LIGHT0)
-#+end_src
-
-** Configuración de Luces
-
-#+begin_src python
-# Parámetros vectoriales (4 valores)
-glLightfv(luz, parámetro, valor)
-
-# Parámetros escalares (1 valor)
-glLightf(luz, parámetro, valor)
-#+end_src
-
-*** Parámetros Disponibles
-
-| Parámetro                | Tipo      | Descripción                  |
-|--------------------------+-----------+------------------------------|
-| =GL_POSITION=              | [x,y,z,w] | Posición o dirección         |
-| =GL_AMBIENT=               | [r,g,b,a] | Color ambiente               |
-| =GL_DIFFUSE=               | [r,g,b,a] | Color difuso                 |
-| =GL_SPECULAR=              | [r,g,b,a] | Color especular              |
-| =GL_SPOT_DIRECTION=        | [x,y,z]   | Dirección del spotlight      |
-| =GL_SPOT_CUTOFF=           | float     | Ángulo del cono (0-90 o 180) |
-| =GL_SPOT_EXPONENT=         | float     | Concentración (0-128)        |
-| =GL_CONSTANT_ATTENUATION=  | float     | Kc                           |
-| =GL_LINEAR_ATTENUATION=    | float     | Kl                           |
-| =GL_QUADRATIC_ATTENUATION= | float     | Kq                           |
-
-** Configuración de Materiales
-
-#+begin_src python
-# Parámetros vectoriales
-glMaterialfv(cara, parámetro, valor)
-
-# Parámetros escalares
-glMaterialf(cara, parámetro, valor)
-#+end_src
-
-*** Caras
-
-- =GL_FRONT= : Solo cara frontal
-- =GL_BACK= : Solo cara trasera
-- =GL_FRONT_AND_BACK= : Ambas caras
-
-** Modelo de Sombreado
-
-#+begin_src python
-# Suavizado de Gouraud (interpolación de colores)
-glShadeModel(GL_SMOOTH)  # Por defecto
-
-# Sombreado plano (color constante por polígono)
-glShadeModel(GL_FLAT)
-#+end_src
-
-* Diferencia entre Mover Objeto vs Mover Cámara
-
-** Moviendo el OBJETO (tu código actual)
-
-#+begin_src python
-# Cámara FIJA en (0, 0, -5) mirando al origen
-glLoadIdentity()
-glTranslatef(0, 0, -5)      # ← Cámara fija
-
-# OBJETO rota
-glRotatef(rotation, 0, 1, 0)  # ← Objeto gira
-draw_object()
-#+end_src
-
-*** Diagrama
-
-#+begin_example
-    👁️ Cámara (fija)
-     |
-     | mira hacia
-     ↓
-     ● ↻  Objeto ROTA
-     
-La cámara está quieta, el objeto gira
-#+end_example
-
-** Moviendo la CÁMARA (objeto fijo)
-
-#+begin_src python
-# CÁMARA rota alrededor del objeto
-glLoadIdentity()
-
-# Alejar cámara
-glTranslatef(0, 0, -5)
-
-# CÁMARA rota (invirtiendo la rotación)
-glRotatef(rotation, 0, 1, 0)  # ← Cámara orbita
-
-# Objeto FIJO
-draw_object()
-#+end_src
-
-*** Diagrama
-
-#+begin_example
-       ● Objeto (fijo)
-      /
-     /
-    👁️ ↻  Cámara ORBITA
-    
-El objeto está quieto, la cámara gira alrededor
-#+end_example
-
-** Código Completo de Ejemplo
-
-#+begin_src python
-# MODO 1: Rotar OBJETO (cámara fija)
-def render_rotating_object():
-    glMatrixMode(GL_MODELVIEW)
-    glLoadIdentity()
-    
-    # 1. Posicionar cámara (fija)
-    glTranslatef(0, 0, -5)
-    
-    # 2. Rotar OBJETO
-    glRotatef(angle, 0, 1, 0)
-    
-    # 3. Dibujar
-    draw_sphere()
-
-# MODO 2: Rotar CÁMARA (objeto fijo)
-def render_orbiting_camera():
-    glMatrixMode(GL_MODELVIEW)
-    glLoadIdentity()
-    
-    # 1. Rotar CÁMARA (invertir rotación)
-    glRotatef(-angle, 0, 1, 0)
-    
-    # 2. Alejar cámara
-    glTranslatef(0, 0, -5)
-    
-    # 3. Dibujar objeto (fijo en origen)
-    draw_sphere()
-
-# MODO 3: Usar gluLookAt (más intuitivo para cámara)
-def render_with_lookat():
-    glMatrixMode(GL_MODELVIEW)
-    glLoadIdentity()
-    
-    # Calcular posición de cámara en órbita
-    cam_x = 5 * math.sin(math.radians(angle))
-    cam_z = 5 * math.cos(math.radians(angle))
-    
-    # gluLookAt(ojo_x, ojo_y, ojo_z, 
-    #           mira_x, mira_y, mira_z,
-    #           arriba_x, arriba_y, arriba_z)
-    gluLookAt(cam_x, 0, cam_z,  # Posición de cámara
-              0, 0, 0,          # Mira al origen
-              0, 1, 0)          # Vector "arriba"
-    
-    # Objeto fijo en origen
-    draw_sphere()
-#+end_src
-
-** Resumen
-
-| Aspecto            | Rotar Objeto            | Rotar Cámara            |
-|--------------------+-------------------------+-------------------------|
-| **Objeto**           | Se mueve/rota           | Estático en origen      |
-| **Cámara**           | Fija                    | Orbita alrededor        |
-| **Transformaciones** | Después de cámara       | Antes de alejar cámara  |
-| **Uso común**        | Inspeccionar modelo     | Explorar escena         |
-| **Luces**            | Fijas respecto al mundo | Fijas respecto a cámara |
-
-* Consejos y Buenas Prácticas
-
-** Orden de Operaciones
-
-El orden IMPORTA en OpenGL:
-
-#+begin_src python
-# CORRECTO
-glLoadIdentity()
-glTranslatef(x, y, z)    # 1. Primero trasladar
-glRotatef(angle, ...)    # 2. Luego rotar
-glScalef(sx, sy, sz)     # 3. Finalmente escalar
-draw_object()
-
-# Las transformaciones se aplican en ORDEN INVERSO al código
-# El objeto se escala → rota → traslada
-#+end_src
-
-** Optimización
-
-#+begin_src python
-# MAL: Cambiar estado muchas veces
-for obj in objects:
-    glEnable(GL_LIGHTING)
-    draw(obj)
-    glDisable(GL_LIGHTING)
-
-# BIEN: Agrupar por estado
-glEnable(GL_LIGHTING)
-for obj in lit_objects:
-    draw(obj)
-glDisable(GL_LIGHTING)
-for obj in unlit_objects:
-    draw(obj)
-#+end_src
-
-** Depuración
-
-*** Ver posiciones de luces
-
-#+begin_src python
-def debug_draw_lights():
-    glDisable(GL_LIGHTING)
-    
-    # Dibujar esferas en posición de luces
-    light_pos = [0] * 4
-    glGetLightfv(GL_LIGHT0, GL_POSITION, light_pos)
-    
-    glColor3f(1, 1, 0)
-    glPushMatrix()
-    glTranslatef(light_pos[0], light_pos[1], light_pos[2])
-    glutWireSphere(0.1, 8, 8)
-    glPopMatrix()
-    
-    glEnable(GL_LIGHTING)
-#+end_src
-
-*** Verificar normales
-
-#+begin_src python
-# Asegurar que las normales estén normalizadas
-glEnable(GL_NORMALIZE)  # Costoso pero seguro
-
-# O usar manualmente
-glEnable(GL_RESCALE_NORMAL)  # Más rápido si solo escalas uniforme
-#+end_src
-
-** Problemas Comunes
-
-*** Objeto completamente negro
-
-*Causas:*
-- Normales invertidas o incorrectas
-- Material sin componente difuso
-- Luz mal posicionada
-
-*Solución:*
-#+begin_src python
-# Verificar que GL_COLOR_MATERIAL esté activo
-glEnable(GL_COLOR_MATERIAL)
-
-# O configurar material manualmente
-glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.8, 0.8, 0.8, 1.0])
-#+end_src
-
-*** Objeto muy oscuro
-
-*Causas:*
-- Luz ambiente muy baja
-- Objeto lejos de la luz posicional
-
-*Solución:*
-#+begin_src python
-# Aumentar luz ambiente
-light_ambient = [0.5, 0.5, 0.5, 1.0]  # Más alto
-glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
-#+end_src
-
-*** Sin brillos especulares
-
-*Causas:*
-- No se configuró material especular
-- Shininess = 0
-
-*Solución:*
-#+begin_src python
-glMaterialfv(GL_FRONT, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
-glMaterialf(GL_FRONT, GL_SHININESS, 100.0)
-#+end_src
-
-* Ejemplos Completos
-
-** Escena Simple con Una Luz
+*** Escena Simple con Una Luz
 
 #+begin_src python
 def setup_simple_scene():
@@ -10916,7 +11211,7 @@ def draw_scene():
     glutSolidSphere(1.0, 40, 40)
 #+end_src
 
-** Escena con Iluminación Profesional
+*** Escena con Iluminación Profesional
 
 #+begin_src python
 def setup_professional_lighting():
@@ -10948,53 +11243,196 @@ def setup_professional_lighting():
     glMaterialf(GL_FRONT, GL_SHININESS, 80)
 #+end_src
 
-* Referencias
+* Configuración de Materiales
 
-** Documentación Oficial
-- [[https://www.khronos.org/opengl/][OpenGL Official Website]]
-- [[https://www.opengl.org/sdk/docs/man2/][OpenGL 2.1 Reference]]
+Los materiales definen cómo las superficies reaccionan a la luz con iluminación fija (OpenGL clásico).
 
-** Libros 
-- "OpenGL Programming Guide" (Red Book)
-- "OpenGL SuperBible"
-- "Real-Time Rendering"
+** Requisitos mínimos
 
-** Tutoriales Online
-- [[https://learnopengl.com/][Learn OpenGL]]
-- [[http://www.lighthouse3d.com/][Lighthouse3D]]
+#+begin_src python
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+#+end_src
 
-* Apéndice: Tabla de Referencia Rápida
+** Inicialización básica (luz + estados)
 
-** Funciones Esenciales
+#+begin_src python
+def init_lighting():
+    glClearColor(0.08, 0.08, 0.10, 1.0)
+    glEnable(GL_DEPTH_TEST)
 
-| Función                        | Propósito                |
-|--------------------------------+--------------------------|
-| =glEnable(GL_LIGHTING)=          | Activa iluminación       |
-| =glEnable(GL_LIGHT0)=            | Activa luz 0             |
-| =glLightfv(luz, param, val)=     | Configura luz            |
-| =glMaterialfv(cara, param, val)= | Configura material       |
-| =glColorMaterial(cara, modo)=    | Vincula color a material |
-| =glShadeModel(modo)=             | Suavizado o plano        |
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
 
-** Valores Típicos
+    # Luz blanca (posicional). Si el w=0 => direccional, w=1 => posicional.
+    glLightfv(GL_LIGHT0, GL_POSITION, [2.0, 3.0, 4.0, 1.0])
+    glLightfv(GL_LIGHT0, GL_DIFFUSE,  [1.0, 1.0, 1.0, 1.0])
+    glLightfv(GL_LIGHT0, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
 
-*** Luz Básica
-#+begin_example
-Posición: [2, 3, 2, 1]
-Ambient:  [0.3, 0.3, 0.3, 1]
-Diffuse:  [1, 1, 1, 1]
-Specular: [1, 1, 1, 1]
-#+end_example
+    # Normalización útil si escalas modelos
+    glEnable(GL_NORMALIZE)
+#+end_src
 
-*** Material Básico
-#+begin_example
-Specular:  [1, 1, 1, 1]
-Shininess: 50-100
-#+end_example
+** Propiedades del Material
 
-#+END_SRC
+*** Material Ambiente
 
-* Figuras
+#+begin_src python
+material_ambient = [0.2, 0.2, 0.2, 1.0]
+glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient)
+#+end_src
+
+*** Material Difuso
+
+#+begin_src python
+material_diffuse = [0.8, 0.0, 0.0, 1.0]  # Rojo mate
+glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse)
+#+end_src
+
+*** Material Especular
+
+#+begin_src python
+material_specular = [1.0, 1.0, 1.0, 1.0]  # Brillos blancos
+glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular)
+#+end_src
+
+*** Shininess (Brillo)
+
+#+begin_src python
+# 0   = superficie mate, difusa
+# 128 = superficie muy brillante, pulida
+shininess = 100.0
+glMaterialf(GL_FRONT, GL_SHININESS, shininess)
+#+end_src
+
+** Funciones útiles para aplicar materiales (rápido)
+
+#+begin_src python
+def set_material(ambient, diffuse, specular, shininess, face=GL_FRONT):
+    glMaterialfv(face, GL_AMBIENT,  ambient)
+    glMaterialfv(face, GL_DIFFUSE,  diffuse)
+    glMaterialfv(face, GL_SPECULAR, specular)
+    glMaterialf(face, GL_SHININESS, float(shininess))
+#+end_src
+
+** Ejemplos de Materiales
+
+*** Plástico
+
+#+begin_src python
+set_material(
+    ambient=[0.2, 0.2, 0.2, 1.0],
+    diffuse=[0.8, 0.1, 0.1, 1.0],
+    specular=[1.0, 1.0, 1.0, 1.0],
+    shininess=32.0,
+)
+#+end_src
+
+*** Metal
+
+#+begin_src python
+set_material(
+    ambient=[0.3, 0.3, 0.3, 1.0],
+    diffuse=[0.7, 0.7, 0.7, 1.0],
+    specular=[1.0, 1.0, 1.0, 1.0],
+    shininess=128.0,
+)
+#+end_src
+
+*** Goma
+
+#+begin_src python
+set_material(
+    ambient=[0.1, 0.1, 0.1, 1.0],
+    diffuse=[0.5, 0.5, 0.5, 1.0],
+    specular=[0.1, 0.1, 0.1, 1.0],
+    shininess=5.0,
+)
+#+end_src
+
+** GL_COLOR_MATERIAL
+
+Permite usar =glColor3f()= con iluminación para afectar el material automáticamente.
+
+#+begin_src python
+def enable_color_material():
+    glEnable(GL_COLOR_MATERIAL)
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
+#+end_src
+
+Ejemplo de uso:
+
+#+begin_src python
+enable_color_material()
+
+# Ahora glColor3f afecta ambient y diffuse del material
+glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
+glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 64.0)
+
+glColor3f(1.0, 0.0, 0.0)  # Objeto rojo con iluminación
+#+end_src
+
+** Ejemplo completo mínimo (ventana GLUT + esfera)
+
+#+begin_src python
+W, H = 900, 600
+rot_y = 0.0
+
+def reshape(w, h):
+    global W, H
+    W, H = max(1, w), max(1, h)
+    glViewport(0, 0, W, H)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(60.0, W / float(H), 0.1, 100.0)
+    glMatrixMode(GL_MODELVIEW)
+
+def display():
+    global rot_y
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+    glLoadIdentity()
+    gluLookAt(0.0, 0.8, 3.0,   0.0, 0.0, 0.0,   0.0, 1.0, 0.0)
+
+    # La posición de la luz depende del MODELVIEW actual
+    glLightfv(GL_LIGHT0, GL_POSITION, [2.0, 3.0, 4.0, 1.0])
+
+    glRotatef(rot_y, 0.0, 1.0, 0.0)
+
+    # Material (sin GL_COLOR_MATERIAL)
+    set_material(
+        ambient=[0.2, 0.2, 0.2, 1.0],
+        diffuse=[0.1, 0.4, 0.9, 1.0],   # azul
+        specular=[1.0, 1.0, 1.0, 1.0],
+        shininess=80.0,
+        face=GL_FRONT,
+    )
+
+    glutSolidSphere(0.7, 48, 32)
+    glutSwapBuffers()
+
+def idle():
+    global rot_y
+    rot_y = (rot_y + 0.2) % 360.0
+    glutPostRedisplay()
+
+def main():
+    glutInit([])
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
+    glutInitWindowSize(W, H)
+    glutCreateWindow(b"Materiales (PyOpenGL)")
+
+    init_lighting()
+    glutReshapeFunc(reshape)
+    glutDisplayFunc(display)
+    glutIdleFunc(idle)
+    glutMainLoop()
+
+if __name__ == "__main__":
+    main()
+#+end_src
+** Figuras
 
 #+BEGIN_SRC python :results output :tanto code/cuerpo.py
 import glfw
@@ -11711,54 +12149,6 @@ Key Light (blanca) + Fill (azul) + Rim (naranja)
 >>> MODO 2: LUZ DIRECCIONAL
 Luz infinita como el sol (W=0)
 
->>> MODO 1: LUCES MÚLTIPLES
-Key Light (blanca) + Fill (azul) + Rim (naranja)
-
->>> MODO 2: LUZ DIRECCIONAL
-Luz infinita como el sol (W=0)
-
->>> MODO 3: SPOTLIGHT
-Foco concentrado con ángulo de 30°
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 3: SPOTLIGHT
-Foco concentrado con ángulo de 30°
-
->>> MODO 2: LUZ DIRECCIONAL
-Luz infinita como el sol (W=0)
-
->>> MODO 1: LUCES MÚLTIPLES
-Key Light (blanca) + Fill (azul) + Rim (naranja)
-
->>> MODO 2: LUZ DIRECCIONAL
-Luz infinita como el sol (W=0)
-
->>> MODO 3: SPOTLIGHT
-Foco concentrado con ángulo de 30°
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 3: SPOTLIGHT
-Foco concentrado con ángulo de 30°
-
->>> MODO 2: LUZ DIRECCIONAL
-Luz infinita como el sol (W=0)
-
->>> MODO 1: LUCES MÚLTIPLES
-Key Light (blanca) + Fill (azul) + Rim (naranja)
-
->>> MODO 2: LUZ DIRECCIONAL
-Luz infinita como el sol (W=0)
-
 >>> MODO 3: SPOTLIGHT
 Foco concentrado con ángulo de 30°
 
@@ -11771,27 +12161,6 @@ Key Light (blanca) + Fill (azul) + Rim (naranja)
 >>> MODO 2: LUZ DIRECCIONAL
 Luz infinita como el sol (W=0)
 
->>> MODO 3: SPOTLIGHT
-Foco concentrado con ángulo de 30°
-
->>> MODO 1: LUCES MÚLTIPLES
-Key Light (blanca) + Fill (azul) + Rim (naranja)
-
->>> MODO 2: LUZ DIRECCIONAL
-Luz infinita como el sol (W=0)
-
->>> MODO 3: SPOTLIGHT
-Foco concentrado con ángulo de 30°
-
->>> MODO 4: LUCES DE COLORES
-Roja (izq) + Verde (der) + Azul (arriba)
-
->>> MODO 2: LUZ DIRECCIONAL
-Luz infinita como el sol (W=0)
-
->>> MODO 3: SPOTLIGHT
-Foco concentrado con ángulo de 30°
-
 >>> MODO 4: LUCES DE COLORES
 Roja (izq) + Verde (der) + Azul (arriba)
 
@@ -11800,12 +12169,6 @@ Key Light (blanca) + Fill (azul) + Rim (naranja)
 
 >>> MODO 2: LUZ DIRECCIONAL
 Luz infinita como el sol (W=0)
-
->>> MODO 3: SPOTLIGHT
-Foco concentrado con ángulo de 30°
-
->>> MODO 3: SPOTLIGHT
-Foco concentrado con ángulo de 30°
 #+end_example
 
 Para windows test 
@@ -12106,20 +12469,20 @@ if __name__ == "__main__":
 #+RESULTS:
 
 
-** Sombras y Efectos Avanzados
+*** Sombras y Efectos Avanzados
    OpenGL también permite generar sombras y efectos avanzados como
    transparencia, texturas y sombreado por vértices.
 
-** OpenGL Moderno: Shaders y el Pipeline Gráfico
+*** OpenGL Moderno: Shaders y el Pipeline Gráfico
 OpenGL moderno (a partir de OpenGL 3.0) ha evolucionado hacia un modelo basado en shaders. Los shaders son pequeños programas que se ejecutan en la GPU y permiten controlar de manera detallada el comportamiento del pipeline gráfico.
 
-*** Vertex Shader
+**** Vertex Shader
    Procesa cada vértice y aplica transformaciones para determinar su posición en la pantalla.
 
-*** Fragment Shader
+**** Fragment Shader
    Calcula el color final de cada píxel en la superficie de los objetos.
 
-*** Geometry Shader
+**** Geometry Shader
    Opcional, permite manipular primitivas completas (como puntos, líneas o triángulos).
 
 #+begin_src python
@@ -12135,6 +12498,210 @@ OpenGL moderno (a partir de OpenGL 3.0) ha evolucionado hacia un modelo basado e
   }
   """
 #+end_src
+
+
+
+
+* Funciones Principales de OpenGL
+
+** Activación del Sistema
+
+#+begin_src python
+# Activar iluminación global
+glEnable(GL_LIGHTING)
+
+# Activar luces individuales (GL_LIGHT0 a GL_LIGHT7)
+glEnable(GL_LIGHT0)
+glEnable(GL_LIGHT1)
+
+# Desactivar
+glDisable(GL_LIGHTING)
+glDisable(GL_LIGHT0)
+#+end_src
+
+** Configuración de Luces
+
+#+begin_src python
+# Parámetros vectoriales (4 valores)
+glLightfv(luz, parámetro, valor)
+
+# Parámetros escalares (1 valor)
+glLightf(luz, parámetro, valor)
+#+end_src
+
+*** Parámetros Disponibles
+
+| Parámetro                | Tipo      | Descripción                  |
+|--------------------------+-----------+------------------------------|
+| =GL_POSITION=              | [x,y,z,w] | Posición o dirección         |
+| =GL_AMBIENT=               | [r,g,b,a] | Color ambiente               |
+| =GL_DIFFUSE=               | [r,g,b,a] | Color difuso                 |
+| =GL_SPECULAR=              | [r,g,b,a] | Color especular              |
+| =GL_SPOT_DIRECTION=        | [x,y,z]   | Dirección del spotlight      |
+| =GL_SPOT_CUTOFF=           | float     | Ángulo del cono (0-90 o 180) |
+| =GL_SPOT_EXPONENT=         | float     | Concentración (0-128)        |
+| =GL_CONSTANT_ATTENUATION=  | float     | Kc                           |
+| =GL_LINEAR_ATTENUATION=    | float     | Kl                           |
+| =GL_QUADRATIC_ATTENUATION= | float     | Kq                           |
+
+** Configuración de Materiales
+
+#+begin_src python
+# Parámetros vectoriales
+glMaterialfv(cara, parámetro, valor)
+
+# Parámetros escalares
+glMaterialf(cara, parámetro, valor)
+#+end_src
+
+*** Caras
+
+- =GL_FRONT= : Solo cara frontal
+- =GL_BACK= : Solo cara trasera
+- =GL_FRONT_AND_BACK= : Ambas caras
+
+** Modelo de Sombreado
+
+#+begin_src python
+# Suavizado de Gouraud (interpolación de colores)
+glShadeModel(GL_SMOOTH)  # Por defecto
+
+# Sombreado plano (color constante por polígono)
+glShadeModel(GL_FLAT)
+#+end_src
+
+* Exploración de Cámara con gluLookAt (PyOpenGL/GLFW)
+
+**  Objetivo
+  Manipular la función =gluLookAt= para cambiar la perspectiva y orientación de la cámara en la escena de las casas, entendiendo cómo afecta la posición (Eye), el enfoque (Center) y la verticalidad (Up).
+
+| Parámetro | Significado | Valores Iniciales | Controla |
+|-----------+-------------+-------------------+----------|
+| Eye       | Posición    | (9, 10, 15)       | Dónde estoy |
+| Center    | Interés     | (0, 0, 0)         | Hacia dónde miro |
+| Up        | Orientación | (0, 1, 0)         | Cómo está mi cabeza |
+
+---
+
+*** Código Base Relevante
+
+El código de la escena base se encuentra en la función =draw_scene()=. Este es el bloque que modificaremos en cada tarea.
+
+#+NAME: draw_scene_gluLookAt
+#+BEGIN_SRC python :results code
+def draw_scene():
+    # ... (código de limpieza)
+    glLoadIdentity()
+
+    # ****** LA FUNCIÓN CLAVE ******
+    gluLookAt(9, 10, 15,  # Posición de la cámara (Eye)
+              0, 0, 0,    # Punto al que mira (Center)
+              0, 1, 0)    # Vector hacia arriba (Up)
+
+    # ... (código de dibujo de casas y suelo)
+#+END_SRC
+
+---
+
+** 2.  Actividad 1: Cambio de Posición (*Eye*)
+
+La cámara inicial mira a las casas desde una perspectiva aérea y lateral (9, 10, 15). Queremos acercarnos y adoptar una vista a nivel de la calle.
+
+**Instrucción:** Mueve la cámara cerca de una de las casas (ej. la que está en (5, 0, 5)) y a una altura humana, manteniendo el foco en el centro de la escena.
+
+| Vector | Original (X, Y, Z) | **Nuevo (X, Y, Z)** | Efecto Esperado |
+|--------+--------------------+---------------------+-----------------|
+| **Eye**| (9, 10, 15)        | **(12, 1, 12)** | La cámara estará cerca del suelo y cerca de las casas. |
+| Center | (0, 0, 0)          | (0, 0, 0)           | El punto de enfoque sigue siendo el centro. |
+| Up     | (0, 1, 0)          | (0, 1, 0)           | Fijo |
+
+#+NAME: tarea1_eye
+#+BEGIN_SRC python :session house_scene
+# Modificar la función draw_scene en el código principal:
+gluLookAt(12, 1, 12,  # POSICIÓN CERCANA Y BAJA
+          0, 0, 0,
+          0, 1, 0)
+#+END_SRC
+
+*Análisis Esperado:* La escena se verá mucho más grande. La casa en (5, 0, 5) estará muy cerca en el campo de visión. Se perderá la perspectiva aérea.
+
+---
+
+**  Actividad 2: Cambio de Punto de Interés (*Center*)
+
+Volvemos a la posición inicial de la cámara, pero la hacemos mirar hacia un punto en el horizonte que no es el centro de la escena.
+
+**Instrucción:** Haz que la cámara (fija en 9, 10, 15) mire hacia el fondo y a la derecha (eje X positivo y Z negativo), enfocando una zona vacía de la calle.
+
+| Vector | Original (X, Y, Z) | **Nuevo (X, Y, Z)** | Efecto Esperado |
+|--------+--------------------+---------------------+-----------------|
+| Eye    | (9, 10, 15)        | (9, 10, 15)         | Fijo |
+| **Center**| (0, 0, 0)          | **(10, 0, -10)** | La cámara gira hacia una esquina lejana. |
+| Up     | (0, 1, 0)          | (0, 1, 0)           | Fijo |
+
+#+NAME: tarea2_center
+#+BEGIN_SRC python :session house_scene
+# Modificar la función draw_scene en el código principal:
+gluLookAt(9, 10, 15,
+          10, 0, -10, # ENFOQUE LEJANO (Esquina posterior derecha del suelo)
+          0, 1, 0)
+#+END_SRC
+
+*Análisis Esperado:* Las casas se desplazarán hacia la izquierda del marco, ya que el punto de enfoque se ha movido fuera del grupo de casas.
+
+---
+
+** 4. Actividad 3: Cambio de Orientación (*Up*)
+
+Regresamos a la posición y al punto de interés iniciales, pero inclinamos la cabeza del espectador.
+
+**Instrucción:** Simula que la cámara se ha inclinado 90 grados hacia la derecha, haciendo que el eje Z sea la nueva vertical.
+
+| Vector | Original (X, Y, Z) | **Nuevo (X, Y, Z)** | Efecto Esperado |
+|--------+--------------------+---------------------+-----------------|
+| Eye    | (9, 10, 15)        | (9, 10, 15)         | Fijo |
+| Center | (0, 0, 0)          | (0, 0, 0)           | Fijo |
+| **Up** | (0, 1, 0)          | **(0, 0, 1)** | Toda la escena girará de lado. |
+
+#+NAME: tarea3_up
+#+BEGIN_SRC python :session house_scene
+# Modificar la función draw_scene en el código principal:
+gluLookAt(9, 10, 15,
+          0, 0, 0,
+          0, 0, 1) # EL EJE Z ES AHORA EL VECTOR "ARRIBA"
+#+END_SRC
+
+*Análisis Esperado:* La escena completa aparecerá rotada 90 grados. Lo que antes era horizontal (eje X) ahora se sentirá vertical.
+
+---
+
+** 5.  Desafío de Combinación: Vista del Automóvil
+
+**Instrucción:** Combina los tres vectores para simular la vista desde un **automóvil que se acerca a las casas por la calle central**, ligeramente inclinado hacia la derecha.
+
+*** **Eye:** (0, 1, 18) - Muy bajo (1), centrado en X (0), y muy atrás (18).
+*** **Center:** (0, 1, 0) - Mira hacia el centro de la escena, manteniendo la misma altura (1).
+*** **Up:** (0.5, 1, 0) - Una ligera inclinación.
+
+#+NAME: tarea4_combinacion
+#+BEGIN_SRC python :session house_scene
+# Modificar la función draw_scene en el código principal:
+gluLookAt(0, 1, 18,    # Posición: bajo y muy lejos en el eje Z positivo
+          0, 1, 0,     # Enfoque: mirando al centro de la calle
+          0.5, 1, 0)   # Orientación: inclinado lateralmente (0.5 en X, 1 en Y)
+#+END_SRC
+
+*Análisis Esperado:* La vista será rasante al suelo y las casas se verán pequeñas al principio, creciendo rápidamente en perspectiva. El horizonte estará ligeramente torcido.
+
+
+	
+
+
+
+
+
+
+
 
 
 
@@ -12449,957 +13016,232 @@ Con los diagramas, matemáticas internas y ejemplos proporcionados, ahora tienes
 
 
 
-* Exploración de Cámara con gluLookAt (PyOpenGL/GLFW)
-
-**  Objetivo
-  Manipular la función =gluLookAt= para cambiar la perspectiva y orientación de la cámara en la escena de las casas, entendiendo cómo afecta la posición (Eye), el enfoque (Center) y la verticalidad (Up).
-
-| Parámetro | Significado | Valores Iniciales | Controla |
-|-----------+-------------+-------------------+----------|
-| Eye       | Posición    | (9, 10, 15)       | Dónde estoy |
-| Center    | Interés     | (0, 0, 0)         | Hacia dónde miro |
-| Up        | Orientación | (0, 1, 0)         | Cómo está mi cabeza |
-
----
-
-*** Código Base Relevante
-
-El código de la escena base se encuentra en la función =draw_scene()=. Este es el bloque que modificaremos en cada tarea.
-
-#+NAME: draw_scene_gluLookAt
-#+BEGIN_SRC python :results code
-def draw_scene():
-    # ... (código de limpieza)
-    glLoadIdentity()
-
-    # ****** LA FUNCIÓN CLAVE ******
-    gluLookAt(9, 10, 15,  # Posición de la cámara (Eye)
-              0, 0, 0,    # Punto al que mira (Center)
-              0, 1, 0)    # Vector hacia arriba (Up)
-
-    # ... (código de dibujo de casas y suelo)
-#+END_SRC
-
----
-
-** 2.  Actividad 1: Cambio de Posición (*Eye*)
-
-La cámara inicial mira a las casas desde una perspectiva aérea y lateral (9, 10, 15). Queremos acercarnos y adoptar una vista a nivel de la calle.
-
-**Instrucción:** Mueve la cámara cerca de una de las casas (ej. la que está en (5, 0, 5)) y a una altura humana, manteniendo el foco en el centro de la escena.
-
-| Vector | Original (X, Y, Z) | **Nuevo (X, Y, Z)** | Efecto Esperado |
-|--------+--------------------+---------------------+-----------------|
-| **Eye**| (9, 10, 15)        | **(12, 1, 12)** | La cámara estará cerca del suelo y cerca de las casas. |
-| Center | (0, 0, 0)          | (0, 0, 0)           | El punto de enfoque sigue siendo el centro. |
-| Up     | (0, 1, 0)          | (0, 1, 0)           | Fijo |
-
-#+NAME: tarea1_eye
-#+BEGIN_SRC python :session house_scene
-# Modificar la función draw_scene en el código principal:
-gluLookAt(12, 1, 12,  # POSICIÓN CERCANA Y BAJA
-          0, 0, 0,
-          0, 1, 0)
-#+END_SRC
-
-*Análisis Esperado:* La escena se verá mucho más grande. La casa en (5, 0, 5) estará muy cerca en el campo de visión. Se perderá la perspectiva aérea.
-
----
-
-**  Actividad 2: Cambio de Punto de Interés (*Center*)
-
-Volvemos a la posición inicial de la cámara, pero la hacemos mirar hacia un punto en el horizonte que no es el centro de la escena.
-
-**Instrucción:** Haz que la cámara (fija en 9, 10, 15) mire hacia el fondo y a la derecha (eje X positivo y Z negativo), enfocando una zona vacía de la calle.
-
-| Vector | Original (X, Y, Z) | **Nuevo (X, Y, Z)** | Efecto Esperado |
-|--------+--------------------+---------------------+-----------------|
-| Eye    | (9, 10, 15)        | (9, 10, 15)         | Fijo |
-| **Center**| (0, 0, 0)          | **(10, 0, -10)** | La cámara gira hacia una esquina lejana. |
-| Up     | (0, 1, 0)          | (0, 1, 0)           | Fijo |
-
-#+NAME: tarea2_center
-#+BEGIN_SRC python :session house_scene
-# Modificar la función draw_scene en el código principal:
-gluLookAt(9, 10, 15,
-          10, 0, -10, # ENFOQUE LEJANO (Esquina posterior derecha del suelo)
-          0, 1, 0)
-#+END_SRC
-
-*Análisis Esperado:* Las casas se desplazarán hacia la izquierda del marco, ya que el punto de enfoque se ha movido fuera del grupo de casas.
-
----
-
-** 4. Actividad 3: Cambio de Orientación (*Up*)
-
-Regresamos a la posición y al punto de interés iniciales, pero inclinamos la cabeza del espectador.
-
-**Instrucción:** Simula que la cámara se ha inclinado 90 grados hacia la derecha, haciendo que el eje Z sea la nueva vertical.
-
-| Vector | Original (X, Y, Z) | **Nuevo (X, Y, Z)** | Efecto Esperado |
-|--------+--------------------+---------------------+-----------------|
-| Eye    | (9, 10, 15)        | (9, 10, 15)         | Fijo |
-| Center | (0, 0, 0)          | (0, 0, 0)           | Fijo |
-| **Up** | (0, 1, 0)          | **(0, 0, 1)** | Toda la escena girará de lado. |
-
-#+NAME: tarea3_up
-#+BEGIN_SRC python :session house_scene
-# Modificar la función draw_scene en el código principal:
-gluLookAt(9, 10, 15,
-          0, 0, 0,
-          0, 0, 1) # EL EJE Z ES AHORA EL VECTOR "ARRIBA"
-#+END_SRC
-
-*Análisis Esperado:* La escena completa aparecerá rotada 90 grados. Lo que antes era horizontal (eje X) ahora se sentirá vertical.
-
----
-
-** 5.  Desafío de Combinación: Vista del Automóvil
-
-**Instrucción:** Combina los tres vectores para simular la vista desde un **automóvil que se acerca a las casas por la calle central**, ligeramente inclinado hacia la derecha.
-
-*** **Eye:** (0, 1, 18) - Muy bajo (1), centrado en X (0), y muy atrás (18).
-*** **Center:** (0, 1, 0) - Mira hacia el centro de la escena, manteniendo la misma altura (1).
-*** **Up:** (0.5, 1, 0) - Una ligera inclinación.
-
-#+NAME: tarea4_combinacion
-#+BEGIN_SRC python :session house_scene
-# Modificar la función draw_scene en el código principal:
-gluLookAt(0, 1, 18,    # Posición: bajo y muy lejos en el eje Z positivo
-          0, 1, 0,     # Enfoque: mirando al centro de la calle
-          0.5, 1, 0)   # Orientación: inclinado lateralmente (0.5 en X, 1 en Y)
-#+END_SRC
-
-*Análisis Esperado:* La vista será rasante al suelo y las casas se verán pequeñas al principio, creciendo rápidamente en perspectiva. El horizonte estará ligeramente torcido.
-
-
-	
-
-
-
-
-
-
-* Proyecto Enero Junio Final 2025
-
-El flujo óptico es el patrón del movimiento aparente de los objetos,
-superficies y bordes en una escena causado por el movimiento relativo
-entre un observador (un ojo o una cámara) y la escena.2​3​ El concepto
-de flujo óptico se estudió por primera vez en la década de 1940 y,
-finalmente, fue publicado por el psicólogo estadounidense James
-J. Gibson4​ como parte de su teoría de la affordance (una acción que un
-individuo puede potencialmente realizar en su ambiente). Las
-aplicaciones del flujo óptico tales como la detección de movimiento,
-la segmentación de objetos, el tiempo hasta la colisión y el enfoque
-de cálculo de expansiones, la codificación del movimiento compensado y
-la medición de la disparidad estereoscópica utilizan este movimiento
-de las superficies y bordes de los objetos.
-
-Actividades
-
-1. Desarrollar un programa que utilice el flujo óptico, para aplicar a
-   una imagen o una primitiva de dibujo, las transformaciones
-   geométricas vistas en clase, (Traslación, Escalamiento, Rotación)
-
-
-2. Desarrollar un programa que utilice opengl, para modelar un entorno
-   completo tipo mundo minecraft de alguna ciudad, paisaje, bosque,
-   etc. Donde se deben de incluir por lo menos 15 modelos diferentes,
-   diseñados con primitivas de opengl de igual manera se debe de mover
-   todo el entorno modelado mediante el flujo óptico aplicando las
-   transformaciones geométricas vistas en clase, (Traslación,
-   Escalamiento, Rotación), para esta actividad pueden hacer equipos
-   máximo de 5 personas.
-
-
-* Respuestas Examen. 
-
-** 1) ¿Qué función del código se encarga de construir geometría 3D mediante tiras de cuadriláteros?
-A) process_input  B) draw_scene  C) draw_sphere  D) draw_eye  
-
-*Respuesta:* C Explicación:* La función draw_sphere genera la geometría
-de una esfera manualmente usando GL_QUAD_STRIP, calculando vértices y normales.
-
-** 2) ¿Qué instrucción activa la evaluación de profundidad en OpenGL?
-A) glEnable(GL_LIGHTING)  B) glEnable(GL_DEPTH_TEST)  
-C) glBegin(GL_QUAD_STRIP)  D) glLoadIdentity  
-*Respuesta:* B  
-*Explicación:* GL_DEPTH_TEST habilita el buffer de profundidad, permitiendo que OpenGL determine qué objetos están delante o detrás.
-
-** 3) ¿Qué función define la posición y orientación de la cámara?
-A) gluPerspective  B) gluLookAt  C) glTranslatef  D) glPushMatrix  
-*Respuesta:* B  
-*Explicación:* gluLookAt posiciona la cámara en un punto, le indica hacia dónde mirar y define cuál es el vector "arriba".
-
-** 4) ¿Qué variable controla la velocidad del movimiento de la cámara?
-A) rotation  B) keys  C) camera_speed  D) camera_up  
-*Respuesta:* C  
-*Explicación:* camera_speed establece cuánto se mueve la cámara por cada actualización de process_input.
-
-** 5) ¿Qué callback actualiza el estado de las teclas presionadas?
-A) draw_scene  B) key_callback  C) draw_eye  D) glfw.poll_events  
-*Respuesta:* B  
-*Explicación:* key_callback registra si una tecla fue presionada o liberada y actualiza el diccionario keys.
-
-** 6) ¿Qué hace glPushMatrix y glPopMatrix en el código?
-A) Limpian el buffer de color  
-B) Apilan y desapilan matrices para aislar transformaciones  
-C) Aplican iluminación  
-D) Duplican objetos 3D  
-*Respuesta:* B  
-*Explicación:* Estas funciones permiten aplicar transformaciones locales sin afectar otros objetos de la escena.
-
-** 7) ¿Qué eje se modifica cuando usas W y S?
-A) X  B) Y  C) Z  D) Ninguno  
-*Respuesta:* C  
-*Explicación:* W y S modifican camera_pos[2], moviendo la cámara hacia adelante o hacia atrás en el eje Z.
-
-** 8) ¿Qué color corresponde al iris (parte negra) en draw_eye?
-A) glColor3f(1,0,0)  B) glColor3f(0,0,0)  
-C) glColor3f(0.84, 0.85, 0.92)  D) glColor3f(1,1,1)  
-*Respuesta:* B  
-*Explicación:* El iris está dibujado con glColor3f(0, 0, 0), que corresponde al color negro.
-
-** 9) ¿Qué parámetro de gluPerspective controla cuánto "zoom" tiene la cámara?
-A) El near  B) El far  C) El campo de visión (primer parámetro)  D) El aspect ratio  
-*Respuesta:* C  
-*Explicación:* El primer parámetro, el FOV, define la amplitud de visión. Menor FOV = mayor zoom.
-
-** 10) ¿Cuál es el propósito de glfw.swap_buffers(window)?
-A) Leer el estado del teclado  
-B) Crear la ventana  
-C) Mostrar el frame renderizado  
-D) Reiniciar la cámara  
-*Respuesta:* C  
-*Explicación:* swap_buffers intercambia el buffer trasero con el delantero, mostrando el frame ya renderizado.
-
-** 11) Explica en tus palabras cómo funciona process_input para mover la cámara.
-*Respuesta:* process_input revisa el diccionario keys para saber qué
-teclas están presionadas. Si una tecla como W, S, A, D, UP o DOWN está
-marcada como True, se modifica la posición de la cámara moviendo el
-vector camera_pos en el eje correspondiente. Esto ocurre en cada
-iteración del ciclo principal, lo que genera movimiento continuo
-mientras la tecla esté presionada.
-
-** 12) ¿Por qué es necesario llamar glLoadIdentity antes de gluLookAt?
-*Respuesta:* glLoadIdentity reinicia la matriz modelo-vista a una matriz
-identidad. Esto garantiza que gluLookAt no aplique la vista sobre
-transformaciones previas, evitando acumulación de rotaciones o
-traslaciones no deseadas.
-
-** 13) En draw_sphere, ¿para qué sirve glNormal3f?
-*Respuesta:* glNormal3f define la normal de un vértice, necesaria para
-el cálculo correcto de iluminación. Las normales permiten que OpenGL
-determine cómo reacciona la luz sobre la superficie de la esfera.
-
-** 14) Explica brevemente qué hace el ciclo principal (game loop) en main.
-*Respuesta:*  
-El ciclo principal mantiene la aplicación funcionando. Cada vuelta:  
-1) procesa eventos de ventana (poll_events),  
-2) llama process_input para mover la cámara,  
-3) renderiza la escena con draw_scene,  
-4) muestra el resultado con swap_buffers.  
-Esto se repite hasta que la ventana se cierra.
-
-** 15) ¿Qué diferencia hay entre glTranslatef y gluLookAt para mover la escena?
-*Respuesta:*  
-glTranslatef mueve objetos dentro de la escena.  
-gluLookAt posiciona la cámara (la vista del usuario), no los objetos.  
-Mover la cámara y mover el mundo no son equivalentes matemáticamente.
-
-** 16) ¿Qué pasaría si eliminaras glEnable(GL_COLOR_MATERIAL)?
-
-*Respuesta:* Los colores establecidos con glColor3f no afectarían la
-iluminación. Los objetos se verían oscuros o con iluminación
-incorrecta porque OpenGL usaría únicamente materiales por defecto.
-
-** 17) ¿Por qué draw_eye tiene varias esferas con diferentes glTranslatef?
-
-*Respuesta:* Cada glTranslatef desplaza una esfera distinta para
-colocarla en la posición adecuada dentro del “ojo”. Esto permite crear
-una composición compleja (párpado, iris, pupila) a partir de varias
-esferas independientes.
-
-** 18) ¿Por qué se usa GL_QUAD_STRIP en lugar de GL_TRIANGLES en la esfera?
-
-*Respuesta:* GL_QUAD_STRIP genera bandas continuas de cuadriláteros, lo
-que reduce el número de vértices y hace más eficiente el renderizado
-de superficies curvas como una esfera. Triangles funcionaría, pero
-sería menos eficiente y produciría más vértices.
-
-** 19) ¿Qué ocurre si no llamas glfw.poll_events() dentro del loop?
-*Respuesta:* La ventana dejaría de responder, el teclado no funcionaría,
-y el sistema operativo podría marcar la aplicación como
-bloqueada. poll_events permite que GLFW procese entradas y eventos de
-ventana.
-
-** 20) ¿Cuál es el propósito de glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)?
-*Respuesta:* glClear limpia la pantalla del frame anterior y reinicia el
-buffer de profundidad. Esto evita que se mezclen imágenes viejas o que
-queden restos de objetos anteriores en el dibujo actual.
-
-
-
-
-* Introducción a las Texturas en OpenGL
-
-Las texturas en OpenGL son imágenes que se aplican sobre la superficie
-de objetos 3D para darles más realismo. En lugar de pintar un color
-sólido, OpenGL puede "envolver" una imagen sobre un plano, cubo,
-esfera, etc. Esto permite:
-
--  Simular materiales como madera, pasto, ladrillo o metal.
--  Dar detalle sin incrementar la cantidad de polígonos.
-
-** Agregar variaciones visuales: patrones, sombras, ruido.
-
-Para usar texturas, OpenGL sigue un proceso típico:
-
-1. **Cargar la imagen** desde disco (PNG, JPG, etc.).
-2. **Convertirla a un arreglo de bytes** (RGB o RGBA).
-3. **Subirla a la memoria de la GPU** con `glTexImage2D`.
-4. **Configurar filtrado y repetición** (cómo se ve al acercar/alejar).
-5. **Asignar coordenadas UV** a las superficies.
-6. **Renderizar** el objeto usando la textura.
-
-- casa textura 
-
-#+BEGIN_SRC python :results output :tangle code/casatextura.py
-import glfw
-from OpenGL.GL import *
-from OpenGL.GLU import gluPerspective, gluLookAt
-from PIL import Image
-import sys
-
-texture_id = None
-
-
-# ------------------------------------------------------------
-# Cargar textura con correcciones
-# ------------------------------------------------------------
-def load_texture(path):
-   
-    img = Image.open(path).convert("RGB")
-    img = img.transpose(Image.FLIP_TOP_BOTTOM)
-    img_data = img.tobytes()
-
-    tex_id = glGenTextures(1)
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
-
-    texture_id = glGenTextures(1)
-    glBindTexture(GL_TEXTURE_2D, texture_id)
-
-    # Filtrado suave + mipmaps
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
-
-    # Repetición
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
-
-    # Cargar textura normal
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
-                 img.width, img.height, 0,
-                 GL_RGB, GL_UNSIGNED_BYTE, img_data)
-
-    # Generar mipmaps moderno (reemplaza a gluBuild2DMipmaps)
-    glGenerateMipmap(GL_TEXTURE_2D)
-
-    glBindTexture(GL_TEXTURE_2D, 0)
-
-    return tex_id
-# ------------------------------------------------------------
-# OpenGL Init
-# ------------------------------------------------------------
-def init():
-    global tex_pasto
-    glClearColor(0.5, 0.8, 1.0, 1.0)
-    glEnable(GL_DEPTH_TEST)
-    glEnable(GL_TEXTURE_2D)
-
-    glMatrixMode(GL_PROJECTION)
-    gluPerspective(60, 1.0, 0.1, 100.0)
+* Diferencia entre Mover Objeto vs Mover Cámara
+
+** Moviendo el OBJETO (tu código actual)
+
+#+begin_src python
+# Cámara FIJA en (0, 0, -5) mirando al origen
+glLoadIdentity()
+glTranslatef(0, 0, -5)      # ← Cámara fija
+
+# OBJETO rota
+glRotatef(rotation, 0, 1, 0)  # ← Objeto gira
+draw_object()
+#+end_src
+
+*** Diagrama
+
+#+begin_example
+    👁️ Cámara (fija)
+     |
+     | mira hacia
+     ↓
+     ● ↻  Objeto ROTA
+     
+La cámara está quieta, el objeto gira
+#+end_example
+
+** Moviendo la CÁMARA (objeto fijo)
+
+#+begin_src python
+# CÁMARA rota alrededor del objeto
+glLoadIdentity()
+
+# Alejar cámara
+glTranslatef(0, 0, -5)
+
+# CÁMARA rota (invirtiendo la rotación)
+glRotatef(rotation, 0, 1, 0)  # ← Cámara orbita
+
+# Objeto FIJO
+draw_object()
+#+end_src
+
+*** Diagrama
+
+#+begin_example
+       ● Objeto (fijo)
+      /
+     /
+    👁️ ↻  Cámara ORBITA
+    
+El objeto está quieto, la cámara gira alrededor
+#+end_example
+
+** Código Completo de Ejemplo
+
+#+begin_src python
+# MODO 1: Rotar OBJETO (cámara fija)
+def render_rotating_object():
     glMatrixMode(GL_MODELVIEW)
-
-    tex_pasto = load_texture("pasto.png")  # <<-- TU IMAGEN AQUÍ
-
-
-# ------------------------------------------------------------
-# Dibujar la casa
-# ------------------------------------------------------------
-def draw_cube():
-    glBegin(GL_QUADS)
-    glColor3f(0.8, 0.5, 0.2)
-
-    # Frente
-    glVertex3f(-1, 0, 1)
-    glVertex3f(1, 0, 1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(-1, 1, 1)
-
-    # Atrás
-    glVertex3f(-1, 0, -1)
-    glVertex3f(1, 0, -1)
-    glVertex3f(1, 1, -1)
-    glVertex3f(-1, 1, -1)
-
-    # Izquierda
-    glVertex3f(-1, 0, -1)
-    glVertex3f(-1, 0, 1)
-    glVertex3f(-1, 1, 1)
-    glVertex3f(-1, 1, -1)
-
-    # Derecha
-    glVertex3f(1, 0, -1)
-    glVertex3f(1, 0, 1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(1, 1, -1)
-
-    # Arriba
-    glColor3f(0.9, 0.6, 0.3)
-    glVertex3f(-1, 1, -1)
-    glVertex3f(1, 1, -1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(-1, 1, 1)
-
-    # Abajo
-    glColor3f(0.6, 0.4, 0.2)
-    glVertex3f(-1, 0, -1)
-    glVertex3f(1, 0, -1)
-    glVertex3f(1, 0, 1)
-    glVertex3f(-1, 0, 1)
-    glEnd()
-
-
-def draw_roof():
-    glBegin(GL_TRIANGLES)
-    glColor3f(0.9, 0.1, 0.1)
-
-    glVertex3f(-1, 1, 1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(0, 2, 0)
-
-    glVertex3f(-1, 1, -1)
-    glVertex3f(1, 1, -1)
-    glVertex3f(0, 2, 0)
-
-    glVertex3f(-1, 1, -1)
-    glVertex3f(-1, 1, 1)
-    glVertex3f(0, 2, 0)
-
-    glVertex3f(1, 1, -1)
-    glVertex3f(1, 1, 1)
-    glVertex3f(0, 2, 0)
-    glEnd()
-
-
-# ------------------------------------------------------------
-# Piso con textura
-# ------------------------------------------------------------
-def draw_ground():
-    glBindTexture(GL_TEXTURE_2D, tex_pasto)
-
-    glBegin(GL_QUADS)
-    glColor3f(1, 1, 1)
-
-    scale = 3  # Cambia entre 1 y 5 según cómo quieras el mosaico
-
-    glTexCoord2f(0, 0)
-    glVertex3f(-10, 0, 10)
-
-    glTexCoord2f(scale, 0)
-    glVertex3f(10, 0, 10)
-
-    glTexCoord2f(scale, scale)
-    glVertex3f(10, 0, -10)
-
-    glTexCoord2f(0, scale)
-    glVertex3f(-10, 0, -10)
-
-    glEnd()
-
-    glBindTexture(GL_TEXTURE_2D, 0)
-
-
-# ------------------------------------------------------------
-# Dibujo principal
-# ------------------------------------------------------------
-def draw_scene():
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
+    
+    # 1. Posicionar cámara (fija)
+    glTranslatef(0, 0, -5)
+    
+    # 2. Rotar OBJETO
+    glRotatef(angle, 0, 1, 0)
+    
+    # 3. Dibujar
+    draw_sphere()
 
-    gluLookAt(4, 4, 8, 0, 1, 0, 0, 1, 0)
+# MODO 2: Rotar CÁMARA (objeto fijo)
+def render_orbiting_camera():
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    
+    # 1. Rotar CÁMARA (invertir rotación)
+    glRotatef(-angle, 0, 1, 0)
+    
+    # 2. Alejar cámara
+    glTranslatef(0, 0, -5)
+    
+    # 3. Dibujar objeto (fijo en origen)
+    draw_sphere()
 
-    draw_ground()
-    draw_cube()
-    draw_roof()
-
-    glfw.swap_buffers(window)
-
-
-# ------------------------------------------------------------
-# Main
-# ------------------------------------------------------------
-def main():
-    global window
-
-    if not glfw.init():
-        sys.exit()
-
-    window = glfw.create_window(800, 600, "Casa con Textura de Pasto", None, None)
-    if not window:
-        glfw.terminate()
-        sys.exit()
-
-    glfw.make_context_current(window)
-    glViewport(0, 0, 800, 600)
-
-    init()
-
-    while not glfw.window_should_close(window):
-        draw_scene()
-        glfw.poll_events()
-
-    glfw.terminate()
-
-
-if __name__ == "__main__":
-    main()
-
-#+END_SRC
+# MODO 3: Usar gluLookAt (más intuitivo para cámara)
+def render_with_lookat():
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    
+    # Calcular posición de cámara en órbita
+    cam_x = 5 * math.sin(math.radians(angle))
+    cam_z = 5 * math.cos(math.radians(angle))
+    
+    # gluLookAt(ojo_x, ojo_y, ojo_z, 
+    #           mira_x, mira_y, mira_z,
+    #           arriba_x, arriba_y, arriba_z)
+    gluLookAt(cam_x, 0, cam_z,  # Posición de cámara
+              0, 0, 0,          # Mira al origen
+              0, 1, 0)          # Vector "arriba"
+    
+    # Objeto fijo en origen
+    draw_sphere()
+#+end_src
 
 #+RESULTS:
+: None
 
+** Resumen
 
-#+BEGIN_SRC python :results output :tangle code/casatextura.py
-import glfw
-from OpenGL.GL import *
-from OpenGL.GLU import gluPerspective, gluLookAt
-from PIL import Image
-import sys
+| Aspecto            | Rotar Objeto            | Rotar Cámara            |
+|--------------------+-------------------------+-------------------------|
+| **Objeto**           | Se mueve/rota           | Estático en origen      |
+| **Cámara**           | Fija                    | Orbita alrededor        |
+| **Transformaciones** | Después de cámara       | Antes de alejar cámara  |
+| **Uso común**        | Inspeccionar modelo     | Explorar escena         |
+| **Luces**            | Fijas respecto al mundo | Fijas respecto a cámara |
 
-tex_pasto = None
-tex_pared = None
-tex_techo = None
+* Consejos y Buenas Prácticas
 
+** Orden de Operaciones
 
-def load_texture(path):
-
-    img = Image.open(path).convert("RGB")
-    img = img.transpose(Image.FLIP_TOP_BOTTOM)
-    img_data = img.tobytes()
-
-    tex_id = glGenTextures(1)
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
-
-    glBindTexture(GL_TEXTURE_2D, tex_id)
-
-    # Filtrado
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
-
-    # Envoltura (tiling)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
-
-    # Subir la textura
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
-                 img.width, img.height, 0,
-                 GL_RGB, GL_UNSIGNED_BYTE, img_data)
-
-    # Crear mipmaps
-    glGenerateMipmap(GL_TEXTURE_2D)
-
-    glBindTexture(GL_TEXTURE_2D, 0)
-    return tex_id
-
-
-def init():
-    global tex_pasto, tex_pared, tex_techo
-
-    glClearColor(0.5, 0.8, 1.0, 1.0)
-    glEnable(GL_DEPTH_TEST)
-    glEnable(GL_TEXTURE_2D)
-
-    glMatrixMode(GL_PROJECTION)
-    gluPerspective(60, 800 / 600, 0.1, 100.0)
-    glMatrixMode(GL_MODELVIEW)
-
-    # Cargar texturas
-    tex_pasto = load_texture("pasto.png")
-    tex_pared = load_texture("pared.png")
-    tex_techo = load_texture("trunk.png")
-
-
-def draw_ground():
-    glBindTexture(GL_TEXTURE_2D, tex_pasto)
-
-    glBegin(GL_QUADS)
-    glColor3f(1, 1, 1)
-
-    scale = 5
-
-    glTexCoord2f(0, 0);       glVertex3f(-10, 0, 10)
-    glTexCoord2f(scale, 0);   glVertex3f( 10, 0, 10)
-    glTexCoord2f(scale, scale);glVertex3f( 10, 0,-10)
-    glTexCoord2f(0, scale);   glVertex3f(-10, 0,-10)
-
-    glEnd()
-
-    glBindTexture(GL_TEXTURE_2D, 0)
-
-
-# ------------------------------------------------------------
-# Casa con textura de pared
-# ------------------------------------------------------------
-def draw_cube():
-    glBindTexture(GL_TEXTURE_2D, tex_pared)
-
-    glBegin(GL_QUADS)
-    glColor3f(1, 1, 1)
-
-    # Frente
-    glTexCoord2f(0, 0); glVertex3f(-1, 0, 1)
-    glTexCoord2f(1, 0); glVertex3f( 1, 0, 1)
-    glTexCoord2f(1, 1); glVertex3f( 1, 1, 1)
-    glTexCoord2f(0, 1); glVertex3f(-1, 1, 1)
-
-    # Atrás
-    glTexCoord2f(0, 0); glVertex3f(-1, 0,-1)
-    glTexCoord2f(1, 0); glVertex3f( 1, 0,-1)
-    glTexCoord2f(1, 1); glVertex3f( 1, 1,-1)
-    glTexCoord2f(0, 1); glVertex3f(-1, 1,-1)
-
-    # Izquierda
-    glTexCoord2f(0, 0); glVertex3f(-1, 0,-1)
-    glTexCoord2f(1, 0); glVertex3f(-1, 0, 1)
-    glTexCoord2f(1, 1); glVertex3f(-1, 1, 1)
-    glTexCoord2f(0, 1); glVertex3f(-1, 1,-1)
-
-    # Derecha
-    glTexCoord2f(0, 0); glVertex3f( 1, 0,-1)
-    glTexCoord2f(1, 0); glVertex3f( 1, 0, 1)
-    glTexCoord2f(1, 1); glVertex3f( 1, 1, 1)
-    glTexCoord2f(0, 1); glVertex3f( 1, 1,-1)
-
-    glEnd()
-
-    glBindTexture(GL_TEXTURE_2D, 0)
-
-
-# ------------------------------------------------------------
-# Techo con textura propia
-# ------------------------------------------------------------
-def draw_roof():
-    glBindTexture(GL_TEXTURE_2D, tex_techo)
-
-    glBegin(GL_TRIANGLES)
-    glColor3f(1, 1, 1)
-
-    glTexCoord2f(0, 0);    glVertex3f(-1, 1, 1)
-    glTexCoord2f(1, 0);    glVertex3f( 1, 1, 1)
-    glTexCoord2f(0.5, 1);  glVertex3f( 0, 2, 0)
-
-    glTexCoord2f(0, 0);    glVertex3f(-1, 1,-1)
-    glTexCoord2f(1, 0);    glVertex3f( 1, 1,-1)
-    glTexCoord2f(0.5, 1);  glVertex3f( 0, 2, 0)
-
-    glEnd()
-
-    glBindTexture(GL_TEXTURE_2D, 0)
-
-
-# ------------------------------------------------------------
-# Escena principal
-# ------------------------------------------------------------
-def draw_scene():
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glLoadIdentity()
-
-    gluLookAt(4, 4, 8, 0, 1, 0, 0, 1, 0)
-
-    draw_ground()
-    draw_cube()
-    draw_roof()
-
-    glfw.swap_buffers(window)
-
-
-# ------------------------------------------------------------
-# Main
-# ------------------------------------------------------------
-def main():
-    global window
-
-    if not glfw.init():
-        sys.exit()
-
-    window = glfw.create_window(800, 600, "Casa con Varias Texturas", None, None)
-    if not window:
-        glfw.terminate()
-        sys.exit()
-
-    glfw.make_context_current(window)
-    glViewport(0, 0, 800, 600)
-
-    init()
-
-    while not glfw.window_should_close(window):
-        draw_scene()
-        glfw.poll_events()
-
-    glfw.terminate()
-
-
-if __name__ == "__main__":
-    main()
-
-
-#+END_SRC
-
-#+RESULTS:
-
-
-
+El orden IMPORTA en OpenGL:
 
 #+begin_src python
-def load_texture(path):
-global texture_id
+# CORRECTO
+glLoadIdentity()
+glTranslatef(x, y, z)    # 1. Primero trasladar
+glRotatef(angle, ...)    # 2. Luego rotar
+glScalef(sx, sy, sz)     # 3. Finalmente escalar
+draw_object()
 
-```
-img = Image.open(path).convert("RGB")
-img = img.transpose(Image.FLIP_TOP_BOTTOM)
-img_data = img.tobytes()
-
-glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
-
-texture_id = glGenTextures(1)
-glBindTexture(GL_TEXTURE_2D, texture_id)
-
-# Filtrado suave + mipmaps
-glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR)
-glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
-
-# Repetición
-glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
-glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
-
-# Cargar textura normal
-glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
-             img.width, img.height, 0,
-             GL_RGB, GL_UNSIGNED_BYTE, img_data)
-
-glGenerateMipmap(GL_TEXTURE_2D)
-
-glBindTexture(GL_TEXTURE_2D, 0)
-```
-
+# Las transformaciones se aplican en ORDEN INVERSO al código
+# El objeto se escala → rota → traslada
 #+end_src
 
-- Carga la imagen desde disco.
-- Abrir la imagen: =Image.open(path).convert("RGB")=
-- Fuerza el formato a RGB (3 canales).
-
-#+begin_example
-Archivo en disco
-┌───────────────┐
-│ pasto.jpg      │
-└───────┬───────┘
-│ (PIL)
-▼
-┌──────────────────┐
-│ PIL Image (RGB) │
-└──────────────────┘
-#+end_example
-
-*** 2. Voltear la imagen verticalmente
+** Optimización
 
 #+begin_src python
-img = img.transpose(Image.FLIP_TOP_BOTTOM)
+# MAL: Cambiar estado muchas veces
+for obj in objects:
+    glEnable(GL_LIGHTING)
+    draw(obj)
+    glDisable(GL_LIGHTING)
+
+# BIEN: Agrupar por estado
+glEnable(GL_LIGHTING)
+for obj in lit_objects:
+    draw(obj)
+glDisable(GL_LIGHTING)
+for obj in unlit_objects:
+    draw(obj)
 #+end_src
 
-PIL considera el origen (0,0) arriba. OpenGL lo considera abajo.
+** Depuración
 
-#+begin_example
-Antes (PIL):
-y ↑
-┌───────────────┐
-│ Línea 0        │  ← arriba
-│ Línea 1        │
-│ ...            │
-│ Línea n        │  ← abajo
-└───────────────┘
-
-Después (OpenGL):
-y ↑
-┌───────────────┐
-│ Línea n        │  ← arriba
-│ ...            │
-│ Línea 1        │
-│ Línea 0        │  ← abajo
-└───────────────┘
-#+end_example
-
-*** 3. Convertir la imagen en bytes
+*** Ver posiciones de luces
 
 #+begin_src python
-img_data = img.tobytes()
+def debug_draw_lights():
+    glDisable(GL_LIGHTING)
+    
+    # Dibujar esferas en posición de luces
+    light_pos = [0] * 4
+    glGetLightfv(GL_LIGHT0, GL_POSITION, light_pos)
+    
+    glColor3f(1, 1, 0)
+    glPushMatrix()
+    glTranslatef(light_pos[0], light_pos[1], light_pos[2])
+    glutWireSphere(0.1, 8, 8)
+    glPopMatrix()
+    
+    glEnable(GL_LIGHTING)
 #+end_src
 
-Formato final: =RGBRGBRGBRGB...=
-
-#+begin_example
-Memoria enviada a OpenGL:
-[R G B][R G B][R G B]...[R G B]
-#+end_example
-
-*** 4. Ajustar alineación de lectura: =glPixelStorei(GL_UNPACK_ALIGNMENT, 1)=
-
-OpenGL por defecto espera que cada fila tenga padding hasta múltiplos de 4 bytes.
-La opción =1= elimina ese requisito.
-
-#+begin_example
-Sin alineación → filas mal alineadas → texturas corruptas.
-
-Con GL_UNPACK_ALIGNMENT = 1:
-Fila: [RGB RGB RGB RGB] sin relleno extra.
-#+end_example
-
-*** 5. Crear la textura en GPU
+*** Verificar normales
 
 #+begin_src python
-texture_id = glGenTextures(1)
-glBindTexture(GL_TEXTURE_2D, texture_id)
+# Asegurar que las normales estén normalizadas
+glEnable(GL_NORMALIZE)  # Costoso pero seguro
+
+# O usar manualmente
+glEnable(GL_RESCALE_NORMAL)  # Más rápido si solo escalas uniforme
 #+end_src
 
-#+begin_example
-CPU                           GPU
-┌─────────────┐             ┌──────────────────┐
-│ texture_id=5│────────────▶│ Texture #5 creada│
-└─────────────┘             └──────────────────┘
-#+end_example
+** Problemas Comunes
 
-*** 6. Configurar parámetros de la textura
+*** Objeto completamente negro
 
-**** Filtrado
-#+begin_example
-glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR)
-glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
-#+end_example
+*Causas:*
+- Normales invertidas o incorrectas
+- Material sin componente difuso
+- Luz mal posicionada
 
-#+begin_example
-Objeto lejos → usa MIPMAP
-Objeto cerca → usa textura original
-
-```
-   distancia
-    ↑
-```
-
-lejos  │   [textura reducida]
-│
-│   [textura 1/2]
-│
-cerca  │   [textura original]
-└──────────────────▶ tamaño en pantalla
-#+end_example
-
-**** Repetición
-#+begin_example
-glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
-glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
-#+end_example
-
-#+begin_example
-Coordenadas UV:
-0   1   2   3   → se repite la textura
-│───│───│───│───│
-#+end_example
-
-*** 7. Enviar la textura a GPU
-
+*Solución:*
 #+begin_src python
-glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
-img.width, img.height, 0,
-GL_RGB, GL_UNSIGNED_BYTE, img_data)
+# Verificar que GL_COLOR_MATERIAL esté activo
+glEnable(GL_COLOR_MATERIAL)
+
+# O configurar material manualmente
+glMaterialfv(GL_FRONT, GL_DIFFUSE, [0.8, 0.8, 0.8, 1.0])
 #+end_src
 
-Diagrama:
-#+begin_example
-CPU (bytes crudos)
-│
-│ glTexImage2D
-▼
-GPU almacena la textura en VRAM
-#+end_example
+*** Objeto muy oscuro
 
-*** 8. Generar Mipmaps
+*Causas:*
+- Luz ambiente muy baja
+- Objeto lejos de la luz posicional
 
+*Solución:*
 #+begin_src python
-glGenerateMipmap(GL_TEXTURE_2D)
+# Aumentar luz ambiente
+light_ambient = [0.5, 0.5, 0.5, 1.0]  # Más alto
+glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
 #+end_src
 
-#+begin_example
-GPU genera automáticamente:
-Nivel 0 → textura completa
-Nivel 1 → 1/2 tamaño
-Nivel 2 → 1/4 tamaño
-Nivel 3 → 1/8 tamaño
-...
-#+end_example
+*** Sin brillos especulares
 
-*** 9. Desbindeo
+*Causas:*
+- No se configuró material especular
+- Shininess = 0
 
+*Solución:*
 #+begin_src python
-glBindTexture(GL_TEXTURE_2D, 0)
+glMaterialfv(GL_FRONT, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
+glMaterialf(GL_FRONT, GL_SHININESS, 100.0)
 #+end_src
-
-Esto evita modificar la textura accidentalmente.
-
-** Resumen visual completo
-
-#+begin_example
-┌───────────────────┐
-│ 1. Cargar imagen  │
-└───────────┬───────┘
-▼
-┌───────────────────┐
-│2. Voltear imagen  │
-└───────────┬───────┘
-▼
-┌───────────────────┐
-│3. Bytes RGB       │
-└───────────┬───────┘
-▼
-┌───────────────────┐
-│4. Alineación 1    │
-└───────────┬───────┘
-▼
-┌───────────────────┐
-│5. Crear textura   │
-└───────────┬───────┘
-▼
-┌───────────────────┐
-│6. Configurar FILT │
-│   y WRAP          │
-└───────────┬───────┘
-▼
-┌───────────────────┐
-│7. glTexImage2D    │
-└───────────┬───────┘
-▼
-┌───────────────────┐
-│8. Mipmaps         │
-└───────────┬───────┘
-▼
-┌───────────────────┐
-│9. Unbind          │
-└───────────────────┘
-#+end_example
-
-
-* Proyecto final
-
 
 * MediaPipe + OpenGL + GLFW
 
@@ -13794,10 +13636,221 @@ if __name__ == "__main__":
 #+RESULTS:
 
 
-* Proyectos Finales Agosto Diciembre 2025
+* Referencias
+
+** Documentación Oficial
+- [[https://www.khronos.org/opengl/][OpenGL Official Website]]
+- [[https://www.opengl.org/sdk/docs/man2/][OpenGL 2.1 Reference]]
+
+** Libros 
+- "OpenGL Programming Guide" (Red Book)
+- "OpenGL SuperBible"
+- "Real-Time Rendering"
+
+** Tutoriales Online
+- [[https://learnopengl.com/][Learn OpenGL]]
+- [[http://www.lighthouse3d.com/][Lighthouse3D]]
+
+* Apéndice: Tabla de Referencia Rápida
+
+** Funciones Esenciales
+
+| Función                        | Propósito                |
+|--------------------------------+--------------------------|
+| =glEnable(GL_LIGHTING)=          | Activa iluminación       |
+| =glEnable(GL_LIGHT0)=            | Activa luz 0             |
+| =glLightfv(luz, param, val)=     | Configura luz            |
+| =glMaterialfv(cara, param, val)= | Configura material       |
+| =glColorMaterial(cara, modo)=    | Vincula color a material |
+| =glShadeModel(modo)=             | Suavizado o plano        |
+
+** Valores Típicos
+
+*** Luz Básica
+#+begin_example
+Posición: [2, 3, 2, 1]
+Ambient:  [0.3, 0.3, 0.3, 1]
+Diffuse:  [1, 1, 1, 1]
+Specular: [1, 1, 1, 1]
+#+end_example
+
+*** Material Básico
+#+begin_example
+Specular:  [1, 1, 1, 1]
+Shininess: 50-100
+#+end_example
+
+#+END_SRC
+
+* Proyecto Enero Junio Final 2025
+
+El flujo óptico es el patrón del movimiento aparente de los objetos,
+superficies y bordes en una escena causado por el movimiento relativo
+entre un observador (un ojo o una cámara) y la escena.2​3​ El concepto
+de flujo óptico se estudió por primera vez en la década de 1940 y,
+finalmente, fue publicado por el psicólogo estadounidense James
+J. Gibson4​ como parte de su teoría de la affordance (una acción que un
+individuo puede potencialmente realizar en su ambiente). Las
+aplicaciones del flujo óptico tales como la detección de movimiento,
+la segmentación de objetos, el tiempo hasta la colisión y el enfoque
+de cálculo de expansiones, la codificación del movimiento compensado y
+la medición de la disparidad estereoscópica utilizan este movimiento
+de las superficies y bordes de los objetos.
+
+Actividades
+
+1. Desarrollar un programa que utilice el flujo óptico, para aplicar a
+   una imagen o una primitiva de dibujo, las transformaciones
+   geométricas vistas en clase, (Traslación, Escalamiento, Rotación)
 
 
-** Proyecto 1: Pizarra Virtual: Seguimiento por Color y Primitivas
+2. Desarrollar un programa que utilice opengl, para modelar un entorno
+   completo tipo mundo minecraft de alguna ciudad, paisaje, bosque,
+   etc. Donde se deben de incluir por lo menos 15 modelos diferentes,
+   diseñados con primitivas de opengl de igual manera se debe de mover
+   todo el entorno modelado mediante el flujo óptico aplicando las
+   transformaciones geométricas vistas en clase, (Traslación,
+   Escalamiento, Rotación), para esta actividad pueden hacer equipos
+   máximo de 5 personas.
+
+
+* Respuestas Examen. 
+
+** 1) ¿Qué función del código se encarga de construir geometría 3D mediante tiras de cuadriláteros?
+A) process_input  B) draw_scene  C) draw_sphere  D) draw_eye  
+
+*Respuesta:* C Explicación:* La función draw_sphere genera la geometría
+de una esfera manualmente usando GL_QUAD_STRIP, calculando vértices y normales.
+
+** 2) ¿Qué instrucción activa la evaluación de profundidad en OpenGL?
+A) glEnable(GL_LIGHTING)  B) glEnable(GL_DEPTH_TEST)  
+C) glBegin(GL_QUAD_STRIP)  D) glLoadIdentity  
+*Respuesta:* B  
+*Explicación:* GL_DEPTH_TEST habilita el buffer de profundidad, permitiendo que OpenGL determine qué objetos están delante o detrás.
+
+** 3) ¿Qué función define la posición y orientación de la cámara?
+A) gluPerspective  B) gluLookAt  C) glTranslatef  D) glPushMatrix  
+*Respuesta:* B  
+*Explicación:* gluLookAt posiciona la cámara en un punto, le indica hacia dónde mirar y define cuál es el vector "arriba".
+
+** 4) ¿Qué variable controla la velocidad del movimiento de la cámara?
+A) rotation  B) keys  C) camera_speed  D) camera_up  
+*Respuesta:* C  
+*Explicación:* camera_speed establece cuánto se mueve la cámara por cada actualización de process_input.
+
+** 5) ¿Qué callback actualiza el estado de las teclas presionadas?
+A) draw_scene  B) key_callback  C) draw_eye  D) glfw.poll_events  
+*Respuesta:* B  
+*Explicación:* key_callback registra si una tecla fue presionada o liberada y actualiza el diccionario keys.
+
+** 6) ¿Qué hace glPushMatrix y glPopMatrix en el código?
+A) Limpian el buffer de color  
+B) Apilan y desapilan matrices para aislar transformaciones  
+C) Aplican iluminación  
+D) Duplican objetos 3D  
+*Respuesta:* B  
+*Explicación:* Estas funciones permiten aplicar transformaciones locales sin afectar otros objetos de la escena.
+
+** 7) ¿Qué eje se modifica cuando usas W y S?
+A) X  B) Y  C) Z  D) Ninguno  
+*Respuesta:* C  
+*Explicación:* W y S modifican camera_pos[2], moviendo la cámara hacia adelante o hacia atrás en el eje Z.
+
+** 8) ¿Qué color corresponde al iris (parte negra) en draw_eye?
+A) glColor3f(1,0,0)  B) glColor3f(0,0,0)  
+C) glColor3f(0.84, 0.85, 0.92)  D) glColor3f(1,1,1)  
+*Respuesta:* B  
+*Explicación:* El iris está dibujado con glColor3f(0, 0, 0), que corresponde al color negro.
+
+** 9) ¿Qué parámetro de gluPerspective controla cuánto "zoom" tiene la cámara?
+A) El near  B) El far  C) El campo de visión (primer parámetro)  D) El aspect ratio  
+*Respuesta:* C  
+*Explicación:* El primer parámetro, el FOV, define la amplitud de visión. Menor FOV = mayor zoom.
+
+** 10) ¿Cuál es el propósito de glfw.swap_buffers(window)?
+A) Leer el estado del teclado  
+B) Crear la ventana  
+C) Mostrar el frame renderizado  
+D) Reiniciar la cámara  
+*Respuesta:* C  
+*Explicación:* swap_buffers intercambia el buffer trasero con el delantero, mostrando el frame ya renderizado.
+
+** 11) Explica en tus palabras cómo funciona process_input para mover la cámara.
+*Respuesta:* process_input revisa el diccionario keys para saber qué
+teclas están presionadas. Si una tecla como W, S, A, D, UP o DOWN está
+marcada como True, se modifica la posición de la cámara moviendo el
+vector camera_pos en el eje correspondiente. Esto ocurre en cada
+iteración del ciclo principal, lo que genera movimiento continuo
+mientras la tecla esté presionada.
+
+** 12) ¿Por qué es necesario llamar glLoadIdentity antes de gluLookAt?
+*Respuesta:* glLoadIdentity reinicia la matriz modelo-vista a una matriz
+identidad. Esto garantiza que gluLookAt no aplique la vista sobre
+transformaciones previas, evitando acumulación de rotaciones o
+traslaciones no deseadas.
+
+** 13) En draw_sphere, ¿para qué sirve glNormal3f?
+*Respuesta:* glNormal3f define la normal de un vértice, necesaria para
+el cálculo correcto de iluminación. Las normales permiten que OpenGL
+determine cómo reacciona la luz sobre la superficie de la esfera.
+
+** 14) Explica brevemente qué hace el ciclo principal (game loop) en main.
+*Respuesta:*  
+El ciclo principal mantiene la aplicación funcionando. Cada vuelta:  
+1) procesa eventos de ventana (poll_events),  
+2) llama process_input para mover la cámara,  
+3) renderiza la escena con draw_scene,  
+4) muestra el resultado con swap_buffers.  
+Esto se repite hasta que la ventana se cierra.
+
+** 15) ¿Qué diferencia hay entre glTranslatef y gluLookAt para mover la escena?
+*Respuesta:*  
+glTranslatef mueve objetos dentro de la escena.  
+gluLookAt posiciona la cámara (la vista del usuario), no los objetos.  
+Mover la cámara y mover el mundo no son equivalentes matemáticamente.
+
+** 16) ¿Qué pasaría si eliminaras glEnable(GL_COLOR_MATERIAL)?
+
+*Respuesta:* Los colores establecidos con glColor3f no afectarían la
+iluminación. Los objetos se verían oscuros o con iluminación
+incorrecta porque OpenGL usaría únicamente materiales por defecto.
+
+** 17) ¿Por qué draw_eye tiene varias esferas con diferentes glTranslatef?
+
+*Respuesta:* Cada glTranslatef desplaza una esfera distinta para
+colocarla en la posición adecuada dentro del “ojo”. Esto permite crear
+una composición compleja (párpado, iris, pupila) a partir de varias
+esferas independientes.
+
+** 18) ¿Por qué se usa GL_QUAD_STRIP en lugar de GL_TRIANGLES en la esfera?
+
+*Respuesta:* GL_QUAD_STRIP genera bandas continuas de cuadriláteros, lo
+que reduce el número de vértices y hace más eficiente el renderizado
+de superficies curvas como una esfera. Triangles funcionaría, pero
+sería menos eficiente y produciría más vértices.
+
+** 19) ¿Qué ocurre si no llamas glfw.poll_events() dentro del loop?
+*Respuesta:* La ventana dejaría de responder, el teclado no funcionaría,
+y el sistema operativo podría marcar la aplicación como
+bloqueada. poll_events permite que GLFW procese entradas y eventos de
+ventana.
+
+** 20) ¿Cuál es el propósito de glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)?
+*Respuesta:* glClear limpia la pantalla del frame anterior y reinicia el
+buffer de profundidad. Esto evita que se mezclen imágenes viejas o que
+queden restos de objetos anteriores en el dibujo actual.
+
+
+
+* Proyectos
+
+** Proyecto final
+
+
+** Proyectos Finales Agosto Diciembre 2025
+
+
+*** Proyecto 1: Pizarra Virtual: Seguimiento por Color y Primitivas
 
 Introducción Técnica La actividad se basa en el Seguimiento por Color
 (Color Tracking) en el espacio HSV para la segmentación de objetos en
@@ -13844,7 +13897,7 @@ las funciones de dibujo de primitivas de la librería OpenCV.
      para modular el tamaño y el ángulo de la figura, respectivamente.
 
 
-** Proyecto 2: Filtro de realidad aumentada Snaptchat 
+*** Proyecto 2: Filtro de realidad aumentada Snaptchat 
 
 Una máscara de Snapchat se refiere a los filtros de realidad aumentada
 (llamados "Lentes") que transforman tu rostro en tiempo real,
@@ -13867,7 +13920,7 @@ conformados en estos apuntes realizar los siguientes puntos
   detectados de los landmarks faciales
 
 
-** Proyecto 3: Ciudad Entorno 3D
+*** Proyecto 3: Ciudad Entorno 3D
 
 Un entorno 3D es una representación digital tridimensional (con
 altura, anchura y profundidad) de objetos y espacios, creada por
@@ -14173,43 +14226,24 @@ Su archivo Markdown debe contener estrictamente tres elementos por cada misión:
 
 
 
-* Formato de Entrega (Obligatorio)
+**  Operación Espejismo (Graficación Táctica Examen)
 
-Todos los resultados deberán entregarse en formato Markdown (.md).
-
-El archivo deberá incluir:
-
-- Portada con nombre completo y grupo.
-- Objetivo de la práctica.
-- Capturas de pantalla de las máscaras generadas.
-- Tabla comparativa de resultados.
-- Respuestas a las preguntas de análisis.
-- Conclusión final.
-
-No se aceptarán archivos en PDF, Word o imágenes sueltas.
-La entrega debe consistir en un único archivo .md.
-
-
-
-
-*  Operación Espejismo (Graficación Táctica Examen)
-
-**  Introducción a la Misión
+***  Introducción a la Misión
 Agentes, hemos interceptado los sistemas de comunicación visual de una
 célula enemiga. Han fragmentado sus contraseñas, ofuscado sus planos y
 ocultado sus trayectorias satelitales utilizando matemáticas de
 graficación. Su misión es aplicar sus conocimientos en operadores
 espaciales, color y geometría para recuperar la información.
 
-** Misión 1: El Mensaje Subexpuesto (Operadores Puntuales)
-*** La Historia
+*** Misión 1: El Mensaje Subexpuesto (Operadores Puntuales)
+**** La Historia
 Interceptamos una imagen (=m1_oscura.png=) que a simple vista parece un
 simple recuadro negro. Sin embargo, nuestros analistas detectaron que
 la imagen no está vacía; el enemigo aplicó un *operador puntual de
 división* para oscurecer los píxeles a niveles casi imperceptibles
 (valores entre 1 y 5).
 
-*** Las Pistas
+**** Las Pistas
 - Un operador puntual modifica el valor de un píxel $P(x,y)$ basándose únicamente en su propio valor original.
 - Fórmula enemiga estimada: $P_{ofuscado} = P_{original} / 50$
 - Para recuperar el mensaje, debes aplicar el operador puntual inverso a toda la imagen: multiplicarla por 50.
@@ -14217,7 +14251,7 @@ división* para oscurecer los píxeles a niveles casi imperceptibles
 
 
 
-*** Tu Tarea
+**** Tu Tarea
 1. *Modo Raw:* Usa ciclos anidados para recorrer la matriz y multiplicar cada píxel por 50. ¡Cuidado con superar el valor 255 (usa =np.clip=)!
 2. *Modo OpenCV / NumPy:* Usa operaciones vectorizadas directas (=cv2.multiply= o =img * 50=).
 
@@ -14234,18 +14268,18 @@ import numpy as np
 # Usa la magia de la vectorización
 #+END_SRC
 
-** Misión 2: El QR Fragmentado (Transformaciones Geométricas)
-*** La Historia
+*** Misión 2: El QR Fragmentado (Transformaciones Geométricas)
+**** La Historia
 Encontramos un código QR de acceso, pero el enemigo lo dividió en dos archivos y alteró su geometría para que no pueda ser escaneado. 
 - La mitad superior (=m2_mitad1.png=) fue desplazada.
 - La mitad inferior (=m2_mitad2.png=) fue rotada 180 grados.
 
-*** Las Pistas
+**** Las Pistas
 - Crea un lienzo en blanco (np.zeros) de 400x400 píxeles.
 - La mitad 1 debe ser trasladada al origen (0,0).
 - La mitad 2 debe ser rotada 180 grados sobre su propio centro y colocada en la parte inferior del lienzo.
 
-*** Tu Tarea
+**** Tu Tarea
 Aplica matrices de traslación y rotación usando =cv2.warpAffine= para enderezar ambas piezas y unirlas en el lienzo final para revelar el código QR completo.
 
 #+BEGIN_SRC python :results output :session
@@ -14257,17 +14291,17 @@ Aplica matrices de traslación y rotación usando =cv2.warpAffine= para endereza
 # 3. Rota la mitad 2, trasládala y pégala
 #+END_SRC
 
-** Misión 3: El Sello Biométrico (Primitivas de Dibujo)
-*** La Historia
+*** Misión 3: El Sello Biométrico (Primitivas de Dibujo)
+**** La Historia
 El servidor principal requiere un "sello geométrico" exacto para abrirse. No tenemos la imagen del sello, solo las instrucciones en texto que el ingeniero de seguridad dejó anotadas. Debes dibujar el sello exacto desde cero.
 
-*** Las Pistas (Instrucciones del Sello)
+**** Las Pistas (Instrucciones del Sello)
 - El lienzo debe ser azul oscuro =BGR(50, 20, 20)= de 500x500.
 - Dibuja un círculo amarillo central en (250, 250) con radio de 100, grosor 3.
 - Dibuja un rectángulo rojo sólido (relleno) que vaya de (200, 200) a (300, 300).
 - Traza dos líneas blancas diagonales cruzando todo el lienzo de esquina a esquina (formando una 'X' gigante) con grosor 2.
 
-*** Tu Tarea
+**** Tu Tarea
 Utiliza las primitivas =cv2.circle=, =cv2.rectangle= y =cv2.line= para construir el sello y guardarlo como =m3_sello_forjado.png=.
 
 #+BEGIN_SRC python :results output :session
@@ -14275,19 +14309,19 @@ Utiliza las primitivas =cv2.circle=, =cv2.rectangle= y =cv2.line= para construir
 # 2. Dibuja círculo, rectángulo y líneas en ese orden exacto.
 #+END_SRC
 
-** Misión 4: La Frecuencia Térmica (Modelo HSV)
-*** La Historia
+*** Misión 4: La Frecuencia Térmica (Modelo HSV)
+**** La Historia
 El enemigo ocultó la contraseña de desactivación dentro de un mapa de
 ruido visual (=m4_ruido.png=). A simple vista es un desastre de colores
 estáticos, pero inteligencia indica que el mensaje está escrito en una
 frecuencia de color puramente *Cyan* (Celeste).
 
-*** Las Pistas
+**** Las Pistas
 - El modelo HSV nos permite aislar colores puros sin importar mucho su iluminación.
 - En OpenCV, el color Cyan tiene un Matiz (Hue) cercano a 90.
 - Rango sugerido -> Bajo: =[80, 100, 100]=, Alto: =[100, 255, 255]=.
 
-*** Tu Tarea
+**** Tu Tarea
 Convierte la imagen a HSV, aplica =cv2.inRange= con los límites sugeridos y muestra la máscara binaria resultante. ¡El ruido desaparecerá y la contraseña se revelará!
 
 #+BEGIN_SRC python :results output :session
@@ -14298,17 +14332,17 @@ Convierte la imagen a HSV, aplica =cv2.inRange= con los límites sugeridos y mue
 # 3. Mostrar la máscara para leer la clave
 #+END_SRC
 
-** Misión 5: La Antena Parabólica (Ecuaciones Paramétricas)
-*** La Historia
+*** Misión 5: La Antena Parabólica (Ecuaciones Paramétricas)
+**** La Historia
 Necesitamos calibrar nuestro láser para destruir la antena enemiga. No tenemos la forma de la antena, pero interceptamos su ecuación paramétrica generadora (Una Curva de Lissajous). Si la graficamos, sabremos a qué le estamos disparando.
 
-*** Las Pistas
+**** Las Pistas
 Las ecuaciones paramétricas calculan $(x, y)$ en función de un parámetro de tiempo $t$:
 - $x(t) = 250 + 150 \times \sin(3t)$
 - $y(t) = 250 + 150 \times \sin(2t)$
 - Evalúa $t$ desde $0$ hasta $2\pi$ ($6.28$) en pequeños pasos (ej. saltos de 0.01).
 
-*** Tu Tarea
+**** Tu Tarea
 Crea un lienzo negro de 500x500. Usa un ciclo =for= o =while= para ir
 incrementando $t$. En cada paso, calcula $x$ e $y$ (recuerda
 convertirlos a enteros) y dibuja un pequeño círculo o un punto blanco
@@ -14326,13 +14360,13 @@ import math
 
 
 
-** Entregable: Reporte de Misión (Formato Markdown Examen)
-*** Instrucciones para los Agentes
+*** Entregable: Reporte de Misión (Formato Markdown Examen)
+**** Instrucciones para los Agentes
 Su misión finaliza entregando un *Reporte Oficial Examen en formato Markdown*
 (=reporte_mision.md=). Este documento debe contener sus códigos, las
 imágenes que lograron recuperar/dibujar, y sus conclusiones técnicas.
 
-*** Plantilla Base de Markdown
+**** Plantilla Base de Markdown
 Copia y pega esta estructura en tu archivo =.md= y responde a las preguntas basándote en lo que observaste al programar:
 
 #+BEGIN_EXAMPLE markdown
@@ -14359,9 +14393,11 @@ Copia y pega esta estructura en tu archivo =.md= y responde a las preguntas bas�
 
 
 
-* Operación Espejismo II (Graficación Táctica Examen)
+** Operación Espejismo II (Graficación Táctica Examen)
 
-** Introducción a la Misión
+
+
+*** Introducción a la Misión
 Agentes, hemos interceptado un paquete de evidencias visuales. El enemigo está usando *graficación 2D* para fragmentar claves, camuflar mensajes y alterar geometría.
 
 
@@ -14376,20 +14412,20 @@ Agentes, hemos interceptado un paquete de evidencias visuales. El enemigo está 
 - =m2_mitad2.png=
 - =m4_ruido.png=
 
-** Misión 1: El Mensaje Subexpuesto II (Operadores Puntuales en 2 fases)
-*** La Historia
+*** Misión 1: El Mensaje Subexpuesto II (Operadores Puntuales en 2 fases)
+**** La Historia
 Interceptamos una imagen (=m1_oscura.png=) casi negra. Pero ahora el enemigo aplicó dos etapas:
 
 1) División (para “apagar” el texto).
 2) Resta de un sesgo pequeño (para que, al recuperar, se “queme” si no saturas).
 
-*** Las Pistas
+**** Las Pistas
 - Recuperación sugerida:
   - Paso A: multiplicar por 50
   - Paso B: sumar una constante (ej. 15 o 25)
   - Saturar a 0..255
 
-*** Tu Tarea
+**** Tu Tarea
 1. *Modo Raw:* usa ciclos anidados para recuperar: multiplicar por 50 y luego sumar +20 (con saturación).
 2. *Modo NumPy/OpenCV:* haz lo mismo pero vectorizado (=img*50 + 20= o =cv2.multiply= + =cv2.add=).
 3. Guarda dos evidencias:
@@ -14416,21 +14452,21 @@ img = cv2.imread("m1_oscura.png", cv2.IMREAD_GRAYSCALE)
 # - Hacer lo mismo sin for (con operaciones NumPy o cv2.multiply/cv2.add)
 #+end_src
 
-** Misión 2: El QR Fragmentado II (Traslación + Rotación + Ensamble)
-*** La Historia
+*** Misión 2: El QR Fragmentado II (Traslación + Rotación + Ensamble)
+**** La Historia
 El QR sigue partido:
 - La mitad superior (=m2_mitad1.png=) fue desplazada.
 - La mitad inferior (=m2_mitad2.png=) fue rotada 180°.
 
 Pero ahora debes *ensamblarlo con precisión*, dejando el código centrado en el lienzo final.
 
-*** Las Pistas
+**** Las Pistas
 - Crea un lienzo blanco de 400x400.
 - Corrige:
   - Mitad 1: traslación inversa hacia el origen.
   - Mitad 2: rotación inversa 180° sobre su centro y colocación en la parte inferior.
     
-*** Tu Tarea
+**** Tu Tarea
 1. Crea lienzo blanco 400x400 (3 canales).
 2. Endereza ambas piezas con =cv2.warpAffine=.
 3. Pega las piezas (sin solaparlas) para reconstruir el QR.
@@ -14458,11 +14494,11 @@ lienzo = np.full((400, 400, 3), 255, dtype=np.uint8)
 # - Guardar resultado final como m2_qr_reconstruido.png
 #+end_src
 
-** Misión 3: El Sello Biométrico II (Primitivas + Simetría)
-*** La Historia
+*** Misión 3: El Sello Biométrico II (Primitivas + Simetría)
+**** La Historia
 El servidor principal requiere un sello geométrico, pero ahora incluye *patrones simétricos* y una marca de autenticidad.
 
-*** Instrucciones del Sello
+**** Instrucciones del Sello
 - Lienzo: 600x600 color base =BGR(40, 20, 20)=.
 - Círculo central amarillo en (300, 300) radio 170 grosor 3.
 - Círculo interior amarillo en (300, 300) radio 110 grosor 2.
@@ -14471,7 +14507,7 @@ El servidor principal requiere un sello geométrico, pero ahora incluye *patrone
 - *Marca simétrica*: coloca 8 círculos verdes pequeños (radio 8, rellenos) alrededor del centro, a 140 px de distancia (tipo brújula).
 - Texto blanco: =SECTOR-9= centrado abajo (aprox y=560).
 
-*** Tu Tarea
+**** Tu Tarea
 1. Dibuja el sello EXACTAMENTE en ese orden.
 2. Guarda: =m3_sello_forjado_v2.png=
 
@@ -14493,11 +14529,11 @@ img[:] = (40, 20, 20)
 # - Guardar como m3_sello_forjado_v2.png
 #+end_src
 
-** Misión 4: La Frecuencia Térmica II (HSV + máscara + “limpieza” por convolución)
-*** La Historia
+*** Misión 4: La Frecuencia Térmica II (HSV + máscara + “limpieza” por convolución)
+**** La Historia
 El enemigo ocultó la contraseña en (=m4_ruido.png=), pero ahora hay *ruido extra* que genera falsos positivos en la máscara.
 
-*** Las Pistas
+**** Las Pistas
 - Segmentar Cyan en HSV (Hue ~ 90).
 - Antes de segmentar, puedes suavizar con un kernel de promedio para reducir ruido:
   - Kernel promedio 3x3:
@@ -14505,7 +14541,7 @@ El enemigo ocultó la contraseña en (=m4_ruido.png=), pero ahora hay *ruido ext
      [1,1,1],
      [1,1,1]] / 9
 
-*** Tu Tarea
+**** Tu Tarea
 1. Aplica un filtro por convolución (promedio 3x3) a la imagen BGR.
 2. Convierte a HSV.
 3. Segmenta con =cv2.inRange= usando un rango Cyan.
@@ -14528,17 +14564,17 @@ img = cv2.imread("m4_ruido.png")
 # - Guardar máscara como m4_mask_cyan.png
 #+end_src
 
-** Misión 5: La Huella de Canales (Separación BGR + combinación)
-*** La Historia
+*** Misión 5: La Huella de Canales (Separación BGR + combinación)
+**** La Historia
 Interceptamos (=m5_tricolor.png=) (debes generarla tú) donde la clave no está en HSV, sino en una *diferencia entre canales*.
 
-*** Las Pistas
+**** Las Pistas
 - Si un mensaje está “escondido” en un canal, al separarlo con =cv2.split= puede verse.
 - También puede revelarse con combinaciones tipo:
   - =abs(G - B)=
   - =R - G= (con saturación)
 
-*** Tu Tarea
+**** Tu Tarea
 1. Genera una imagen de 300x700 con fondo aleatorio (ruido) en BGR.
 2. Escribe un texto con tinta “tramposa” que dependa de un solo canal (por ejemplo, pon texto en el canal G muy alto y en B bajo).
 3. Guarda la evidencia: =m5_tricolor.png=
@@ -14567,14 +14603,14 @@ import numpy as np
 # - Guardar la mejor como m5_mensaje.png
 #+end_src
 
-** Entregable: Reporte de Misión (Formato Markdown Examen)
-*** Instrucciones
+*** Entregable: Reporte de Misión (Formato Markdown Examen)
+**** Instrucciones
 Entrega un archivo =reporte_mision_v2.md= que incluya:
 - Capturas/imagenes resultantes de cada misión
 - Bloques de código que usaste (puede ser el final “limpio”)
 - Conclusiones
 
-*** Plantilla Base (Markdown)
+**** Plantilla Base (Markdown)
 #+begin_example markdown
 # Reporte de Misión: Graficación Táctica II
 **Agente Especial:** [Tu Nombre/Matrícula]
@@ -14618,4 +14654,26 @@ Entrega un archivo =reporte_mision_v2.md= que incluya:
 4. **Canales (M5):** ¿Por qué separar canales puede revelar información que en la imagen a color “no se ve” a simple vista?
 > [Respuesta]
 #+end_example
+
+
+
+
+* Formato de Entrega (Obligatorio)
+
+Todos los resultados deberán entregarse en formato Markdown (.md).
+
+El archivo deberá incluir:
+
+- Portada con nombre completo y grupo.
+- Objetivo de la práctica.
+- Capturas de pantalla de las máscaras generadas.
+- Tabla comparativa de resultados.
+- Respuestas a las preguntas de análisis.
+- Conclusión final.
+
+No se aceptarán archivos en PDF, Word o imágenes sueltas.
+La entrega debe consistir en un único archivo .md.
+
+
+
 
