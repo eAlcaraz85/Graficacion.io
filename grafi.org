@@ -11243,195 +11243,6 @@ def setup_professional_lighting():
     glMaterialf(GL_FRONT, GL_SHININESS, 80)
 #+end_src
 
-* Configuración de Materiales
-
-Los materiales definen cómo las superficies reaccionan a la luz con iluminación fija (OpenGL clásico).
-
-** Requisitos mínimos
-
-#+begin_src python
-from OpenGL.GL import *
-from OpenGL.GLU import *
-from OpenGL.GLUT import *
-#+end_src
-
-** Inicialización básica (luz + estados)
-
-#+begin_src python
-def init_lighting():
-    glClearColor(0.08, 0.08, 0.10, 1.0)
-    glEnable(GL_DEPTH_TEST)
-
-    glEnable(GL_LIGHTING)
-    glEnable(GL_LIGHT0)
-
-    # Luz blanca (posicional). Si el w=0 => direccional, w=1 => posicional.
-    glLightfv(GL_LIGHT0, GL_POSITION, [2.0, 3.0, 4.0, 1.0])
-    glLightfv(GL_LIGHT0, GL_DIFFUSE,  [1.0, 1.0, 1.0, 1.0])
-    glLightfv(GL_LIGHT0, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
-
-    # Normalización útil si escalas modelos
-    glEnable(GL_NORMALIZE)
-#+end_src
-
-** Propiedades del Material
-
-*** Material Ambiente
-
-#+begin_src python
-material_ambient = [0.2, 0.2, 0.2, 1.0]
-glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient)
-#+end_src
-
-*** Material Difuso
-
-#+begin_src python
-material_diffuse = [0.8, 0.0, 0.0, 1.0]  # Rojo mate
-glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse)
-#+end_src
-
-*** Material Especular
-
-#+begin_src python
-material_specular = [1.0, 1.0, 1.0, 1.0]  # Brillos blancos
-glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular)
-#+end_src
-
-*** Shininess (Brillo)
-
-#+begin_src python
-# 0   = superficie mate, difusa
-# 128 = superficie muy brillante, pulida
-shininess = 100.0
-glMaterialf(GL_FRONT, GL_SHININESS, shininess)
-#+end_src
-
-** Funciones útiles para aplicar materiales (rápido)
-
-#+begin_src python
-def set_material(ambient, diffuse, specular, shininess, face=GL_FRONT):
-    glMaterialfv(face, GL_AMBIENT,  ambient)
-    glMaterialfv(face, GL_DIFFUSE,  diffuse)
-    glMaterialfv(face, GL_SPECULAR, specular)
-    glMaterialf(face, GL_SHININESS, float(shininess))
-#+end_src
-
-** Ejemplos de Materiales
-
-*** Plástico
-
-#+begin_src python
-set_material(
-    ambient=[0.2, 0.2, 0.2, 1.0],
-    diffuse=[0.8, 0.1, 0.1, 1.0],
-    specular=[1.0, 1.0, 1.0, 1.0],
-    shininess=32.0,
-)
-#+end_src
-
-*** Metal
-
-#+begin_src python
-set_material(
-    ambient=[0.3, 0.3, 0.3, 1.0],
-    diffuse=[0.7, 0.7, 0.7, 1.0],
-    specular=[1.0, 1.0, 1.0, 1.0],
-    shininess=128.0,
-)
-#+end_src
-
-*** Goma
-
-#+begin_src python
-set_material(
-    ambient=[0.1, 0.1, 0.1, 1.0],
-    diffuse=[0.5, 0.5, 0.5, 1.0],
-    specular=[0.1, 0.1, 0.1, 1.0],
-    shininess=5.0,
-)
-#+end_src
-
-** GL_COLOR_MATERIAL
-
-Permite usar =glColor3f()= con iluminación para afectar el material automáticamente.
-
-#+begin_src python
-def enable_color_material():
-    glEnable(GL_COLOR_MATERIAL)
-    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
-#+end_src
-
-Ejemplo de uso:
-
-#+begin_src python
-enable_color_material()
-
-# Ahora glColor3f afecta ambient y diffuse del material
-glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
-glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 64.0)
-
-glColor3f(1.0, 0.0, 0.0)  # Objeto rojo con iluminación
-#+end_src
-
-** Ejemplo completo mínimo (ventana GLUT + esfera)
-
-#+begin_src python
-W, H = 900, 600
-rot_y = 0.0
-
-def reshape(w, h):
-    global W, H
-    W, H = max(1, w), max(1, h)
-    glViewport(0, 0, W, H)
-    glMatrixMode(GL_PROJECTION)
-    glLoadIdentity()
-    gluPerspective(60.0, W / float(H), 0.1, 100.0)
-    glMatrixMode(GL_MODELVIEW)
-
-def display():
-    global rot_y
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-
-    glLoadIdentity()
-    gluLookAt(0.0, 0.8, 3.0,   0.0, 0.0, 0.0,   0.0, 1.0, 0.0)
-
-    # La posición de la luz depende del MODELVIEW actual
-    glLightfv(GL_LIGHT0, GL_POSITION, [2.0, 3.0, 4.0, 1.0])
-
-    glRotatef(rot_y, 0.0, 1.0, 0.0)
-
-    # Material (sin GL_COLOR_MATERIAL)
-    set_material(
-        ambient=[0.2, 0.2, 0.2, 1.0],
-        diffuse=[0.1, 0.4, 0.9, 1.0],   # azul
-        specular=[1.0, 1.0, 1.0, 1.0],
-        shininess=80.0,
-        face=GL_FRONT,
-    )
-
-    glutSolidSphere(0.7, 48, 32)
-    glutSwapBuffers()
-
-def idle():
-    global rot_y
-    rot_y = (rot_y + 0.2) % 360.0
-    glutPostRedisplay()
-
-def main():
-    glutInit([])
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
-    glutInitWindowSize(W, H)
-    glutCreateWindow(b"Materiales (PyOpenGL)")
-
-    init_lighting()
-    glutReshapeFunc(reshape)
-    glutDisplayFunc(display)
-    glutIdleFunc(idle)
-    glutMainLoop()
-
-if __name__ == "__main__":
-    main()
-#+end_src
 ** Figuras
 
 #+BEGIN_SRC python :results output :tanto code/cuerpo.py
@@ -11530,6 +11341,8 @@ def main():
 if __name__ == "__main__":
     main()
 #+END_SRC
+
+#+RESULTS:
 
 
 #+BEGIN_SRC python :results output :tanto code/cuerpo2.py
@@ -11635,6 +11448,234 @@ if __name__ == "__main__":
 
 
 #+RESULTS:
+luz para windows
+
+#+BEGIN_SRC python :results output :tanto code/windowsluz.py
+import sys
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+import math
+
+rotation = 0.0
+light_mode = 0  # 0=Básica, 1=Múltiple, 2=Direccional, 3=Spotlight, 4=Colores
+
+def draw_two_spheres():
+    """Dibuja las esferas formando el ojo"""
+    glPushMatrix()
+    
+    # Esclerótica (blanco)
+    glColor3f(1.0, 1.0, 1.0)
+    glPushMatrix()
+    glTranslatef(0.56, 0, 0)
+    glutSolidSphere(0.6, 40, 40)
+    glPopMatrix()
+    
+    # Iris (azul grisáceo)
+    glColor3f(0.84, 0.85, 0.92)
+    glPushMatrix()
+    glTranslatef(0.49, 0, 0)
+    glutSolidSphere(0.55, 35, 35)
+    glPopMatrix()
+    
+    # Parte rosada del iris
+    glColor3f(0.85, 0.67, 0.65)
+    glPushMatrix()
+    glTranslatef(0.7, 0, 0)
+    glutSolidSphere(0.54, 35, 35)
+    glPopMatrix()
+
+    # Pupila (negro)
+    glColor3f(0.0, 0.0, 0.0)
+    glPushMatrix()
+    glTranslatef(0.3, 0, 0)
+    glutSolidSphere(0.4, 30, 30)
+    glPopMatrix()
+    
+    glPopMatrix()
+
+# --- CONFIGURACIONES DE ILUMINACIÓN ---
+
+def setup_lighting_basic():
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glDisable(GL_LIGHT1)
+    glDisable(GL_LIGHT2)
+    
+    light_position = [3.0, 2.0, 3.0, 1.0]
+    light_diffuse = [1.0, 1.0, 1.0, 1.0]
+    light_ambient = [0.3, 0.3, 0.3, 1.0]
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+
+def setup_lighting_multiple():
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0); glEnable(GL_LIGHT1); glEnable(GL_LIGHT2)
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, [3.0, 4.0, 3.0, 1.0])
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, [1.0, 1.0, 1.0, 1.0])
+    
+    glLightfv(GL_LIGHT1, GL_POSITION, [-2.0, 1.0, -3.0, 1.0])
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, [0.3, 0.4, 0.6, 1.0])
+    
+    glLightfv(GL_LIGHT2, GL_POSITION, [4.0, 0.0, 1.0, 1.0])
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, [0.9, 0.6, 0.3, 1.0])
+
+def setup_lighting_directional():
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glDisable(GL_LIGHT1); glDisable(GL_LIGHT2)
+    
+    # W=0.0 es clave para luz direccional (como el sol)
+    light_direction = [1.0, -1.0, 1.0, 0.0]
+    glLightfv(GL_LIGHT0, GL_POSITION, light_direction)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, [1.0, 0.95, 0.8, 1.0])
+
+def setup_lighting_spotlight():
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    
+    light_position = [0.0, 4.0, 2.0, 1.0]
+    spot_direction = [0.0, -1.0, -0.5]
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position)
+    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction)
+    glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 30.0) # Ángulo del cono
+    glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 20.0)
+
+def setup_lighting_colored():
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0); glEnable(GL_LIGHT1); glEnable(GL_LIGHT2)
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, [-3.0, 1.0, 2.0, 1.0])
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, [1.0, 0.2, 0.2, 1.0]) # Rojo
+    
+    glLightfv(GL_LIGHT1, GL_POSITION, [3.0, 1.0, 2.0, 1.0])
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, [0.2, 1.0, 0.3, 1.0]) # Verde
+    
+    glLightfv(GL_LIGHT2, GL_POSITION, [0.0, 3.0, 0.0, 1.0])
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, [0.3, 0.3, 1.0, 1.0]) # Azul
+
+def setup_lighting():
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    if light_mode == 0: setup_lighting_basic()
+    elif light_mode == 1: setup_lighting_multiple()
+    elif light_mode == 2: setup_lighting_directional()
+    elif light_mode == 3: setup_lighting_spotlight()
+    elif light_mode == 4: setup_lighting_colored()
+
+def draw_light_indicators():
+    """Dibuja pequeñas esferas de alambre donde están las luces"""
+    glDisable(GL_LIGHTING)
+    glColor3f(1.0, 1.0, 0.0)
+    
+    if light_mode == 0:
+        glPushMatrix(); glTranslatef(3.0, 2.0, 3.0); glutWireSphere(0.1, 8, 8); glPopMatrix()
+    elif light_mode == 1:
+        glPushMatrix(); glTranslatef(3.0, 4.0, 3.0); glutWireSphere(0.1, 8, 8); glPopMatrix()
+        glPushMatrix(); glTranslatef(-2.0, 1.0, -3.0); glutWireSphere(0.1, 8, 8); glPopMatrix()
+    elif light_mode == 4:
+        glColor3f(1, 0, 0); glPushMatrix(); glTranslatef(-3.0, 1.0, 2.0); glutWireSphere(0.1, 8, 8); glPopMatrix()
+        glColor3f(0, 1, 0); glPushMatrix(); glTranslatef(3.0, 1.0, 2.0); glutWireSphere(0.1, 8, 8); glPopMatrix()
+        glColor3f(0, 0, 1); glPushMatrix(); glTranslatef(0.0, 3.0, 0.0); glutWireSphere(0.1, 8, 8); glPopMatrix()
+    
+    glEnable(GL_LIGHTING)
+
+def key_callback(window, key, scancode, action, mods):
+    global light_mode
+    if action == glfw.PRESS:
+        if glfw.KEY_0 <= key <= glfw.KEY_4:
+            light_mode = key - glfw.KEY_0
+            print(f"Cambio a Modo de Luz: {light_mode}")
+            setup_lighting()
+
+def main():
+    global rotation
+    
+    # 1. Inicializar GLFW primero
+    if not glfw.init():
+        return
+
+    window = glfw.create_window(800, 600, "Tipos de Iluminación OpenGL", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    glfw.make_context_current(window)
+    glfw.set_key_callback(window, key_callback)
+
+    # 2. Inicializar GLUT después de crear la ventana
+    glutInit(sys.argv)
+
+    # Configuración inicial de OpenGL
+    glClearColor(0.1, 0.1, 0.1, 1.0) # Fondo oscuro para ver mejor las luces
+    setup_lighting()
+    
+    glMaterialfv(GL_FRONT, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
+    glMaterialf(GL_FRONT, GL_SHININESS, 100.0)
+
+    print("Controles: Teclas 0, 1, 2, 3, 4 para cambiar modos de iluminación.")
+
+    while not glfw.window_should_close(window):
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluPerspective(45, 800/600, 0.1, 100.0)
+        
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+        glTranslatef(0, 0, -5)
+        
+        rotation += 0.5
+        glRotatef(rotation, 0, 1, 0)
+        glRotatef(20, 1, 0, 0)
+        
+        draw_two_spheres()
+        draw_light_indicators()
+        
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+Controles: Teclas 0, 1, 2, 3, 4 para cambiar modos de iluminación.
+Cambio a Modo de Luz: 1
+Cambio a Modo de Luz: 2
+Cambio a Modo de Luz: 3
+Cambio a Modo de Luz: 4
+Cambio a Modo de Luz: 2
+Cambio a Modo de Luz: 1
+Cambio a Modo de Luz: 3
+Cambio a Modo de Luz: 2
+Cambio a Modo de Luz: 1
+Cambio a Modo de Luz: 3
+Cambio a Modo de Luz: 2
+Cambio a Modo de Luz: 3
+Cambio a Modo de Luz: 1
+Cambio a Modo de Luz: 2
+Cambio a Modo de Luz: 3
+Cambio a Modo de Luz: 4
+Cambio a Modo de Luz: 1
+Cambio a Modo de Luz: 1
+Cambio a Modo de Luz: 2
+Cambio a Modo de Luz: 3
+Cambio a Modo de Luz: 4
+Cambio a Modo de Luz: 2
+Cambio a Modo de Luz: 3
+#+end_example
+
 
 #+BEGIN_SRC python :results output :tanto code/ojo.py
 import glfw
@@ -11847,6 +11888,253 @@ Modo: UN OJO
 Modo: CÍRCULO (araña)
 Modo: DOS OJOS (cara)
 Modo: UN OJO
+#+end_example
+
+
+Ejemplo para windows
+
+#+BEGIN_SRC python :results output :tanto code/ojo3.py
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+import math
+
+rotation = 0.0
+eye_mode = 0  # 0=uno, 1=dos, 2=cuadrícula, 3=círculo
+
+def draw_eye():
+    """Dibuja un ojo completo"""
+    glPushMatrix()
+   
+    glColor3f(0.85, 0.67, 0.65)
+    glPushMatrix()
+    glTranslatef(0.7, 0, 0)
+    glutSolidSphere(0.54, 30, 30)
+    glPopMatrix()
+
+    glColor3f(1, 1, 1)
+    glPushMatrix()
+    glTranslatef(0.56, 0, 0)
+    glutSolidSphere(0.6, 30, 30)
+    glPopMatrix()
+    
+    glColor3f(0 , 0, 1)
+    glPushMatrix()
+    glTranslatef(0.49, 0, 0)
+    glutSolidSphere(0.55, 30, 30)
+    glPopMatrix()
+
+    glColor3f(0, 0, 0)
+    glPushMatrix()
+    glTranslatef(0.3, 0, 0)
+    glutSolidSphere(0.4, 30, 30)
+    glPopMatrix()
+    
+    glPopMatrix()
+
+def draw_one_eye():
+    """Un solo ojo"""
+    draw_eye()
+
+def draw_two_eyes():
+    """Dos ojos como cara"""
+    glPushMatrix()
+    glTranslatef(-1.2, 0, 0)
+    draw_eye()
+    draw_eye()
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(0, -1.5, 0)
+    draw_eye()
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(0, 1.5, 0)
+    draw_eye()
+    glPopMatrix()
+
+    
+    glPushMatrix()
+    glTranslatef(1.2, 0, 0)
+    draw_eye()
+    glPopMatrix()
+
+def draw_grid_eyes():
+    """Cuadrícula de ojos"""
+    for row in range(3):
+        for col in range(3):
+            x = (col - 1) * 1.8
+            y = (row - 1) * 1.8
+            glPushMatrix()
+            glTranslatef(x, y, 0)
+            glScalef(0.5, 0.5, 0.5)
+            draw_eye()
+            glPopMatrix()
+
+def draw_circle_eyes():
+    """Círculo de ojos (araña)"""
+    num_eyes = 8
+    radius = 2.5
+    
+    for i in range(num_eyes):
+        angle = i * (360.0 / num_eyes)
+        rad = math.radians(angle)
+        
+        x = radius * math.cos(rad)
+        y = radius * math.sin(rad)
+        
+        glPushMatrix()
+        glTranslatef(x, y, 0)
+        glRotatef(angle + 90, 0, 0, 1)
+        glScalef(0.4, 0.4, 0.4)
+        draw_eye()
+        glPopMatrix()
+
+def draw_eyes():
+    """Dibuja según el modo actual"""
+    if eye_mode == 0:
+        draw_one_eye()
+    elif eye_mode == 1:
+        draw_two_eyes()
+    elif eye_mode == 2:
+        draw_grid_eyes()
+    elif eye_mode == 3:
+        draw_circle_eyes()
+
+def setup_lighting():
+    """Configura iluminación básica"""
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    
+    light_position = [2.0, 3.0, 2.0, 1.0]
+    light_ambient = [0.4, 0.4, 0.4, 1.0]
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+
+def key_callback(window, key, scancode, action, mods):
+    """Cambiar entre modos con teclas"""
+    global eye_mode
+    
+    if action == glfw.PRESS:
+        if key == glfw.KEY_1:
+            eye_mode = 0
+            print("Modo: UN OJO")
+        elif key == glfw.KEY_2:
+            eye_mode = 1
+            print("Modo: DOS OJOS (cara)")
+        elif key == glfw.KEY_3:
+            eye_mode = 2
+            print("Modo: CUADRÍCULA 3x3")
+        elif key == glfw.KEY_4:
+            eye_mode = 3
+            print("Modo: CÍRCULO (araña)")
+
+def main():
+    global rotation
+    
+    glutInit()
+    
+    if not glfw.init():
+        return
+
+    window = glfw.create_window(800, 600, "Múltiples Ojos", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    glfw.make_context_current(window)
+    glfw.set_key_callback(window, key_callback)
+
+    glClearColor(0.54, 0.72, 0.84, 1.0)
+    setup_lighting()
+
+    print("=" * 50)
+    print("CONTROLES:")
+    print("  1 - Un ojo")
+    print("  2 - Dos ojos (cara)")
+    print("  3 - Cuadrícula 3x3")
+    print("  4 - Círculo (araña)")
+    print("=" * 50)
+
+    while not glfw.window_should_close(window):
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluPerspective(30, 800/600, 0.1, 100.0)
+        
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+        glTranslatef(0, 0, -8)  # Más lejos para ver todos
+        
+        rotation += 0.3
+        glRotatef(rotation, 0, 1, 0)
+        glRotatef(20, 1, 0, 0)
+        
+        draw_eyes()
+        
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+==================================================
+CONTROLES:
+  1 - Un ojo
+  2 - Dos ojos (cara)
+  3 - Cuadrícula 3x3
+  4 - Círculo (araña)
+==================================================
+Modo: UN OJO
+Modo: DOS OJOS (cara)
+Modo: CUADRÍCULA 3x3
+Modo: CÍRCULO (araña)
+Modo: CÍRCULO (araña)
+Modo: CUADRÍCULA 3x3
+Modo: DOS OJOS (cara)
+Modo: DOS OJOS (cara)
+Modo: CUADRÍCULA 3x3
+Modo: CÍRCULO (araña)
+Modo: CÍRCULO (araña)
+Modo: CUADRÍCULA 3x3
+Modo: DOS OJOS (cara)
+Modo: UN OJO
+Modo: DOS OJOS (cara)
+Modo: CUADRÍCULA 3x3
+Modo: CÍRCULO (araña)
+Modo: CUADRÍCULA 3x3
+Modo: DOS OJOS (cara)
+Modo: UN OJO
+Modo: DOS OJOS (cara)
+Modo: CUADRÍCULA 3x3
+Modo: CÍRCULO (araña)
+Modo: DOS OJOS (cara)
+Modo: CUADRÍCULA 3x3
+Modo: UN OJO
+Modo: DOS OJOS (cara)
+Modo: CUADRÍCULA 3x3
+Modo: CÍRCULO (araña)
+Modo: CUADRÍCULA 3x3
+Modo: DOS OJOS (cara)
+Modo: UN OJO
+Modo: DOS OJOS (cara)
+Modo: CUADRÍCULA 3x3
+Modo: CÍRCULO (araña)
+Modo: UN OJO
+Modo: DOS OJOS (cara)
+Modo: CÍRCULO (araña)
+Modo: CUADRÍCULA 3x3
 #+end_example
 
 
@@ -12257,6 +12545,9 @@ Presiona las teclas numéricas para cambiar:
   4 - Luces de Colores (RGB)
 ============================================================
 
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
 >>> MODO 1: LUCES MÚLTIPLES
 Key Light (blanca) + Fill (azul) + Rim (naranja)
 
@@ -12269,20 +12560,80 @@ Foco concentrado con ángulo de 30°
 >>> MODO 4: LUCES DE COLORES
 Roja (izq) + Verde (der) + Azul (arriba)
 
->>> MODO 1: LUCES MÚLTIPLES
-Key Light (blanca) + Fill (azul) + Rim (naranja)
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
 
 >>> MODO 2: LUZ DIRECCIONAL
 Luz infinita como el sol (W=0)
+
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
 
 >>> MODO 4: LUCES DE COLORES
 Roja (izq) + Verde (der) + Azul (arriba)
 
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 1: LUCES MÚLTIPLES
+Key Light (blanca) + Fill (azul) + Rim (naranja)
+
 >>> MODO 1: LUCES MÚLTIPLES
 Key Light (blanca) + Fill (azul) + Rim (naranja)
 
 >>> MODO 2: LUZ DIRECCIONAL
 Luz infinita como el sol (W=0)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 2: LUZ DIRECCIONAL
+Luz infinita como el sol (W=0)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
+
+>>> MODO 3: SPOTLIGHT
+Foco concentrado con ángulo de 30°
+
+>>> MODO 4: LUCES DE COLORES
+Roja (izq) + Verde (der) + Azul (arriba)
 #+end_example
 
 Para windows test 
@@ -12616,6 +12967,195 @@ OpenGL moderno (a partir de OpenGL 3.0) ha evolucionado hacia un modelo basado e
 
 
 
+* Configuración de Materiales
+
+Los materiales definen cómo las superficies reaccionan a la luz con iluminación fija (OpenGL clásico).
+
+** Requisitos mínimos
+
+#+begin_src python
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+#+end_src
+
+** Inicialización básica (luz + estados)
+
+#+begin_src python
+def init_lighting():
+    glClearColor(0.08, 0.08, 0.10, 1.0)
+    glEnable(GL_DEPTH_TEST)
+
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+
+    # Luz blanca (posicional). Si el w=0 => direccional, w=1 => posicional.
+    glLightfv(GL_LIGHT0, GL_POSITION, [2.0, 3.0, 4.0, 1.0])
+    glLightfv(GL_LIGHT0, GL_DIFFUSE,  [1.0, 1.0, 1.0, 1.0])
+    glLightfv(GL_LIGHT0, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
+
+    # Normalización útil si escalas modelos
+    glEnable(GL_NORMALIZE)
+#+end_src
+
+** Propiedades del Material
+
+*** Material Ambiente
+
+#+begin_src python
+material_ambient = [0.2, 0.2, 0.2, 1.0]
+glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient)
+#+end_src
+
+*** Material Difuso
+
+#+begin_src python
+material_diffuse = [0.8, 0.0, 0.0, 1.0]  # Rojo mate
+glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse)
+#+end_src
+
+*** Material Especular
+
+#+begin_src python
+material_specular = [1.0, 1.0, 1.0, 1.0]  # Brillos blancos
+glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular)
+#+end_src
+
+*** Shininess (Brillo)
+
+#+begin_src python
+# 0   = superficie mate, difusa
+# 128 = superficie muy brillante, pulida
+shininess = 100.0
+glMaterialf(GL_FRONT, GL_SHININESS, shininess)
+#+end_src
+
+** Funciones útiles para aplicar materiales (rápido)
+
+#+begin_src python
+def set_material(ambient, diffuse, specular, shininess, face=GL_FRONT):
+    glMaterialfv(face, GL_AMBIENT,  ambient)
+    glMaterialfv(face, GL_DIFFUSE,  diffuse)
+    glMaterialfv(face, GL_SPECULAR, specular)
+    glMaterialf(face, GL_SHININESS, float(shininess))
+#+end_src
+
+** Ejemplos de Materiales
+
+*** Plástico
+
+#+begin_src python
+set_material(
+    ambient=[0.2, 0.2, 0.2, 1.0],
+    diffuse=[0.8, 0.1, 0.1, 1.0],
+    specular=[1.0, 1.0, 1.0, 1.0],
+    shininess=32.0,
+)
+#+end_src
+
+*** Metal
+
+#+begin_src python
+set_material(
+    ambient=[0.3, 0.3, 0.3, 1.0],
+    diffuse=[0.7, 0.7, 0.7, 1.0],
+    specular=[1.0, 1.0, 1.0, 1.0],
+    shininess=128.0,
+)
+#+end_src
+
+*** Goma
+
+#+begin_src python
+set_material(
+    ambient=[0.1, 0.1, 0.1, 1.0],
+    diffuse=[0.5, 0.5, 0.5, 1.0],
+    specular=[0.1, 0.1, 0.1, 1.0],
+    shininess=5.0,
+)
+#+end_src
+
+** GL_COLOR_MATERIAL
+
+Permite usar =glColor3f()= con iluminación para afectar el material automáticamente.
+
+#+begin_src python
+def enable_color_material():
+    glEnable(GL_COLOR_MATERIAL)
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
+#+end_src
+
+Ejemplo de uso:
+
+#+begin_src python
+enable_color_material()
+
+# Ahora glColor3f afecta ambient y diffuse del material
+glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
+glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 64.0)
+
+glColor3f(1.0, 0.0, 0.0)  # Objeto rojo con iluminación
+#+end_src
+
+** Ejemplo completo mínimo (ventana GLUT + esfera)
+
+#+begin_src python
+W, H = 900, 600
+rot_y = 0.0
+
+def reshape(w, h):
+    global W, H
+    W, H = max(1, w), max(1, h)
+    glViewport(0, 0, W, H)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(60.0, W / float(H), 0.1, 100.0)
+    glMatrixMode(GL_MODELVIEW)
+
+def display():
+    global rot_y
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+    glLoadIdentity()
+    gluLookAt(0.0, 0.8, 3.0,   0.0, 0.0, 0.0,   0.0, 1.0, 0.0)
+
+    # La posición de la luz depende del MODELVIEW actual
+    glLightfv(GL_LIGHT0, GL_POSITION, [2.0, 3.0, 4.0, 1.0])
+
+    glRotatef(rot_y, 0.0, 1.0, 0.0)
+
+    # Material (sin GL_COLOR_MATERIAL)
+    set_material(
+        ambient=[0.2, 0.2, 0.2, 1.0],
+        diffuse=[0.1, 0.4, 0.9, 1.0],   # azul
+        specular=[1.0, 1.0, 1.0, 1.0],
+        shininess=80.0,
+        face=GL_FRONT,
+    )
+
+    glutSolidSphere(0.7, 48, 32)
+    glutSwapBuffers()
+
+def idle():
+    global rot_y
+    rot_y = (rot_y + 0.2) % 360.0
+    glutPostRedisplay()
+
+def main():
+    glutInit([])
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
+    glutInitWindowSize(W, H)
+    glutCreateWindow(b"Materiales (PyOpenGL)")
+
+    init_lighting()
+    glutReshapeFunc(reshape)
+    glutDisplayFunc(display)
+    glutIdleFunc(idle)
+    glutMainLoop()
+
+if __name__ == "__main__":
+    main()
+#+end_src
 * Funciones Principales de OpenGL
 
 ** Activación del Sistema
@@ -14506,7 +15046,6 @@ Copia y pega esta estructura en tu archivo =.md= y responde a las preguntas bas�
 
 
 
-
 ** Operación Espejismo II (Graficación Táctica Examen)
 
 
@@ -14768,8 +15307,6 @@ Entrega un archivo =reporte_mision_v2.md= que incluya:
 4. **Canales (M5):** ¿Por qué separar canales puede revelar información que en la imagen a color “no se ve” a simple vista?
 > [Respuesta]
 #+end_example
-
-
 
 
 
