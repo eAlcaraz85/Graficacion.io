@@ -11448,18 +11448,35 @@ if __name__ == "__main__":
 
 
 #+RESULTS:
+
 luz para windows
 
 #+BEGIN_SRC python :results output :tanto code/windowsluz.py
-import sys
 import glfw
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from OpenGL.GLUT import *
 import math
 
 rotation = 0.0
 light_mode = 0  # 0=Básica, 1=Múltiple, 2=Direccional, 3=Spotlight, 4=Colores
+
+# --- FUNCIONES AUXILIARES PARA EVITAR USAR GLUT ---
+
+def draw_sphere(radius, slices, stacks):
+    """Dibuja una esfera sólida usando GLU (Seguro para Windows)"""
+    quadric = gluNewQuadric()
+    gluQuadricNormals(quadric, GLU_SMOOTH)
+    gluSphere(quadric, radius, slices, stacks)
+    gluDeleteQuadric(quadric)
+
+def draw_wire_sphere(radius, slices, stacks):
+    """Dibuja una esfera de alambre usando GLU (Para los indicadores de luz)"""
+    quadric = gluNewQuadric()
+    gluQuadricDrawStyle(quadric, GLU_LINE) # Modo alambre
+    gluSphere(quadric, radius, slices, stacks)
+    gluDeleteQuadric(quadric)
+
+# --------------------------------------------------
 
 def draw_two_spheres():
     """Dibuja las esferas formando el ojo"""
@@ -11469,28 +11486,28 @@ def draw_two_spheres():
     glColor3f(1.0, 1.0, 1.0)
     glPushMatrix()
     glTranslatef(0.56, 0, 0)
-    glutSolidSphere(0.6, 40, 40)
+    draw_sphere(0.6, 40, 40)
     glPopMatrix()
     
     # Iris (azul grisáceo)
     glColor3f(0.84, 0.85, 0.92)
     glPushMatrix()
     glTranslatef(0.49, 0, 0)
-    glutSolidSphere(0.55, 35, 35)
+    draw_sphere(0.55, 35, 35)
     glPopMatrix()
     
     # Parte rosada del iris
     glColor3f(0.85, 0.67, 0.65)
     glPushMatrix()
     glTranslatef(0.7, 0, 0)
-    glutSolidSphere(0.54, 35, 35)
+    draw_sphere(0.54, 35, 35)
     glPopMatrix()
 
     # Pupila (negro)
     glColor3f(0.0, 0.0, 0.0)
     glPushMatrix()
     glTranslatef(0.3, 0, 0)
-    glutSolidSphere(0.4, 30, 30)
+    draw_sphere(0.4, 30, 30)
     glPopMatrix()
     
     glPopMatrix()
@@ -11537,6 +11554,7 @@ def setup_lighting_directional():
 def setup_lighting_spotlight():
     glEnable(GL_LIGHTING)
     glEnable(GL_LIGHT0)
+    glDisable(GL_LIGHT1); glDisable(GL_LIGHT2)
     
     light_position = [0.0, 4.0, 2.0, 1.0]
     spot_direction = [0.0, -1.0, -0.5]
@@ -11574,14 +11592,14 @@ def draw_light_indicators():
     glColor3f(1.0, 1.0, 0.0)
     
     if light_mode == 0:
-        glPushMatrix(); glTranslatef(3.0, 2.0, 3.0); glutWireSphere(0.1, 8, 8); glPopMatrix()
+        glPushMatrix(); glTranslatef(3.0, 2.0, 3.0); draw_wire_sphere(0.1, 8, 8); glPopMatrix()
     elif light_mode == 1:
-        glPushMatrix(); glTranslatef(3.0, 4.0, 3.0); glutWireSphere(0.1, 8, 8); glPopMatrix()
-        glPushMatrix(); glTranslatef(-2.0, 1.0, -3.0); glutWireSphere(0.1, 8, 8); glPopMatrix()
+        glPushMatrix(); glTranslatef(3.0, 4.0, 3.0); draw_wire_sphere(0.1, 8, 8); glPopMatrix()
+        glPushMatrix(); glTranslatef(-2.0, 1.0, -3.0); draw_wire_sphere(0.1, 8, 8); glPopMatrix()
     elif light_mode == 4:
-        glColor3f(1, 0, 0); glPushMatrix(); glTranslatef(-3.0, 1.0, 2.0); glutWireSphere(0.1, 8, 8); glPopMatrix()
-        glColor3f(0, 1, 0); glPushMatrix(); glTranslatef(3.0, 1.0, 2.0); glutWireSphere(0.1, 8, 8); glPopMatrix()
-        glColor3f(0, 0, 1); glPushMatrix(); glTranslatef(0.0, 3.0, 0.0); glutWireSphere(0.1, 8, 8); glPopMatrix()
+        glColor3f(1, 0, 0); glPushMatrix(); glTranslatef(-3.0, 1.0, 2.0); draw_wire_sphere(0.1, 8, 8); glPopMatrix()
+        glColor3f(0, 1, 0); glPushMatrix(); glTranslatef(3.0, 1.0, 2.0); draw_wire_sphere(0.1, 8, 8); glPopMatrix()
+        glColor3f(0, 0, 1); glPushMatrix(); glTranslatef(0.0, 3.0, 0.0); draw_wire_sphere(0.1, 8, 8); glPopMatrix()
     
     glEnable(GL_LIGHTING)
 
@@ -11596,20 +11614,17 @@ def key_callback(window, key, scancode, action, mods):
 def main():
     global rotation
     
-    # 1. Inicializar GLFW primero
+    # Inicializar GLFW
     if not glfw.init():
         return
 
-    window = glfw.create_window(800, 600, "Tipos de Iluminación OpenGL", None, None)
+    window = glfw.create_window(800, 600, "Tipos de Iluminacion OpenGL (Sin GLUT)", None, None)
     if not window:
         glfw.terminate()
         return
 
     glfw.make_context_current(window)
     glfw.set_key_callback(window, key_callback)
-
-    # 2. Inicializar GLUT después de crear la ventana
-    glutInit(sys.argv)
 
     # Configuración inicial de OpenGL
     glClearColor(0.1, 0.1, 0.1, 1.0) # Fondo oscuro para ver mejor las luces
@@ -11618,7 +11633,7 @@ def main():
     glMaterialfv(GL_FRONT, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
     glMaterialf(GL_FRONT, GL_SHININESS, 100.0)
 
-    print("Controles: Teclas 0, 1, 2, 3, 4 para cambiar modos de iluminación.")
+    print("Controles: Teclas 0, 1, 2, 3, 4 para cambiar modos de iluminacion.")
 
     while not glfw.window_should_close(window):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -11645,36 +11660,214 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
-Controles: Teclas 0, 1, 2, 3, 4 para cambiar modos de iluminación.
-Cambio a Modo de Luz: 1
-Cambio a Modo de Luz: 2
-Cambio a Modo de Luz: 3
-Cambio a Modo de Luz: 4
-Cambio a Modo de Luz: 2
-Cambio a Modo de Luz: 1
-Cambio a Modo de Luz: 3
-Cambio a Modo de Luz: 2
-Cambio a Modo de Luz: 1
-Cambio a Modo de Luz: 3
-Cambio a Modo de Luz: 2
-Cambio a Modo de Luz: 3
-Cambio a Modo de Luz: 1
-Cambio a Modo de Luz: 2
-Cambio a Modo de Luz: 3
-Cambio a Modo de Luz: 4
-Cambio a Modo de Luz: 1
-Cambio a Modo de Luz: 1
-Cambio a Modo de Luz: 2
-Cambio a Modo de Luz: 3
-Cambio a Modo de Luz: 4
-Cambio a Modo de Luz: 2
-Cambio a Modo de Luz: 3
-#+end_example
+: Controles: Teclas 0, 1, 2, 3, 4 para cambiar modos de iluminacion.
+: Cambio a Modo de Luz: 2
+: Cambio a Modo de Luz: 3
+: Cambio a Modo de Luz: 2
+
+Multiples ojos windows
+
+#+BEGIN_SRC python
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import *
+import math
+
+rotation = 0.0
+eye_mode = 0  # 0=uno, 1=dos, 2=cuadrícula, 3=círculo
+
+# --- FUNCIÓN AUXILIAR PARA EVITAR USAR GLUT ---
+def draw_sphere(radius, slices, stacks):
+    """Dibuja una esfera sólida usando GLU (Seguro para Windows)"""
+    quadric = gluNewQuadric()
+    gluQuadricNormals(quadric, GLU_SMOOTH)
+    gluSphere(quadric, radius, slices, stacks)
+    gluDeleteQuadric(quadric)
+# ----------------------------------------------
+
+def draw_eye():
+    """Dibuja un ojo completo"""
+    glPushMatrix()
+    
+    glColor3f(0.85, 0.67, 0.65)
+    glPushMatrix()
+    glTranslatef(0.7, 0, 0)
+    draw_sphere(0.54, 30, 30)
+    glPopMatrix()
+
+    glColor3f(1, 1, 1)
+    glPushMatrix()
+    glTranslatef(0.56, 0, 0)
+    draw_sphere(0.6, 30, 30)
+    glPopMatrix()
+    
+    glColor3f(0 , 0, 1)
+    glPushMatrix()
+    glTranslatef(0.49, 0, 0)
+    draw_sphere(0.55, 30, 30)
+    glPopMatrix()
+
+    glColor3f(0, 0, 0)
+    glPushMatrix()
+    glTranslatef(0.3, 0, 0)
+    draw_sphere(0.4, 30, 30)
+    glPopMatrix()
+    
+    glPopMatrix()
+
+def draw_one_eye():
+    """Un solo ojo"""
+    draw_eye()
+
+def draw_two_eyes():
+    """Dos ojos como cara"""
+    glPushMatrix()
+    glTranslatef(-1.2, 0, 0)
+    draw_eye()
+    draw_eye()
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(0, -1.5, 0)
+    draw_eye()
+    glPopMatrix()
+
+    glPushMatrix()
+    glTranslatef(0, 1.5, 0)
+    draw_eye()
+    glPopMatrix()
+    
+    glPushMatrix()
+    glTranslatef(1.2, 0, 0)
+    draw_eye()
+    glPopMatrix()
+
+def draw_grid_eyes():
+    """Cuadrícula de ojos"""
+    for row in range(3):
+        for col in range(3):
+            x = (col - 1) * 1.8
+            y = (row - 1) * 1.8
+            glPushMatrix()
+            glTranslatef(x, y, 0)
+            glScalef(0.5, 0.5, 0.5)
+            draw_eye()
+            glPopMatrix()
+
+def draw_circle_eyes():
+    """Círculo de ojos (araña)"""
+    num_eyes = 8
+    radius = 2.5
+    
+    for i in range(num_eyes):
+        angle = i * (360.0 / num_eyes)
+        rad = math.radians(angle)
+        
+        x = radius * math.cos(rad)
+        y = radius * math.sin(rad)
+        
+        glPushMatrix()
+        glTranslatef(x, y, 0)
+        glRotatef(angle + 90, 0, 0, 1)
+        glScalef(0.4, 0.4, 0.4)
+        draw_eye()
+        glPopMatrix()
+
+def draw_eyes():
+    """Dibuja según el modo actual"""
+    if eye_mode == 0:
+        draw_one_eye()
+    elif eye_mode == 1:
+        draw_two_eyes()
+    elif eye_mode == 2:
+        draw_grid_eyes()
+    elif eye_mode == 3:
+        draw_circle_eyes()
+
+def setup_lighting():
+    """Configura iluminación básica"""
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_COLOR_MATERIAL)
+    
+    light_position = [2.0, 3.0, 2.0, 1.0]
+    light_ambient = [0.4, 0.4, 0.4, 1.0]
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)
+
+def key_callback(window, key, scancode, action, mods):
+    """Cambiar entre modos con teclas"""
+    global eye_mode
+    
+    if action == glfw.PRESS:
+        if key == glfw.KEY_1:
+            eye_mode = 0
+            print("Modo: UN OJO")
+        elif key == glfw.KEY_2:
+            eye_mode = 1
+            print("Modo: DOS OJOS (cara)")
+        elif key == glfw.KEY_3:
+            eye_mode = 2
+            print("Modo: CUADRÍCULA 3x3")
+        elif key == glfw.KEY_4:
+            eye_mode = 3
+            print("Modo: CÍRCULO (araña)")
+
+def main():
+    global rotation
+    
+    if not glfw.init():
+        return
+
+    window = glfw.create_window(800, 600, "Múltiples Ojos (Sin GLUT)", None, None)
+    if not window:
+        glfw.terminate()
+        return
+
+    glfw.make_context_current(window)
+    glfw.set_key_callback(window, key_callback)
+
+    glClearColor(0.54, 0.72, 0.84, 1.0)
+    setup_lighting()
+
+    print("=" * 50)
+    print("CONTROLES:")
+    print("  1 - Un ojo")
+    print("  2 - Dos ojos (cara)")
+    print("  3 - Cuadrícula 3x3")
+    print("  4 - Círculo (araña)")
+    print("=" * 50)
+
+    while not glfw.window_should_close(window):
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluPerspective(30, 800/600, 0.1, 100.0)
+        
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+        glTranslatef(0, 0, -8)  # Más lejos para ver todos
+        
+        rotation += 0.3
+        glRotatef(rotation, 0, 1, 0)
+        glRotatef(20, 1, 0, 0)
+        
+        draw_eyes()
+        
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    glfw.terminate()
+
+if __name__ == "__main__":
+    main()
+#+END_SRC
+
 
 
 #+BEGIN_SRC python :results output :tanto code/ojo.py
@@ -11879,15 +12072,11 @@ CONTROLES:
   3 - Cuadrícula 3x3
   4 - Círculo (araña)
 ==================================================
-Modo: UN OJO
-Modo: DOS OJOS (cara)
 Modo: DOS OJOS (cara)
 Modo: CUADRÍCULA 3x3
 Modo: CÍRCULO (araña)
-Modo: UN OJO
-Modo: CÍRCULO (araña)
+Modo: CUADRÍCULA 3x3
 Modo: DOS OJOS (cara)
-Modo: UN OJO
 #+end_example
 
 
@@ -13898,8 +14087,14 @@ glMaterialf(GL_FRONT, GL_SHININESS, 100.0)
 #+end_src
 
 * MediaPipe + OpenGL + GLFW
-
+1
 #+BEGIN_SRC python :results output :tangle code/mask_glfw.py
+
+import os
+
+# Reduce logs de MediaPipe/TensorFlow (antes de import mediapipe)
+os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
+os.environ.setdefault("GLOG_minloglevel", "2")
 
 import glfw
 import cv2
@@ -13911,37 +14106,35 @@ from OpenGL.GLU import *
 # ============================================================
 # Configuración
 # ============================================================
-#WINDOW_WIDTH
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
 WINDOW_TITLE = "Mascara 3D Extendida + Mediapipe"
 
 # Conexiones para dibujar el contorno facial
-contorno_cara  = [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288,
-             397, 365, 379, 378, 400, 377, 152, 148, 176, 149, 150, 136,
-             172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109]
+contorno_cara = [
+    10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379,
+    378, 400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127,
+    162, 21, 54, 103, 67, 109
+]
 
 # Cejas
 LEFT_EYEBROW = [70, 63, 105, 66, 107]
 RIGHT_EYEBROW = [336, 296, 334, 293, 300]
 
+
 def init_glfw():
     if not glfw.init():
         raise Exception("No se pudo inicializar GLFW")
-    
-    # No especificar version de OpenGL - usar la mejor disponible compatible
-    # con fixed-function pipeline (glBegin/glEnd, GL_LIGHTING, etc.)
-    
+
     window = glfw.create_window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, None, None)
-    
     if not window:
         glfw.terminate()
         raise Exception("No se pudo crear la ventana GLFW")
-    
+
     glfw.make_context_current(window)
     glfw.swap_interval(1)
-    
     return window
+
 
 # ============================================================
 # Configuracion inicial de OpenGL
@@ -13955,6 +14148,7 @@ def setup_opengl():
     glEnable(GL_LINE_SMOOTH)
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST)
 
+
 def create_video_texture():
     video_tex = glGenTextures(1)
     glBindTexture(GL_TEXTURE_2D, video_tex)
@@ -13962,7 +14156,17 @@ def create_video_texture():
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE)
+    glBindTexture(GL_TEXTURE_2D, 0)
     return video_tex
+
+
+def init_video_texture_storage(video_tex, w, h):
+    """Reserva memoria de textura una sola vez (evita glTexImage2D cada frame)."""
+    glBindTexture(GL_TEXTURE_2D, video_tex)
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, int(w), int(h), 0, GL_RGB, GL_UNSIGNED_BYTE, None)
+    glBindTexture(GL_TEXTURE_2D, 0)
+
 
 def setup_lights():
     glEnable(GL_LIGHTING)
@@ -13970,16 +14174,17 @@ def setup_lights():
     glEnable(GL_LIGHT1)  # Luz adicional
     glEnable(GL_COLOR_MATERIAL)
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
-    
+
     # Luz principal frontal
     glLightfv(GL_LIGHT0, GL_POSITION, (0, 0, 2, 1))
     glLightfv(GL_LIGHT0, GL_DIFFUSE, (1, 1, 1, 1))
     glLightfv(GL_LIGHT0, GL_SPECULAR, (1, 1, 1, 1))
     glLightfv(GL_LIGHT0, GL_AMBIENT, (0.3, 0.3, 0.3, 1))
-    
+
     # Luz de relleno lateral
     glLightfv(GL_LIGHT1, GL_POSITION, (1, 1, 1, 0))
     glLightfv(GL_LIGHT1, GL_DIFFUSE, (0.5, 0.5, 0.5, 1))
+
 
 # ============================================================
 # Funciones de dibujo
@@ -13994,6 +14199,7 @@ def draw_sphere(x, y, z, radius, color=(1, 1, 1)):
     gluDeleteQuadric(quad)
     glPopMatrix()
 
+
 def draw_line(p1, p2, color=(1, 1, 1), width=2.0):
     """Dibuja una línea entre dos puntos 3D"""
     glDisable(GL_LIGHTING)
@@ -14005,260 +14211,245 @@ def draw_line(p1, p2, color=(1, 1, 1), width=2.0):
     glEnd()
     glEnable(GL_LIGHTING)
 
+
 def norm_landmark(p):
     return (p.x - 0.5, -(p.y - 0.5), p.z)
+
 
 # ============================================================
 # Renderizado
 # ============================================================
 def render_video_background(frame_rgb, video_tex):
+    """Renderiza el frame de la cámara como quad 2D con textura."""
     glDisable(GL_DEPTH_TEST)
     glDisable(GL_LIGHTING)
-    
+
     glMatrixMode(GL_PROJECTION)
     glPushMatrix()
     glLoadIdentity()
     gluOrtho2D(0, 1, 0, 1)
-    
+
     glMatrixMode(GL_MODELVIEW)
     glPushMatrix()
     glLoadIdentity()
-    
+
     glBindTexture(GL_TEXTURE_2D, video_tex)
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 
-                 frame_rgb.shape[1], frame_rgb.shape[0],
-                 0, GL_RGB, GL_UNSIGNED_BYTE, frame_rgb)
-    
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
+    glTexSubImage2D(
+        GL_TEXTURE_2D,
+        0,
+        0,
+        0,
+        frame_rgb.shape[1],
+        frame_rgb.shape[0],
+        GL_RGB,
+        GL_UNSIGNED_BYTE,
+        frame_rgb,
+    )
+
     glColor3f(1.0, 1.0, 1.0)
-    
+
     glEnable(GL_TEXTURE_2D)
     glBegin(GL_QUADS)
-    glTexCoord2f(0, 1); glVertex2f(0, 0)
-    glTexCoord2f(1, 1); glVertex2f(1, 0)
-    glTexCoord2f(1, 0); glVertex2f(1, 1)
-    glTexCoord2f(0, 0); glVertex2f(0, 1)
+    glTexCoord2f(0, 1)
+    glVertex2f(0, 0)
+    glTexCoord2f(1, 1)
+    glVertex2f(1, 0)
+    glTexCoord2f(1, 0)
+    glVertex2f(1, 1)
+    glTexCoord2f(0, 0)
+    glVertex2f(0, 1)
     glEnd()
     glDisable(GL_TEXTURE_2D)
-    
+    glBindTexture(GL_TEXTURE_2D, 0)
+
     glPopMatrix()
     glMatrixMode(GL_PROJECTION)
     glPopMatrix()
     glMatrixMode(GL_MODELVIEW)
+
 
 def draw_face_contour(landmarks, indices, color=(0.3, 0.8, 0.4)):
     glDisable(GL_LIGHTING)
     glLineWidth(1.5)
     glColor3f(*color)
-    
+
     glBegin(GL_LINE_STRIP)
     for idx in indices:
         p = norm_landmark(landmarks[idx])
         glVertex3f(*p)
-    # Cerrar el contorno
-    p = norm_landmark(landmarks[indices[0]])
+    p = norm_landmark(landmarks[indices[0]])  # cerrar contorno
     glVertex3f(*p)
     glEnd()
-    
+
     glEnable(GL_LIGHTING)
+
 
 def render_3d_mask_extended(face_landmarks):
     """Renderiza la máscara 3D extendida"""
     glEnable(GL_DEPTH_TEST)
     glClear(GL_DEPTH_BUFFER_BIT)
-    
+
     glMatrixMode(GL_PROJECTION)
     glPushMatrix()
     glLoadIdentity()
-    gluPerspective(45, WINDOW_WIDTH/WINDOW_HEIGHT, 0.1, 100)
-    
+    gluPerspective(45, WINDOW_WIDTH / WINDOW_HEIGHT, 0.1, 100)
+
     glMatrixMode(GL_MODELVIEW)
     glPushMatrix()
     glLoadIdentity()
     gluLookAt(0, 0, 2, 0, 0, 0, 0, 1, 0)
-    
+
     setup_lights()
-    
+
     lm = face_landmarks.landmark
-    
-    # ============================================================
-    # 1. CONTORNO CARA
-    # ============================================================
+
+    # 1. Contorno cara
     draw_face_contour(lm, contorno_cara, color=(0.2, 0.6, 0.3))
-    
-    # ============================================================
-    # 2. OJOS
-    # ============================================================
+
+    # 2. Ojos
     left_eye = lm[386]
     right_eye = lm[159]
     lx, ly, lz = norm_landmark(left_eye)
     rx, ry, rz = norm_landmark(right_eye)
-    
-    # Globos oculares (blancos)
-    glColor3f(1.0, 1.0, 1.0)
+
     draw_sphere(lx, ly, lz, 0.028, (1, 1, 1))
     draw_sphere(rx, ry, rz, 0.028, (1, 1, 1))
-    
-    # Pupilas (azul oscuro)
     draw_sphere(lx, ly, lz + 0.012, 0.016, (0.1, 0.1, 0.4))
     draw_sphere(rx, ry, rz + 0.012, 0.016, (0.1, 0.1, 0.4))
-    
-    # Brillos en los ojos 
     draw_sphere(lx + 0.008, ly + 0.008, lz + 0.018, 0.006, (1, 1, 1))
     draw_sphere(rx + 0.008, ry + 0.008, rz + 0.018, 0.006, (1, 1, 1))
-    
-    # ============================================================
-    # 3. CEJAS
-    # ============================================================
+
+    # 3. Cejas
     draw_face_contour(lm, LEFT_EYEBROW, color=(0.3, 0.2, 0.1))
     draw_face_contour(lm, RIGHT_EYEBROW, color=(0.3, 0.2, 0.1))
-    
-    # Agregar esferas a las  cejas para hacerlas mas visibles
-    for idx in LEFT_EYEBROW[::2]:  # Cada dos puntos
+    for idx in LEFT_EYEBROW[::2]:
         px, py, pz = norm_landmark(lm[idx])
         draw_sphere(px, py, pz, 0.008, (0.4, 0.3, 0.2))
-    
     for idx in RIGHT_EYEBROW[::2]:
         px, py, pz = norm_landmark(lm[idx])
         draw_sphere(px, py, pz, 0.008, (0.4, 0.3, 0.2))
-    
-    # ============================================================
-    # 4. NARIZ
-    # ============================================================
+
+    # 4. Nariz
     nose_tip = lm[1]
     nose_bridge = lm[6]
     nose_left = lm[98]
     nose_right = lm[327]
-    
     nx, ny, nz = norm_landmark(nose_tip)
     nbx, nby, nbz = norm_landmark(nose_bridge)
     nlx, nly, nlz = norm_landmark(nose_left)
     nrx, nry, nrz = norm_landmark(nose_right)
-    
-    # Punta de la nariz (roja)
     draw_sphere(nx, ny, nz, 0.022, (1.0, 0.3, 0.3))
-    
-    # Fosas 
     draw_sphere(nlx, nly, nlz, 0.012, (0.8, 0.4, 0.4))
     draw_sphere(nrx, nry, nrz, 0.012, (0.8, 0.4, 0.4))
-    
-    # Puente de la nariz (linea)
     draw_line((nbx, nby, nbz), (nx, ny, nz), color=(1, 0.5, 0.5), width=3)
-    
-    # ============================================================
-    # 5. BOCA
-    # ============================================================
+
+    # 5. Boca
     mouth_left = lm[61]
     mouth_right = lm[291]
     mouth_top = lm[13]
     mouth_bottom = lm[14]
-    
     mlx, mly, mlz = norm_landmark(mouth_left)
     mrx, mry, mrz = norm_landmark(mouth_right)
     mtx, mty, mtz = norm_landmark(mouth_top)
     mbx, mby, mbz = norm_landmark(mouth_bottom)
-    
-    # Comisuras (rosas)
     draw_sphere(mlx, mly, mlz, 0.015, (1.0, 0.5, 0.6))
     draw_sphere(mrx, mry, mrz, 0.015, (1.0, 0.5, 0.6))
-    
-    # Labio superior e inferior
     draw_sphere(mtx, mty, mtz, 0.012, (1.0, 0.4, 0.5))
     draw_sphere(mbx, mby, mbz, 0.012, (1.0, 0.4, 0.5))
-    
-    # Linea de la boca
     draw_line((mlx, mly, mlz), (mrx, mry, mrz), color=(1, 0.3, 0.4), width=3)
-    
-    # ============================================================
-    # 6. CACHETES
-    # ============================================================
+
+    # 6. Cachetes
     left_cheek = lm[234]
     right_cheek = lm[454]
-    
     lcx, lcy, lcz = norm_landmark(left_cheek)
     rcx, rcy, rcz = norm_landmark(right_cheek)
-    
-    # Rubor en las mejillas (rosado suave, más pequeño)
     draw_sphere(lcx, lcy, lcz, 0.025, (1.0, 0.8, 0.85))
     draw_sphere(rcx, rcy, rcz, 0.025, (1.0, 0.8, 0.85))
-    
-    # ============================================================
-    # 7. FRENTE Y BARBA
-    # ============================================================
+
+    # 7. Frente y barbilla
     forehead = lm[10]
     chin = lm[152]
-    
     fx, fy, fz = norm_landmark(forehead)
     cx, cy, cz = norm_landmark(chin)
-    
-    # Punto en la frente (color suave)
     draw_sphere(fx, fy, fz, 0.015, (0.9, 0.9, 0.7))
-    
-    # Punto en la barbilla (color suave)
     draw_sphere(cx, cy, cz, 0.015, (0.7, 0.9, 0.8))
-    
-    # Restaurar matrices
+
     glPopMatrix()
     glMatrixMode(GL_PROJECTION)
     glPopMatrix()
     glMatrixMode(GL_MODELVIEW)
 
-# ============================================================
-# Función principal
-# ============================================================
+
 def main():
-    
     try:
         window = init_glfw()
     except Exception as e:
-        print(f" Error al inicializar GLFW: {e}")
+        print(f"Error al inicializar GLFW: {e}")
         return
-    
+
     setup_opengl()
     video_tex = create_video_texture()
-    
+
     mp_face = mp.solutions.face_mesh
-    face_mesh = mp_face.FaceMesh(static_image_mode=False, max_num_faces=1, min_detection_confidence=0.5, min_tracking_confidence=0.5)
-    
+    face_mesh = mp_face.FaceMesh(
+        static_image_mode=False,
+        max_num_faces=1,
+        min_detection_confidence=0.5,
+        min_tracking_confidence=0.5,
+    )
+
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
-        print(" No se pudo abrir la camara")
+        print("No se pudo abrir la cámara")
+        face_mesh.close()
         glfw.terminate()
         return
-    
+
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, WINDOW_WIDTH)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, WINDOW_HEIGHT)
-    print("Camara inicializada")
-    
-    
+    print("Cámara inicializada")
+
+    # Inicializar almacenamiento de textura con el primer frame real (tamaño exacto)
+    ret, frame = cap.read()
+    if not ret:
+        print("No pude leer el primer frame de la cámara")
+        cap.release()
+        face_mesh.close()
+        glfw.terminate()
+        return
+
+    frame = cv2.flip(frame, 1)
+    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    init_video_texture_storage(video_tex, frame_rgb.shape[1], frame_rgb.shape[0])
+
     frame_count = 0
     fps_timer = glfw.get_time()
-    
+
     try:
         while not glfw.window_should_close(window):
             ret, frame = cap.read()
             if not ret:
                 break
-            
+
             frame = cv2.flip(frame, 1)
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            
+
             results = face_mesh.process(frame_rgb)
-            
+
             glfw.poll_events()
-            
             if glfw.get_key(window, glfw.KEY_ESCAPE) == glfw.PRESS:
                 break
-            
+
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-            
             render_video_background(frame_rgb, video_tex)
-            
+
             if results.multi_face_landmarks:
                 for face_landmarks in results.multi_face_landmarks:
                     render_3d_mask_extended(face_landmarks)
-            
+
             glfw.swap_buffers(window)
-            
+
             frame_count += 1
             current_time = glfw.get_time()
             if current_time - fps_timer >= 1.0:
@@ -14266,18 +14457,23 @@ def main():
                 glfw.set_window_title(window, f"{WINDOW_TITLE} - FPS: {fps:.1f}")
                 frame_count = 0
                 fps_timer = current_time
-    
+
     except Exception as e:
-        print(f" Error en el loop principal: {e}")
+        print(f"Error en el loop principal: {e}")
         import traceback
         traceback.print_exc()
-    
+
     finally:
         print("\nCerrando aplicación...")
+        try:
+            glDeleteTextures([video_tex])
+        except Exception:
+            pass
         cap.release()
         face_mesh.close()
         glfw.terminate()
-      
+
+
 if __name__ == "__main__":
     main()
 
@@ -14493,110 +14689,6 @@ ventana.
 *Respuesta:* glClear limpia la pantalla del frame anterior y reinicia el
 buffer de profundidad. Esto evita que se mezclen imágenes viejas o que
 queden restos de objetos anteriores en el dibujo actual.
-
-
-
-* Proyectos
-
-** Proyecto final
-
-
-** Proyectos Finales Agosto Diciembre 2025
-
-
-*** Proyecto 1: Pizarra Virtual: Seguimiento por Color y Primitivas
-
-Introducción Técnica La actividad se basa en el Seguimiento por Color
-(Color Tracking) en el espacio HSV para la segmentación de objetos en
-tiempo real. El centroide del objeto detectado se establece como el
-Landmark de control. La aplicación combina la visión artificial con
-las funciones de dibujo de primitivas de la librería OpenCV.
-
-*Actividades*
-
-1. Desarrollo del Modo Trazado Libre (Pintura por Color)
-
-   - Objetivo: Implementar la captura de video y la lógica de
-     seguimiento para generar un trazo de pintura continuo sobre un
-     lienzo virtual (matriz NumPy).
-
-   - Paso Clave: Aislar un color predefinido mediante umbralización
-     HSV (cv2.inRange) para localizar el Landmark.
-
-   - Función: Utilizar las coordenadas del Landmark para dibujar
-     líneas consecutivas (cv2.line) entre el punto actual y el
-     anterior en el lienzo virtual, simulando un pincel.
-
-2. Implementación de Figuras Primitivas Controladas por Landmark
-
-   - Objetivo: Integrar una funcionalidad en la misma pizarra para
-     dibujar figuras geométricas estáticas, controlando su posición,
-     escalamiento y rotación con el movimiento del Landmark.
-
-   - Paso Clave: Implementar una lógica de estado (controlada por
-     teclado o por la detección de un segundo color) para alternar el
-     modo de dibujo.
-
-   - Función: En el modo de figuras, utilizar las coordenadas del
-     Landmark para:
-
-   - Dibujar Figuras Primitivas (cv2.circle, cv2.rectangle) en la
-     posición del Landmark.
-
-   - Controlar la Traslación: Mover la figura en el lienzo siguiendo
-     el movimiento directo del Landmark.
-
-   - Controlar Escalamiento y Rotación (Opcional Avanzado): Utilizar
-     la magnitud y/o dirección del vector de movimiento del Landmark
-     para modular el tamaño y el ángulo de la figura, respectivamente.
-
-
-*** Proyecto 2: Filtro de realidad aumentada Snaptchat 
-
-Una máscara de Snapchat se refiere a los filtros de realidad aumentada
-(llamados "Lentes") que transforman tu rostro en tiempo real,
-aplicando efectos como orejas de animales, maquillaje, distorsiones o
-intercambios de cara (Face Swap), usando la cámara frontal y
-tecnología de reconocimiento facial para ajustarlos a tus expresiones,
-¡y se encuentran tocando la cara en la app y explorando las opciones
-que aparecen abajo!.
-
-
-Con la información anterior y utilizando  el apartado MediaPipe + OpenGL + GLFW
-conformados en estos apuntes realizar los siguientes puntos
-
-- Generar un filtro tipo snapchat que mantenga el tamaño del rostro
-  detectado mediante mediapipe
-- El filtro debe de ser lo suficientemente creativo y novedoso,
-  utilizando las primitivas de opengl
-- El filtro debe de tener alguna animación dentro de los componentes de las caras
-- El filtro se debe de animar juntos con los movimientos faciales
-  detectados de los landmarks faciales
-
-
-*** Proyecto 3: Ciudad Entorno 3D
-
-Un entorno 3D es una representación digital tridimensional (con
-altura, anchura y profundidad) de objetos y espacios, creada por
-computadora para simular mundos virtuales interactivos, utilizada en
-diseño (AutoCAD), videojuegos (Fortnite), formación (Realidad
-Virtual), o efectos visuales, permitiendo explorar escenarios
-complejos o recrear la realidad con gran detalle mediante texturas,
-iluminación y modelado, ofreciendo inmersión y funcionalidad.
-
-
-Con la información anterior y utilizando  el apartado MediaPipe, casas, snowman 
-conformados en estos apuntes realizar los siguientes puntos.
-
-
-- implementar una ciudad, entorno, mundo 3, donde por lo menos tengas 20 objetos móviles
-- implementar el movimiento mediante los landmark de las manos
-  afectando el desplazamiento de la cámara gluLookAt para poder divisar todo el entorno
-- los objetos deben de tener alguna animación de transformación geométrica  
-
-para este proyecto se requiere un equipo máximo de 5 integrantes.
-
-
 
 
 
@@ -15499,6 +15591,428 @@ if __name__ == "__main__":
 
 - Añade una segunda luz =GL_LIGHT1= con color tenue (azul o amarillo) para simular “luz de relleno”.
 - Objetivo: que el lado oscuro no quede totalmente negro, pero sin borrar el volumen.
+
+
+
+
+* Proyectos
+
+** Proyectos Finales Agosto Diciembre 2025
+
+
+*** Proyecto 1: Pizarra Virtual: Seguimiento por Color y Primitivas
+
+Introducción Técnica La actividad se basa en el Seguimiento por Color
+(Color Tracking) en el espacio HSV para la segmentación de objetos en
+tiempo real. El centroide del objeto detectado se establece como el
+Landmark de control. La aplicación combina la visión artificial con
+las funciones de dibujo de primitivas de la librería OpenCV.
+
+*Actividades*
+
+1. Desarrollo del Modo Trazado Libre (Pintura por Color)
+
+   - Objetivo: Implementar la captura de video y la lógica de
+     seguimiento para generar un trazo de pintura continuo sobre un
+     lienzo virtual (matriz NumPy).
+
+   - Paso Clave: Aislar un color predefinido mediante umbralización
+     HSV (cv2.inRange) para localizar el Landmark.
+
+   - Función: Utilizar las coordenadas del Landmark para dibujar
+     líneas consecutivas (cv2.line) entre el punto actual y el
+     anterior en el lienzo virtual, simulando un pincel.
+
+2. Implementación de Figuras Primitivas Controladas por Landmark
+
+   - Objetivo: Integrar una funcionalidad en la misma pizarra para
+     dibujar figuras geométricas estáticas, controlando su posición,
+     escalamiento y rotación con el movimiento del Landmark.
+
+   - Paso Clave: Implementar una lógica de estado (controlada por
+     teclado o por la detección de un segundo color) para alternar el
+     modo de dibujo.
+
+   - Función: En el modo de figuras, utilizar las coordenadas del
+     Landmark para:
+
+   - Dibujar Figuras Primitivas (cv2.circle, cv2.rectangle) en la
+     posición del Landmark.
+
+   - Controlar la Traslación: Mover la figura en el lienzo siguiendo
+     el movimiento directo del Landmark.
+
+   - Controlar Escalamiento y Rotación (Opcional Avanzado): Utilizar
+     la magnitud y/o dirección del vector de movimiento del Landmark
+     para modular el tamaño y el ángulo de la figura, respectivamente.
+
+
+*** Proyecto 2: Filtro de realidad aumentada Snaptchat 
+
+Una máscara de Snapchat se refiere a los filtros de realidad aumentada
+(llamados "Lentes") que transforman tu rostro en tiempo real,
+aplicando efectos como orejas de animales, maquillaje, distorsiones o
+intercambios de cara (Face Swap), usando la cámara frontal y
+tecnología de reconocimiento facial para ajustarlos a tus expresiones,
+¡y se encuentran tocando la cara en la app y explorando las opciones
+que aparecen abajo!.
+
+
+Con la información anterior y utilizando  el apartado MediaPipe + OpenGL + GLFW
+conformados en estos apuntes realizar los siguientes puntos
+
+- Generar un filtro tipo snapchat que mantenga el tamaño del rostro
+  detectado mediante mediapipe
+- El filtro debe de ser lo suficientemente creativo y novedoso,
+  utilizando las primitivas de opengl
+- El filtro debe de tener alguna animación dentro de los componentes de las caras
+- El filtro se debe de animar juntos con los movimientos faciales
+  detectados de los landmarks faciales
+
+
+*** Proyecto 3: Ciudad Entorno 3D
+
+Un entorno 3D es una representación digital tridimensional (con
+altura, anchura y profundidad) de objetos y espacios, creada por
+computadora para simular mundos virtuales interactivos, utilizada en
+diseño (AutoCAD), videojuegos (Fortnite), formación (Realidad
+Virtual), o efectos visuales, permitiendo explorar escenarios
+complejos o recrear la realidad con gran detalle mediante texturas,
+iluminación y modelado, ofreciendo inmersión y funcionalidad.
+
+
+Con la información anterior y utilizando  el apartado MediaPipe, casas, snowman 
+conformados en estos apuntes realizar los siguientes puntos.
+
+
+- implementar una ciudad, entorno, mundo 3, donde por lo menos tengas 20 objetos móviles
+- implementar el movimiento mediante los landmark de las manos
+  afectando el desplazamiento de la cámara gluLookAt para poder divisar todo el entorno
+- los objetos deben de tener alguna animación de transformación geométrica  
+
+para este proyecto se requiere un equipo máximo de 5 integrantes.
+
+
+
+
+** Proyectos Enero Junio 2026
+
+*** Proyecto Final: Demo Procedural con OpenCV (Graficación) — Misión de Curso Enero 
+
+
+***** La Historia
+En el archivo de telemetría del observatorio aparece un demo minimalista:
+sin texturas descargadas, sin modelos importados… y sin embargo muestra un
+mundo completo hecho con *matemáticas* y *primitivas de dibujo*.
+
+La dirección te asigna una misión: construir un *demo procedural* usando
+OpenCV
+
+***** Las Pistas (qué significa “demo” en este curso)
+No buscamos un demo 64k real; buscamos un demo de graficación:
+- **Procedural**: lo visual se genera en tiempo real (ecuaciones/algoritmos).
+- **Temario**: se nota el uso de transformaciones, curvas y composición.
+- **Timeline**: avanza con el tiempo (no con clicks).
+- **OpenCV**: dibujo por primitivas y/o transformaciones de imagen.
+
+***** Restricciones y reglas
+****** Reglas obligatorias
+- Resolución: *800x600* a *30 FPS objetivo*.
+- Duración: *30–60 segundos*.
+- Lenguaje: Python 3.
+- Librerías permitidas: =numpy=, =opencv-python=.
+- Prohibido usar imágenes externas (=png/jpg=) como texturas, sprites o fondos.
+- Prohibido descargar modelos, texturas.
+- Permitido: generar un “logo”/texto con =cv2.putText=.
+- Permitido: guardar el resultado como =.mp4= o secuencia de frames.
+
+***** Objetivo (qué debe hacer tu demo)
+Construye un demo que muestre, de forma clara, temas del curso:
+- **Escenas**: mínimo *6 escenas controladas por una *timeline*.
+- **Curvas paramétricas**: mínimo 6 curvas distintas (ej. Lissajous,
+  espiral, rosa polar, lemniscata etc ) dibujadas con =cv2.polylines=.
+- **Transformaciones**: mínimo *2* de estas (y que se note):
+  - traslación / rotación / escala (matrices afines 2x3)
+  - espejo, shear
+  - composición por capas (=addWeighted=, máscaras)
+- **Primitivas**: uso visible de =line/circle/ellipse/fillPoly=.
+- **Post o filtro**: mínimo *1* (blur, posterize, vignette, umbral, etc.).
+- **Export final**: video =.mp4= o frames.
+
+***** Escenas sugeridas
+Escoge 3–5 escenas. Ejemplos:
+- **Escena 1: Credits/Intro** (texto + fade + patrón procedural).
+- **Escena 2: Curva protagonista** (curva paramétrica animada).
+- **Escena 3: Transformación** (misma figura pasando por rotación/escala/shear).
+- **Escena 4: Partículas** (campo de puntos con movimiento por función).
+- **Escena 5: Final** (composición + filtro/post).
+
+***** Tu Tarea (entregables)
+1. Repositorio/carpeta con:
+   - =demo.py= (o nombre equivalente) ejecutable.
+   - =README.md= con cómo correr y cómo exportar video.
+   - Carpeta =renders/= con:
+     - 1 captura por escena (mínimo 6).
+     - 1 video final o secuencia de frames.
+2. Reporte (1–2 páginas o sección en README):
+   - lista de escenas (timeline)
+   - ecuaciones usadas (mínimo 3 paramétricas)
+   - transformaciones implementadas (mínimo 2) y cómo las aplicaste
+   - filtro/post aplicado (mínimo 1) y por qué
+
+***** Arquitectura recomendada (para que no se vuelva spaghetti)
+****** Componentes
+- =Timeline=:
+  - decide escena activa según \(t\)
+  - maneja transiciones (fade/crossfade/glitch)
+- =Renderer=:
+  - dibuja primitivas y curvas
+  - mantiene buffers (frame actual, acumulación, máscaras)
+- =Scenes=:
+  - cada escena: =render(img, t, state)=
+  - no depende de input para avanzar
+- =PostFX=:
+  - efectos sobre el frame (vignette, posterize, etc.)
+- =Exporter=:
+  - =VideoWriter= o guardado de frames
+
+****** Regla de oro
+Cada escena debe ser **una función** (o clase pequeña) que:
+- recibe \(t\) y un buffer,
+- produce una imagen,
+- usa parámetros/estado mínimo.
+
+***** Código base (demo con 5 transiciones, HSV y fuego procedural)
+#+begin_src python :results output
+import time, math
+import numpy as np
+import cv2
+
+W, H = 800, 600
+FPS = 30
+DURATION = 60.0
+
+def clamp01(x): return 0.0 if x < 0.0 else (1.0 if x > 1.0 else x)
+def smoothstep(a, b, x):
+    x = clamp01((x - a) / (b - a))
+    return x * x * (3 - 2 * x)
+
+def poly_param(fx, fy, t0, t1, n, cx, cy, sx, sy):
+    ts = np.linspace(t0, t1, n, dtype=np.float32)
+    xs = fx(ts) * sx + cx
+    ys = fy(ts) * sy + cy
+    return np.round(np.stack([xs, ys], 1)).astype(np.int32).reshape((-1, 1, 2))
+
+def hsv_to_bgr(h, s, v):
+    # OpenCV: H en [0,179], S,V en [0,255]
+    hsv = np.uint8([[[h % 180, np.clip(s, 0, 255), np.clip(v, 0, 255)]]])
+    return tuple(int(x) for x in cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)[0, 0])
+
+def post_vignette(img, strength=0.7):
+    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+    nx = (xx - W*0.5) / (W*0.5)
+    ny = (yy - H*0.5) / (H*0.5)
+    r2 = nx*nx + ny*ny
+    mask = np.clip(1.0 - strength * r2, 0.0, 1.0)
+    out = (img.astype(np.float32) * mask[..., None]).astype(np.uint8)
+    return out
+
+def post_scanlines(img, strength=0.22):
+    out = img.astype(np.float32)
+    y = np.arange(H, dtype=np.float32)
+    m = 1.0 - strength * (0.5 + 0.5*np.sin(2*np.pi*y/3.0))
+    out *= m[:, None, None]
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+def post_posterize(img, q=32):
+    q = max(1, int(q))
+    return ((img // q) * q).astype(np.uint8)
+
+def background_hsv_gradient(img, t, hue0=10, hue1=140):
+    # Degradado vertical en HSV para cambiar “ambiente” por escena
+    hsv = np.zeros((H, W, 3), np.uint8)
+    ys = np.linspace(0, 1, H, dtype=np.float32)
+    hue = (hue0 + (hue1 - hue0) * ys + 10*np.sin(t*0.4 + ys*2.0)).astype(np.float32)
+    hsv[:, :, 0] = np.clip(hue, 0, 179).astype(np.uint8)[:, None]
+    hsv[:, :, 1] = 200
+    hsv[:, :, 2] = (40 + 120*(1 - ys)).astype(np.uint8)[:, None]
+    img[:] = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+
+def scene_credits(img, t):
+    background_hsv_gradient(img, t, hue0=165, hue1=105)
+    # “estrellas” deterministas
+    rng = np.random.default_rng(1)
+    xs = rng.integers(0, W, 380)
+    ys = rng.integers(0, int(H*0.65), 380)
+    img[ys, xs] = (255, 255, 255)
+    img[:] = cv2.GaussianBlur(img, (0,0), 0.6)
+    cv2.putText(img, "DEMO PROCEDURAL (GRAFICACION)", (42, 260), cv2.FONT_HERSHEY_SIMPLEX, 0.95, (245,245,245), 2, cv2.LINE_AA)
+    cv2.putText(img, "OpenCV + Matematicas", (42, 310), cv2.FONT_HERSHEY_SIMPLEX, 0.85, (220,220,220), 2, cv2.LINE_AA)
+
+def scene_lissajous(img, t):
+    background_hsv_gradient(img, t, hue0=18, hue1=60)
+    a = 3 + 0.7 * math.sin(t*0.6)
+    b = 2 + 0.7 * math.cos(t*0.8)
+    delta = math.pi/2 + 0.4*math.sin(t*0.3)
+    fx = lambda x: np.sin(a*x + delta)
+    fy = lambda x: np.sin(b*x)
+    pts = poly_param(fx, fy, 0, 2*math.pi, 900, W*0.5, H*0.45, 260, 180)
+    col = hsv_to_bgr(int(20 + 30*np.sin(t*0.8)), 210, 240)
+    cv2.polylines(img, [pts], False, col, 2, cv2.LINE_AA)
+
+def scene_rose_polar(img, t):
+    background_hsv_gradient(img, t, hue0=120, hue1=165)
+    # Rosa polar: r = cos(k*theta)
+    k = 5
+    theta0 = t * 0.6
+    fx = lambda th: np.cos(k*th) * np.cos(th + theta0)
+    fy = lambda th: np.cos(k*th) * np.sin(th + theta0)
+    pts = poly_param(fx, fy, 0, 2*math.pi, 1200, W*0.5, H*0.45, 240, 240)
+    col = hsv_to_bgr(int(145 + 25*np.sin(t*0.5)), 220, 245)
+    cv2.polylines(img, [pts], False, col, 2, cv2.LINE_AA)
+    # Círculos “beats”
+    for i in range(6):
+        r = int(18 + 10*np.sin(t*2.0 + i))
+        cv2.circle(img, (int(W*0.18 + i*110), int(H*0.78)), max(1, r), (230,230,230), 1, cv2.LINE_AA)
+
+def scene_spirograph(img, t):
+    background_hsv_gradient(img, t, hue0=80, hue1=20)
+    # Hipotrocoide (spirograph): (R-r)cos(t) + d cos((R-r)/r * t)
+    R, r, d = 8.0, 3.0, 5.0
+    w = (R - r) / r
+    fx = lambda x: (R-r)*np.cos(x) + d*np.cos(w*x + 0.4*np.sin(t*0.7))
+    fy = lambda x: (R-r)*np.sin(x) - d*np.sin(w*x + 0.4*np.cos(t*0.6))
+    pts = poly_param(fx, fy, 0, 14*math.pi, 1600, W*0.5, H*0.46, 26, 26)
+    col = hsv_to_bgr(int(10 + 140*(0.5+0.5*np.sin(t*0.4))), 240, 240)
+    cv2.polylines(img, [pts], False, col, 2, cv2.LINE_AA)
+    img[:] = post_scanlines(img, 0.18)
+
+def scene_particles(img, t, rng):
+    background_hsv_gradient(img, t, hue0=150, hue1=100)
+    n = 1200
+    xs = rng.random(n) * W
+    ys = rng.random(n) * H
+    xs = (xs + 110*np.sin(ys/55.0 + t*1.7) + 40*np.cos(t*0.7)) % W
+    ys = (ys + 85*np.cos(xs/75.0 + t*1.2) + 30*np.sin(t*0.9)) % H
+    # “brillo” por velocidad (fake)
+    v = (0.5 + 0.5*np.sin(t*1.9)).astype(float) if hasattr(t, "astype") else (0.5 + 0.5*math.sin(t*1.9))
+    col = hsv_to_bgr(int(95 + 40*math.sin(t*0.8)), 210, int(210 + 40*v))
+    img[ys.astype(np.int32), xs.astype(np.int32)] = col
+    img[:] = cv2.GaussianBlur(img, (0,0), 1.1)
+
+def scene_fire(img, t, state):
+    # “Fuego” procedural: partículas + heatmap + paleta HSV
+    heat = state["heat"]
+    rng = state["rng"]
+    heat[:] = (heat * 0.93).astype(np.float32)
+
+    # Inyección en la base (más calor = más fuego)
+    base_n = 1400
+    xs = rng.integers(0, W, base_n)
+    ys = rng.integers(int(H*0.82), H, base_n)
+    heat[ys, xs] += rng.random(base_n) * (0.8 + 0.6*(0.5+0.5*math.sin(t*2.0)))
+
+    # “subida” del calor: blur anisotrópico + desplazamiento hacia arriba
+    heat[:] = cv2.GaussianBlur(heat, (0, 0), 2.2)
+    heat[:-2, :] = heat[2:, :]  # desplaza hacia arriba (convección barata)
+    heat[-2:, :] *= 0.0
+
+    # Mapeo a color con HSV (rojo->amarillo->blanco)
+    h = (20 - 20*np.clip(heat, 0, 1)).astype(np.uint8)      # 20..0
+    s = (220 - 80*np.clip(heat, 0, 1)).astype(np.uint8)     # 220..140
+    v = (60 + 195*np.clip(heat, 0, 1)).astype(np.uint8)     # 60..255
+    hsv = np.dstack([h, s, v]).astype(np.uint8)
+    img[:] = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+
+    # Silueta y chispas
+    cv2.rectangle(img, (0, int(H*0.83)), (W, H), (10, 10, 10), -1)
+    sparks = 160
+    sx = rng.integers(0, W, sparks)
+    sy = rng.integers(int(H*0.55), int(H*0.9), sparks)
+    img[sy, sx] = (255, 255, 255)
+    img[:] = cv2.GaussianBlur(img, (0,0), 0.6)
+
+def render_scene(buf, scene_id, t, rng, fire_state):
+    if scene_id == 0:
+        scene_credits(buf, t)
+    elif scene_id == 1:
+        scene_lissajous(buf, t)
+    elif scene_id == 2:
+        scene_rose_polar(buf, t)
+    elif scene_id == 3:
+        scene_spirograph(buf, t)
+    elif scene_id == 4:
+        scene_particles(buf, t, rng)
+    else:
+        scene_fire(buf, t, fire_state)
+
+def timeline(t, rng, bufA, bufB, fire_state):
+    # 6 escenas (0..5) con 5 transiciones entre ellas
+    # Duración 60s -> 6 bloques de 10s
+    block = int(min(5, max(0, t // 10)))
+    t_in = t - block*10
+
+    # Render escena base
+    render_scene(bufA, block, t, rng, fire_state)
+    frame = bufA
+
+    # 5 transiciones: de s a s+1 en los últimos 1.2s de cada bloque
+    if block < 5 and t_in >= 8.8:
+        render_scene(bufA, block, t, rng, fire_state)
+        render_scene(bufB, block+1, t, rng, fire_state)
+        a = smoothstep(8.8, 10.0, t_in)
+        frame = cv2.addWeighted(bufA, 1-a, bufB, a, 0)
+        # pequeño “flash” al final de transición
+        flash = smoothstep(9.6, 10.0, t_in)
+        if flash > 0:
+            frame = cv2.addWeighted(frame, 1.0, np.full_like(frame, 255), 0.12*flash, 0)
+
+    # Fade in/out global
+    fin = smoothstep(0.0, 1.5, t)
+    fout = 1.0 - smoothstep(DURATION - 1.5, DURATION, t)
+    f = fin * fout
+    if f < 0.999:
+        frame = (frame.astype(np.float32) * f).astype(np.uint8)
+    return frame
+
+def main():
+    rng = np.random.default_rng(123)
+    bufA = np.zeros((H, W, 3), np.uint8)
+    bufB = np.zeros((H, W, 3), np.uint8)
+
+    fire_state = {
+        "heat": np.zeros((H, W), np.float32),
+        "rng": np.random.default_rng(999),
+    }
+
+    total_frames = int(DURATION * FPS)
+    t0 = time.perf_counter()
+    for i in range(total_frames):
+        t = i / FPS
+        frame = timeline(t, rng, bufA, bufB, fire_state)
+        frame = post_vignette(frame, 0.72)
+        frame = post_scanlines(frame, 0.16)
+        frame = post_posterize(frame, 24)
+        cv2.imshow("Proyecto Final: demo procedural (OpenCV)", frame)
+        if cv2.waitKey(1) & 0xFF == 27:
+            break
+    print("Tiempo:", time.perf_counter() - t0)
+    cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    main()
+#+end_src
+
+#+RESULTS:
+: Tiempo: 37.92851339500001
+
+***** Criterios de evaluación (rúbrica)
+- **Uso del temario (curvas + transformaciones + primitivas)** — 40%
+- **Timeline (escenas + transiciones)** — 25%
+- **Calidad visual y coherencia** — 20%
+- **Export y documentación** — 15%
+
+
 
 
 
