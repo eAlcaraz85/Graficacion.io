@@ -1,4 +1,3 @@
-t
 #+TITLE: Apuntes Graficación
 #+AUTHOR: Eduardo Alcaraz
 #+LANGUAGE: es
@@ -15195,8 +15194,28 @@ Responder de manera argumentada:
 - Conclusión final (mínimo media cuartilla).
 
 
-** Misión 1: El Artefacto Desplazado (Traslación)
-*** La Historia
+** Instrucciones para los Agentes (Estudiantes)
+Su misión finaliza entregando un *Reporte Oficial en formato Markdown*
+(=reporte_mision.md=). Este documento debe demostrar que dominan tanto
+la matemática pura detrás de las transformaciones como la optimización
+de OpenCV.
+
+Su archivo Markdown debe contener estrictamente tres elementos por cada misión:
+1. *El Código Operativo:* Sus scripts de Python insertados en bloques de código.
+2. *Evidencia Visual:* Las imágenes resultantes (guardadas en su computadora e incrustadas en el Markdown).
+3. *Análisis del Analista:* La respuesta a las preguntas de reflexión técnica.
+
+
+
+
+
+
+
+
+
+
+*** Misión 1: El Artefacto Desplazado (Traslación)
+**** La Historia
 Nuestros satélites han captado la ubicación de un vehículo sospechoso
 en una imagen de 800x600 píxeles. Sin embargo, un error en los
 sensores del satélite desplazó la imagen. El vehículo, que debería
@@ -15206,7 +15225,7 @@ izquierda.
 [[file:vehiculo.jpg]]
 
 
-*** Las Pistas
+**** Las Pistas
 - La imagen original mide 800 píxeles de ancho por 600 de alto.
 - Para corregir el error, debes desplazar toda la imagen *300 píxeles hacia la derecha* y *200 píxeles hacia abajo*.
 - La fórmula matemática pura para trasladar un punto es: 
@@ -15215,7 +15234,7 @@ izquierda.
 - La matriz de traslación para OpenCV tiene la siguiente forma:
   $$M = \begin{bmatrix} 1 & 0 & t_x \\ 0 & 1 & t_y \end{bmatrix}$$
 
-*** Tu Tarea
+**** Tu Tarea
 1. *Modo Raw (Manual):* Crea un lienzo negro nuevo de 600x800. Traslada
    los píxeles de la imagen original al lienzo nuevo utilizando la
    matemática pura de coordenadas (ya sea con ciclos =for= o "slicing"
@@ -15250,8 +15269,8 @@ import numpy as np
   cv2.warpAffine de OpenCV? ¿Por qué crees que tu código manual tarda
   mucho más en ejecutarse?
 
-** Misión 2: El Código Mareado (Rotación)
-*** La Historia
+*** Misión 2: El Código Mareado (Rotación)
+**** La Historia
 Hemos interceptado un código QR que nos dará acceso al servidor de los
 sospechosos. Para evitar que lo escaneemos, lo han girado de forma
 extraña. Si intentamos leerlo así, nuestros escáneres
@@ -15261,7 +15280,7 @@ fallan. ¡Necesitamos enderezarlo!
 
 
 
-*** Las Pistas
+**** Las Pistas
 - El código QR está exactamente en el centro de una imagen cuadrada de 500x500 píxeles.
 - El análisis indica que fue rotado *45 grados* en sentido antihorario. Debes girarlo en sentido horario (-45 grados o 315 grados).
 - Para el modo raw, la trigonometría para rotar un punto $(x, y)$ alrededor del centro $(c_x, c_y)$ es:
@@ -15271,7 +15290,7 @@ fallan. ¡Necesitamos enderezarlo!
 
 
 
-*** Tu Tarea
+**** Tu Tarea
 1. *Modo Raw (Manual):* Usa ciclos anidados para recorrer la imagen vacía de destino. Para cada píxel, calcula de qué coordenada de la imagen original proviene aplicando las fórmulas trigonométricas inversas.
 2. *Modo OpenCV:* Usa =cv2.getRotationMatrix2D= para generar tu matriz de rotación tomando como eje el centro de la imagen (250, 250), y aplícala con =cv2.warpAffine=.
 
@@ -15302,15 +15321,15 @@ import math
   profesionales como los de OpenCV logran rotar la imagen sin dejar
   esos huecos vacíos?
 
-** Misión 3: El Microfilm Oculto (Escalamiento)
-*** La Historia
+*** Misión 3: El Microfilm Oculto (Escalamiento)
+**** La Historia
 Encontramos un archivo de imagen gigantesco de 2000x2000 píxeles. Al
 inspeccionarlo de cerca, notamos que en el centro hay un texto
 diminuto. Los criminales encogieron la evidencia.
 
 [[file:microfilm.jpg]]
 
-*** Las Pistas
+**** Las Pistas
 - El texto es ilegible a simple vista.
 - Debes extraer un recorte (crop) de la zona central y aplicar un factor de escala de *5* tanto en el eje X ($S_x = 5$) como en el eje Y ($S_y = 5$).
 - La matemática para escalar coordenadas es simple:
@@ -15319,7 +15338,7 @@ diminuto. Los criminales encogieron la evidencia.
 
 
 
-*** Tu Tarea
+**** Tu Tarea
 1. *Modo Raw (Manual):* Recorta una región central de la imagen (por ejemplo, de 200x200 píxeles donde está el texto). Crea un nuevo lienzo de 1000x1000 y usa la matemática para "estirar" los píxeles del recorte. /(Pista: te quedará un efecto pixelado tipo "Vecino Más Cercano")/.
 2. *Modo OpenCV:* Utiliza =cv2.resize= sobre ese mismo recorte usando los parámetros =fx=5= y =fy=5=. Prueba el parámetro de interpolación =cv2.INTER_CUBIC= para ver cómo OpenCV suaviza los bordes mágicamente.
 
@@ -15350,26 +15369,6 @@ diminuto. Los criminales encogieron la evidencia.
   OpenCV usando la interpolación cv2.INTER_CUBIC? ¿De dónde crees que
   OpenCV saca los colores para rellenar y suavizar esos píxeles nuevos
   que en la imagen original no existían
-
-** Instrucciones para los Agentes (Estudiantes)
-Su misión finaliza entregando un *Reporte Oficial en formato Markdown*
-(=reporte_mision.md=). Este documento debe demostrar que dominan tanto
-la matemática pura detrás de las transformaciones como la optimización
-de OpenCV.
-
-Su archivo Markdown debe contener estrictamente tres elementos por cada misión:
-1. *El Código Operativo:* Sus scripts de Python insertados en bloques de código.
-2. *Evidencia Visual:* Las imágenes resultantes (guardadas en su computadora e incrustadas en el Markdown).
-3. *Análisis del Analista:* La respuesta a las preguntas de reflexión técnica.
-
-
-
-
-
-
-
-
-
 
 **  Operación Espejismo (Graficación Táctica Examen)
 
@@ -15534,7 +15533,6 @@ Copia y pega esta estructura en tu archivo =.md= y responde a las preguntas bas�
 3. **Sobre Ecuaciones Paramétricas (Misión 5):** ¿Por qué las ecuaciones paramétricas (usando el parámetro t) son mejores para dibujar formas cerradas y complejas en graficación por computadora que usar la clásica función $y=f(x)$?
 > *[Escribe tu respuesta aquí]*
 #+END_EXAMPLE
-
 
 
 ** Operación Espejismo II (Graficación Táctica Examen)
@@ -15800,7 +15798,6 @@ Entrega un archivo =reporte_mision_v2.md= que incluya:
 #+end_example
 
 
-
 **  Misión: Iluminación y Materiales en un Ojo 3D (GLFW + PyOpenGL)
 
 
@@ -15808,7 +15805,7 @@ Vas a convertir un objeto dibujado con =glColor3f()= (colores planos) en
 un objeto con *iluminación realista* usando *OpenGL fijo* (lighting
 clásico) y *materiales*.
 
-** Código base (punto de partida)
+*** Código base (punto de partida)
 
 
 #+begin_src python
@@ -15899,18 +15896,18 @@ if __name__ == "__main__":
     main()
 #+end_src
 
-** Reglas de la misión
+*** Reglas de la misión
 
 - No uses GLUT (ya estás con GLFW).
 - Mantén el modelo (las 4 esferas) pero mejora la apariencia con luz/materiales.
 - Tu entrega debe mostrar que *sí hay iluminación*: sombras suaves + brillo especular.
 
-** Misiones (checkpoints)
+*** Misiones (checkpoints)
 
-** Misión 1: “Enciende la luz”
+*** Misión 1: “Enciende la luz”
 *Objetivo*: que OpenGL calcule iluminación (no solo colores planos).
 
-*** Tareas
+**** Tareas
 - Activa estados:
   - =glEnable(GL_DEPTH_TEST)=
   - =glEnable(GL_LIGHTING)=
@@ -15920,26 +15917,26 @@ if __name__ == "__main__":
   - =glLightfv(GL_LIGHT0, GL_DIFFUSE,  [...])=
   - =glLightfv(GL_LIGHT0, GL_SPECULAR, [...])=
 
-*** Criterio de éxito
+**** Criterio de éxito
 - Al rotar, se ven *zonas iluminadas y zonas en sombra* (cambio de intensidad por ángulo).
 
-*** Pista
+**** Pista
 - Pon =light_position[3] = 1.0= para luz *posicional* (más intuitiva que 0.2).
 
-** Misión 2: “La esfera necesita normales”
+*** Misión 2: “La esfera necesita normales”
 *Objetivo*: que la luz “entienda” la forma.
 
-*** Tareas
+**** Tareas
 - En =draw_sphere()=, antes de =gluSphere(...)=:
   - =gluQuadricNormals(quad, GLU_SMOOTH)=
 
-*** Criterio de éxito
+**** Criterio de éxito
 - La iluminación se ve *suave* (sin artefactos raros) y “redondeada”.
 
-** Misión 3: “Materiales: esclerótica, iris y pupila”
+*** Misión 3: “Materiales: esclerótica, iris y pupila”
 *Objetivo*: controlar *brillo* y *apariencia* con materiales.
 
-*** Tareas
+**** Tareas
 - Crea una función:
   - =set_material(ambient, diffuse, specular, shininess, face=GL_FRONT)=
   - usando =glMaterialfv= y =glMaterialf=.
@@ -15949,36 +15946,36 @@ if __name__ == "__main__":
   - *Pupila (negro)*: casi sin especular, shininess bajo.
   - *Piel/rojizo*: difuso cálido, especular suave.
 
-*** Criterio de éxito
+**** Criterio de éxito
 - El blanco “brilla” más que el iris y la pupila casi no refleja.
 
-*** Pista
+**** Pista
 - Shininess va de 0 a 128. Prueba 8 (mate), 32 (plástico), 80 (pulido), 128 (muy brillante).
 
-** Misión 4 (opcional): “Que glColor afecte el material”
+*** Misión 4 (opcional): “Que glColor afecte el material”
 *Objetivo*: combinar =glColor3f()= con iluminación.
 
-*** Tareas
+**** Tareas
 - Activa:
   - =glEnable(GL_COLOR_MATERIAL)=
   - =glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)=
 - Mantén =GL_SPECULAR= y =GL_SHININESS= como material fijo.
 
-*** Criterio de éxito
+**** Criterio de éxito
 - Cambiar =glColor3f= cambia el color con luz (no “plano”), y se conservan brillos.
 
-** Misión 5: “¿Por qué la luz cambia cuando rota?”
+*** Misión 5: “¿Por qué la luz cambia cuando rota?”
 *Objetivo*: controlar si la luz se mueve con el objeto o se queda fija.
 
-*** Tareas
+**** Tareas
 - Mueve la línea de posición de luz:
   - Opción A: en el loop, justo después de =glLoadIdentity()= y =gluLookAt(...)= (luz fija en “mundo/cámara”).
   - Opción B: después de rotar el objeto (luz “pegada” al objeto).
 
-*** Criterio de éxito
+**** Criterio de éxito
 - Puedes explicar (en 2–3 líneas) *por qué* la luz cambia: la posición se transforma con la matriz MODELVIEW vigente.
 
-** Entregable
+*** Entregable
 
 - Un video corto o GIF mostrando rotación + brillo especular.
 - Tu script final (.py) con:
@@ -15986,10 +15983,425 @@ if __name__ == "__main__":
   - normales en GLU quadric
   - materiales (o color-material) aplicados a cada esfera
 
-** Bonus (reto extra)
+*** Bonus (reto extra)
 
 - Añade una segunda luz =GL_LIGHT1= con color tenue (azul o amarillo) para simular “luz de relleno”.
 - Objetivo: que el lado oscuro no quede totalmente negro, pero sin borrar el volumen.
+
+
+
+
+
+** Operación Órbita Dual (Graficación 3D / Práctica)
+
+*** Introducción a la Misión
+Agentes, interceptamos fragmentos de un motor de visualización en *modo matriz fija* (=GL_MODELVIEW=). El enemigo confunde deliberadamente *quién se mueve*: el objeto o la cámara. Tu misión es dominar el *orden de transformaciones* y demostrar que, matemáticamente, “mover la cámara” equivale a componer transformaciones inversas sobre el mundo — pero *semánticamente* cambia luces, referencias y el diseño del código.
+
+
+*Reglas:*
+- Usa =glMatrixMode(GL_MODELVIEW)= y =glLoadIdentity()= al inicio de cada frame (salvo que el curso indique otro patrón).
+- Recuerda: en OpenGL clásico las transformaciones se aplican en *orden inverso* al orden en que las escribes (multiplicación por la derecha de la matriz actual).
+- Documenta con capturas (PNG) o GIF corto si el entregable lo pide el docente.
+- Entrega tu reporte final en Markdown o en este mismo Org (según indique la rúbrica).
+
+*Requisitos técnicos (GLFW, sin GLUT):*
+- Python 3 + =PyOpenGL= + =PyOpenGL_accelerate= (opcional) + =glfw= (paquete PyPI *glfw*, bindings oficiales).
+- *No uses GLUT* para ventana ni para primitivas: el contexto lo crea *GLFW*; la esfera de prueba es =gluSphere= (GLU) o geometría propia.
+- El *código completo* está *incrustado* más abajo en este mismo documento (sección *Programa de referencia*), listo para copiar y pegar al exportar a HTML.
+
+*Instalación rápida:*
+#+begin_example
+python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install PyOpenGL PyOpenGL_accelerate glfw
+python orbita_dual_camara_objeto_glfw.py
+#+end_example
+
+*Cambios que debes hacer tú (rúbrica típica):*
+1. *Comparar dos órbitas de cámara:* en el =.py= está =render_orbiting_camera= (rotate =-angle=, luego translate) y =render_orbiting_camera_variant_b= (translate, luego rotate). Enlaza el modo 2 a la variante que pida tu reporte y captura *m1_camara_orbita.png* con ambas versiones si se pide contraste.
+2. *Constantes:* ajusta =CAM_DISTANCE=, =ORBIT_RADIUS=, =ANGLE_SPEED= y documenta el efecto en una frase cada una.
+3. *Luces (Misión 3):* pon =USE_LIGHTING = True=; si el objeto se ve gris/plano, ajusta =glLightfv(GL_LIGHT0, GL_POSITION, ...)= (prueba coordenadas de mundo vs de cámara) y describe la diferencia entre Modo 1 y Modo 2.
+4. *macOS:* si tu Mac exige perfil *core* sin pipeline fijo, este ejemplo no aplica; usa el stack que indique tu laboratorio (o perfil *compat* si está disponible).
+
+*** Misión 0: Diferencia entre Mover Objeto vs Mover Cámara
+
+**** Moviendo el OBJETO (cámara fija)
+
+#+begin_src python
+# Cámara FIJA en (0, 0, -5) mirando al origen
+glLoadIdentity()
+glTranslatef(0, 0, -5)      # ← Cámara fija
+
+# OBJETO rota
+glRotatef(rotation, 0, 1, 0)  # ← Objeto gira
+draw_object()   # en orbita_dual_camara_objeto_glfw.py: draw_sphere() vía gluSphere
+#+end_src
+
+**** Diagrama
+
+#+begin_example
+    👁️ Cámara (fija)
+     |
+     | mira hacia
+     ↓
+     ● ↻  Objeto ROTA
+
+La cámara está quieta, el objeto gira
+#+end_example
+
+**** Moviendo la CÁMARA (objeto fijo)
+
+#+begin_src python
+# CÁMARA rota alrededor del objeto
+glLoadIdentity()
+
+# Alejar cámara
+glTranslatef(0, 0, -5)
+
+# CÁMARA rota (invirtiendo la rotación)
+glRotatef(rotation, 0, 1, 0)  # ← Cámara orbita
+
+# Objeto FIJO
+draw_object()   # en el .py: draw_sphere() con gluSphere (GLU)
+#+end_src
+
+**** Diagrama
+
+#+begin_example
+       ● Objeto (fijo)
+      /
+     /
+    👁️ ↻  Cámara ORBITA
+
+El objeto está quieto, la cámara gira alrededor
+#+end_example
+
+*** Misión 1: El Espejo de la Matriz (Implementar ambos modos)
+**** La Historia
+El binario enemigo solo expone una bandera: =MODO_ORBITA=. Si está mal cableada, la escena “camina sola” o la cámara atraviesa el modelo.
+
+**** Las Pistas
+- Modo A: primero posicionas la vista (=glTranslatef(0,0,-d)=), luego rotas *el objeto*.
+- Modo B: rotas la vista (signo y orden importan), luego alejas; el objeto queda en el origen del mundo.
+
+**** Tu Tarea
+1. Implementa =render_rotating_object()= y =render_orbiting_camera()= con un mismo =angle= incremental.
+2. Asegúrate de que *visualmente* (desde la pantalla) la relación objeto–cámara sea coherente con la descripción de cada modo.
+3. Captura dos PNG: =m1_objeto_rota.png= y =m1_camara_orbita.png=.
+
+*Nota pedagógica:* arriba se muestra =translate(-Z)= y luego =rotate= para “orbitar cámara”; en el programa GLFW del final, el *modo 2* usa la variante =rotate(-angle)= y luego =translate= (=render_orbiting_camera=). La función =render_orbiting_camera_variant_b= invierte ese orden para que compares. Documenta en tu reporte *orden* y *signo*.
+
+*Ejecutar:* guarda el bloque *Programa de referencia* como =orbita_dual_camara_objeto_glfw.py= (o copia y pega en un archivo nuevo) y ejecuta =python3 orbita_dual_camara_objeto_glfw.py=. Teclas =1= / =2= / =3= cambian modo; =ESC= o =Q= cierra.
+
+*** Misión 2: El Ojo Declarativo (=gluLookAt=)
+**** La Historia
+El cuartel general prefiere describir la cámara con *ojo*, *objetivo* y *vector arriba* en lugar de encadenar =translate= + =rotate=.
+
+**** Tu Tarea
+1. Implementa =render_with_lookat(angle)= colocando el ojo en una órbita circular alrededor del origen (radio 5, eje Y fijo).
+2. El objetivo siempre es el origen; “arriba” es =(0, 1, 0)=.
+3. Guarda evidencia: =m2_lookat_orbita.png= (captura con tecla =3= pulsada).
+
+Implementación: función =render_with_lookat= en =orbita_dual_camara_objeto_glfw.py=.
+
+*** Misión 3: La Brújula de Luces (Efecto colateral)
+**** La Historia
+Si mueves el *objeto* pero dejas la luz en coordenadas de “cámara” antes
+de la rotación del objeto, las sombras “mienten”. Si mueves la *cámara*
+y la luz está fija al mundo, el contraste cambia de otra forma.
+
+**** Tu Tarea
+1. Coloca *una* luz direccional o puntual y documenta en 3–5 líneas qué ocurre en Modo Objeto vs Modo Cámara.
+2. Opcional: captura =m3_luz_objeto.png= y =m3_luz_camara.png=.
+
+*Pista:* en el =.py= cambia =USE_LIGHTING = True= y revisa =setup_basic_lighting()=.
+
+*** Programa de referencia (GLFW — ejecutable, sin GLUT)
+
+Copia *todo* el siguiente bloque a un archivo llamado =orbita_dual_camara_objeto_glfw.py= y ejecútalo. Al exportar este Org a HTML, el código aparece completo para copiar y pegar.
+
+#+begin_src python :exports code
+#!/usr/bin/env python3
+"""
+Operación Órbita Dual — ejemplo funcional (GLFW + PyOpenGL, pipeline fijo).
+Sin GLUT: la esfera se dibuja con gluSphere (GLU).
+
+Instalación (venv recomendado):
+  pip install PyOpenGL PyOpenGL_accelerate glfw
+
+Controles:
+  1  Modo: rotar OBJETO (cámara fija)
+  2  Modo: orbitar CÁMARA (objeto fijo, variante rotate(-a) + translate)
+  3  Modo: gluLookAt (órbita del ojo)
+  ESC o Q  Salir
+
+Cambios que debes hacer (alumnos):
+  - Misión 1: en render_orbiting_camera_variant_b() prueba el OTRO orden
+    (translate + rotate) y compara con capturas.
+  - Misión 2: ajusta radio de órbita (5.0) o distancia Z (-5) y documenta.
+  - Misión 3: activa USE_LIGHTING = True y mueve glLightfv al sitio indicado.
+"""
+
+from __future__ import annotations
+
+import math
+import sys
+
+import glfw
+from OpenGL.GL import *
+from OpenGL.GLU import (
+    GLU_FILL,
+    gluLookAt,
+    gluNewQuadric,
+    gluPerspective,
+    gluQuadricDrawStyle,
+    gluSphere,
+)
+
+# ---------------------------------------------------------------------------
+# Configuración que suelen tocar los alumnos
+# ---------------------------------------------------------------------------
+WINDOW_TITLE = "Orbita Dual (GLFW) — 1/2/3 cambia modo"
+INITIAL_MODE = 1  # 1, 2 o 3
+ORBIT_RADIUS = 5.0
+CAM_DISTANCE = 5.0  # alejamiento en -Z en modos 1 y 2
+ANGLE_SPEED = 0.6  # grados por frame (sube/baja para animar más rápido)
+
+# Misión 3: pon True y completa la colocación de la luz respecto a la cámara/objeto
+USE_LIGHTING = False
+
+
+# ---------------------------------------------------------------------------
+# Geometría (GLU, no GLUT)
+# ---------------------------------------------------------------------------
+_quadric = None
+
+
+def draw_sphere(radius: float = 1.0) -> None:
+    global _quadric
+    if _quadric is None:
+        _quadric = gluNewQuadric()
+        gluQuadricDrawStyle(_quadric, GLU_FILL)
+    gluSphere(_quadric, radius, 40, 24)
+
+
+def setup_basic_lighting() -> None:
+    """Luz simple en coordenadas de vista (0,0,1) — experimenta moviéndola."""
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    glEnable(GL_COLOR_MATERIAL)
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
+
+    pos = [0.5, 0.8, 1.0, 0.0]  # direccional si w=0
+    amb = [0.2, 0.2, 0.2, 1.0]
+    dif = [0.9, 0.9, 0.85, 1.0]
+    glLightfv(GL_LIGHT0, GL_POSITION, pos)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, amb)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, dif)
+
+
+# ---------------------------------------------------------------------------
+# Tres modos de cámara / objeto
+# ---------------------------------------------------------------------------
+def render_rotating_object(angle: float) -> None:
+    """Modo 1: cámara fija (translate -Z), el objeto rota."""
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    glTranslatef(0.0, 0.0, -CAM_DISTANCE)
+    glRotatef(angle, 0.0, 1.0, 0.0)
+    glColor3f(0.35, 0.65, 1.0)
+    draw_sphere(1.0)
+
+
+def render_orbiting_camera(angle: float) -> None:
+    """
+    Modo 2 (variante del material): primero rotar la vista (-angle en Y),
+    luego alejar en -Z. Objeto conceptualmente fijo en origen.
+    """
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    glRotatef(-angle, 0.0, 1.0, 0.0)
+    glTranslatef(0.0, 0.0, -CAM_DISTANCE)
+    glColor3f(1.0, 0.55, 0.35)
+    draw_sphere(1.0)
+
+
+def render_orbiting_camera_variant_b(angle: float) -> None:
+    """
+    Variante alternativa (como en el diagrama del .org): translate primero, rotate después.
+    Descomenta en main() y compara con render_orbiting_camera().
+    """
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    glTranslatef(0.0, 0.0, -CAM_DISTANCE)
+    glRotatef(angle, 0.0, 1.0, 0.0)
+    glColor3f(0.45, 1.0, 0.45)
+    draw_sphere(1.0)
+
+
+def render_with_lookat(angle: float) -> None:
+    """Modo 3: cámara en órbita con gluLookAt."""
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    a = math.radians(angle)
+    cam_x = ORBIT_RADIUS * math.sin(a)
+    cam_z = ORBIT_RADIUS * math.cos(a)
+    gluLookAt(cam_x, 0.0, cam_z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0)
+    glColor3f(0.95, 0.85, 0.35)
+    draw_sphere(1.0)
+
+
+def main() -> None:
+    if not glfw.init():
+        print("Error: no se pudo inicializar GLFW", file=sys.stderr)
+        sys.exit(1)
+
+    # OpenGL 2.1 = pipeline fijo usable en Linux/Windows (mac puede exigir perfil distinto)
+    glfw.window_hint(glfw.CONTEXT_VERSION_MAJOR, 2)
+    glfw.window_hint(glfw.CONTEXT_VERSION_MINOR, 1)
+
+    window = glfw.create_window(800, 600, WINDOW_TITLE, None, None)
+    if not window:
+        glfw.terminate()
+        print("Error: no se pudo crear la ventana OpenGL", file=sys.stderr)
+        sys.exit(1)
+
+    glfw.make_context_current(window)
+    glfw.swap_interval(1)
+
+    mode = INITIAL_MODE
+
+    def on_key(win, key, scancode, action, mods):
+        nonlocal mode
+        if action != glfw.PRESS:
+            return
+        if key in (glfw.KEY_ESCAPE, glfw.KEY_Q):
+            glfw.set_window_should_close(win, True)
+        elif key == glfw.KEY_1:
+            mode = 1
+        elif key == glfw.KEY_2:
+            mode = 2
+        elif key == glfw.KEY_3:
+            mode = 3
+
+    glfw.set_key_callback(window, on_key)
+
+    glEnable(GL_DEPTH_TEST)
+    glClearColor(0.08, 0.08, 0.12, 1.0)
+
+    if USE_LIGHTING:
+        setup_basic_lighting()
+
+    angle = 0.0
+
+    while not glfw.window_should_close(window):
+        fb_w, fb_h = glfw.get_framebuffer_size(window)
+        if fb_h <= 0:
+            fb_h = 1
+        glViewport(0, 0, fb_w, fb_h)
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluPerspective(50.0, fb_w / float(fb_h), 0.1, 100.0)
+
+        if not USE_LIGHTING:
+            glDisable(GL_LIGHTING)
+
+        if mode == 1:
+            render_rotating_object(angle)
+        elif mode == 2:
+            render_orbiting_camera(angle)
+            # Prueba comparativa (descomenta):
+            # render_orbiting_camera_variant_b(angle)
+        else:
+            render_with_lookat(angle)
+
+        angle += ANGLE_SPEED
+        if angle >= 360.0:
+            angle -= 360.0
+
+        glfw.swap_buffers(window)
+        glfw.poll_events()
+
+    glfw.terminate()
+
+
+if __name__ == "__main__":
+    main()
+#+end_src
+
+*** Núcleo GLFW (ventana + contexto OpenGL 2.1)
+
+#+begin_src python :exports code
+import glfw
+from OpenGL.GL import *
+
+if not glfw.init():
+    raise SystemExit("GLFW init falló")
+glfw.window_hint(glfw.CONTEXT_VERSION_MAJOR, 2)
+glfw.window_hint(glfw.CONTEXT_VERSION_MINOR, 1)
+win = glfw.create_window(800, 600, "OpenGL 2.1", None, None)
+glfw.make_context_current(win)
+# Cada frame: glViewport, glClear, matriz PROJECTION + gluPerspective,
+# luego MODELVIEW + uno de render_*; al final glfw.swap_buffers y glfw.poll_events.
+#+end_src
+
+*** Resumen comparativo
+
+| Aspecto              | Rotar Objeto              | Rotar Cámara               |
+|----------------------+---------------------------+----------------------------|
+| *Objeto*             | Se mueve / rota           | Estático en origen         |
+| *Cámara*             | Fija (tras un translate)  | Orbita / cambia la vista   |
+| *Transformaciones*   | Después de fijar la vista | Orden y signo críticos     |
+| *Uso común*          | Inspeccionar un modelo    | Explorar escena / walkthrough |
+| *Luces*              | Depende de dónde las fijas | Depende de espacio mundo vs vista |
+
+*** Entregable: Reporte de Misión (Markdown u Org)
+
+**** Instrucciones
+Entrega un archivo =reporte_orbita_dual.md= (o sección al final de este =.org= exportada) que incluya:
+- Capturas de Misiones 1–3 (y 3 si hiciste luces).
+- Bloque de código *final limpio* (un solo script o módulo).
+- Respuestas a las preguntas del analista (abajo).
+
+**** Plantilla base (Markdown)
+
+#+begin_example markdown
+# Reporte de Misión: Órbita Dual (Cámara vs Objeto)
+**Agente Especial:** [Tu Nombre/Matrícula]
+
+---
+## Evidencias
+### Misión 1
+- Objeto rota: (inserta imagen)
+- Cámara orbita: (inserta imagen)
+- Código:
+
+### Misión 2
+- LookAt órbita: (inserta imagen)
+- Código:
+
+### Misión 3 (opcional)
+- Luces: (inserta)
+- Notas:
+
+---
+## Análisis del Analista (Reflexiones Finales)
+
+1. **Orden de matrices:** ¿Por qué en OpenGL fijo el orden en que escribes =glTranslatef= / =glRotatef= cambia el resultado aunque uses los mismos números?
+> [Respuesta]
+
+2. **Objeto vs cámara:** En la práctica, ¿cuándo prefieres rotar el modelo y cuándo orbitar la cámara?
+> [Respuesta]
+
+3. **gluLookAt vs translate+rotate:** ¿Qué ventaja tiene describir la cámara con ojo–objetivo–arriba para equipos de desarrollo?
+> [Respuesta]
+
+4. **Luces:** Si la luz se define en el frame de la cámara sin reubicarla al mundo, ¿qué artefacto visual esperas al rotar solo el objeto?
+> [Respuesta]
+#+end_example
+
+
 
 
 
